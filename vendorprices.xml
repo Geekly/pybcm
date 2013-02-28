@@ -1,0 +1,8568 @@
+<Vendor>
+ <VendorID>20914</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>12</VendorQty>
+  <VendorCost>0.24</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>6</VendorQty>
+  <VendorCost>0.14</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>282420</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.24</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>9</VendorQty>
+  <VendorCost>0.14</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.13</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>18492</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>8</VendorQty>
+  <VendorCost>0.26</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>62730</VendorID>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>10</VendorQty>
+  <VendorCost>0.09</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>112928</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.06</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>113359</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.11</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>101594</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>48</VendorQty>
+  <VendorCost>0.14</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>21</VendorQty>
+  <VendorCost>0.14</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>310427</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>14</VendorQty>
+  <VendorCost>0.2</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>62308</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>3</VendorQty>
+  <VendorCost>0.2</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>118639</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>5</VendorQty>
+  <VendorCost>0.1</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>49422</VendorID>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>3</VendorQty>
+  <VendorCost>0.1</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>73491</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>4</VendorQty>
+  <VendorCost>0.14</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>10</VendorQty>
+  <VendorCost>0.12</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>7</VendorQty>
+  <VendorCost>0.13</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>7309</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>3</VendorQty>
+  <VendorCost>0.23</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>87286</VendorID>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>98</VendorQty>
+  <VendorCost>0.08</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>21768</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>3</VendorQty>
+  <VendorCost>0.11</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>6</VendorQty>
+  <VendorCost>0.1</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>248317</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.14</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>214777</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>6</VendorQty>
+  <VendorCost>0.12</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>18</VendorQty>
+  <VendorCost>0.16</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>193866</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>3</VendorQty>
+  <VendorCost>0.17</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>48</VendorQty>
+  <VendorCost>0.75</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>24659</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.23</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>180448</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>6</VendorQty>
+  <VendorCost>0.18</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>36106</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>6</VendorQty>
+  <VendorCost>0.15</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>8</VendorQty>
+  <VendorCost>0.08</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.22</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>257463</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.11</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>133566</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.21</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.55</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>240610</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>4</VendorQty>
+  <VendorCost>0.08</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>292933</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>3</VendorQty>
+  <VendorCost>0.22</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>305544</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.15</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>292788</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.07</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>290510</VendorID>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.13</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>290040</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.08</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>343035</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.13</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>4</VendorQty>
+  <VendorCost>0.23</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>22168</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.13</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>36258</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>7</VendorQty>
+  <VendorCost>0.22</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>308272</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>4</VendorQty>
+  <VendorCost>0.17</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.22</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>258327</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>55</VendorQty>
+  <VendorCost>0.29</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>11</VendorQty>
+  <VendorCost>0.16</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>176556</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.23</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.25</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>29455</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>3</VendorQty>
+  <VendorCost>0.2</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>94772</VendorID>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.12</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>32621</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.07</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>153818</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>3</VendorQty>
+  <VendorCost>0.19</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>37847</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.13</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>346249</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.14</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>8235</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>4</VendorQty>
+  <VendorCost>0.23</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>219399</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.24</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>242521</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>3</VendorQty>
+  <VendorCost>0.1</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>283878</VendorID>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>4</VendorQty>
+  <VendorCost>0.1</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>202103</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>32</VendorQty>
+  <VendorCost>0.16</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>4</VendorQty>
+  <VendorCost>0.1</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>4</VendorQty>
+  <VendorCost>0.23</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>271683</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.24</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>61990</VendorID>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.22</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>239318</VendorID>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>3</VendorQty>
+  <VendorCost>0.25</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>234507</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.09</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>90828</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>7</VendorQty>
+  <VendorCost>0.08</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>117158</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>3</VendorQty>
+  <VendorCost>0.07</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>307088</VendorID>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.23</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>98004</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.07</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.22</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>11441</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.13</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>139481</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.09</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>257934</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.23</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.1</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>6</VendorQty>
+  <VendorCost>0.53</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>94870</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>13</VendorQty>
+  <VendorCost>0.1</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>324</VendorQty>
+  <VendorCost>0.14</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>47536</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.11</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>39130</VendorID>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>20</VendorQty>
+  <VendorCost>0.1</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>16627</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>12</VendorQty>
+  <VendorCost>0.25</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>9</VendorQty>
+  <VendorCost>0.57</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>34053</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>4</VendorQty>
+  <VendorCost>0.1</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.51</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>115202</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>135</VendorQty>
+  <VendorCost>0.16</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>76133</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>6</VendorQty>
+  <VendorCost>0.2</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>447</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>525</VendorQty>
+  <VendorCost>0.24</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>340</VendorQty>
+  <VendorCost>0.18</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>60</VendorQty>
+  <VendorCost>0.38</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1000</VendorQty>
+  <VendorCost>0.13</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>244664</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>4</VendorQty>
+  <VendorCost>0.16</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>9840</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.65</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>44</VendorQty>
+  <VendorCost>0.23</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>4</VendorQty>
+  <VendorCost>0.91</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>179</VendorQty>
+  <VendorCost>0.35</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>243909</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>16</VendorQty>
+  <VendorCost>0.16</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.21</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.1</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>66951</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.06</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.06</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>49560</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>79</VendorQty>
+  <VendorCost>0.69</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>10</VendorQty>
+  <VendorCost>0.18</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>91982</VendorID>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.12</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>74234</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.18</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.11</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>301361</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>9</VendorQty>
+  <VendorCost>0.14</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.18</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>163137</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>6</VendorQty>
+  <VendorCost>0.08</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.06</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>4</VendorQty>
+  <VendorCost>0.16</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>61638</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.26</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>24655</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>5</VendorQty>
+  <VendorCost>0.15</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>80059</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>5948</VendorQty>
+  <VendorCost>0.13</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>1533</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.2</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>3098</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>5</VendorQty>
+  <VendorCost>0.22</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>144190</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.15</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>126123</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>15</VendorQty>
+  <VendorCost>0.1</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>10</VendorQty>
+  <VendorCost>0.06</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>189231</VendorID>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>5</VendorQty>
+  <VendorCost>0.18</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>322498</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>7</VendorQty>
+  <VendorCost>0.15</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.1</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>290463</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>5</VendorQty>
+  <VendorCost>0.23</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>262491</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>8</VendorQty>
+  <VendorCost>0.21</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>268703</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.16</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>6</VendorQty>
+  <VendorCost>0.09</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>7345</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>3</VendorQty>
+  <VendorCost>0.13</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>4</VendorQty>
+  <VendorCost>0.09</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.29</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>22873</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.07</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>121061</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>5</VendorQty>
+  <VendorCost>0.12</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.11</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>268819</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.09</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.13</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>163688</VendorID>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.11</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>126880</VendorID>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>28</VendorQty>
+  <VendorCost>0.12</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>238909</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>188</VendorQty>
+  <VendorCost>0.13</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>4</VendorQty>
+  <VendorCost>0.14</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>171760</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.12</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.09</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>6</VendorQty>
+  <VendorCost>0.1</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>50904</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>3</VendorQty>
+  <VendorCost>0.2</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.11</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>125391</VendorID>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>290</VendorQty>
+  <VendorCost>0.22</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>265643</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.06</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.08</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>315556</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.22</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>114106</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.1</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>171768</VendorID>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.09</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>3897</VendorID>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.65</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>45015</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>9</VendorQty>
+  <VendorCost>0.12</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>264519</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>4</VendorQty>
+  <VendorCost>0.1</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>45010</VendorID>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.53</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>241242</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>7</VendorQty>
+  <VendorCost>0.19</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>71120</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>3</VendorQty>
+  <VendorCost>0.09</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.22</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>23471</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.07</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>290418</VendorID>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>5</VendorQty>
+  <VendorCost>0.46</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>246144</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>447</VendorQty>
+  <VendorCost>0.2</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>190152</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>4</VendorQty>
+  <VendorCost>0.22</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>28869</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>6</VendorQty>
+  <VendorCost>0.1</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>244363</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>6</VendorQty>
+  <VendorCost>0.07</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>237031</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>4</VendorQty>
+  <VendorCost>0.1</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>248224</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>5</VendorQty>
+  <VendorCost>0.08</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>183243</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>5</VendorQty>
+  <VendorCost>0.29</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.16</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>5796</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>14</VendorQty>
+  <VendorCost>0.23</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>26</VendorQty>
+  <VendorCost>0.13</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>56479</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.22</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>241788</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>34</VendorQty>
+  <VendorCost>0.14</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>16</VendorQty>
+  <VendorCost>0.09</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>11</VendorQty>
+  <VendorCost>0.31</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>24</VendorQty>
+  <VendorCost>0.11</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>96348</VendorID>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.09</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>3961</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>6</VendorQty>
+  <VendorCost>0.13</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>6</VendorQty>
+  <VendorCost>0.5</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>175141</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.23</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>3</VendorQty>
+  <VendorCost>0.09</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>5</VendorQty>
+  <VendorCost>0.08</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.21</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>32275</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>8</VendorQty>
+  <VendorCost>0.25</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>232415</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>17</VendorQty>
+  <VendorCost>0.18</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>19937</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>3</VendorQty>
+  <VendorCost>0.3</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>74286</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.13</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>334164</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>3</VendorQty>
+  <VendorCost>0.08</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>4</VendorQty>
+  <VendorCost>0.2</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>194719</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>38</VendorQty>
+  <VendorCost>0.13</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.34</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.19</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>277286</VendorID>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>13</VendorQty>
+  <VendorCost>0.11</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>277825</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.22</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>92962</VendorID>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.19</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>179359</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>6</VendorQty>
+  <VendorCost>0.06</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>5</VendorQty>
+  <VendorCost>0.16</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>184032</VendorID>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.08</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>32191</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.1</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>171093</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>3</VendorQty>
+  <VendorCost>0.17</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.1</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>4</VendorQty>
+  <VendorCost>0.16</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>91067</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>67</VendorQty>
+  <VendorCost>0.09</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>46</VendorQty>
+  <VendorCost>0.13</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>191916</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>8</VendorQty>
+  <VendorCost>0.2</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>300810</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>12</VendorQty>
+  <VendorCost>0.18</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>9</VendorQty>
+  <VendorCost>0.1</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>151929</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>197</VendorQty>
+  <VendorCost>0.47</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>458</VendorQty>
+  <VendorCost>0.99</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>5</VendorQty>
+  <VendorCost>0.39</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>6</VendorQty>
+  <VendorCost>0.65</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>5</VendorQty>
+  <VendorCost>0.2</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>160076</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>4</VendorQty>
+  <VendorCost>0.25</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>4</VendorQty>
+  <VendorCost>0.1</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.52</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>76716</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.13</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>29407</VendorID>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.55</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>212037</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.1</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>156228</VendorID>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>31</VendorQty>
+  <VendorCost>0.12</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>3344</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.12</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.1</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>112077</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>4</VendorQty>
+  <VendorCost>0.14</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>98322</VendorID>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>54</VendorQty>
+  <VendorCost>0.16</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>153636</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.12</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>277667</VendorID>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>12</VendorQty>
+  <VendorCost>0.46</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>219995</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>3</VendorQty>
+  <VendorCost>0.1</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>211722</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>10</VendorQty>
+  <VendorCost>0.11</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.29</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>5</VendorQty>
+  <VendorCost>0.13</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>21798</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>10</VendorQty>
+  <VendorCost>0.3</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>27473</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>6</VendorQty>
+  <VendorCost>0.14</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>83120</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.16</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>83640</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>6</VendorQty>
+  <VendorCost>0.07</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>25852</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>12</VendorQty>
+  <VendorCost>0.13</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>125661</VendorID>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.12</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>319407</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>8</VendorQty>
+  <VendorCost>0.22</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>168517</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.17</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.47</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>184896</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>50</VendorQty>
+  <VendorCost>0.09</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>219973</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.2</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>29</VendorQty>
+  <VendorCost>0.11</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.44</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>62</VendorQty>
+  <VendorCost>0.13</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>176107</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>34</VendorQty>
+  <VendorCost>0.21</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>33822</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.12</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.08</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.68</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>176108</VendorID>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.09</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>90386</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.11</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>40564</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>8</VendorQty>
+  <VendorCost>0.12</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.56</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.18</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>199019</VendorID>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>109</VendorQty>
+  <VendorCost>0.15</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>90268</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>17</VendorQty>
+  <VendorCost>0.23</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>8</VendorQty>
+  <VendorCost>0.09</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>195487</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>9</VendorQty>
+  <VendorCost>0.21</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>245607</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.11</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>101968</VendorID>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.17</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>17594</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>6</VendorQty>
+  <VendorCost>0.1</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>193174</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>6</VendorQty>
+  <VendorCost>0.07</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>290731</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.19</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>201216</VendorID>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>4</VendorQty>
+  <VendorCost>0.5</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>192883</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>121</VendorQty>
+  <VendorCost>0.32</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>22</VendorQty>
+  <VendorCost>0.12</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.16</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>76155</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.14</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>225174</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.1</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>143287</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>4</VendorQty>
+  <VendorCost>0.26</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>225171</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.21</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>18546</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.12</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>126260</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.05</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>3</VendorQty>
+  <VendorCost>0.09</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>40416</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>755</VendorQty>
+  <VendorCost>0.31</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>35</VendorQty>
+  <VendorCost>0.43</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>60</VendorQty>
+  <VendorCost>0.09</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>8</VendorQty>
+  <VendorCost>0.33</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>301058</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.09</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>18</VendorQty>
+  <VendorCost>0.44</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>8</VendorQty>
+  <VendorCost>0.09</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>147938</VendorID>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.1</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>238773</VendorID>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.22</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>112333</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>14</VendorQty>
+  <VendorCost>0.11</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>263198</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.26</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>6</VendorQty>
+  <VendorCost>0.14</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.23</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>5</VendorQty>
+  <VendorCost>0.12</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>164845</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>24</VendorQty>
+  <VendorCost>0.08</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>6</VendorQty>
+  <VendorCost>0.1</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>9163</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>6</VendorQty>
+  <VendorCost>0.14</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>44935</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>4</VendorQty>
+  <VendorCost>0.07</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.2</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>6479</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>10</VendorQty>
+  <VendorCost>0.14</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>127362</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.1</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.1</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>50554</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>4</VendorQty>
+  <VendorCost>0.39</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.58</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.15</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>70298</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>50</VendorQty>
+  <VendorCost>0.23</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>9</VendorQty>
+  <VendorCost>0.11</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>36422</VendorID>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.15</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>212245</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.08</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>89861</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.11</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>4</VendorQty>
+  <VendorCost>0.07</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>210586</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.09</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.17</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>84158</VendorID>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>97</VendorQty>
+  <VendorCost>0.2</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>204118</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>5</VendorQty>
+  <VendorCost>0.09</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>13597</VendorID>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>6</VendorQty>
+  <VendorCost>0.18</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>302103</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>14</VendorQty>
+  <VendorCost>0.1</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>151793</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>8</VendorQty>
+  <VendorCost>0.23</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>2013</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>740</VendorQty>
+  <VendorCost>0.34</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>196</VendorQty>
+  <VendorCost>0.35</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>143429</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>4</VendorQty>
+  <VendorCost>0.17</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>18</VendorQty>
+  <VendorCost>0.14</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.65</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.23</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>296901</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>4</VendorQty>
+  <VendorCost>0.16</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>48106</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.17</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>4</VendorQty>
+  <VendorCost>0.08</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.5</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.22</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>117708</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>23</VendorQty>
+  <VendorCost>0.39</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>274314</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>159</VendorQty>
+  <VendorCost>0.25</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>205</VendorQty>
+  <VendorCost>0.25</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>245558</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.11</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>285772</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.08</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.23</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>267776</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>4</VendorQty>
+  <VendorCost>0.24</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>175513</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.22</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>302071</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.21</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>282533</VendorID>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>6</VendorQty>
+  <VendorCost>0.08</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>202857</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.15</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>175783</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.1</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>162166</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>25</VendorQty>
+  <VendorCost>0.19</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.5</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>16</VendorQty>
+  <VendorCost>0.16</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>240829</VendorID>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>3</VendorQty>
+  <VendorCost>0.21</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>88497</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>3</VendorQty>
+  <VendorCost>0.18</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>186194</VendorID>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.55</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>10597</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>32</VendorQty>
+  <VendorCost>0.2</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>6</VendorQty>
+  <VendorCost>0.14</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>1060</VendorID>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>30</VendorQty>
+  <VendorCost>0.16</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>266177</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.19</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>19141</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>5</VendorQty>
+  <VendorCost>0.2</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>151964</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>14</VendorQty>
+  <VendorCost>0.47</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>17</VendorQty>
+  <VendorCost>0.28</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>3</VendorQty>
+  <VendorCost>0.2</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>348160</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>3</VendorQty>
+  <VendorCost>0.13</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>3</VendorQty>
+  <VendorCost>0.08</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.16</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.24</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>3</VendorQty>
+  <VendorCost>0.1</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>6621</VendorID>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>200</VendorQty>
+  <VendorCost>0.4</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>182597</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.1</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>700</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>3</VendorQty>
+  <VendorCost>0.22</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>84529</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.07</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>92884</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.09</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>4313</VendorID>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.1</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>123590</VendorID>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.26</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>58243</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>207</VendorQty>
+  <VendorCost>0.29</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>756</VendorQty>
+  <VendorCost>0.25</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>48</VendorQty>
+  <VendorCost>0.75</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>498</VendorQty>
+  <VendorCost>0.25</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>219749</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.08</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>398</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>4</VendorQty>
+  <VendorCost>0.07</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>23080</VendorID>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.38</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>235178</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.07</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>268079</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>3</VendorQty>
+  <VendorCost>0.13</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>205044</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>12</VendorQty>
+  <VendorCost>0.32</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>66479</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>5</VendorQty>
+  <VendorCost>0.07</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>3</VendorQty>
+  <VendorCost>0.15</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>4</VendorQty>
+  <VendorCost>0.1</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>5258</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>3</VendorQty>
+  <VendorCost>0.28</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>14</VendorQty>
+  <VendorCost>0.17</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.18</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>86227</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.12</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>104472</VendorID>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.63</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.23</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>22086</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>12</VendorQty>
+  <VendorCost>0.23</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>39009</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>20</VendorQty>
+  <VendorCost>0.1</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>93525</VendorID>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.15</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>127001</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.08</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>106948</VendorID>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.12</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>234680</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.64</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>100957</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.17</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.52</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>130091</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>3</VendorQty>
+  <VendorCost>0.23</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>195449</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>6</VendorQty>
+  <VendorCost>0.16</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>316734</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>13</VendorQty>
+  <VendorCost>0.21</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>150194</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>4</VendorQty>
+  <VendorCost>0.1</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>12009</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.2</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.2</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>218010</VendorID>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.1</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>326469</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.08</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>193546</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.07</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>1008</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.08</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.11</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>112335</VendorID>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.22</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>219166</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>12</VendorQty>
+  <VendorCost>0.09</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.14</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>235691</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.21</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>125685</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>4</VendorQty>
+  <VendorCost>0.29</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>4185</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.14</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>13876</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>64</VendorQty>
+  <VendorCost>0.4</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>230688</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>17</VendorQty>
+  <VendorCost>0.24</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>4</VendorQty>
+  <VendorCost>0.13</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>12</VendorQty>
+  <VendorCost>0.5</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>13323</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>4</VendorQty>
+  <VendorCost>0.2</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.6</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>109314</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>3</VendorQty>
+  <VendorCost>0.06</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>258751</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>14</VendorQty>
+  <VendorCost>0.23</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>174835</VendorID>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>18</VendorQty>
+  <VendorCost>0.51</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>302841</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>4</VendorQty>
+  <VendorCost>0.11</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>19</VendorQty>
+  <VendorCost>0.19</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>94508</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.21</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>262860</VendorID>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.32</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.13</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>102829</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>76</VendorQty>
+  <VendorCost>0.19</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>108</VendorQty>
+  <VendorCost>0.52</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>194618</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>9</VendorQty>
+  <VendorCost>0.26</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.36</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>199385</VendorID>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.48</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>106501</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>10</VendorQty>
+  <VendorCost>0.16</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>332048</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>7</VendorQty>
+  <VendorCost>0.11</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>242106</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.09</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.09</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.09</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>250848</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>32</VendorQty>
+  <VendorCost>0.26</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>24295</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>24</VendorQty>
+  <VendorCost>0.08</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>23883</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>14</VendorQty>
+  <VendorCost>0.15</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.25</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>217154</VendorID>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.23</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>242830</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.16</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>234023</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>38</VendorQty>
+  <VendorCost>0.31</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>8</VendorQty>
+  <VendorCost>0.46</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>197826</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>217</VendorQty>
+  <VendorCost>0.13</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>270</VendorQty>
+  <VendorCost>0.19</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>6225</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.11</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>187520</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.13</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.08</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>204987</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>5</VendorQty>
+  <VendorCost>0.09</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.21</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>4</VendorQty>
+  <VendorCost>0.09</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>50130</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>4</VendorQty>
+  <VendorCost>0.15</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>5</VendorQty>
+  <VendorCost>0.1</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>3</VendorQty>
+  <VendorCost>0.12</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>87964</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>3</VendorQty>
+  <VendorCost>0.15</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>110981</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.1</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>4</VendorQty>
+  <VendorCost>0.1</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>864</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.25</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.09</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.55</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>13194</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.13</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>2022</VendorID>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>36</VendorQty>
+  <VendorCost>0.18</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>173898</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.13</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>185973</VendorID>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>3</VendorQty>
+  <VendorCost>0.52</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>113706</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.1</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>3</VendorQty>
+  <VendorCost>0.25</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>4</VendorQty>
+  <VendorCost>0.13</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>307214</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>5</VendorQty>
+  <VendorCost>0.07</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>80967</VendorID>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>26</VendorQty>
+  <VendorCost>0.68</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>230757</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>10</VendorQty>
+  <VendorCost>0.14</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>67229</VendorID>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.13</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>107706</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>24</VendorQty>
+  <VendorCost>0.18</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>188036</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>5</VendorQty>
+  <VendorCost>0.29</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>110020</VendorID>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.11</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>10570</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>3</VendorQty>
+  <VendorCost>0.13</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>22291</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>3</VendorQty>
+  <VendorCost>0.08</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.1</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.09</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.45</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>74764</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>7</VendorQty>
+  <VendorCost>0.23</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>347406</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.1</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>17189</VendorID>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.17</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>162852</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>5</VendorQty>
+  <VendorCost>0.06</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>299293</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.13</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.09</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>333696</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>3</VendorQty>
+  <VendorCost>0.11</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.08</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>108838</VendorID>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>5</VendorQty>
+  <VendorCost>0.28</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>206070</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>5</VendorQty>
+  <VendorCost>0.1</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.11</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>297008</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>6</VendorQty>
+  <VendorCost>0.22</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.09</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>244136</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>83</VendorQty>
+  <VendorCost>0.26</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>55843</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>3</VendorQty>
+  <VendorCost>0.18</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.12</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.32</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>112751</VendorID>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>6</VendorQty>
+  <VendorCost>0.41</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>277522</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>40</VendorQty>
+  <VendorCost>0.22</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>142932</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>14</VendorQty>
+  <VendorCost>0.4</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.13</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>32284</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>10</VendorQty>
+  <VendorCost>0.22</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>54</VendorQty>
+  <VendorCost>0.13</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>20699</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.11</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>9</VendorQty>
+  <VendorCost>0.13</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>222269</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.22</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>91074</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.1</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>4</VendorQty>
+  <VendorCost>0.04</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.22</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>16617</VendorID>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>6</VendorQty>
+  <VendorCost>0.16</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>104198</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.12</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>4</VendorQty>
+  <VendorCost>0.08</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.2</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>97076</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.06</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>323991</VendorID>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>6</VendorQty>
+  <VendorCost>0.18</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>166375</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>152</VendorQty>
+  <VendorCost>0.22</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>73779</VendorID>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>14</VendorQty>
+  <VendorCost>0.8</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>305539</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>4</VendorQty>
+  <VendorCost>0.19</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>5</VendorQty>
+  <VendorCost>0.2</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>22</VendorQty>
+  <VendorCost>0.2</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.14</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.14</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>285544</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.13</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>100767</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.1</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>192393</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.25</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>242134</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>4</VendorQty>
+  <VendorCost>0.17</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>251613</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>3</VendorQty>
+  <VendorCost>0.21</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>115087</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>68</VendorQty>
+  <VendorCost>0.24</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>108516</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>12</VendorQty>
+  <VendorCost>0.13</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>41952</VendorID>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>3</VendorQty>
+  <VendorCost>0.19</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>311852</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.1</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>6007</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>4</VendorQty>
+  <VendorCost>0.24</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>315291</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>4</VendorQty>
+  <VendorCost>0.24</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.14</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>18</VendorQty>
+  <VendorCost>0.1</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>256628</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>16</VendorQty>
+  <VendorCost>0.23</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>5</VendorQty>
+  <VendorCost>0.23</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.14</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>319488</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>4</VendorQty>
+  <VendorCost>0.09</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.63</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.26</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>28426</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>21</VendorQty>
+  <VendorCost>0.47</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>3</VendorQty>
+  <VendorCost>0.47</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.26</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>119931</VendorID>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.21</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>212795</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>4</VendorQty>
+  <VendorCost>0.25</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>143509</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>3</VendorQty>
+  <VendorCost>0.34</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>293032</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>27</VendorQty>
+  <VendorCost>0.1</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>193752</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>23</VendorQty>
+  <VendorCost>0.23</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>104695</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.12</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>95293</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>55</VendorQty>
+  <VendorCost>0.22</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>352962</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.25</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>99547</VendorID>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>4</VendorQty>
+  <VendorCost>0.08</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>5141</VendorID>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.16</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>296987</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>12</VendorQty>
+  <VendorCost>0.25</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>169322</VendorID>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>46</VendorQty>
+  <VendorCost>0.43</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>101046</VendorID>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>152</VendorQty>
+  <VendorCost>0.16</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>21263</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>15</VendorQty>
+  <VendorCost>0.1</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>346725</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>31</VendorQty>
+  <VendorCost>0.32</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>278530</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>9</VendorQty>
+  <VendorCost>0.23</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>300988</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>6</VendorQty>
+  <VendorCost>0.23</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>151018</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>3</VendorQty>
+  <VendorCost>0.58</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.52</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>251119</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>50</VendorQty>
+  <VendorCost>0.2</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>263527</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>5</VendorQty>
+  <VendorCost>0.13</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>46005</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>6</VendorQty>
+  <VendorCost>0.15</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>412</VendorID>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>70</VendorQty>
+  <VendorCost>0.43</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>13492</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>10</VendorQty>
+  <VendorCost>0.15</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>295592</VendorID>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>3</VendorQty>
+  <VendorCost>0.16</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>35859</VendorID>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.44</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>7724</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>22</VendorQty>
+  <VendorCost>0.09</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>234827</VendorID>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>6</VendorQty>
+  <VendorCost>0.55</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>59159</VendorID>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.1</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>72563</VendorID>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>22</VendorQty>
+  <VendorCost>0.16</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>59878</VendorID>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>80</VendorQty>
+  <VendorCost>0.16</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>70307</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.08</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>1921</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.1</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>98960</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>54</VendorQty>
+  <VendorCost>0.31</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>216752</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.16</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>72406</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>6</VendorQty>
+  <VendorCost>0.41</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>47</VendorQty>
+  <VendorCost>0.26</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>307759</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.25</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>97384</VendorID>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.17</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>188678</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.13</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>84320</VendorID>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>6</VendorQty>
+  <VendorCost>0.53</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>251376</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>8</VendorQty>
+  <VendorCost>0.24</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>7</VendorQty>
+  <VendorCost>0.08</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.32</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>249299</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>8</VendorQty>
+  <VendorCost>0.23</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>306503</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.13</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>118496</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.13</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>260052</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>6</VendorQty>
+  <VendorCost>0.2</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>322102</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>16</VendorQty>
+  <VendorCost>0.23</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>20</VendorQty>
+  <VendorCost>0.15</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>218350</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>4</VendorQty>
+  <VendorCost>0.25</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>32421</VendorID>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.12</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>170616</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.23</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>77199</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>3</VendorQty>
+  <VendorCost>0.2</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>91859</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>5</VendorQty>
+  <VendorCost>0.23</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.13</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.49</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>237797</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.13</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>199329</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.19</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.58</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>108770</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>4</VendorQty>
+  <VendorCost>0.22</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>22786</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.11</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.08</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>243193</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>4</VendorQty>
+  <VendorCost>0.07</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.19</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>285510</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>8</VendorQty>
+  <VendorCost>0.25</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>43</VendorQty>
+  <VendorCost>0.14</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>123469</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>9</VendorQty>
+  <VendorCost>0.12</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.17</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>41383</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>14</VendorQty>
+  <VendorCost>0.12</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>45913</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>9</VendorQty>
+  <VendorCost>0.16</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>152027</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>9</VendorQty>
+  <VendorCost>0.14</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>83254</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>3</VendorQty>
+  <VendorCost>0.14</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>3</VendorQty>
+  <VendorCost>0.08</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.1</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>100722</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>4</VendorQty>
+  <VendorCost>0.22</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>31971</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>27</VendorQty>
+  <VendorCost>0.23</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>59</VendorQty>
+  <VendorCost>0.14</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>3</VendorQty>
+  <VendorCost>0.1</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.2</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>303546</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>11</VendorQty>
+  <VendorCost>0.14</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>6</VendorQty>
+  <VendorCost>0.5</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.18</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>43568</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>6</VendorQty>
+  <VendorCost>0.13</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>196024</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>4</VendorQty>
+  <VendorCost>0.09</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>297052</VendorID>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.1</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>280100</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>39</VendorQty>
+  <VendorCost>0.12</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>5</VendorQty>
+  <VendorCost>0.17</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>4</VendorQty>
+  <VendorCost>0.13</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>199258</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.1</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>40138</VendorID>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.09</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>224351</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>10</VendorQty>
+  <VendorCost>0.32</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>5</VendorQty>
+  <VendorCost>0.18</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.39</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.19</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>303806</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>8</VendorQty>
+  <VendorCost>0.09</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>3</VendorQty>
+  <VendorCost>0.11</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>178946</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>15</VendorQty>
+  <VendorCost>0.14</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.22</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>25130</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>1340</VendorQty>
+  <VendorCost>0.28</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>49</VendorQty>
+  <VendorCost>0.19</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>112</VendorQty>
+  <VendorCost>0.2</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>301296</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>6</VendorQty>
+  <VendorCost>0.19</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>6</VendorQty>
+  <VendorCost>0.21</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>89989</VendorID>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.11</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>236400</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.12</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.08</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>63</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>21</VendorQty>
+  <VendorCost>0.13</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>20</VendorQty>
+  <VendorCost>0.15</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>48710</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>870</VendorQty>
+  <VendorCost>0.06</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>9</VendorQty>
+  <VendorCost>0.06</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>174497</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.74</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>117507</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>10</VendorQty>
+  <VendorCost>0.14</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>4</VendorQty>
+  <VendorCost>0.1</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.5</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>306031</VendorID>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.13</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>196914</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>8</VendorQty>
+  <VendorCost>0.11</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>5</VendorQty>
+  <VendorCost>0.21</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>141197</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.09</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>138929</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>7</VendorQty>
+  <VendorCost>0.09</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>17379</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>60</VendorQty>
+  <VendorCost>0.2</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>94916</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>23</VendorQty>
+  <VendorCost>0.1</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>4</VendorQty>
+  <VendorCost>0.28</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.12</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>4</VendorQty>
+  <VendorCost>0.13</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>339792</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>24</VendorQty>
+  <VendorCost>0.23</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>30</VendorQty>
+  <VendorCost>0.13</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>77637</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>4</VendorQty>
+  <VendorCost>0.07</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>335550</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>3</VendorQty>
+  <VendorCost>0.42</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>29787</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>14</VendorQty>
+  <VendorCost>0.23</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>326758</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>51</VendorQty>
+  <VendorCost>0.23</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>5</VendorQty>
+  <VendorCost>0.16</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>78</VendorQty>
+  <VendorCost>0.19</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>173212</VendorID>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.55</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>23520</VendorID>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>3</VendorQty>
+  <VendorCost>0.16</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>144418</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>7</VendorQty>
+  <VendorCost>0.17</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>12</VendorQty>
+  <VendorCost>0.21</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>134723</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.13</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>236</VendorQty>
+  <VendorCost>0.18</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>349080</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.13</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>283604</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>4</VendorQty>
+  <VendorCost>0.09</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>284152</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.08</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.08</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>118446</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>3</VendorQty>
+  <VendorCost>0.23</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>46369</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>24</VendorQty>
+  <VendorCost>0.17</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>15468</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.15</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>40508</VendorID>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.19</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>17682</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>6</VendorQty>
+  <VendorCost>0.11</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.21</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>279380</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>9</VendorQty>
+  <VendorCost>0.09</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>243201</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.06</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>89743</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>3</VendorQty>
+  <VendorCost>0.21</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>8</VendorQty>
+  <VendorCost>0.16</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.23</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>146309</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>9</VendorQty>
+  <VendorCost>0.15</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>897</VendorQty>
+  <VendorCost>0.12</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>86609</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>3</VendorQty>
+  <VendorCost>0.14</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>3</VendorQty>
+  <VendorCost>0.08</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>221222</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.03</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>136966</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>7</VendorQty>
+  <VendorCost>0.14</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>11140</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.22</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>10743</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>194</VendorQty>
+  <VendorCost>0.27</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>37</VendorQty>
+  <VendorCost>0.13</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>260487</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.38</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.29</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>1100</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.7</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>6</VendorQty>
+  <VendorCost>0.35</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>7</VendorQty>
+  <VendorCost>0.15</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>4</VendorQty>
+  <VendorCost>0.4</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.35</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>156870</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>5</VendorQty>
+  <VendorCost>0.09</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>166045</VendorID>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.2</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>135609</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>13</VendorQty>
+  <VendorCost>0.16</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>5</VendorQty>
+  <VendorCost>0.13</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>49955</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.06</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>49891</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.1</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>288230</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.1</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>241084</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>21</VendorQty>
+  <VendorCost>0.26</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>100728</VendorID>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.63</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>50</VendorQty>
+  <VendorCost>0.18</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>181850</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>3</VendorQty>
+  <VendorCost>0.18</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>307409</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.1</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>182329</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.12</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>191657</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>6</VendorQty>
+  <VendorCost>0.09</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>281079</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>4</VendorQty>
+  <VendorCost>0.1</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>30959</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>3</VendorQty>
+  <VendorCost>0.06</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.24</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>163746</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.06</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>33118</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.09</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>15</VendorQty>
+  <VendorCost>0.14</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>297902</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.1</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>37574</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.1</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.55</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>4</VendorQty>
+  <VendorCost>0.16</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>18</VendorQty>
+  <VendorCost>0.16</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>198668</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>3</VendorQty>
+  <VendorCost>0.06</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>318400</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>4</VendorQty>
+  <VendorCost>0.23</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>3</VendorQty>
+  <VendorCost>0.14</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>274668</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>75</VendorQty>
+  <VendorCost>0.27</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>54</VendorQty>
+  <VendorCost>0.41</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>167563</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.14</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.47</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>113550</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.11</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.04</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.08</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.22</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>80005</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.06</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>225969</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>9</VendorQty>
+  <VendorCost>0.11</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.17</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>117039</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.08</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>6</VendorQty>
+  <VendorCost>0.12</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>87193</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>3</VendorQty>
+  <VendorCost>0.1</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.25</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>286778</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>3</VendorQty>
+  <VendorCost>0.13</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>8</VendorQty>
+  <VendorCost>0.1</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>120690</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>5</VendorQty>
+  <VendorCost>0.08</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>179598</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.16</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.1</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>301759</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.11</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>9</VendorQty>
+  <VendorCost>0.15</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>22513</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>4</VendorQty>
+  <VendorCost>0.1</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>203120</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.24</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>18</VendorQty>
+  <VendorCost>0.19</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>121685</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>3</VendorQty>
+  <VendorCost>0.12</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>327710</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>10</VendorQty>
+  <VendorCost>0.21</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.13</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>282414</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>12</VendorQty>
+  <VendorCost>0.09</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.22</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>131458</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>14</VendorQty>
+  <VendorCost>0.2</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>172407</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>23</VendorQty>
+  <VendorCost>0.08</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>3</VendorQty>
+  <VendorCost>0.21</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>4</VendorQty>
+  <VendorCost>0.11</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>341508</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>10</VendorQty>
+  <VendorCost>0.23</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>16153</VendorID>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>55</VendorQty>
+  <VendorCost>0.44</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>258148</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>4</VendorQty>
+  <VendorCost>0.07</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>66213</VendorID>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>55</VendorQty>
+  <VendorCost>0.19</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>121765</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.14</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>3</VendorQty>
+  <VendorCost>0.1</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>4</VendorQty>
+  <VendorCost>0.28</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.19</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>8</VendorQty>
+  <VendorCost>0.15</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>5839</VendorID>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>53</VendorQty>
+  <VendorCost>0.18</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>213012</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>8</VendorQty>
+  <VendorCost>0.24</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>114095</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>6</VendorQty>
+  <VendorCost>0.24</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>50</VendorQty>
+  <VendorCost>0.4</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>8</VendorQty>
+  <VendorCost>0.25</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>7</VendorQty>
+  <VendorCost>0.6</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>149897</VendorID>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>4</VendorQty>
+  <VendorCost>0.08</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>54276</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>6</VendorQty>
+  <VendorCost>0.08</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.32</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>68</VendorQty>
+  <VendorCost>0.1</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>19005</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>5</VendorQty>
+  <VendorCost>0.24</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.14</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>168442</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.18</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>142691</VendorID>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.49</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>268185</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>7</VendorQty>
+  <VendorCost>0.1</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.21</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>181175</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>5</VendorQty>
+  <VendorCost>0.06</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>3</VendorQty>
+  <VendorCost>0.09</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>53403</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.13</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.15</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.14</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>153009</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>15</VendorQty>
+  <VendorCost>0.15</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>12</VendorQty>
+  <VendorCost>0.11</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>7</VendorQty>
+  <VendorCost>0.12</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>6085</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.07</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>274531</VendorID>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.53</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>307</VendorQty>
+  <VendorCost>0.17</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>67161</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.15</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>115761</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.08</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>3</VendorQty>
+  <VendorCost>0.09</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>268055</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.16</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>249071</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.24</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>300540</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>4</VendorQty>
+  <VendorCost>0.09</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>78819</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.06</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>149578</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>27</VendorQty>
+  <VendorCost>0.23</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>6</VendorQty>
+  <VendorCost>0.13</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>90479</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>3</VendorQty>
+  <VendorCost>0.28</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>348710</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.12</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.07</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.08</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>226695</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>5</VendorQty>
+  <VendorCost>0.09</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.23</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.1</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>15935</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>44</VendorQty>
+  <VendorCost>0.23</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>169418</VendorID>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>28</VendorQty>
+  <VendorCost>0.15</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>106340</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>29</VendorQty>
+  <VendorCost>0.23</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>178878</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>12</VendorQty>
+  <VendorCost>0.23</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>12</VendorQty>
+  <VendorCost>0.51</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>298742</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>6</VendorQty>
+  <VendorCost>0.26</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.16</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.09</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>273559</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>5</VendorQty>
+  <VendorCost>0.16</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>9</VendorQty>
+  <VendorCost>0.1</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>5</VendorQty>
+  <VendorCost>0.26</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>20</VendorQty>
+  <VendorCost>0.13</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>222437</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>4</VendorQty>
+  <VendorCost>0.4</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>3</VendorQty>
+  <VendorCost>0.15</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>219812</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>3</VendorQty>
+  <VendorCost>0.08</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>100979</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.08</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>249716</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.23</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>5</VendorQty>
+  <VendorCost>0.15</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>305908</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>15</VendorQty>
+  <VendorCost>0.62</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>172669</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>4</VendorQty>
+  <VendorCost>0.23</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>3</VendorQty>
+  <VendorCost>0.13</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.1</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>1565</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>4</VendorQty>
+  <VendorCost>0.08</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>270678</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>14</VendorQty>
+  <VendorCost>0.22</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>188653</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>21</VendorQty>
+  <VendorCost>0.19</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>33</VendorQty>
+  <VendorCost>0.13</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>97719</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.05</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>95042</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>5</VendorQty>
+  <VendorCost>0.11</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>3</VendorQty>
+  <VendorCost>0.12</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>47527</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>12</VendorQty>
+  <VendorCost>0.5</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>57185</VendorID>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>11</VendorQty>
+  <VendorCost>0.07</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>179479</VendorID>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.18</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>45219</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>3</VendorQty>
+  <VendorCost>0.15</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.25</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>259715</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.07</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>3</VendorQty>
+  <VendorCost>0.07</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>14</VendorQty>
+  <VendorCost>0.07</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.08</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.23</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>17789</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>5</VendorQty>
+  <VendorCost>0.05</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>88936</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.23</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>5</VendorQty>
+  <VendorCost>0.13</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.08</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>162527</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.08</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>124620</VendorID>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>5</VendorQty>
+  <VendorCost>0.13</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>12589</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>30</VendorQty>
+  <VendorCost>0.1</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>177021</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>3</VendorQty>
+  <VendorCost>0.17</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>60295</VendorID>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.08</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>287255</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>5</VendorQty>
+  <VendorCost>0.1</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.21</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>4</VendorQty>
+  <VendorCost>0.11</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>201625</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>15</VendorQty>
+  <VendorCost>0.1</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.32</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>3</VendorQty>
+  <VendorCost>0.11</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>16869</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>3</VendorQty>
+  <VendorCost>0.1</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.2</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>272153</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>4</VendorQty>
+  <VendorCost>0.28</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>3</VendorQty>
+  <VendorCost>0.13</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.13</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>6</VendorQty>
+  <VendorCost>0.1</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>144027</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.12</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>250048</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.13</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>3</VendorQty>
+  <VendorCost>0.09</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>4</VendorQty>
+  <VendorCost>0.22</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>113518</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>37</VendorQty>
+  <VendorCost>0.22</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>191187</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.11</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>45108</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.14</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.1</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>151367</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>6</VendorQty>
+  <VendorCost>0.06</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.22</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>128665</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>7</VendorQty>
+  <VendorCost>0.1</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.09</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>319851</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.1</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>251262</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>13</VendorQty>
+  <VendorCost>0.08</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>174472</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>3</VendorQty>
+  <VendorCost>0.1</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>80120</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>6</VendorQty>
+  <VendorCost>0.26</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>266109</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.11</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>61784</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.14</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>133377</VendorID>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>17</VendorQty>
+  <VendorCost>0.16</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>22554</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>5</VendorQty>
+  <VendorCost>0.29</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>21</VendorQty>
+  <VendorCost>0.27</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>4</VendorQty>
+  <VendorCost>0.87</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>16</VendorQty>
+  <VendorCost>0.4</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>32567</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.14</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>127821</VendorID>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>4</VendorQty>
+  <VendorCost>0.54</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>10428</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>10</VendorQty>
+  <VendorCost>0.23</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>10</VendorQty>
+  <VendorCost>0.23</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>196226</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>6</VendorQty>
+  <VendorCost>0.09</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>159244</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>6</VendorQty>
+  <VendorCost>0.42</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.09</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>148025</VendorID>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>4</VendorQty>
+  <VendorCost>0.26</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>122754</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>5</VendorQty>
+  <VendorCost>0.2</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>18</VendorQty>
+  <VendorCost>0.44</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>309619</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>7</VendorQty>
+  <VendorCost>0.09</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>193464</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.23</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>9</VendorQty>
+  <VendorCost>0.13</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>158485</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>10</VendorQty>
+  <VendorCost>0.4</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>15336</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>72</VendorQty>
+  <VendorCost>0.5</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>4</VendorQty>
+  <VendorCost>0.29</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>8</VendorQty>
+  <VendorCost>1.29</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>19</VendorQty>
+  <VendorCost>0.29</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>68149</VendorID>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.26</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.13</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>209762</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.08</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>201305</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>5</VendorQty>
+  <VendorCost>0.23</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>4</VendorQty>
+  <VendorCost>0.12</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>36913</VendorID>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.17</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>94551</VendorID>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.23</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>325482</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.08</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>45357</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.06</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>222337</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>30</VendorQty>
+  <VendorCost>0.13</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>206824</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>7</VendorQty>
+  <VendorCost>0.27</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>177880</VendorID>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>53</VendorQty>
+  <VendorCost>0.16</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>138525</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>3</VendorQty>
+  <VendorCost>0.26</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.62</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>131890</VendorID>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.63</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>177294</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.11</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>26907</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.06</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>3</VendorQty>
+  <VendorCost>0.14</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>4</VendorQty>
+  <VendorCost>0.08</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>102020</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>208</VendorQty>
+  <VendorCost>0.23</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>55</VendorQty>
+  <VendorCost>0.09</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>7</VendorQty>
+  <VendorCost>0.1</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>133456</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>7</VendorQty>
+  <VendorCost>0.12</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>10</VendorQty>
+  <VendorCost>0.1</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>32665</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.06</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>101956</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>4</VendorQty>
+  <VendorCost>0.07</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>28</VendorQty>
+  <VendorCost>0.52</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>133517</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.14</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>53449</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>6</VendorQty>
+  <VendorCost>0.26</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>236897</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.12</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>251960</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.1</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>248404</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>5</VendorQty>
+  <VendorCost>0.29</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>10257</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.2</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>233011</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>6</VendorQty>
+  <VendorCost>0.18</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>282942</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>3</VendorQty>
+  <VendorCost>0.1</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>187433</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>11</VendorQty>
+  <VendorCost>0.22</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>47350</VendorID>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>252</VendorQty>
+  <VendorCost>0.15</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>153389</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>4</VendorQty>
+  <VendorCost>0.08</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>4</VendorQty>
+  <VendorCost>0.11</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>330270</VendorID>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.25</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>79105</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>10</VendorQty>
+  <VendorCost>0.07</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>24</VendorQty>
+  <VendorCost>0.07</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>5784</VendorID>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>4</VendorQty>
+  <VendorCost>0.1</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>278480</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>9</VendorQty>
+  <VendorCost>0.18</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>203282</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>3</VendorQty>
+  <VendorCost>0.12</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>220047</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>4</VendorQty>
+  <VendorCost>0.17</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>243055</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.08</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>69461</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>8</VendorQty>
+  <VendorCost>0.21</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>240478</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>3</VendorQty>
+  <VendorCost>0.18</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>3</VendorQty>
+  <VendorCost>0.11</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.24</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>125115</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>8</VendorQty>
+  <VendorCost>0.1</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>247714</VendorID>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>4</VendorQty>
+  <VendorCost>0.48</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>18731</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>92</VendorQty>
+  <VendorCost>0.12</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>64133</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.08</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.1</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>94820</VendorID>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.15</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>274099</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.09</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>173946</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>9</VendorQty>
+  <VendorCost>0.08</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>70927</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>4</VendorQty>
+  <VendorCost>0.1</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>4</VendorQty>
+  <VendorCost>0.08</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>210002</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>6</VendorQty>
+  <VendorCost>0.09</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>118931</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>4</VendorQty>
+  <VendorCost>0.07</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>286593</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>15</VendorQty>
+  <VendorCost>0.25</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.14</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>4</VendorQty>
+  <VendorCost>0.14</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>4</VendorQty>
+  <VendorCost>0.1</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>7</VendorQty>
+  <VendorCost>0.52</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>332817</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>6</VendorQty>
+  <VendorCost>0.22</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>68563</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>4</VendorQty>
+  <VendorCost>0.4</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.12</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>6</VendorQty>
+  <VendorCost>0.45</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.16</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>141349</VendorID>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.18</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.1</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>288555</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.22</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>182423</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>3</VendorQty>
+  <VendorCost>0.08</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>12</VendorQty>
+  <VendorCost>0.54</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>263487</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>6</VendorQty>
+  <VendorCost>0.04</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>82899</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>3</VendorQty>
+  <VendorCost>0.15</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.11</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>726</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>26</VendorQty>
+  <VendorCost>0.15</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>96057</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>12</VendorQty>
+  <VendorCost>0.22</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>6692</VendorID>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>71</VendorQty>
+  <VendorCost>0.44</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>301647</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>7</VendorQty>
+  <VendorCost>0.08</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>42950</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.08</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>31139</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>17</VendorQty>
+  <VendorCost>0.1</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>4</VendorQty>
+  <VendorCost>0.09</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>143045</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>6</VendorQty>
+  <VendorCost>0.14</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>6</VendorQty>
+  <VendorCost>0.11</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.09</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>205773</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.32</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>99336</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>4</VendorQty>
+  <VendorCost>0.11</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>12</VendorQty>
+  <VendorCost>0.06</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>3</VendorQty>
+  <VendorCost>0.08</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.11</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>247825</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>13</VendorQty>
+  <VendorCost>0.14</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>152984</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.13</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>280898</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>7</VendorQty>
+  <VendorCost>0.06</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>305229</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.25</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.14</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>261388</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>9</VendorQty>
+  <VendorCost>0.19</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.09</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>16451</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.19</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>147760</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.09</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>296542</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.16</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.31</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>179214</VendorID>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.19</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>108128</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>16</VendorQty>
+  <VendorCost>0.19</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>3</VendorQty>
+  <VendorCost>0.45</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>133</VendorQty>
+  <VendorCost>0.14</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>183132</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.08</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>57495</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>5</VendorQty>
+  <VendorCost>0.13</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>98</VendorQty>
+  <VendorCost>0.16</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>208880</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.13</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>90276</VendorID>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.32</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>328814</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.03</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>92917</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.05</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.2</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>295414</VendorID>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>12</VendorQty>
+  <VendorCost>0.51</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>15977</VendorID>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>72</VendorQty>
+  <VendorCost>0.21</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>148975</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.12</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>267037</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.22</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>76149</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.25</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>3</VendorQty>
+  <VendorCost>0.21</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.45</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.19</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>1218</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>10</VendorQty>
+  <VendorCost>0.43</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>294343</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>3</VendorQty>
+  <VendorCost>0.08</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>207876</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.12</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.14</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>89283</VendorID>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>10</VendorQty>
+  <VendorCost>0.56</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>303583</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>5</VendorQty>
+  <VendorCost>0.1</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>136291</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>4</VendorQty>
+  <VendorCost>0.23</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>214670</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.1</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>21499</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.24</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>125092</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>7</VendorQty>
+  <VendorCost>0.28</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.11</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>77388</VendorID>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>6</VendorQty>
+  <VendorCost>0.14</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>282241</VendorID>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.51</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>8000</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>21</VendorQty>
+  <VendorCost>0.23</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>109612</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>34</VendorQty>
+  <VendorCost>0.21</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>135815</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>11</VendorQty>
+  <VendorCost>0.26</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>221441</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.17</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.12</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>86155</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>5</VendorQty>
+  <VendorCost>0.16</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>197213</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.09</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>208205</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>3</VendorQty>
+  <VendorCost>0.25</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>81014</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>10</VendorQty>
+  <VendorCost>0.11</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>66451</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>4</VendorQty>
+  <VendorCost>0.23</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.2</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>18</VendorQty>
+  <VendorCost>0.16</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>105341</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.39</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>6541</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>3</VendorQty>
+  <VendorCost>0.14</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>144837</VendorID>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.09</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>231904</VendorID>
+ <Item>
+  <Itemid>3460</ItemID>
+  <ColorID>86</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.32</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>3009</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>4</VendorQty>
+  <VendorCost>0.08</VendorCost>
+ </Item>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>2</VendorQty>
+  <VendorCost>0.32</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>80772</VendorID>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>24</VendorQty>
+  <VendorCost>0.5</VendorCost>
+ </Item>
+</Vendor>
+<Vendor>
+ <VendorID>25503</VendorID>
+ <Item>
+  <Itemid>4162</ItemID>
+  <ColorID>6</ColorID>
+  <VendorQty>1</VendorQty>
+  <VendorCost>0.22</VendorCost>
+ </Item>
+</Vendor>
