@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>5e6ccdb8-c67e-4ef5-b7ec-7a54e5bcc21a</ProjectGuid>
+    <ProjectHome>
+    </ProjectHome>
+    <StartupFile>main.py</StartupFile>
+    <SearchPath>
+    </SearchPath>
+    <WorkingDirectory>.</WorkingDirectory>
+    <OutputPath>.</OutputPath>
+    <InterpreterId>2af0f10d-7135-4994-9156-5d01c9c11b7e</InterpreterId>
+    <InterpreterVersion>2.7</InterpreterVersion>
+    <Name>pyBCM</Name>
+    <RootNamespace>pyBCM</RootNamespace>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>true</DebugSymbols>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DebugSymbols>true</DebugSymbols>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="bcmdata.py" />
+    <Compile Include="blreader.py" />
+    <Compile Include="bricklinkdata.py" />
+    <Compile Include="bstesting.py" />
+    <Compile Include="legoutils.py" />
+    <Compile Include="main.py" />
+    <Compile Include="optimizer.py" />
+    <Compile Include="shoppinglist.py" />
+    <Compile Include="vendors.py" />
+    <Compile Include="wanted.py" />
+    <Compile Include="__init__.py" />
+    <Compile Include="test\htmlparse.py" />
+    <Compile Include="test\__init__.py" />
+    <Content Include="pricefromfile.txt" />
+    <Content Include="pricefromurl.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="test" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" />
+</Project>

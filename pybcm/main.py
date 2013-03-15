@@ -8,6 +8,7 @@ from wanted import WantedDict
 from legoutils import Element
 from bricklinkdata import BricklinkData
 from legoutils import LegoColor
+from blreader import *
 #from vendors import Vendors
 from bcmdata import BCMData
 

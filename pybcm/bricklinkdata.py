@@ -4,7 +4,7 @@ Created on Oct 23, 2012
 @author: khooks
 '''
 from UserDict import UserDict
-from blreader import BricklinkReader
+from blreader import BricklinkWebReader
 from bs4 import BeautifulSoup as Soup
 from vendors import VendorMap
 from legoutils import Element
