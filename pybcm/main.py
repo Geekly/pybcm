@@ -34,11 +34,11 @@ if __name__ == '__main__':
     bricklink = BricklinkData()
     
  
-    print "Reading wanted list", wantedlistfilename
+    print( "Reading wanted list", wantedlistfilename)
     
     wanteddict.read(wantedlistfilename)
                    
-    print "Loading Prices"
+    print( "Loading Prices")
     if reloadpricesfromweb == True:
         bricklink.readpricesfromweb( wanteddict.data )
         f = open(pricefilename, 'w')
@@ -72,7 +72,7 @@ if __name__ == '__main__':
     #print "Building Vendor Map"
     bricklink.buildvendormap()
     
-    print reporter.toCSV()
+    print( reporter.toCSV())
     #vendordict = Vendors(bricklink)
     
     #print vendordict.toXML()

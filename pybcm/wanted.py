@@ -6,7 +6,7 @@ Created on Oct 23, 2012
 
 #Converted the dictionary key from itemid, colorid to elementid, which is of the format 'itemid|colorid'
 
-from UserDict import UserDict
+from collections import UserDict
 from bs4 import BeautifulSoup as Soup
 from legoutils import Element
 #from string import Template
@@ -59,6 +59,6 @@ if __name__ == '__main__':
     wantedlistfilename = '..\\Molding Machine.bsx'
     wanteddict = WantedDict()
     wanteddict.read(wantedlistfilename)
-    print wanteddict.data
-    print wanteddict
-    print wanteddict.getwantedqty('3009|6')
+    print( wanteddict.data )
+    print( wanteddict )
+    print( wanteddict.getwantedqty('3009|6') )

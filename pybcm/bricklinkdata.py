@@ -3,7 +3,7 @@ Created on Oct 23, 2012
 
 @author: khooks
 '''
-from UserDict import UserDict
+from collections import UserDict
 from blreader import BricklinkWebReader
 from bs4 import BeautifulSoup as Soup
 from vendors import VendorMap
@@ -41,7 +41,7 @@ class BricklinkData(UserDict):
    
    
     def buildvendormap(self):
-        print "Building Vendor Map"
+        print( "Building Vendor Map")
         for elementid in self.keys():
             for vendor in self[elementid]:
                 self.vendormap.addvendor(vendor[0], vendor[1])
@@ -66,16 +66,16 @@ class BricklinkData(UserDict):
                         self.vendordata[vendorid] = list()
                         self.vendordata[vendorid].append( [elementid, vendorqty, vendorcost] )
                 except KeyError as e:
-                    print e
+                    print( e)
         self.vendor_initialized = True
  
                 
     def dataquality(self):
         assert self.bricklink_initialized == True, "bricklink not initialized, cannot report dataquality"
         
-        print "Price list includes:"
-        print str( len(self.keys()) ) + " Total Items"
-        print str( len(self.vendormap.keys()) ) + " Total Vendors"
+        print( "Price list includes:")
+        print( str( len(self.keys()) ) + " Total Items")
+        print( str( len(self.vendormap.keys()) ) + " Total Vendors")
        
     def readpricesfromweb(self, wanted):
     #    Build a dictionary of price info
@@ -97,7 +97,7 @@ class BricklinkData(UserDict):
    
     def read(self, filename=None):
         assert filename != None, "price List filename required"
-        print "Building bricklink data from file: " + filename
+        print ("Building bricklink data from file: " + filename)
         self.data = dict()  #clear any existing data
         
         self.soup = Soup(open(filename).read(), "lxml")

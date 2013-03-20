@@ -6,12 +6,15 @@ Created on Oct 26, 2012
 from bs4 import BeautifulSoup as Soup
 import re
 import io
-import twill.commands
+#import twill.commands
+import http.cookiejar
+import urllib
+
 import unicodedata
 
 class BricklinkReader(object):
     
-    def __init__(self, login='', password=''):
+    def __init__(self):
         """ Start up..."""
 
 class BricklinkWebReader(BricklinkReader):
@@ -24,11 +27,12 @@ class BricklinkWebReader(BricklinkReader):
         self.login = login
         self.password = password
         
-        self.blbrowser = browser()
-        self.loginToBricklink()
+        #self.blbrowser = twillbrowser()
+        url = "https://www.bricklink.com/login.asp"
+        self.blbrowser = SomeBrowser(url)
+        self.blbrowser.login(url, self.login, self.password)
         
         
-
     def loginToBricklink(self):
         self.blbrowser.bricklink(self.login, self.password)
       
@@ -48,14 +52,16 @@ class BricklinkWebReader(BricklinkReader):
             vendorprice = 0.0
             
             
-            self.blbrowser.b.go(url)           
-            response = self.blbrowser.b.get_html()
-                          
-
-            print "Parsing HTTP Response from " + url
+            #self.blbrowser.b.go(url)           
+            #response = self.blbrowser.b.get_html()
+             
+            response = self.blbrowser.open(url)
+                        
+            print(response)
+            print( "Parsing HTTP Response from " + url )
             
             s = Soup(response, "lxml", from_encoding="utf-8")
-            print "Finished converting to a Soup, now Finding All <A> tags"
+            print( "Finished converting to a Soup, now Finding All <A> tags" )
                       
             su = re.compile( "store.asp\?sID=(\d+)\&itemID=(\d+)" )  #this matches the correct store link 
       
@@ -67,7 +73,7 @@ class BricklinkWebReader(BricklinkReader):
             
             storelinks = s.find_all('a', {'href' : su } )   #grab a list of all <a> tags that include a matching href
                       
-            print "Converted to a Soup.  Now extracting price info for vendors"
+            print( "Converted to a Soup.  Now extracting price info for vendors" )
                        
             for store in storelinks:
         #        print store['href']
@@ -113,24 +119,24 @@ class BricklinkFileReader(BricklinkReader):
         vendorprice = 0.0
         
         with io.open(filename, 'r') as f:     
-            print "Parsing item from file..."
+            print( "Parsing item from file..." )
             s = Soup(f, "lxml", from_encoding="utf-8")
         
         with io.open("pricefromfile.txt", mode='w', encoding='utf-8') as file:
             file.write( s.prettify() )
 
         
-        print "Finished converting to a Soup, now Finding All <A> tags"
+        print( "Finished converting to a Soup, now Finding All <A> tags" )
         
         su = re.compile( "store.asp\?sID=(\d+)\&itemID=(\d+)" )  #this matches the correct store link 
   
-        print s.find('td', "")
+        print( s.find('td', "") )
         
         #find a row that contains a href matching /store.asp?sID=310960&itemID=33779516"
 #        pricetable = s.find('b', "Currently Available")
         storelinks = s.find_all('a', {'href' : su } )   #grab a list of all <a> tags that include a matching href
                   
-        print "Converted to a Soup.  Now extracting price info for vendors"
+        print( "Converted to a Soup.  Now extracting price info for vendors" )
         
         for store in storelinks:
     #        print store['href']
@@ -152,7 +158,7 @@ class BricklinkFileReader(BricklinkReader):
         return prices     
 
 
-class browser:
+'''class twillbrowser:
     
     def __init__(self, url="https://www.bricklink.com/login.asp"):
         self.a=twill.commands
@@ -171,6 +177,54 @@ class browser:
         #self.b.showforms()
         self.b.clicked(f, "Login to Bricklink")
         self.b.submit()
+'''
+class SomeBrowser:
+
+    def __init__(self, url):
+        
+        self.url = ''
+        self.response = ''
+        self.data = ''
+        self.cookies = http.cookiejar.CookieJar()
+    
+    '''
+    def open(self, url):
+        self.url = url
+        opener = urllib.request.build_opener(
+            urllib.request.HTTPRedirectHandler(),
+            urllib.request.HTTPHandler(debuglevel=0),
+            urllib.request.HTTPSHandler(debuglevel=0),
+            urllib.request.HTTPCookieProcessor(self.cookies))
+        url = self.url
+        request = urllib.request.Request(self.url)
+        response = opener.urlopen(self.url, self.data)
+        the_page = response.read().decode('utf-8')
+        http_headers = response.info()
+
+        return the_page
+    '''
+
+    def login(self, url, loginName, passwd):
+        self.url = url
+        values = {'frmUserName' : loginName,
+                   'frmPassword' : passwd }
+
+        data = urllib.parse.urlencode(values)
+        request = urllib.request.Request(url, data)
+        '''opener = urllib.request.build_opener(
+            urllib.request.HTTPRedirectHandler(),
+            urllib.request.HTTPHandler(debuglevel=0),
+            urllib.request.HTTPSHandler(debuglevel=0),
+            urllib.request.HTTPCookieProcessor(self.cookies))
+        '''
+
+        
+        response = urllib.request.urlopen(request)
+        the_page = response.read()
+        http_headers = response.info()
+
+        return the_page
+                
         
 
 
@@ -181,16 +235,18 @@ def remove_accents(input_str):
         
 if __name__ == '__main__':
     #filename = "../BrickLink Price Guide - Part 3070b in Black Color.htm"
-    #prices = BricklinkReader.readitemfromfile(filename)
-    #print prices  
+    #prices = BricklinkFileReader(filename)
+    #print prices.readAllItems() 
     
     br = BricklinkWebReader("Geekly", "codybricks")
     
     br.readitemfromurl('P', '3001', '80')
     
-    bfr = BricklinkFileReader("../bricklink.xml")
-    bfr.readAllItems()
+    #bfr = BricklinkFileReader("../bricklink.xml")
+    #bfr.readAllItems()
 
-    print "Done!"
+    
+
+    print( "Done!")
     
         

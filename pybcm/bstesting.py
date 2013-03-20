@@ -25,11 +25,11 @@ wanteddict = WantedDict()
 bricklink = BricklinkData()
     
  
-print "Reading wanted list", wantedlistfilename
+print( "Reading wanted list", wantedlistfilename )
 
 wanteddict.read(wantedlistfilename)
                
-print "Loading Prices"
+print( "Loading Prices")
 
 
 f = open(pricefilename, 'r')

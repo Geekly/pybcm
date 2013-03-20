@@ -58,12 +58,12 @@ if __name__ == "__main__":
     colorid = '88'
     wantedqty = '123'
     element = Element.joinelement(itemid, colorid)
-    print element
-    print Element.splitelement(element)
+    print (element)
+    print (Element.splitelement(element))
     
     element = Element(itemid, colorid, wantedqty)
-    print element.id
+    print (element.id)
     
-    print element.itemid
-    print element.colorid
-    print element.wantedqty
+    print (element.itemid)
+    print (element.colorid)
+    print (element.wantedqty)

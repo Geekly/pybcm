@@ -3,7 +3,7 @@ Created on Oct 23, 2012
 
 @author: khooks
 '''
-from UserDict import UserDict
+from collections import UserDict
 from bs4 import BeautifulSoup as Soup
 
 class Vendor(object):
@@ -48,7 +48,7 @@ class VendorMap(UserDict):
                            
     def read(self, filename=None):
         assert filename != None, "price List filename required"
-        print "Building vendor map from file: " + filename
+        print( "Building vendor map from file: " + filename)
         self.data = dict()  #clear any existing data
         
         self.soup = Soup(open(filename).read(), "lxml")

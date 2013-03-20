@@ -3,7 +3,7 @@ Created on Oct 30, 2012
 
 @author: khooks
 '''
-from UserDict import UserDict
+from collections import UserDict
 from legoutils import Element
 from vendors import VendorMap
 
@@ -121,7 +121,7 @@ class BCMData(UserDict):
         del self.vendormap[vendorid]
                 
     def cullvendors(self):
-        print "Searching for vendors to cull"
+        print( "Searching for vendors to cull")
         initialcount = len(self.vendormap)
         #consider implementing some kind of cull threshhold
         for v in self.vendormap.keys():
@@ -137,11 +137,11 @@ class BCMData(UserDict):
 
         finalcount = len(self.vendormap)
         vendorsremoved = initialcount - finalcount
-        print "Removed " + str(vendorsremoved) + " vendors."
+        print( "Removed " + str(vendorsremoved) + " vendors.")
 
     def describevendors(self):
         
-        print "There are " + str(len(self.vendormap)) + " vendors with sufficient quantity of at least one element in our list."
+        print( "There are " + str(len(self.vendormap)) + " vendors with sufficient quantity of at least one element in our list.")
         
         for v in self.vendormap.keys():
             assert v in self.vendorcountsitems, "Vendor does not exist in counting dictionary"
@@ -169,7 +169,7 @@ class BCMData(UserDict):
             if (vendorswith >= 1):
                 e.averageprice = sum / vendorswith
                        
-                print "Element " + str(e.id) + " has an average price of " + str(e.averageprice)
+                print( "Element " + str(e.id) + " has an average price of " + str(e.averageprice))
             
     def vendorcount(self):     
         return len(self.vendormap)
@@ -177,15 +177,15 @@ class BCMData(UserDict):
     def dataquality(self):
         assert self.initialized == True, "data not initialized, cannot report dataquality"
         
-        print "The data looks like this:"
-        print str( len(self.itemlist) ) + " Total Items"
-        print str( len(self.vendorlist) ) + " Total Vendors"                         
+        print( "The data looks like this:")
+        print( str( len(self.itemlist) ) + " Total Items")
+        print( str( len(self.vendorlist) ) + " Total Vendors" )                        
                   
     def display(self):
         
         assert self.initialized == True, "bcmdata not initialized"
         
-        print self.headers
+        print( self.headers)
         #print self.wantedqty
         for e in self.keys(): #vendors
             thiselement = self[e]
@@ -197,7 +197,7 @@ class BCMData(UserDict):
                     row.append(thiselement.vendorstock[v].price)  
                 except KeyError:
                     row.append('')
-            print row        
+            print( row )
                
     def toCSV(self):
             
@@ -225,11 +225,11 @@ if __name__ == '__main__':
     
     
     tryelement = Element('3006', '88', '2x4 brick', 'P', 'brick', 'Blue', 100)
-    print tryelement
-    print tryelement.itemid
+    print( tryelement)
+    print( tryelement.itemid)
     test = BCMElement(tryelement)
-    print test.itemid
-    print test.colorid
+    print( test.itemid)
+    print( test.colorid)
 
     
     pass
