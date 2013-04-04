@@ -16,9 +16,11 @@ from bcmdata import BCMData
 
 if __name__ == '__main__':
     
+    
+    logging.basicConfig(level=logging.DEBUG)
     wantedlistfilename = '../Molding Machine.bsx'
     
-    reloadpricesfromweb = False  #set this to true if you want to update prices from the web and rewrite pricefilename
+    reloadpricesfromweb = True  #set this to true if you want to update prices from the web and rewrite pricefilename
     #make sure to run this once every time that the wanted list changes
                                    
     
@@ -62,17 +64,17 @@ if __name__ == '__main__':
     
     reporter.describevendors()
     
-    reporter.cullvendors()
+    #reporter.cullvendors()
     #out.write(reporter.toCSV())
-    reporter.describevendors()
-    reporter.calculateavgprices()
+    #reporter.describevendors()
+    #reporter.calculateavgprices()
     #print reporter.toCSV()
     #print reporter    
-    reporter.display()
+    #reporter.display()
     #print "Building Vendor Map"
-    bricklink.buildvendormap()
+    #bricklink.buildvendormap()
     
-    print( reporter.toCSV())
+    #print( reporter.toCSV())
     #vendordict = Vendors(bricklink)
     
     #print vendordict.toXML()

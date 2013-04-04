@@ -14,7 +14,7 @@ from legoutils import Element
 class BricklinkData(UserDict):
     '''
     data is a dictionary of the format:
-    
+    [itemID, storeID, quantity, price]
     data[elementid] = { [vendor1id, vendor1qty, vendor1price],
                             [vendor2id, vendor2qty, vendor2price],
                             ... }
@@ -33,7 +33,7 @@ class BricklinkData(UserDict):
         self.bricklink_initialized = False
         self.vendor_initialized = False
         
-        self.reader = BricklinkWebReader("Geekly", "codybricks")
+        self.webreader = BricklinkWebReader("Geekly", "codybricks")
         
     def __str__(self):
         assert self.bricklink_initialized == True, "bricklink not initialized, cannot convert to string"
@@ -88,7 +88,7 @@ class BricklinkData(UserDict):
             itemColorID = wanted[elementid].colorid
             #elementID = lego.joinelement(itemID, itemColorID)
             
-            self[elementid] = self.reader.readitemfromurl( itemtypeID, itemID, itemColorID)  #get the item page, parse it, and get back a list of (vendorid, vendorname, vendorqty, vendorprice) tuples
+            self[elementid] = self.webreader.readitemfromurl( itemtypeID, itemID, itemColorID)  #get the item page, parse it, and get back a list of (vendorid, vendorname, vendorqty, vendorprice) tuples
         
         self.buildvendormap()
         #self.buildvendordata()
