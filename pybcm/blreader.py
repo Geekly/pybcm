@@ -3,25 +3,21 @@ Created on Oct 26, 2012
 
 @author: khooks
 '''
-from bs4 import BeautifulSoup as Soup
+
 from lxml import etree
-from lxml import html
-from lxml.html.clean import Cleaner
 
 import re
 import io
-#import twill.commands
+
 import http.cookiejar
 import urllib
 from urllib.error import HTTPError, URLError
 import logging
-import time
-
-import unicodedata
 
 class BricklinkReader(object):
     '''
     The BricklinkReader will read the information about a single Bricklink Item from the Price Catalog
+    the color and type are not handled except in the URL of the webreader, which are passed in.
     '''
     vendormap = dict()
     
