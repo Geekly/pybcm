@@ -4,18 +4,73 @@ Created on Oct 26, 2012
 @author: khooks
 '''
 from bs4 import BeautifulSoup as Soup
+from lxml import etree
+from lxml import html
+from lxml.html.clean import Cleaner
+
 import re
 import io
 #import twill.commands
 import http.cookiejar
 import urllib
+from urllib.error import HTTPError, URLError
+import logging
+import time
 
 import unicodedata
 
 class BricklinkReader(object):
+    '''
+    The BricklinkReader will read the information about a single Bricklink Item from the Price Catalog
+    '''
+    vendormap = dict()
     
     def __init__(self):
         """ Start up..."""
+        
+
+    def getStoreElements(self, datatree):
+        #print(etree.tostring(datatree))        
+        topparents = datatree.xpath("//td[table/tr/td/font/b[text()[contains(.,'Currently Available')]]]") #contains all the info we want
+
+        currentroot = topparents[0]#this table contains the Currently Available text and all of the other information
+        #drill down to the table containing store entry tr's
+        stores = currentroot.xpath("./table/tr/td/table/tr[td/a]") #find all the rows that contain links
+        #for store in stores:
+            #print(etree.tostring(store))
+              
+        return stores  
+    
+    def readItemFromTree(self, datatree):
+        prices = []   
+        stores = self.getStoreElements(datatree) #all store tr's
+        suLink = re.compile( "sID=(\d+).*itemID=(\d+)" )#\&itemID=(\d+)
+        suStore = re.compile( "Store:.(.*)\".title")
+        suPrice = re.compile("[US\$\s\~]") 
+        for store in stores:
+            #print(etree.tostring(store))
+            td = store.xpath('./td')
+            #td[0] contains the Store name
+            linktext = etree.tostring(td[0]).decode()
+            #print( linktext)
+            storematch = re.search(suLink, linktext)
+            if storematch:
+                storeID = storematch.group(1)
+                itemID = storematch.group(2)
+                storenamematch = re.search(suStore, linktext)
+                storename = storenamematch.group(1)
+                #print("Storename: " + storename)
+                BricklinkReader.vendormap[storeID] = storename
+            #td[1] contains the Quantity
+                quantity = td[1].text
+            #td[3] contains the price
+                pricestring = td[3].text
+                price = re.sub(suPrice, '', pricestring)
+                prices.append([itemID, storeID, quantity, price])
+                #print([itemID, storeID, quantity, price])
+
+        return prices  
+               
 
 class BricklinkWebReader(BricklinkReader):
     
@@ -29,208 +84,97 @@ class BricklinkWebReader(BricklinkReader):
         
         #self.blbrowser = twillbrowser()
         url = "https://www.bricklink.com/login.asp"
-        self.blbrowser = SomeBrowser(url)
+        self.blbrowser = SomeBrowser()
         self.blbrowser.login(url, self.login, self.password)
-        
-        
-    def loginToBricklink(self):
-        self.blbrowser.bricklink(self.login, self.password)
-      
+     
+     
     def readitemfromurl(self, itemtypeID, itemID, itemColorID):
             
             #extract the info from the site and return it as a dictionary 
             # need to find and return itemID, storeID's, itemQty, itemPrice for each url
             # we also need to extract real vendor names during this search
-        
-        #    returns [][vendorid, vendorqty, vendorprice]
-        
+            #returns prices[] =([itemid, vendorid, vendorqty, vendorprice)
+
             url = "http://www.bricklink.com/catalogPG.asp?itemType=" + itemtypeID + '&itemNo=' + itemID + '&itemSeq=1&colorID=' + itemColorID + '&v=P&priceGroup=Y&prDec=2'
-            #savedpriceguide = '../BrickLink Price Guide - Part 3460 in Dark Bluish Gray Color.htm'
-            
-            prices = []
-            vendorqty = 0.0
-            vendorprice = 0.0
-            
-            
-            #self.blbrowser.b.go(url)           
-            #response = self.blbrowser.b.get_html()
-             
-            response = self.blbrowser.open(url)
                         
-            print(response)
-            print( "Parsing HTTP Response from " + url )
-            
-            s = Soup(response, "lxml", from_encoding="utf-8")
-            print( "Finished converting to a Soup, now Finding All <A> tags" )
-                      
-            su = re.compile( "store.asp\?sID=(\d+)\&itemID=(\d+)" )  #this matches the correct store link 
-      
-            
-            #find a row that contains a href matching /store.asp?sID=310960&itemID=33779516"
-    #        pricetable = s.find('b', "Currently Available")
-            
-            currentlyavailable = s.find('td', {})
-            
-            storelinks = s.find_all('a', {'href' : su } )   #grab a list of all <a> tags that include a matching href
-                      
-            print( "Converted to a Soup.  Now extracting price info for vendors" )
-                       
-            for store in storelinks:
-        #        print store['href']
-        
-                #find the href tags within the store <a> and extract the vendorid
-                m = su.search(store['href'])       
-                vendorid = m.group(1)  
-                vendorfulltext = store.img['alt']
-                vendorname = re.sub( "Store: ", "", vendorfulltext)#.encode('utf-8')  #this fixed an issue with foreign characters
-                
-                vendorname = remove_accents(vendorname)
-                    
-                td = store.parent.parent.findAll('td')  #this gets us to the <TR> containing all of the goodies
-    
-                vendorqty = int( td[1].string )
-                
-                pricestring = td[3].string
-                
-                
-                
-                #if re.match('US', pricestring):
-                    #print "We matched!"
-                if re.search('US', pricestring): #this is a us dollar price
-                    #print "Matched " + pricestring
-                    vendorprice = float( re.sub('[US\$\s\~]', '', pricestring) )     #strips the US, whitespace and $ from the price            
-                    prices.append([vendorid, vendorname, vendorqty, vendorprice])
-         
-            return prices      
-
+            prices = []
+            page = self.blbrowser.open(url)
+            parser = etree.HTMLParser(remove_blank_text=True, remove_comments=True, encoding='utf-8')      
+            datatree = etree.HTML(page, parser)        
+            prices = self.readItemFromTree(datatree)     
+            return prices    
+          
 class BricklinkFileReader(BricklinkReader):
-    
-    def __init__(self, filename):
-        
+    ''' A Bricklink 'File' is a single html page in file format which represents a single part.  It's mainly for testing purposes.'''    
+    def __init__(self):       
         BricklinkReader.__init__(self)
-        self.filename = filename
         
-        
-    def readAllItems(self):
-        
-        filename = self.filename       
-        prices = []
-        vendorqty = 0.0
-        vendorprice = 0.0
-        
+        #page is androgenous
+    def readItemFromFile(self, filename):
+        prices = []        
+        parser = etree.HTMLParser(remove_blank_text=True, remove_comments=True, encoding='utf-8')      
         with io.open(filename, 'r') as f:     
-            print( "Parsing item from file..." )
-            s = Soup(f, "lxml", from_encoding="utf-8")
+            #print( "Parsing item from file..." )
+            datatree = etree.HTML(f.read(), parser)
+            #print( etree.tostring(datatree))
+        prices = self.readItemFromTree(datatree)
+        return prices
         
-        with io.open("pricefromfile.txt", mode='w', encoding='utf-8') as file:
-            file.write( s.prettify() )
 
-        
-        print( "Finished converting to a Soup, now Finding All <A> tags" )
-        
-        su = re.compile( "store.asp\?sID=(\d+)\&itemID=(\d+)" )  #this matches the correct store link 
-  
-        print( s.find('td', "") )
-        
-        #find a row that contains a href matching /store.asp?sID=310960&itemID=33779516"
-#        pricetable = s.find('b', "Currently Available")
-        storelinks = s.find_all('a', {'href' : su } )   #grab a list of all <a> tags that include a matching href
-                  
-        print( "Converted to a Soup.  Now extracting price info for vendors" )
-        
-        for store in storelinks:
-    #        print store['href']
-    
-            #find the href tags within the store <a> and extract the vendorid
-            m = su.search(store['href'])       
-            vendorid = m.group(1)  
-            vendorfulltext = store.img['alt']
-            vendorname = re.sub( "Store: ", "", vendorfulltext).encode('utf-8')  #this fixed an issue with foreign characters
-            vendorname = remove_accents(vendorname)
-                
-            td = store.parent.parent.findAll('td')  #this gets us to the <TR> containing all of the goodies
-
-            vendorqty = int( td[1].string )
-            vendorprice = float( re.sub('[US\$\s\~]', '', td[2].string) )     #strips the US, whitespace and $ from the price
-    
-            prices.append([vendorid, vendorname, vendorqty, vendorprice])
-     
-        return prices     
-
-
-'''class twillbrowser:
-    
-    def __init__(self, url="https://www.bricklink.com/login.asp"):
-        self.a=twill.commands
-        self.a.config("readonly_controls_writeable", 1)
-        self.b = self.a.get_browser()
-        self.b.set_agent_string("Mozilla/5.0 (Windows; U; Windows NT 5.1; en-GB; rv:1.8.1.14) Gecko/20080404 Firefox/2.0.0.14")
-        self.b.clear_cookies()
-        self.url=url
-        
-    def bricklink(self, loginName, passwd):
-        self.b.go(self.url)
-        f = self.b.get_form("3")
-        f["frmUsername"] = loginName
-        f["frmPassword"] = passwd 
-                
-        #self.b.showforms()
-        self.b.clicked(f, "Login to Bricklink")
-        self.b.submit()
-'''
 class SomeBrowser:
 
-    def __init__(self, url):
+    def __init__(self):
         
         self.url = ''
         self.response = ''
         self.data = ''
         self.cookies = http.cookiejar.CookieJar()
-    
-    '''
+        self.opener = urllib.request.build_opener(
+            urllib.request.HTTPRedirectHandler(),
+            urllib.request.HTTPSHandler(debuglevel=0),
+            urllib.request.HTTPCookieProcessor(self.cookies))
+            
     def open(self, url):
-        self.url = url
-        opener = urllib.request.build_opener(
-            urllib.request.HTTPRedirectHandler(),
-            urllib.request.HTTPHandler(debuglevel=0),
-            urllib.request.HTTPSHandler(debuglevel=0),
-            urllib.request.HTTPCookieProcessor(self.cookies))
-        url = self.url
-        request = urllib.request.Request(self.url)
-        response = opener.urlopen(self.url, self.data)
-        the_page = response.read().decode('utf-8')
-        http_headers = response.info()
-
-        return the_page
-    '''
-
-    def login(self, url, loginName, passwd):
-        self.url = url
-        values = {'frmUserName' : loginName,
-                   'frmPassword' : passwd }
-
-        data = urllib.parse.urlencode(values)
-        request = urllib.request.Request(url, data)
-        '''opener = urllib.request.build_opener(
-            urllib.request.HTTPRedirectHandler(),
-            urllib.request.HTTPHandler(debuglevel=0),
-            urllib.request.HTTPSHandler(debuglevel=0),
-            urllib.request.HTTPCookieProcessor(self.cookies))
-        '''
-
+        try:
+            self.url = url          
+            req = urllib.request.Request(self.url)
+            response = self.opener.open(req)
+            #response = urllib.request.urlopen(req)            
+            the_page = response.read()
+            logging.debug("Opening URL:" + url)
+        except HTTPError as e:
+            logging.debug("Http Error: ", e.code, url)
+        except URLError as e:
+            logging.debug("URL Error:", e.reason, url)        
         
-        response = urllib.request.urlopen(request)
-        the_page = response.read()
-        http_headers = response.info()
+        return the_page
+    
+    def login(self, url, loginName, passwd):
+        
+        try:            
+            self.url = url
+            values = {
+                       'a':'a',
+                       'logFrmFlag':'Y',
+                       'frmUserName' : loginName,
+                       'frmPassword' : passwd }
+    
+            data = urllib.parse.urlencode(values).encode('utf-8')           
+            req = urllib.request.Request(url, data, method='POST')
+            response = self.opener.open(req)
+            the_page = response.read().decode('utf-8')
 
+        except HTTPError as e:
+            logging.debug("Http Error: ", e.code, url)
+        except URLError as e:
+            logging.debug("URL Error:", e.reason, url)
         return the_page
                 
         
-
-
-def remove_accents(input_str):
-    nkfd_form = unicodedata.normalize('NFKD', unicode(input_str))
-    return u"".join([c for c in nkfd_form if not unicodedata.combining(c)]) 
+#def remove_accents(input_str):
+    
+    #nkfd_form = unicodedata.normalize('NFKD', unicode(input_str))
+    #return u"".join([c for c in nkfd_form if not unicodedata.combining(c)]) 
 
         
 if __name__ == '__main__':
@@ -238,15 +182,19 @@ if __name__ == '__main__':
     #prices = BricklinkFileReader(filename)
     #print prices.readAllItems() 
     
+    logging.basicConfig(level=logging.DEBUG)
+    logging.info('Started')
+    
     br = BricklinkWebReader("Geekly", "codybricks")
     
     br.readitemfromurl('P', '3001', '80')
+    br.readitemfromurl('P', '3001', '80')
+    br.readitemfromurl('P', '3001', '80')
     
-    #bfr = BricklinkFileReader("../bricklink.xml")
-    #bfr.readAllItems()
+    
+    #bfr = BricklinkFileReader()
+    #bfr.readItemFromFile("../BrickLink Price Guide - Part 3001 in Dark Green Color.htm")
 
     
-
-    print( "Done!")
-    
+    logging.info('Done!')    
         
