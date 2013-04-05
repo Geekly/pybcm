@@ -8,7 +8,7 @@ Created on Oct 23, 2012
 
 from collections import UserDict
 from bs4 import BeautifulSoup as Soup
-from legoutils import Element
+from legoutils import LegoElement
 #from string import Template
 #from xml.etree import ElementTree as ET 
 
@@ -45,12 +45,13 @@ class WantedDict(UserDict):
             qty = int(node.find('qty').string)
             
             
-            element = Element( itemid, colorid, itemname, itemtypeid, itemtypename, colorname, qty)
+            element = LegoElement( itemid, colorid, itemname, itemtypeid, itemtypename, colorname, qty)
             
             #dictvalue = { 'itemid':itemid, 'itemname':itemname, 'itemtypeid':itemtypeid, 'itemtypename':itemtypename, 'colorid':colorid, 'colorname':colorname, 'qty':qty, 'condition':'N'}
             #self.data[itemid, colorid] = dictvalue #the key is a tuple of the itemid and the color id
             self[element.id] = element
- 
+    def getnumwanted(self):
+        return len(self)        
     
     def getwantedqty(self, elementid):
         return self[elementid].wantedqty 

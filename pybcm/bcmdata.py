@@ -4,8 +4,10 @@ Created on Oct 30, 2012
 @author: khooks
 '''
 from collections import UserDict
-from legoutils import Element
+from legoutils import LegoElement
 from vendors import VendorMap
+import numpy as np
+import logging
 
 class Stock(object):
     def __init__(self, quantity, price):
@@ -35,74 +37,122 @@ class BCMElement(object):
 
 class BCMData(UserDict):
     ''' combines the wanteddict with the bricklink data in an easily manipulable object
-    '''
     
-    def __init__(self):
+    really want a dictionary that allows access via data[elementid, vendorid] = [price, qty]
+    
+    '''
+    vendormap = VendorMap()
+    def __init__(self, bricklink, wanteddict):
         UserDict.__init__(self)
-        self.data = dict()           #dictionary of elements (see BCMElement) keyed on elementid#  
-        #self.wanted = dict()
-        self.vendormap = VendorMap()      #replace this with a class.... somehow
-        #self.averageprices = dict()  #self.averageprices[elementid] = { avgprice, numsellers }
-        
-        self.headers = list()
-        #self.vendorlist = list()
-        #self.elementlist = list() replace with the .data
-        
-        self.vendorcountsitems = dict()
-        
-        #self.width = 0
-        #self.height = 0
-        #self.cullthreshold = 2
-        #self.expensivevendor = 1.5 #get rid of vendors priced at this factor above average
-        #self.avgpricesinitialized = False
+        self.wanted = dict()
+        self.vendors = list()  #this is a working list.  We'll cull this from time to time and rebuild it if neccessary
+        self.elements = list()
+        self.pricearray = None
+        self.stockarray = None
+        self.buildfrombricklink(bricklink, wanteddict)
         self.initialized = False
+    
+    def pricenumpy(self): #returns numpy array of the prices
         
+        '''
+            n, m = num elements, num vendors
+    
+            A = [[item1vendor1price, item1vendor2price, item1vendor3price],
+                [item2vendor1price, item2vendor2price, item2vendor3price],...]
+                
+            A[i,j] = item[i]vendor[j] price    
+        '''
+        n = len(self.elements)
+        m = len(self.vendors)
+        
+        pricearray = np.ndarray(shape = (n, m))
+        
+        for i in range(0, n):
+            for j in range(0, m):
+                keytuple = (self.elements[i], self.vendors[j])
+                if keytuple in self.keys():
+                    pricearray[i,j] = float(self[self.elements[i], self.vendors[j]][1])
+                else:
+                    pricearray[i,j] = 0.0
+        self.pricearray = pricearray
+        
+        return pricearray
+    
+    def stocknumpy(self):    
+        '''
+            B = [[item1vendor1stock, item1vendor2stock, item1vendor3stock],
+                [item2vendor1stock, item2vendor2stock, item2vendor3stock],...]
+                
+            B[i,j] = item[i]vendor[j] stock    
+        '''
+        n = len(self.elements)
+        m = len(self.vendors)
+        stockarray = np.ndarray(shape = (n, m))
+        for i in range(0, n):
+            for j in range(0, m):
+                keytuple = (self.elements[i], self.vendors[j])
+                if keytuple in self.keys():
+                    stockarray[i,j] = float(self[self.elements[i], self.vendors[j]][2])
+                else:
+                    stockarray[i,j] = 0.0
+        self.pricearray = stockarray
+        
+        return stockarray
+    
+    def buildstockdata(self, bricklink):
+        #loop through elements and build A[i,j]
+        pass   
+    
+    def getpriceandqty(self, elementid, vendorid):
+        
+        (qty, price) = self[elementid, vendorid]
+        
+        return (qty, price)
+     
     def buildfrombricklink(self, bricklink, wanteddict): 
         #creates a dictionary keyed to the vendor and an element that contains the qty and price for each vendor/element pair
         #prices.append([vendorid, vendorname, vendorqty, vendorprice])                
-        self.headers.append("Vendor")
+        #self.headers.append("Vendor")
+        logging.info("Building BCM dictionary")
         self.vendormap = bricklink.vendormap
         
-                
+        #create the price array
+        #create the stock array        
         for elementid in bricklink.keys():
             
-            self[elementid] = BCMElement( wanteddict[elementid] )  #make a super element from the elements stored in wanteddict
-            
-            
-               
+            #self[elementid] = BCMElement( wanteddict[elementid] )  #make a super element from the elements stored in wanteddict
+                         
             for vendorinfo in bricklink[elementid]:  #this is a list
-                
+                print(vendorinfo)
                 vendorid = vendorinfo[0]
-                vendorname = vendorinfo[1]
-                vendorqty = vendorinfo[2]
-                vendorprice = vendorinfo[3] 
+                #vendorname = vendorinfo[1]
+                vendorqty = vendorinfo[1]
+                vendorprice = vendorinfo[2] 
                 
-                self.headers.append(vendorname)
+                #self.headers.append(vendorname)
+                self.addtolist(self.vendors, vendorid)
+                self.addtolist(self.elements, elementid)
                 
-                self[elementid].vendorstock[vendorid] = Stock(vendorqty, vendorprice)  
-            
-        self.width = len(self.headers)
-        self.height = (1 + len(self.vendormap) )
+                self[elementid, vendorid] = (vendorqty, vendorprice)  
         
-        #print self.headers
-        for vendorid in self.vendormap.keys():
-            #print vendorid
-            #self.vendorlist.append(vendorid)
+        self.initialized = True    
+        
+    def addtolist(self, alist, value):
+        if value not in alist:
+            alist.append(value)
+        return True
+    
+    def getvendors(self):
+        return self.vendors
+    
+    def getelements(self):
+        return self.elements
             
-            self.vendorcountsitems[vendorid] = 0
-            
-            '''
-            for row in bricklink.vendordata[vendorid]:
-                elementid = row[0] 
-                quantity = row[1]
-                cost = row[2]
-                self[vendorid, elementid] = (quantity, cost)
-                
-                if self.hasminquantity(vendorid, elementid):
-                    #increment the dict entry
-                    self.vendorcountsitems[vendorid] += 1 
-            '''                        
-        self.initialized = True
+    
+    
+    
+    '''                        
+       
     
     def hasminquantity(self, vendorid, elementid ):
         assert vendorid in self.vendormap, "Cannot determine qantity, vendor %r does not exist in vendorlist" % vendorid
@@ -169,7 +219,7 @@ class BCMData(UserDict):
             if (vendorswith >= 1):
                 e.averageprice = sum / vendorswith
                        
-                print( "Element " + str(e.id) + " has an average price of " + str(e.averageprice))
+                print( "LegoElement " + str(e.id) + " has an average price of " + str(e.averageprice))
             
     def vendorcount(self):     
         return len(self.vendormap)
@@ -220,11 +270,11 @@ class BCMData(UserDict):
             csvstring += "\n"
       
         return csvstring
-          
+'''         
 if __name__ == '__main__':
     
     
-    tryelement = Element('3006', '88', '2x4 brick', 'P', 'brick', 'Blue', 100)
+    tryelement = LegoElement('3006', '88', '2x4 brick', 'P', 'brick', 'Blue', 100)
     print( tryelement)
     print( tryelement.itemid)
     test = BCMElement(tryelement)

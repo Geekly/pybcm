@@ -27,7 +27,7 @@ class LegoColor:
 
 
 
-class Element(object):
+class LegoElement(object):
     
     @staticmethod
     def joinelement(itemid, colorid):
@@ -45,10 +45,8 @@ class Element(object):
         self.colorname = str(colorname)
         self.wantedqty = int(wantedqty)
 
-        self.id = itemid + '|' + colorid
-        
-  #number of vendors that have this part above a certain threshold to be defined on assignment
-        
+        self.id = LegoElement.joinelement(itemid, colorid)
+               
     def __str__(self):
         return self.id
               
@@ -57,11 +55,11 @@ if __name__ == "__main__":
     itemid = '35146'
     colorid = '88'
     wantedqty = '123'
-    element = Element.joinelement(itemid, colorid)
+    element = LegoElement.joinelement(itemid, colorid)
     print (element)
-    print (Element.splitelement(element))
+    print (LegoElement.splitelement(element))
     
-    element = Element(itemid, colorid, wantedqty)
+    element = LegoElement(itemid, colorid, wantedqty)
     print (element.id)
     
     print (element.itemid)

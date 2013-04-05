@@ -8,9 +8,9 @@ from bs4 import BeautifulSoup as Soup
 
 class Vendor(object):
     
-    def __init__(self, id, name):
-        self.id = id
-        self.name = name
+    def __init__(self, vendorid='', vendorname=''):
+        self.id = vendorid
+        self.name = vendorname
 
 class VendorMap(UserDict):
     '''
@@ -19,8 +19,7 @@ class VendorMap(UserDict):
     def __init__(self):
         '''
         Constructor
-        '''
-                
+        '''              
         UserDict.__init__(self)
         self.data = dict()
               
@@ -35,17 +34,23 @@ class VendorMap(UserDict):
                 for items in self.data[vendor]:
                 returnstring += str(items) + "\n"'''
                                
-    def addvendor(self, vendorid, vendorname):
-        if vendorid in self.keys():
+    def addvendor(self, vendor):
+        if vendor.id in self.keys():
             return False
         else:
-            self[vendorid] = Vendor(vendorid, vendorname)  
+            self[vendor.id] = vendor.name
             return True      
+    
+    def getnumvendors(self):
+        return len(self)
         
     def getvendorname(self, vendorid):
-        return self[vendorid].name  
-  
-                           
+        if vendorid in self.keys():
+            return self[vendorid] 
+        else:
+            pass 
+    
+#not sure this works                           
     def read(self, filename=None):
         assert filename != None, "price List filename required"
         print( "Building vendor map from file: " + filename)
@@ -60,11 +65,11 @@ class VendorMap(UserDict):
             vendorid = vendor.find('vendorid').string
             vendorname = vendor.find('vendorname').string
             
-            self[vendorid] = Vendor(vendorid, vendorname)
+            self[vendorid] = vendorname
          
         # for now, just save and process the prices structure.  They contain the same data.
         return
-    
+#not sure this works    
     def toXML(self):
         
         xml_string = ''
@@ -72,7 +77,7 @@ class VendorMap(UserDict):
         for vendorid in vendorkeys:
             xml_string += '<Vendor>\n'
             xml_string += ' <VendorID>{}</VendorID>\n'.format(vendorid)
-            xml_string += ' <VendorName>{}</VendorName>\n'.format(self[vendorid].name)
+            xml_string += ' <VendorName>{}</VendorName>\n'.format(self[vendorid])
             xml_string += '</Vendor>\n'
         return xml_string
     

@@ -5,10 +5,11 @@ Created on Jul 26, 2012
 '''
 
 from wanted import WantedDict
-from legoutils import Element
+from legoutils import LegoElement
 from bricklinkdata import BricklinkData
 from legoutils import LegoColor
 from blreader import *
+import io
 #from vendors import Vendors
 from bcmdata import BCMData
 
@@ -20,7 +21,7 @@ if __name__ == '__main__':
     logging.basicConfig(level=logging.DEBUG)
     wantedlistfilename = '../Molding Machine.bsx'
     
-    reloadpricesfromweb = True  #set this to true if you want to update prices from the web and rewrite pricefilename
+    reloadpricesfromweb = False  #set this to true if you want to update prices from the web and rewrite pricefilename
     #make sure to run this once every time that the wanted list changes
                                    
     
@@ -52,17 +53,39 @@ if __name__ == '__main__':
 
     bricklink.dataquality()
     
+    #for element in bricklink.keys():
+        
+    #for key in bricklink.keys():
+        #print (key)
+        
+    data = BCMData(bricklink, wanteddict)
+    for key in data.keys():
+        print(key)
+        
+    print("Getting price & qty")
+    print(data.getpriceandqty('3460|86', '235082')) 
+      
+    
+    print(data.pricenumpy())
+    
+    print(data.getelements())
+    print(data.getvendors())
+    #data.buildfrombricklink(bricklink, wanteddict)
+    #data.dataquality()
+    #f = open('test.out', 'w')
+    #f.write(bricklink.toXML())
+    
 
     #f = open(pricefilename, 'w')
     #f.write( bricklink.toXML()) 
         
-    reporter = BCMData()
-    reporter.buildfrombricklink(bricklink, wanteddict)
+    #reporter = BCMData()
+    #reporter.buildfrombricklink(bricklink, wanteddict)
     #print reporter.toCSV()
-    out = open("brick.csv", 'w')
+    #out = open("brick.csv", 'w')
     
     
-    reporter.describevendors()
+    #reporter.describevendors()
     
     #reporter.cullvendors()
     #out.write(reporter.toCSV())

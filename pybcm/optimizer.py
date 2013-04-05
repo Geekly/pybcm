@@ -6,6 +6,7 @@ Created on Oct 23, 2012
 
 from shoppinglist import ShoppingList
 from bcmdata import BCMData
+import numpy as np
 
 class Optimizer(object):   
     
@@ -37,4 +38,13 @@ class Optimizer(object):
         
         return shoppinglist
         
-   
+if __name__ == "__main__":
+       
+    A = np.array([[.12, .25, .03], [.14, .30, .04], [.11, .45, .035]])
+    x = np.array([[0, 65, 15],[0, 15, 0],[25,0,0]])
+    print(A)
+    print(x)
+    C = np.multiply(A,x)
+    print(C)
+    print(np.sum(C))
+    
