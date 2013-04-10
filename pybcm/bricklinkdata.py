@@ -14,7 +14,7 @@ import logging
 class BricklinkData(UserDict):
     '''
     data is a dictionary of the format:
-    [itemID, storeID, quantity, price]
+    [storeID, quantity, price]
     data[elementid] = { [vendor1id, vendor1qty, vendor1price],
                             [vendor2id, vendor2qty, vendor2price],
                             ... }
@@ -31,7 +31,7 @@ class BricklinkData(UserDict):
         
         self.bricklink_initialized = False
         self.vendor_initialized = False
-        
+        self.averageprices = dict()
         self.webreader = None
         
     def __str__(self):
@@ -41,6 +41,8 @@ class BricklinkData(UserDict):
     def readpricesfromweb(self, wanted):
     #    Build a dictionary of price info
         self.webreader = BricklinkWebReader("Geekly", "codybricks")
+        numitems = len(wanted)
+        logging.info("Loading " + str(numitems) + " items from the web")
         #self.data = dict() # a dictionary with keys itemid, and color.  each entry contains a list of lists
         for elementid in wanted.keys():
             #grab the needed variables for constructing the URL
@@ -49,23 +51,17 @@ class BricklinkData(UserDict):
             itemColorID = wanted[elementid].colorid
             #elementID = lego.joinelement(itemID, itemColorID)
             pricelist = self.webreader.readitemfromurl( itemtypeID, itemID, itemColorID, self.vendormap)
-            self[elementid] = (pricelist[1], pricelist[2], pricelist[3])   #get the item page, parse it, and get back a list of (itemid, vendorid, vendorqty, vendorprice) tuples
+            self[elementid] = pricelist   #get the item page, parse it, and get back a list of (itemid<-this is vendorid, vendorqty, vendorprice) tuples
             
         #self.buildvendormap()
         #self.buildvendordata()
         
         self.bricklink_initialized = True
-                    
-    def dataquality(self):
-        assert self.bricklink_initialized == True, "bricklink not initialized, cannot report dataquality"
-        
-        print( "Price list includes:")
-        print( str( len(self.keys()) ) + " Total Items")
-        print( str( len(self.vendormap.keys()) ) + " Total Vendors")
-            
+               
+           
     def read(self, filename=None):
         assert filename != None, "price List filename required"
-        print ("Building bricklink data from file: " + filename)
+        logging.info("Building bricklink data from file: " + filename)
         self.data = dict()  #clear any existing data
         
         self.soup = Soup(open(filename).read(), "lxml")
@@ -91,11 +87,18 @@ class BricklinkData(UserDict):
                 self[elementid].append(listitem) 
         
                 vendorname = vendor.find('vendorname').string
-                self.vendormap.addvendor(Vendor(vendorid=vendorid, vendorname=vendorname))
-
+                self.vendormap.addvendor( Vendor(vendorid=vendorid, vendorname=vendorname) )
+                
         
         self.bricklink_initialized = True
-    
+        
+
+    def dataquality(self):
+        assert self.bricklink_initialized == True, "bricklink not initialized, cannot report dataquality"
+        
+        print( "Price list includes:")
+        print( str( len(self.keys()) ) + " Total Items")
+        print( str( len(self.vendormap.keys()) ) + " Total Vendors")
     
     '''def getpriceandqty(self, elementid, vendorid):  #delete this   
         
@@ -113,6 +116,10 @@ class BricklinkData(UserDict):
         pass
     '''
     
+    def createshoppinglists(self, bcmdata):
+        #the shopping list will be parsed and used to place orders.  Non-zero quantities are eliminated
+        #remove columns with zero values from optimizedresult
+        pass
           
     def toXML(self):
         
@@ -125,13 +132,13 @@ class BricklinkData(UserDict):
             xml_string += ' <Itemid>{}</ItemID>\n'.format(itemid)
             xml_string += ' <ColorID>{}</ColorID>\n'.format(color)
             for vendor in self.data[elementid]:
-                vendorid = vendor[1]
+                vendorid = vendor[0]
                 vendorname = self.vendormap[vendorid]
                 xml_string += '  <Vendor>\n'
-                xml_string += '   <VendorID>{}</VendorID>\n'.format(vendor[1])
+                xml_string += '   <VendorID>{}</VendorID>\n'.format(vendor[0])
                 xml_string += '   <VendorName>{}</VendorName>\n'.format(vendorname)
-                xml_string += '   <VendorQty>{}</VendorQty>\n'.format(vendor[2])
-                xml_string += '   <VendorPrice>{}</VendorPrice>\n'.format(vendor[3])
+                xml_string += '   <VendorQty>{}</VendorQty>\n'.format(vendor[1])
+                xml_string += '   <VendorPrice>{}</VendorPrice>\n'.format(vendor[2])
                 xml_string += '  </Vendor>\n'
                         
             xml_string += '</Item>\n'    

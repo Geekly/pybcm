@@ -5,13 +5,22 @@ Created on Oct 23, 2012
 '''
 from collections import UserDict
 from bs4 import BeautifulSoup as Soup
+import logging
 
 class Vendor(object):
     
     def __init__(self, vendorid='', vendorname=''):
         self.id = vendorid
         self.name = vendorname
-
+        
+    def toXML(self):
+        xmlstring = ''
+        xmlstring += "<Vendor>\n"
+        xmlstring += "<VendorID>" + str(self.id) + "</VendorID>\n"
+        xmlstring += "<VendorName>" + str(self.name) + "</VendorName>\n"     
+        xmlstring += "</Vendor>\n"
+        return xmlstring
+    
 class VendorMap(UserDict):
     '''
     classdocs
@@ -38,6 +47,7 @@ class VendorMap(UserDict):
         if vendor.id in self.keys():
             return False
         else:
+            #logging.debug("Adding vendor: " + vendor.name)
             self[vendor.id] = vendor.name
             return True      
     
@@ -75,10 +85,14 @@ class VendorMap(UserDict):
         xml_string = ''
         vendorkeys = self.keys()
         for vendorid in vendorkeys:
+            vendorname = self[vendorid]
+            xml_string += Vendor(vendorid, vendorname).toXML()
+            '''
             xml_string += '<Vendor>\n'
             xml_string += ' <VendorID>{}</VendorID>\n'.format(vendorid)
             xml_string += ' <VendorName>{}</VendorName>\n'.format(self[vendorid])
             xml_string += '</Vendor>\n'
+            '''
         return xml_string
     
 #test code goes here    

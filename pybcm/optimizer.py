@@ -7,36 +7,76 @@ Created on Oct 23, 2012
 from shoppinglist import ShoppingList
 from bcmdata import BCMData
 import numpy as np
+import logging
 
 class Optimizer(object):   
-    
-    
+    ''' 
+    BCMData reference
+        self.data = dict()
+        self.wanted = dict()
+        self.vendors = list()  #this is a working list.  We'll cull this from time to time and rebuild it if neccessary
+        self.elementlist = list()
+        self.pricearray = None #a numpy array
+        self.stockarray = None #a numpy array
+        self.wantedarray = None #a numpy array
+    '''
     def __init__(self, mode='cheapestpart'):
         
         self.optimizemethod = mode
         self.maxvendorsperitem = 1
+        self.result = None
+        self.vendorweight = 3.0  #cost to add additional vendors, approximating average per/order shipping & handling cost
         
-        
-    def findcheapestparts(self, wanteddata, bricklinkdata):
-        
-        shoppinglist = ShoppingList()
-        
-        for itemid, colorid in wanteddata.keys():
-            
-            wantedqty = wanteddata[itemid, colorid]['qty']
-            itemprices = bricklinkdata[itemid, colorid]  #this is a list of four items [vendorid, vendorname, vendorqty, vendorcost]
-            sortedbyprice = sorted(itemprices, key=lambda tup: tup[3])
-            
-            count = 0
-            for itemtuple in sortedbyprice:                
-                if itemtuple[2] >= wantedqty:
-                    shoppinglist.additem(itemid, colorid, wantedqty, itemtuple[0], itemtuple[1], itemtuple[2], itemtuple[3])
-                    count += 1
-                    if count >= self.maxvendorsperitem: 
-                        break
-            
-        
-        return shoppinglist
+    def cost(self, pricearray, resultarray):
+        #print(resultarray)
+        #print(pricearray)       
+        product = resultarray * pricearray  #elementwise multiplication
+        #count nonzero columns
+        nvendors = np.count_nonzero( np.any( product > 0, axis=0 ) )
+        #print(product)
+        cost = np.sum(product)#sum all the elments
+        ordercost = nvendors * 3.0
+        return (cost, ordercost, nvendors)
+        #print(cost)
+                
+    def simplesearch(self, bcmdata):
+        #for each item in the wanted list
+        #find the cheapest vendor that contains enough stock to satisfy the wanted quantity
+        #return a numpy array n x m containing the quantity purchased from that vendor
+        #    n - number of elementlist
+        #    m - number of vendors        
+        n = len(bcmdata.elementlist)
+        m = len(bcmdata.vendorlist)
+        result = np.zeros(shape=(n, m), dtype=np.int)
+               
+        #indices = bcmdata.wantedarray
+        for eindex, wantedqty in np.ndenumerate(bcmdata.wantedarray):  #list of elementlist wanted
+            elementindex = eindex[0] #index is a tuple and the first element is the element index.  this is the universal 
+            #print(elementindex)
+            lowestprice = (100, 0) #price, vendorindex
+            #get a list of vendors that meet the minimum qty
+            #find the cheapest
+            #in result[][], set the purchase qty for that vendor equal to the wantedqty
+            vendors = bcmdata.stockarray[elementindex] #this is just a list
+            for vendorindex, vendorstock in enumerate(vendors): #this is an integer
+                if ( vendorstock >= wantedqty ):
+                    price = bcmdata.pricearray[elementindex, vendorindex]
+                    if price <= lowestprice[0]:
+                        lowestprice = (price, vendorindex)
+                #print("VendorID, Index", bcmdata.vendorlist[vendorindex], vendorindex)            
+            result[elementindex, lowestprice[1]] = wantedqty
+            #print(vendors)
+            #print("Element: " + elementindex + " value: " + element )
+            #wantedqty = element[0]
+            #print("wanted: ", wantedqty)
+            #find the lowest price vendor that satisfies the wanted qty        
+        self.result = result
+        #trim the result array?
+        #print(str(result))
+        (cost, ordercost, nvendors) = self.cost(bcmdata.pricearray, result)
+         
+        logging.info("Solution found.  Total cost is $" + str(cost) + " using " + str(nvendors) + " vendors") 
+        return result
         
 if __name__ == "__main__":
        

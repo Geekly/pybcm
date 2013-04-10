@@ -9,6 +9,7 @@ from legoutils import LegoElement
 from bricklinkdata import BricklinkData
 from legoutils import LegoColor
 from blreader import *
+from optimizer import *
 import io
 #from vendors import Vendors
 from bcmdata import BCMData
@@ -19,57 +20,75 @@ if __name__ == '__main__':
     
     
     logging.basicConfig(level=logging.DEBUG)
-    wantedlistfilename = '../Molding Machine.bsx'
+    #wantedlistfilename = '../Molding Machine.bsx'
+    wantedlistfilename = '../Inventory for 4000001-1 short.bsx'
+    
     
     reloadpricesfromweb = False  #set this to true if you want to update prices from the web and rewrite pricefilename
     #make sure to run this once every time that the wanted list changes
                                    
     
-    pricefilename = '../bricklink.xml'
-    vendorpricelist = '../vendorprices.xml'
-    outfilename = 'PriceGuidePy.mat'
-    USOnly=1
-    anycolorID = LegoColor.anycolorID
-    makeplots = 0;
+    pricefilename = '../400000-1 Bricklink.xml'
+    #vendorpricelist = '../vendorprices.xml'
+    #outfilename = 'PriceGuidePy.mat'
+    #USOnly=1
+    #anycolorID = LegoColor.anycolorID
+    #makeplots = 0;
   
 
     wanteddict = WantedDict()
     bricklink = BricklinkData()
     
  
-    print( "Reading wanted list", wantedlistfilename)
+    logging.info( "Reading wanted list: " + wantedlistfilename)
     
     wanteddict.read(wantedlistfilename)
                    
-    print( "Loading Prices")
+    
     if reloadpricesfromweb == True:
-        bricklink.readpricesfromweb( wanteddict.data )
+        logging.info("Reading prices from web")
+        bricklink.readpricesfromweb( wanteddict )
+        logging.info("Saving XML file")
         f = open(pricefilename, 'w')
         f.write( bricklink.toXML() ) 
     else: 
+        logging.info("Reading prices from file")
         f = open(pricefilename, 'r')
         bricklink.read(pricefilename)
         f.close()
 
-    bricklink.dataquality()
+    bricklink.dataquality()    
+    #print(bricklink.toXML())
+   
     
-    #for element in bricklink.keys():
-        
-    #for key in bricklink.keys():
-        #print (key)
-        
     data = BCMData(bricklink, wanteddict)
-    for key in data.keys():
-        print(key)
-        
-    print("Getting price & qty")
-    print(data.getpriceandqty('3460|86', '235082')) 
-      
+    #data.calculateavgprices()
+    #print(data.vendormap.toXML())
+    #print(data.avgprices())
+    data.cullvendors()
+    #print(data.stockarray)
+    #print(data.avgprices())
+    #print(data.vendormap.toXML())
+    opt = Optimizer()
+    result = opt.simplesearch(data)
+    #print(result)
+    data.result = result
+    print( data.calculateavgprices())
+    #print( data.describevendors() )
+    print( data.countitemspervendor())
     
-    print(data.pricenumpy())
+    print(data.cullbyaverageprice())
+    print(data.elementweights())
     
-    print(data.getelements())
-    print(data.getvendors())
+    #print( data.maparray2vendor(data.stockarray) )
+    #print( data.maparray2vendor(data.pricearray ))
+    #for tuple in data.data.keys():
+    #    print( tuple, data.data[tuple] )
+    result = opt.simplesearch(data)
+    shoppinglist = data.shoppinglist()
+    #print(shoppinglist.XMLforBricklink())
+    #print(shoppinglist)
+    #print(data.vendors)   
     #data.buildfrombricklink(bricklink, wanteddict)
     #data.dataquality()
     #f = open('test.out', 'w')

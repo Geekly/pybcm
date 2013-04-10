@@ -51,19 +51,21 @@ class BricklinkReader(object):
             #print( linktext)
             storematch = re.search(suLink, linktext)
             if storematch:
-                storeID = storematch.group(1)
-                itemID = storematch.group(2)
+                storeID = str(storematch.group(1))
+                itemID = storematch.group(2)  #we don't pay attention to this since it's defined upstream.  we could check to see if they're the same
                 storenamematch = re.search(suStore, linktext)
                 storename = storenamematch.group(1)
                 #print("Storename: " + storename)
-                BricklinkReader.vendormap.addvendor( Vendor(storeID, storename) )
+                
             #td[1] contains the Quantity
-                quantity = td[1].text
+                quantity = int(td[1].text)
+                if quantity > 0:  #don't bother adding the vendor if it doesn't have any quantity for this item
             #td[2] is empty
             #td[3] contains the price
-                pricestring = td[3].text
-                price = re.sub(suPrice, '', pricestring)
-                prices.append([itemID, storeID, quantity, price])
+                    BricklinkReader.vendormap.addvendor( Vendor(storeID, storename) )
+                    pricestring = td[3].text
+                    price = float(re.sub(suPrice, '', pricestring))
+                    prices.append([storeID, quantity, price])
                 #print([itemID, storeID, quantity, price])
 
         return prices  
