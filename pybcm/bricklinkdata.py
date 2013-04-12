@@ -102,27 +102,6 @@ class BricklinkData(UserDict):
         print( str( len(self.keys()) ) + " Total Items")
         print( str( len(self.vendormap.keys()) ) + " Total Vendors")
     
-    '''def getpriceandqty(self, elementid, vendorid):  #delete this   
-        
-        if elementid in self:
-            element = self[elementid]
-            #search for the vendor being asked for
-            for vendor in element:
-                vendorid = vendor[1]
-                if True:#id == vendorid:
-                    qty = vendor[2]
-                    price = vendor[3]
-                    #logging.DEBUG("vendorid: " + id)
-                    return [qty, price]
-                
-        pass
-    '''
-    
-    def createshoppinglists(self, bcmdata):
-        #the shopping list will be parsed and used to place orders.  Non-zero quantities are eliminated
-        #remove columns with zero values from optimizedresult
-        pass
-          
     def toXML(self):
         
         assert self.bricklink_initialized == True, "bricklink not initialized, cannot convert to XML"

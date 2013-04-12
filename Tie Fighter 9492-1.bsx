@@ -1,0 +1,1485 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE BrickStoreXML>
+<BrickStoreXML>
+ <Inventory>
+  <Item>
+   <ItemID>sw374</ItemID>
+   <ItemTypeID>M</ItemTypeID>
+   <ColorID>0</ColorID>
+   <ItemName>Death Star Trooper (9492)</ItemName>
+   <ItemTypeName>Minifig</ItemTypeName>
+   <ColorName>(Not Applicable)</ColorName>
+   <CategoryID>65</CategoryID>
+   <CategoryName>Star Wars</CategoryName>
+   <Status>I</Status>
+   <Qty>1</Qty>
+   <Price>0.000</Price>
+   <Condition>N</Condition>
+   <OrigQty>0</OrigQty>
+  </Item>
+  <Item>
+   <ItemID>sw376</ItemID>
+   <ItemTypeID>M</ItemTypeID>
+   <ColorID>0</ColorID>
+   <ItemName>Imperial Officer - Black Belt (9492)</ItemName>
+   <ItemTypeName>Minifig</ItemTypeName>
+   <ColorName>(Not Applicable)</ColorName>
+   <CategoryID>65</CategoryID>
+   <CategoryName>Star Wars</CategoryName>
+   <Status>I</Status>
+   <Qty>1</Qty>
+   <Price>0.000</Price>
+   <Condition>N</Condition>
+   <OrigQty>0</OrigQty>
+  </Item>
+  <Item>
+   <ItemID>sw375</ItemID>
+   <ItemTypeID>M</ItemTypeID>
+   <ColorID>0</ColorID>
+   <ItemName>R5-J2 (9492)</ItemName>
+   <ItemTypeName>Minifig</ItemTypeName>
+   <ColorName>(Not Applicable)</ColorName>
+   <CategoryID>65</CategoryID>
+   <CategoryName>Star Wars</CategoryName>
+   <Status>I</Status>
+   <Qty>1</Qty>
+   <Price>0.000</Price>
+   <Condition>N</Condition>
+   <OrigQty>0</OrigQty>
+  </Item>
+  <Item>
+   <ItemID>sw268a</ItemID>
+   <ItemTypeID>M</ItemTypeID>
+   <ColorID>0</ColorID>
+   <ItemName>TIE Fighter Pilot (Patterned Head)</ItemName>
+   <ItemTypeName>Minifig</ItemTypeName>
+   <ColorName>(Not Applicable)</ColorName>
+   <CategoryID>65</CategoryID>
+   <CategoryName>Star Wars</CategoryName>
+   <Status>I</Status>
+   <Qty>1</Qty>
+   <Price>0.000</Price>
+   <Condition>N</Condition>
+   <OrigQty>0</OrigQty>
+  </Item>
+  <Item>
+   <ItemID>3022</ItemID>
+   <ItemTypeID>P</ItemTypeID>
+   <ColorID>1</ColorID>
+   <ItemName>Plate 2 x 2</ItemName>
+   <ItemTypeName>Part</ItemTypeName>
+   <ColorName>White</ColorName>
+   <CategoryID>26</CategoryID>
+   <CategoryName>Plate</CategoryName>
+   <Status>I</Status>
+   <Qty>6</Qty>
+   <Price>0.000</Price>
+   <Condition>N</Condition>
+   <OrigQty>0</OrigQty>
+  </Item>
+  <Item>
+   <ItemID>4032</ItemID>
+   <ItemTypeID>P</ItemTypeID>
+   <ColorID>1</ColorID>
+   <ItemName>Plate, Round 2 x 2 with Axle Hole</ItemName>
+   <ItemTypeName>Part</ItemTypeName>
+   <ColorName>White</ColorName>
+   <CategoryID>28</CategoryID>
+   <CategoryName>Plate, Round</CategoryName>
+   <Status>I</Status>
+   <Qty>1</Qty>
+   <Price>0.000</Price>
+   <Condition>N</Condition>
+   <OrigQty>0</OrigQty>
+  </Item>
+  <Item>
+   <ItemID>3039</ItemID>
+   <ItemTypeID>P</ItemTypeID>
+   <ColorID>2</ColorID>
+   <ItemName>Slope 45 2 x 2</ItemName>
+   <ItemTypeName>Part</ItemTypeName>
+   <ColorName>Tan</ColorName>
+   <CategoryID>31</CategoryID>
+   <CategoryName>Slope</CategoryName>
+   <Status>I</Status>
+   <Qty>1</Qty>
+   <Price>0.000</Price>
+   <Condition>N</Condition>
+   <OrigQty>0</OrigQty>
+  </Item>
+  <Item>
+   <ItemID>32000</ItemID>
+   <ItemTypeID>P</ItemTypeID>
+   <ColorID>5</ColorID>
+   <ItemName>Technic, Brick 1 x 2 with Holes</ItemName>
+   <ItemTypeName>Part</ItemTypeName>
+   <ColorName>Red</ColorName>
+   <CategoryID>135</CategoryID>
+   <CategoryName>Technic, Brick</CategoryName>
+   <Status>I</Status>
+   <Qty>4</Qty>
+   <Price>0.000</Price>
+   <Condition>N</Condition>
+   <OrigQty>0</OrigQty>
+  </Item>
+  <Item>
+   <ItemID>43093</ItemID>
+   <ItemTypeID>P</ItemTypeID>
+   <ColorID>7</ColorID>
+   <ItemName>Technic, Axle Pin with Friction Ridges Lengthwise</ItemName>
+   <ItemTypeName>Part</ItemTypeName>
+   <ColorName>Blue</ColorName>
+   <CategoryID>134</CategoryID>
+   <CategoryName>Technic, Axle</CategoryName>
+   <Status>I</Status>
+   <Qty>1</Qty>
+   <Price>0.000</Price>
+   <Condition>N</Condition>
+   <OrigQty>0</OrigQty>
+  </Item>
+  <Item>
+   <ItemID>6558</ItemID>
+   <ItemTypeID>P</ItemTypeID>
+   <ColorID>7</ColorID>
+   <ItemName>Technic, Pin Long with Friction Ridges Lengthwise</ItemName>
+   <ItemTypeName>Part</ItemTypeName>
+   <ColorName>Blue</ColorName>
+   <CategoryID>139</CategoryID>
+   <CategoryName>Technic, Pin</CategoryName>
+   <Status>I</Status>
+   <Qty>4</Qty>
+   <Price>0.000</Price>
+   <Condition>N</Condition>
+   <OrigQty>0</OrigQty>
+  </Item>
+  <Item>
+   <ItemID>6541</ItemID>
+   <ItemTypeID>P</ItemTypeID>
+   <ColorID>3</ColorID>
+   <ItemName>Technic, Brick 1 x 1 with Hole</ItemName>
+   <ItemTypeName>Part</ItemTypeName>
+   <ColorName>Yellow</ColorName>
+   <CategoryID>135</CategoryID>
+   <CategoryName>Technic, Brick</CategoryName>
+   <Status>I</Status>
+   <Qty>6</Qty>
+   <Price>0.000</Price>
+   <Condition>N</Condition>
+   <OrigQty>0</OrigQty>
+  </Item>
+  <Item>
+   <ItemID>3023</ItemID>
+   <ItemTypeID>P</ItemTypeID>
+   <ColorID>3</ColorID>
+   <ItemName>Plate 1 x 2</ItemName>
+   <ItemTypeName>Part</ItemTypeName>
+   <ColorName>Yellow</ColorName>
+   <CategoryID>26</CategoryID>
+   <CategoryName>Plate</CategoryName>
+   <Status>I</Status>
+   <Qty>2</Qty>
+   <Price>0.000</Price>
+   <Condition>N</Condition>
+   <OrigQty>0</OrigQty>
+  </Item>
+  <Item>
+   <ItemID>54384</ItemID>
+   <ItemTypeID>P</ItemTypeID>
+   <ColorID>11</ColorID>
+   <ItemName>Wedge, Plate 6 x 3 Left</ItemName>
+   <ItemTypeName>Part</ItemTypeName>
+   <ColorName>Black</ColorName>
+   <CategoryID>583</CategoryID>
+   <CategoryName>Wedge, Plate</CategoryName>
+   <Status>I</Status>
+   <Qty>12</Qty>
+   <Price>0.000</Price>
+   <Condition>N</Condition>
+   <OrigQty>0</OrigQty>
+  </Item>
+  <Item>
+   <ItemID>54383</ItemID>
+   <ItemTypeID>P</ItemTypeID>
+   <ColorID>11</ColorID>
+   <ItemName>Wedge, Plate 6 x 3 Right</ItemName>
+   <ItemTypeName>Part</ItemTypeName>
+   <ColorName>Black</ColorName>
+   <CategoryID>583</CategoryID>
+   <CategoryName>Wedge, Plate</CategoryName>
+   <Status>I</Status>
+   <Qty>12</Qty>
+   <Price>0.000</Price>
+   <Condition>N</Condition>
+   <OrigQty>0</OrigQty>
+  </Item>
+  <Item>
+   <ItemID>51739</ItemID>
+   <ItemTypeID>P</ItemTypeID>
+   <ColorID>11</ColorID>
+   <ItemName>Wedge, Plate 2 x 4</ItemName>
+   <ItemTypeName>Part</ItemTypeName>
+   <ColorName>Black</ColorName>
+   <CategoryID>583</CategoryID>
+   <CategoryName>Wedge, Plate</CategoryName>
+   <Status>I</Status>
+   <Qty>4</Qty>
+   <Price>0.000</Price>
+   <Condition>N</Condition>
+   <OrigQty>0</OrigQty>
+  </Item>
+  <Item>
+   <ItemID>3022</ItemID>
+   <ItemTypeID>P</ItemTypeID>
+   <ColorID>11</ColorID>
+   <ItemName>Plate 2 x 2</ItemName>
+   <ItemTypeName>Part</ItemTypeName>
+   <ColorName>Black</ColorName>
+   <CategoryID>26</CategoryID>
+   <CategoryName>Plate</CategoryName>
+   <Status>I</Status>
+   <Qty>12</Qty>
+   <Price>0.000</Price>
+   <Condition>N</Condition>
+   <OrigQty>0</OrigQty>
+  </Item>
+  <Item>
+   <ItemID>3710</ItemID>
+   <ItemTypeID>P</ItemTypeID>
+   <ColorID>11</ColorID>
+   <ItemName>Plate 1 x 4</ItemName>
+   <ItemTypeName>Part</ItemTypeName>
+   <ColorName>Black</ColorName>
+   <CategoryID>26</CategoryID>
+   <CategoryName>Plate</CategoryName>
+   <Status>I</Status>
+   <Qty>4</Qty>
+   <Price>0.000</Price>
+   <Condition>N</Condition>
+   <OrigQty>0</OrigQty>
+  </Item>
+  <Item>
+   <ItemID>3460</ItemID>
+   <ItemTypeID>P</ItemTypeID>
+   <ColorID>11</ColorID>
+   <ItemName>Plate 1 x 8</ItemName>
+   <ItemTypeName>Part</ItemTypeName>
+   <ColorName>Black</ColorName>
+   <CategoryID>26</CategoryID>
+   <CategoryName>Plate</CategoryName>
+   <Status>I</Status>
+   <Qty>4</Qty>
+   <Price>0.000</Price>
+   <Condition>N</Condition>
+   <OrigQty>0</OrigQty>
+  </Item>
+  <Item>
+   <ItemID>87609</ItemID>
+   <ItemTypeID>P</ItemTypeID>
+   <ColorID>11</ColorID>
+   <ItemName>Plate, Modified 2 x 6 x 2/3 with 4 Studs on Side</ItemName>
+   <ItemTypeName>Part</ItemTypeName>
+   <ColorName>Black</ColorName>
+   <CategoryID>27</CategoryID>
+   <CategoryName>Plate, Modified</CategoryName>
+   <Status>I</Status>
+   <Qty>8</Qty>
+   <Price>0.000</Price>
+   <Condition>N</Condition>
+   <OrigQty>0</OrigQty>
+  </Item>
+  <Item>
+   <ItemID>3034</ItemID>
+   <ItemTypeID>P</ItemTypeID>
+   <ColorID>11</ColorID>
+   <ItemName>Plate 2 x 8</ItemName>
+   <ItemTypeName>Part</ItemTypeName>
+   <ColorName>Black</ColorName>
+   <CategoryID>26</CategoryID>
+   <CategoryName>Plate</CategoryName>
+   <Status>I</Status>
+   <Qty>8</Qty>
+   <Price>0.000</Price>
+   <Condition>N</Condition>
+   <OrigQty>0</OrigQty>
+  </Item>
+  <Item>
+   <ItemID>60479</ItemID>
+   <ItemTypeID>P</ItemTypeID>
+   <ColorID>11</ColorID>
+   <ItemName>Plate 1 x 12</ItemName>
+   <ItemTypeName>Part</ItemTypeName>
+   <ColorName>Black</ColorName>
+   <CategoryID>26</CategoryID>
+   <CategoryName>Plate</CategoryName>
+   <Status>I</Status>
+   <Qty>4</Qty>
+   <Price>0.000</Price>
+   <Condition>N</Condition>
+   <OrigQty>0</OrigQty>
+  </Item>
+  <Item>
+   <ItemID>2445</ItemID>
+   <ItemTypeID>P</ItemTypeID>
+   <ColorID>11</ColorID>
+   <ItemName>Plate 2 x 12</ItemName>
+   <ItemTypeName>Part</ItemTypeName>
+   <ColorName>Black</ColorName>
+   <CategoryID>26</CategoryID>
+   <CategoryName>Plate</CategoryName>
+   <Status>I</Status>
+   <Qty>4</Qty>
+   <Price>0.000</Price>
+   <Condition>N</Condition>
+   <OrigQty>0</OrigQty>
+  </Item>
+  <Item>
+   <ItemID>6178</ItemID>
+   <ItemTypeID>P</ItemTypeID>
+   <ColorID>11</ColorID>
+   <ItemName>Tile, Modified 6 x 12 with Studs on Edges</ItemName>
+   <ItemTypeName>Part</ItemTypeName>
+   <ColorName>Black</ColorName>
+   <CategoryID>38</CategoryID>
+   <CategoryName>Tile, Modified</CategoryName>
+   <Status>I</Status>
+   <Qty>8</Qty>
+   <Price>0.000</Price>
+   <Condition>N</Condition>
+   <OrigQty>0</OrigQty>
+  </Item>
+  <Item>
+   <ItemID>60470b</ItemID>
+   <ItemTypeID>P</ItemTypeID>
+   <ColorID>11</ColorID>
+   <ItemName>Plate, Modified 1 x 2 with Clips Horizontal (open O clips)</ItemName>
+   <ItemTypeName>Part</ItemTypeName>
+   <ColorName>Black</ColorName>
+   <CategoryID>27</CategoryID>
+   <CategoryName>Plate, Modified</CategoryName>
+   <Status>I</Status>
+   <Qty>1</Qty>
+   <Price>0.000</Price>
+   <Condition>N</Condition>
+   <OrigQty>0</OrigQty>
+  </Item>
+  <Item>
+   <ItemID>60478</ItemID>
+   <ItemTypeID>P</ItemTypeID>
+   <ColorID>11</ColorID>
+   <ItemName>Plate, Modified 1 x 2 with Handle on End - Closed Ends</ItemName>
+   <ItemTypeName>Part</ItemTypeName>
+   <ColorName>Black</ColorName>
+   <CategoryID>27</CategoryID>
+   <CategoryName>Plate, Modified</CategoryName>
+   <Status>I</Status>
+   <Qty>8</Qty>
+   <Price>0.000</Price>
+   <Condition>N</Condition>
+   <OrigQty>0</OrigQty>
+  </Item>
+  <Item>
+   <ItemID>4073</ItemID>
+   <ItemTypeID>P</ItemTypeID>
+   <ColorID>11</ColorID>
+   <ItemName>Plate, Round 1 x 1 Straight Side</ItemName>
+   <ItemTypeName>Part</ItemTypeName>
+   <ColorName>Black</ColorName>
+   <CategoryID>28</CategoryID>
+   <CategoryName>Plate, Round</CategoryName>
+   <Status>I</Status>
+   <Qty>8</Qty>
+   <Price>0.000</Price>
+   <Condition>N</Condition>
+   <OrigQty>0</OrigQty>
+  </Item>
+  <Item>
+   <ItemID>4073</ItemID>
+   <ItemTypeID>P</ItemTypeID>
+   <ColorID>11</ColorID>
+   <ItemName>Plate, Round 1 x 1 Straight Side</ItemName>
+   <ItemTypeName>Part</ItemTypeName>
+   <ColorName>Black</ColorName>
+   <CategoryID>28</CategoryID>
+   <CategoryName>Plate, Round</CategoryName>
+   <Status>E</Status>
+   <Qty>2</Qty>
+   <Price>0.000</Price>
+   <Condition>N</Condition>
+   <OrigQty>0</OrigQty>
+  </Item>
+  <Item>
+   <ItemID>2654</ItemID>
+   <ItemTypeID>P</ItemTypeID>
+   <ColorID>11</ColorID>
+   <ItemName>Plate, Round 2 x 2 with Rounded Bottom (Boat Stud)</ItemName>
+   <ItemTypeName>Part</ItemTypeName>
+   <ColorName>Black</ColorName>
+   <CategoryID>28</CategoryID>
+   <CategoryName>Plate, Round</CategoryName>
+   <Status>I</Status>
+   <Qty>1</Qty>
+   <Price>0.000</Price>
+   <Condition>N</Condition>
+   <OrigQty>0</OrigQty>
+  </Item>
+  <Item>
+   <ItemID>4740</ItemID>
+   <ItemTypeID>P</ItemTypeID>
+   <ColorID>11</ColorID>
+   <ItemName>Dish 2 x 2 Inverted (Radar)</ItemName>
+   <ItemTypeName>Part</ItemTypeName>
+   <ColorName>Black</ColorName>
+   <CategoryID>116</CategoryID>
+   <CategoryName>Dish</CategoryName>
+   <Status>I</Status>
+   <Qty>1</Qty>
+   <Price>0.000</Price>
+   <Condition>N</Condition>
+   <OrigQty>0</OrigQty>
+  </Item>
+  <Item>
+   <ItemID>3794</ItemID>
+   <ItemTypeID>P</ItemTypeID>
+   <ColorID>11</ColorID>
+   <ItemName>Plate, Modified 1 x 2 with 1 Stud (Jumper)</ItemName>
+   <ItemTypeName>Part</ItemTypeName>
+   <ColorName>Black</ColorName>
+   <CategoryID>27</CategoryID>
+   <CategoryName>Plate, Modified</CategoryName>
+   <Status>I</Status>
+   <Qty>4</Qty>
+   <Price>0.000</Price>
+   <Condition>N</Condition>
+   <OrigQty>0</OrigQty>
+  </Item>
+  <Item>
+   <ItemID>44728</ItemID>
+   <ItemTypeID>P</ItemTypeID>
+   <ColorID>11</ColorID>
+   <ItemName>Bracket 1 x 2 - 2 x 2</ItemName>
+   <ItemTypeName>Part</ItemTypeName>
+   <ColorName>Black</ColorName>
+   <CategoryID>4</CategoryID>
+   <CategoryName>Bracket</CategoryName>
+   <Status>I</Status>
+   <Qty>6</Qty>
+   <Price>0.000</Price>
+   <Condition>N</Condition>
+   <OrigQty>0</OrigQty>
+  </Item>
+  <Item>
+   <ItemID>3700</ItemID>
+   <ItemTypeID>P</ItemTypeID>
+   <ColorID>11</ColorID>
+   <ItemName>Technic, Brick 1 x 2 with Hole</ItemName>
+   <ItemTypeName>Part</ItemTypeName>
+   <ColorName>Black</ColorName>
+   <CategoryID>135</CategoryID>
+   <CategoryName>Technic, Brick</CategoryName>
+   <Status>I</Status>
+   <Qty>1</Qty>
+   <Price>0.000</Price>
+   <Condition>N</Condition>
+   <OrigQty>0</OrigQty>
+  </Item>
+  <Item>
+   <ItemID>2432</ItemID>
+   <ItemTypeID>P</ItemTypeID>
+   <ColorID>11</ColorID>
+   <ItemName>Tile, Modified 1 x 2 with Handle</ItemName>
+   <ItemTypeName>Part</ItemTypeName>
+   <ColorName>Black</ColorName>
+   <CategoryID>38</CategoryID>
+   <CategoryName>Tile, Modified</CategoryName>
+   <Status>I</Status>
+   <Qty>1</Qty>
+   <Price>0.000</Price>
+   <Condition>N</Condition>
+   <OrigQty>0</OrigQty>
+  </Item>
+  <Item>
+   <ItemID>33299</ItemID>
+   <ItemTypeID>P</ItemTypeID>
+   <ColorID>11</ColorID>
+   <ItemName>Technic, Liftarm 1 x 3 with 2 Axle Holes and Pin / Crank</ItemName>
+   <ItemTypeName>Part</ItemTypeName>
+   <ColorName>Black</ColorName>
+   <CategoryID>137</CategoryID>
+   <CategoryName>Technic, Liftarm</CategoryName>
+   <Status>I</Status>
+   <Qty>2</Qty>
+   <Price>0.000</Price>
+   <Condition>N</Condition>
+   <OrigQty>0</OrigQty>
+  </Item>
+  <Item>
+   <ItemID>58247</ItemID>
+   <ItemTypeID>P</ItemTypeID>
+   <ColorID>11</ColorID>
+   <ItemName>Minifig, Weapon Gun, Blaster Short (SW)</ItemName>
+   <ItemTypeName>Part</ItemTypeName>
+   <ColorName>Black</ColorName>
+   <CategoryID>19</CategoryID>
+   <CategoryName>Minifig, Weapon</CategoryName>
+   <Status>I</Status>
+   <Qty>1</Qty>
+   <Price>0.000</Price>
+   <Condition>N</Condition>
+   <OrigQty>0</OrigQty>
+  </Item>
+  <Item>
+   <ItemID>2412b</ItemID>
+   <ItemTypeID>P</ItemTypeID>
+   <ColorID>17</ColorID>
+   <ItemName>Tile, Modified 1 x 2 Grille with Bottom Groove / Lip</ItemName>
+   <ItemTypeName>Part</ItemTypeName>
+   <ColorName>Trans-Red</ColorName>
+   <CategoryID>38</CategoryID>
+   <CategoryName>Tile, Modified</CategoryName>
+   <Status>I</Status>
+   <Qty>1</Qty>
+   <Price>0.000</Price>
+   <Condition>N</Condition>
+   <OrigQty>0</OrigQty>
+  </Item>
+  <Item>
+   <ItemID>4073</ItemID>
+   <ItemTypeID>P</ItemTypeID>
+   <ColorID>17</ColorID>
+   <ItemName>Plate, Round 1 x 1 Straight Side</ItemName>
+   <ItemTypeName>Part</ItemTypeName>
+   <ColorName>Trans-Red</ColorName>
+   <CategoryID>28</CategoryID>
+   <CategoryName>Plate, Round</CategoryName>
+   <Status>I</Status>
+   <Qty>2</Qty>
+   <Price>0.000</Price>
+   <Condition>N</Condition>
+   <OrigQty>0</OrigQty>
+  </Item>
+  <Item>
+   <ItemID>4073</ItemID>
+   <ItemTypeID>P</ItemTypeID>
+   <ColorID>17</ColorID>
+   <ItemName>Plate, Round 1 x 1 Straight Side</ItemName>
+   <ItemTypeName>Part</ItemTypeName>
+   <ColorName>Trans-Red</ColorName>
+   <CategoryID>28</CategoryID>
+   <CategoryName>Plate, Round</CategoryName>
+   <Status>E</Status>
+   <Qty>1</Qty>
+   <Price>0.000</Price>
+   <Condition>N</Condition>
+   <OrigQty>0</OrigQty>
+  </Item>
+  <Item>
+   <ItemID>58176</ItemID>
+   <ItemTypeID>P</ItemTypeID>
+   <ColorID>17</ColorID>
+   <ItemName>Light Cover with Internal Bar / Bionicle Barraki Eye</ItemName>
+   <ItemTypeName>Part</ItemTypeName>
+   <ColorName>Trans-Red</ColorName>
+   <CategoryID>143</CategoryID>
+   <CategoryName>(Other)</CategoryName>
+   <Status>I</Status>
+   <Qty>2</Qty>
+   <Price>0.000</Price>
+   <Condition>N</Condition>
+   <OrigQty>0</OrigQty>
+  </Item>
+  <Item>
+   <ItemID>3004</ItemID>
+   <ItemTypeID>P</ItemTypeID>
+   <ColorID>86</ColorID>
+   <ItemName>Brick 1 x 2</ItemName>
+   <ItemTypeName>Part</ItemTypeName>
+   <ColorName>Light Bluish Gray</ColorName>
+   <CategoryID>5</CategoryID>
+   <CategoryName>Brick</CategoryName>
+   <Status>I</Status>
+   <Qty>5</Qty>
+   <Price>0.000</Price>
+   <Condition>N</Condition>
+   <OrigQty>0</OrigQty>
+  </Item>
+  <Item>
+   <ItemID>2357</ItemID>
+   <ItemTypeID>P</ItemTypeID>
+   <ColorID>86</ColorID>
+   <ItemName>Brick 2 x 2 Corner</ItemName>
+   <ItemTypeName>Part</ItemTypeName>
+   <ColorName>Light Bluish Gray</ColorName>
+   <CategoryID>5</CategoryID>
+   <CategoryName>Brick</CategoryName>
+   <Status>I</Status>
+   <Qty>2</Qty>
+   <Price>0.000</Price>
+   <Condition>N</Condition>
+   <OrigQty>0</OrigQty>
+  </Item>
+  <Item>
+   <ItemID>54200</ItemID>
+   <ItemTypeID>P</ItemTypeID>
+   <ColorID>86</ColorID>
+   <ItemName>Slope 30 1 x 1 x 2/3</ItemName>
+   <ItemTypeName>Part</ItemTypeName>
+   <ColorName>Light Bluish Gray</ColorName>
+   <CategoryID>31</CategoryID>
+   <CategoryName>Slope</CategoryName>
+   <Status>I</Status>
+   <Qty>8</Qty>
+   <Price>0.000</Price>
+   <Condition>N</Condition>
+   <OrigQty>0</OrigQty>
+  </Item>
+  <Item>
+   <ItemID>54200</ItemID>
+   <ItemTypeID>P</ItemTypeID>
+   <ColorID>86</ColorID>
+   <ItemName>Slope 30 1 x 1 x 2/3</ItemName>
+   <ItemTypeName>Part</ItemTypeName>
+   <ColorName>Light Bluish Gray</ColorName>
+   <CategoryID>31</CategoryID>
+   <CategoryName>Slope</CategoryName>
+   <Status>E</Status>
+   <Qty>1</Qty>
+   <Price>0.000</Price>
+   <Condition>N</Condition>
+   <OrigQty>0</OrigQty>
+  </Item>
+  <Item>
+   <ItemID>3040</ItemID>
+   <ItemTypeID>P</ItemTypeID>
+   <ColorID>86</ColorID>
+   <ItemName>Slope 45 2 x 1</ItemName>
+   <ItemTypeName>Part</ItemTypeName>
+   <ColorName>Light Bluish Gray</ColorName>
+   <CategoryID>31</CategoryID>
+   <CategoryName>Slope</CategoryName>
+   <Status>I</Status>
+   <Qty>6</Qty>
+   <Price>0.000</Price>
+   <Condition>N</Condition>
+   <OrigQty>0</OrigQty>
+  </Item>
+  <Item>
+   <ItemID>85984</ItemID>
+   <ItemTypeID>P</ItemTypeID>
+   <ColorID>86</ColorID>
+   <ItemName>Slope 30 1 x 2 x 2/3</ItemName>
+   <ItemTypeName>Part</ItemTypeName>
+   <ColorName>Light Bluish Gray</ColorName>
+   <CategoryID>31</CategoryID>
+   <CategoryName>Slope</CategoryName>
+   <Status>I</Status>
+   <Qty>4</Qty>
+   <Price>0.000</Price>
+   <Condition>N</Condition>
+   <OrigQty>0</OrigQty>
+  </Item>
+  <Item>
+   <ItemID>3665</ItemID>
+   <ItemTypeID>P</ItemTypeID>
+   <ColorID>86</ColorID>
+   <ItemName>Slope, Inverted 45 2 x 1</ItemName>
+   <ItemTypeName>Part</ItemTypeName>
+   <ColorName>Light Bluish Gray</ColorName>
+   <CategoryID>32</CategoryID>
+   <CategoryName>Slope, Inverted</CategoryName>
+   <Status>I</Status>
+   <Qty>6</Qty>
+   <Price>0.000</Price>
+   <Condition>N</Condition>
+   <OrigQty>0</OrigQty>
+  </Item>
+  <Item>
+   <ItemID>3049</ItemID>
+   <ItemTypeID>P</ItemTypeID>
+   <ColorID>86</ColorID>
+   <ItemName>Slope 45 2 x 1 Double / Inverted</ItemName>
+   <ItemTypeName>Part</ItemTypeName>
+   <ColorName>Light Bluish Gray</ColorName>
+   <CategoryID>31</CategoryID>
+   <CategoryName>Slope</CategoryName>
+   <Status>I</Status>
+   <Qty>2</Qty>
+   <Price>0.000</Price>
+   <Condition>N</Condition>
+   <OrigQty>0</OrigQty>
+  </Item>
+  <Item>
+   <ItemID>4150pb086</ItemID>
+   <ItemTypeID>P</ItemTypeID>
+   <ColorID>86</ColorID>
+   <ItemName>Tile, Round 2 x 2 with Black SW Tie Fighter Pattern (9492)</ItemName>
+   <ItemTypeName>Part</ItemTypeName>
+   <ColorName>Light Bluish Gray</ColorName>
+   <CategoryID>117</CategoryID>
+   <CategoryName>Tile, Round</CategoryName>
+   <Status>I</Status>
+   <Qty>2</Qty>
+   <Price>0.000</Price>
+   <Condition>N</Condition>
+   <OrigQty>0</OrigQty>
+  </Item>
+  <Item>
+   <ItemID>3069b</ItemID>
+   <ItemTypeID>P</ItemTypeID>
+   <ColorID>86</ColorID>
+   <ItemName>Tile 1 x 2 with Groove</ItemName>
+   <ItemTypeName>Part</ItemTypeName>
+   <ColorName>Light Bluish Gray</ColorName>
+   <CategoryID>37</CategoryID>
+   <CategoryName>Tile</CategoryName>
+   <Status>I</Status>
+   <Qty>12</Qty>
+   <Price>0.000</Price>
+   <Condition>N</Condition>
+   <OrigQty>0</OrigQty>
+  </Item>
+  <Item>
+   <ItemID>3794</ItemID>
+   <ItemTypeID>P</ItemTypeID>
+   <ColorID>86</ColorID>
+   <ItemName>Plate, Modified 1 x 2 with 1 Stud (Jumper)</ItemName>
+   <ItemTypeName>Part</ItemTypeName>
+   <ColorName>Light Bluish Gray</ColorName>
+   <CategoryID>27</CategoryID>
+   <CategoryName>Plate, Modified</CategoryName>
+   <Status>I</Status>
+   <Qty>4</Qty>
+   <Price>0.000</Price>
+   <Condition>N</Condition>
+   <OrigQty>0</OrigQty>
+  </Item>
+  <Item>
+   <ItemID>32028</ItemID>
+   <ItemTypeID>P</ItemTypeID>
+   <ColorID>86</ColorID>
+   <ItemName>Plate, Modified 1 x 2 with Door Rail</ItemName>
+   <ItemTypeName>Part</ItemTypeName>
+   <ColorName>Light Bluish Gray</ColorName>
+   <CategoryID>27</CategoryID>
+   <CategoryName>Plate, Modified</CategoryName>
+   <Status>I</Status>
+   <Qty>6</Qty>
+   <Price>0.000</Price>
+   <Condition>N</Condition>
+   <OrigQty>0</OrigQty>
+  </Item>
+  <Item>
+   <ItemID>2540</ItemID>
+   <ItemTypeID>P</ItemTypeID>
+   <ColorID>86</ColorID>
+   <ItemName>Plate, Modified 1 x 2 with Handle on Side - Free Ends</ItemName>
+   <ItemTypeName>Part</ItemTypeName>
+   <ColorName>Light Bluish Gray</ColorName>
+   <CategoryID>27</CategoryID>
+   <CategoryName>Plate, Modified</CategoryName>
+   <Status>I</Status>
+   <Qty>1</Qty>
+   <Price>0.000</Price>
+   <Condition>N</Condition>
+   <OrigQty>0</OrigQty>
+  </Item>
+  <Item>
+   <ItemID>63868</ItemID>
+   <ItemTypeID>P</ItemTypeID>
+   <ColorID>86</ColorID>
+   <ItemName>Plate, Modified 1 x 2 with Clip Horizontal on End</ItemName>
+   <ItemTypeName>Part</ItemTypeName>
+   <ColorName>Light Bluish Gray</ColorName>
+   <CategoryID>27</CategoryID>
+   <CategoryName>Plate, Modified</CategoryName>
+   <Status>I</Status>
+   <Qty>12</Qty>
+   <Price>0.000</Price>
+   <Condition>N</Condition>
+   <OrigQty>0</OrigQty>
+  </Item>
+  <Item>
+   <ItemID>60478</ItemID>
+   <ItemTypeID>P</ItemTypeID>
+   <ColorID>86</ColorID>
+   <ItemName>Plate, Modified 1 x 2 with Handle on End - Closed Ends</ItemName>
+   <ItemTypeName>Part</ItemTypeName>
+   <ColorName>Light Bluish Gray</ColorName>
+   <CategoryID>27</CategoryID>
+   <CategoryName>Plate, Modified</CategoryName>
+   <Status>I</Status>
+   <Qty>12</Qty>
+   <Price>0.000</Price>
+   <Condition>N</Condition>
+   <OrigQty>0</OrigQty>
+  </Item>
+  <Item>
+   <ItemID>92582</ItemID>
+   <ItemTypeID>P</ItemTypeID>
+   <ColorID>86</ColorID>
+   <ItemName>Hinge Plate 2 x 2 Locking with 1 Finger on Top</ItemName>
+   <ItemTypeName>Part</ItemTypeName>
+   <ColorName>Light Bluish Gray</ColorName>
+   <CategoryID>22</CategoryID>
+   <CategoryName>Hinge</CategoryName>
+   <Status>I</Status>
+   <Qty>2</Qty>
+   <Price>0.000</Price>
+   <Condition>N</Condition>
+   <OrigQty>0</OrigQty>
+  </Item>
+  <Item>
+   <ItemID>44568</ItemID>
+   <ItemTypeID>P</ItemTypeID>
+   <ColorID>86</ColorID>
+   <ItemName>Hinge Plate 1 x 4 Locking Dual 1 Finger</ItemName>
+   <ItemTypeName>Part</ItemTypeName>
+   <ColorName>Light Bluish Gray</ColorName>
+   <CategoryID>22</CategoryID>
+   <CategoryName>Hinge</CategoryName>
+   <Status>I</Status>
+   <Qty>1</Qty>
+   <Price>0.000</Price>
+   <Condition>N</Condition>
+   <OrigQty>0</OrigQty>
+  </Item>
+  <Item>
+   <ItemID>3747b</ItemID>
+   <ItemTypeID>P</ItemTypeID>
+   <ColorID>86</ColorID>
+   <ItemName>Slope, Inverted 33 3 x 2 with Connections between Studs</ItemName>
+   <ItemTypeName>Part</ItemTypeName>
+   <ColorName>Light Bluish Gray</ColorName>
+   <CategoryID>32</CategoryID>
+   <CategoryName>Slope, Inverted</CategoryName>
+   <Status>I</Status>
+   <Qty>8</Qty>
+   <Price>0.000</Price>
+   <Condition>N</Condition>
+   <OrigQty>0</OrigQty>
+  </Item>
+  <Item>
+   <ItemID>2431</ItemID>
+   <ItemTypeID>P</ItemTypeID>
+   <ColorID>86</ColorID>
+   <ItemName>Tile 1 x 4</ItemName>
+   <ItemTypeName>Part</ItemTypeName>
+   <ColorName>Light Bluish Gray</ColorName>
+   <CategoryID>37</CategoryID>
+   <CategoryName>Tile</CategoryName>
+   <Status>I</Status>
+   <Qty>2</Qty>
+   <Price>0.000</Price>
+   <Condition>N</Condition>
+   <OrigQty>0</OrigQty>
+  </Item>
+  <Item>
+   <ItemID>6636</ItemID>
+   <ItemTypeID>P</ItemTypeID>
+   <ColorID>86</ColorID>
+   <ItemName>Tile 1 x 6</ItemName>
+   <ItemTypeName>Part</ItemTypeName>
+   <ColorName>Light Bluish Gray</ColorName>
+   <CategoryID>37</CategoryID>
+   <CategoryName>Tile</CategoryName>
+   <Status>I</Status>
+   <Qty>8</Qty>
+   <Price>0.000</Price>
+   <Condition>N</Condition>
+   <OrigQty>0</OrigQty>
+  </Item>
+  <Item>
+   <ItemID>4162</ItemID>
+   <ItemTypeID>P</ItemTypeID>
+   <ColorID>86</ColorID>
+   <ItemName>Tile 1 x 8</ItemName>
+   <ItemTypeName>Part</ItemTypeName>
+   <ColorName>Light Bluish Gray</ColorName>
+   <CategoryID>37</CategoryID>
+   <CategoryName>Tile</CategoryName>
+   <Status>I</Status>
+   <Qty>8</Qty>
+   <Price>0.000</Price>
+   <Condition>N</Condition>
+   <OrigQty>0</OrigQty>
+  </Item>
+  <Item>
+   <ItemID>93273</ItemID>
+   <ItemTypeID>P</ItemTypeID>
+   <ColorID>86</ColorID>
+   <ItemName>Slope, Curved 4 x 1 Double No Studs</ItemName>
+   <ItemTypeName>Part</ItemTypeName>
+   <ColorName>Light Bluish Gray</ColorName>
+   <CategoryID>438</CategoryID>
+   <CategoryName>Slope, Curved</CategoryName>
+   <Status>I</Status>
+   <Qty>2</Qty>
+   <Price>0.000</Price>
+   <Condition>N</Condition>
+   <OrigQty>0</OrigQty>
+  </Item>
+  <Item>
+   <ItemID>2817</ItemID>
+   <ItemTypeID>P</ItemTypeID>
+   <ColorID>86</ColorID>
+   <ItemName>Plate, Modified 2 x 2 with Pin Holes</ItemName>
+   <ItemTypeName>Part</ItemTypeName>
+   <ColorName>Light Bluish Gray</ColorName>
+   <CategoryID>27</CategoryID>
+   <CategoryName>Plate, Modified</CategoryName>
+   <Status>I</Status>
+   <Qty>2</Qty>
+   <Price>0.000</Price>
+   <Condition>N</Condition>
+   <OrigQty>0</OrigQty>
+  </Item>
+  <Item>
+   <ItemID>3022</ItemID>
+   <ItemTypeID>P</ItemTypeID>
+   <ColorID>86</ColorID>
+   <ItemName>Plate 2 x 2</ItemName>
+   <ItemTypeName>Part</ItemTypeName>
+   <ColorName>Light Bluish Gray</ColorName>
+   <CategoryID>26</CategoryID>
+   <CategoryName>Plate</CategoryName>
+   <Status>I</Status>
+   <Qty>2</Qty>
+   <Price>0.000</Price>
+   <Condition>N</Condition>
+   <OrigQty>0</OrigQty>
+  </Item>
+  <Item>
+   <ItemID>3623</ItemID>
+   <ItemTypeID>P</ItemTypeID>
+   <ColorID>86</ColorID>
+   <ItemName>Plate 1 x 3</ItemName>
+   <ItemTypeName>Part</ItemTypeName>
+   <ColorName>Light Bluish Gray</ColorName>
+   <CategoryID>26</CategoryID>
+   <CategoryName>Plate</CategoryName>
+   <Status>I</Status>
+   <Qty>4</Qty>
+   <Price>0.000</Price>
+   <Condition>N</Condition>
+   <OrigQty>0</OrigQty>
+  </Item>
+  <Item>
+   <ItemID>3021</ItemID>
+   <ItemTypeID>P</ItemTypeID>
+   <ColorID>86</ColorID>
+   <ItemName>Plate 2 x 3</ItemName>
+   <ItemTypeName>Part</ItemTypeName>
+   <ColorName>Light Bluish Gray</ColorName>
+   <CategoryID>26</CategoryID>
+   <CategoryName>Plate</CategoryName>
+   <Status>I</Status>
+   <Qty>8</Qty>
+   <Price>0.000</Price>
+   <Condition>N</Condition>
+   <OrigQty>0</OrigQty>
+  </Item>
+  <Item>
+   <ItemID>3710</ItemID>
+   <ItemTypeID>P</ItemTypeID>
+   <ColorID>86</ColorID>
+   <ItemName>Plate 1 x 4</ItemName>
+   <ItemTypeName>Part</ItemTypeName>
+   <ColorName>Light Bluish Gray</ColorName>
+   <CategoryID>26</CategoryID>
+   <CategoryName>Plate</CategoryName>
+   <Status>I</Status>
+   <Qty>8</Qty>
+   <Price>0.000</Price>
+   <Condition>N</Condition>
+   <OrigQty>0</OrigQty>
+  </Item>
+  <Item>
+   <ItemID>4477</ItemID>
+   <ItemTypeID>P</ItemTypeID>
+   <ColorID>86</ColorID>
+   <ItemName>Plate 1 x 10</ItemName>
+   <ItemTypeName>Part</ItemTypeName>
+   <ColorName>Light Bluish Gray</ColorName>
+   <CategoryID>26</CategoryID>
+   <CategoryName>Plate</CategoryName>
+   <Status>I</Status>
+   <Qty>12</Qty>
+   <Price>0.000</Price>
+   <Condition>N</Condition>
+   <OrigQty>0</OrigQty>
+  </Item>
+  <Item>
+   <ItemID>42445</ItemID>
+   <ItemTypeID>P</ItemTypeID>
+   <ColorID>86</ColorID>
+   <ItemName>Bar 1 x 12 with 1 x 2 Plate End and 1 x 1 Round Plate End</ItemName>
+   <ItemTypeName>Part</ItemTypeName>
+   <ColorName>Light Bluish Gray</ColorName>
+   <CategoryID>46</CategoryID>
+   <CategoryName>Bar</CategoryName>
+   <Status>I</Status>
+   <Qty>12</Qty>
+   <Price>0.000</Price>
+   <Condition>N</Condition>
+   <OrigQty>0</OrigQty>
+  </Item>
+  <Item>
+   <ItemID>51739</ItemID>
+   <ItemTypeID>P</ItemTypeID>
+   <ColorID>86</ColorID>
+   <ItemName>Wedge, Plate 2 x 4</ItemName>
+   <ItemTypeName>Part</ItemTypeName>
+   <ColorName>Light Bluish Gray</ColorName>
+   <CategoryID>583</CategoryID>
+   <CategoryName>Wedge, Plate</CategoryName>
+   <Status>I</Status>
+   <Qty>4</Qty>
+   <Price>0.000</Price>
+   <Condition>N</Condition>
+   <OrigQty>0</OrigQty>
+  </Item>
+  <Item>
+   <ItemID>3960</ItemID>
+   <ItemTypeID>P</ItemTypeID>
+   <ColorID>86</ColorID>
+   <ItemName>Dish 4 x 4 Inverted (Radar)</ItemName>
+   <ItemTypeName>Part</ItemTypeName>
+   <ColorName>Light Bluish Gray</ColorName>
+   <CategoryID>116</CategoryID>
+   <CategoryName>Dish</CategoryName>
+   <Status>I</Status>
+   <Qty>1</Qty>
+   <Price>0.000</Price>
+   <Condition>N</Condition>
+   <OrigQty>0</OrigQty>
+  </Item>
+  <Item>
+   <ItemID>30162</ItemID>
+   <ItemTypeID>P</ItemTypeID>
+   <ColorID>86</ColorID>
+   <ItemName>Minifig, Utensil Binoculars Town</ItemName>
+   <ItemTypeName>Part</ItemTypeName>
+   <ColorName>Light Bluish Gray</ColorName>
+   <CategoryID>18</CategoryID>
+   <CategoryName>Minifig, Utensil</CategoryName>
+   <Status>I</Status>
+   <Qty>4</Qty>
+   <Price>0.000</Price>
+   <Condition>N</Condition>
+   <OrigQty>0</OrigQty>
+  </Item>
+  <Item>
+   <ItemID>61184</ItemID>
+   <ItemTypeID>P</ItemTypeID>
+   <ColorID>86</ColorID>
+   <ItemName>Technic, Pin 1/2 with 2L Bar Extension</ItemName>
+   <ItemTypeName>Part</ItemTypeName>
+   <ColorName>Light Bluish Gray</ColorName>
+   <CategoryID>139</CategoryID>
+   <CategoryName>Technic, Pin</CategoryName>
+   <Status>I</Status>
+   <Qty>2</Qty>
+   <Price>0.000</Price>
+   <Condition>N</Condition>
+   <OrigQty>0</OrigQty>
+  </Item>
+  <Item>
+   <ItemID>50747pb06</ItemID>
+   <ItemTypeID>P</ItemTypeID>
+   <ColorID>13</ColorID>
+   <ItemName>Windscreen 6 x 6 x 3 Canopy Half Sphere with Dual 2 Fingers and Tie-Fighter Pattern</ItemName>
+   <ItemTypeName>Part</ItemTypeName>
+   <ColorName>Trans-Black</ColorName>
+   <CategoryID>579</CategoryID>
+   <CategoryName>Windscreen, Decorated</CategoryName>
+   <Status>I</Status>
+   <Qty>1</Qty>
+   <Price>0.000</Price>
+   <Condition>N</Condition>
+   <OrigQty>0</OrigQty>
+  </Item>
+  <Item>
+   <ItemID>4032</ItemID>
+   <ItemTypeID>P</ItemTypeID>
+   <ColorID>6</ColorID>
+   <ItemName>Plate, Round 2 x 2 with Axle Hole</ItemName>
+   <ItemTypeName>Part</ItemTypeName>
+   <ColorName>Green</ColorName>
+   <CategoryID>28</CategoryID>
+   <CategoryName>Plate, Round</CategoryName>
+   <Status>I</Status>
+   <Qty>4</Qty>
+   <Price>0.000</Price>
+   <Condition>N</Condition>
+   <OrigQty>0</OrigQty>
+  </Item>
+  <Item>
+   <ItemID>44375b</ItemID>
+   <ItemTypeID>P</ItemTypeID>
+   <ColorID>86</ColorID>
+   <ItemName>Dish 6 x 6 Inverted (Radar) - Solid Studs</ItemName>
+   <ItemTypeName>Part</ItemTypeName>
+   <ColorName>Light Bluish Gray</ColorName>
+   <CategoryID>116</CategoryID>
+   <CategoryName>Dish</CategoryName>
+   <Status>I</Status>
+   <Qty>1</Qty>
+   <Price>0.000</Price>
+   <Condition>N</Condition>
+   <OrigQty>0</OrigQty>
+  </Item>
+  <Item>
+   <ItemID>3032</ItemID>
+   <ItemTypeID>P</ItemTypeID>
+   <ColorID>85</ColorID>
+   <ItemName>Plate 4 x 6</ItemName>
+   <ItemTypeName>Part</ItemTypeName>
+   <ColorName>Dark Bluish Gray</ColorName>
+   <CategoryID>26</CategoryID>
+   <CategoryName>Plate</CategoryName>
+   <Status>I</Status>
+   <Qty>1</Qty>
+   <Price>0.000</Price>
+   <Condition>N</Condition>
+   <OrigQty>0</OrigQty>
+  </Item>
+  <Item>
+   <ItemID>44570</ItemID>
+   <ItemTypeID>P</ItemTypeID>
+   <ColorID>85</ColorID>
+   <ItemName>Hinge Plate 3 x 4 Locking Dual 2 Finger</ItemName>
+   <ItemTypeName>Part</ItemTypeName>
+   <ColorName>Dark Bluish Gray</ColorName>
+   <CategoryID>22</CategoryID>
+   <CategoryName>Hinge</CategoryName>
+   <Status>I</Status>
+   <Qty>1</Qty>
+   <Price>0.000</Price>
+   <Condition>N</Condition>
+   <OrigQty>0</OrigQty>
+  </Item>
+  <Item>
+   <ItemID>30373</ItemID>
+   <ItemTypeID>P</ItemTypeID>
+   <ColorID>85</ColorID>
+   <ItemName>Slope, Inverted 65 6 x 6 x 2 Quad with Cutouts</ItemName>
+   <ItemTypeName>Part</ItemTypeName>
+   <ColorName>Dark Bluish Gray</ColorName>
+   <CategoryID>32</CategoryID>
+   <CategoryName>Slope, Inverted</CategoryName>
+   <Status>I</Status>
+   <Qty>2</Qty>
+   <Price>0.000</Price>
+   <Condition>N</Condition>
+   <OrigQty>0</OrigQty>
+  </Item>
+  <Item>
+   <ItemID>3747b</ItemID>
+   <ItemTypeID>P</ItemTypeID>
+   <ColorID>85</ColorID>
+   <ItemName>Slope, Inverted 33 3 x 2 with Connections between Studs</ItemName>
+   <ItemTypeName>Part</ItemTypeName>
+   <ColorName>Dark Bluish Gray</ColorName>
+   <CategoryID>32</CategoryID>
+   <CategoryName>Slope, Inverted</CategoryName>
+   <Status>I</Status>
+   <Qty>3</Qty>
+   <Price>0.000</Price>
+   <Condition>N</Condition>
+   <OrigQty>0</OrigQty>
+  </Item>
+  <Item>
+   <ItemID>60477</ItemID>
+   <ItemTypeID>P</ItemTypeID>
+   <ColorID>85</ColorID>
+   <ItemName>Slope 18 4 x 1</ItemName>
+   <ItemTypeName>Part</ItemTypeName>
+   <ColorName>Dark Bluish Gray</ColorName>
+   <CategoryID>31</CategoryID>
+   <CategoryName>Slope</CategoryName>
+   <Status>I</Status>
+   <Qty>2</Qty>
+   <Price>0.000</Price>
+   <Condition>N</Condition>
+   <OrigQty>0</OrigQty>
+  </Item>
+  <Item>
+   <ItemID>3020</ItemID>
+   <ItemTypeID>P</ItemTypeID>
+   <ColorID>85</ColorID>
+   <ItemName>Plate 2 x 4</ItemName>
+   <ItemTypeName>Part</ItemTypeName>
+   <ColorName>Dark Bluish Gray</ColorName>
+   <CategoryID>26</CategoryID>
+   <CategoryName>Plate</CategoryName>
+   <Status>I</Status>
+   <Qty>5</Qty>
+   <Price>0.000</Price>
+   <Condition>N</Condition>
+   <OrigQty>0</OrigQty>
+  </Item>
+  <Item>
+   <ItemID>3005</ItemID>
+   <ItemTypeID>P</ItemTypeID>
+   <ColorID>85</ColorID>
+   <ItemName>Brick 1 x 1</ItemName>
+   <ItemTypeName>Part</ItemTypeName>
+   <ColorName>Dark Bluish Gray</ColorName>
+   <CategoryID>5</CategoryID>
+   <CategoryName>Brick</CategoryName>
+   <Status>I</Status>
+   <Qty>4</Qty>
+   <Price>0.000</Price>
+   <Condition>N</Condition>
+   <OrigQty>0</OrigQty>
+  </Item>
+  <Item>
+   <ItemID>3048</ItemID>
+   <ItemTypeID>P</ItemTypeID>
+   <ColorID>85</ColorID>
+   <ItemName>Slope 45 2 x 1 Triple</ItemName>
+   <ItemTypeName>Part</ItemTypeName>
+   <ColorName>Dark Bluish Gray</ColorName>
+   <CategoryID>31</CategoryID>
+   <CategoryName>Slope</CategoryName>
+   <Status>I</Status>
+   <Qty>4</Qty>
+   <Price>0.000</Price>
+   <Condition>N</Condition>
+   <OrigQty>0</OrigQty>
+  </Item>
+  <Item>
+   <ItemID>3300</ItemID>
+   <ItemTypeID>P</ItemTypeID>
+   <ColorID>85</ColorID>
+   <ItemName>Slope 33 2 x 2 Double</ItemName>
+   <ItemTypeName>Part</ItemTypeName>
+   <ColorName>Dark Bluish Gray</ColorName>
+   <CategoryID>31</CategoryID>
+   <CategoryName>Slope</CategoryName>
+   <Status>I</Status>
+   <Qty>2</Qty>
+   <Price>0.000</Price>
+   <Condition>N</Condition>
+   <OrigQty>0</OrigQty>
+  </Item>
+  <Item>
+   <ItemID>3794</ItemID>
+   <ItemTypeID>P</ItemTypeID>
+   <ColorID>85</ColorID>
+   <ItemName>Plate, Modified 1 x 2 with 1 Stud (Jumper)</ItemName>
+   <ItemTypeName>Part</ItemTypeName>
+   <ColorName>Dark Bluish Gray</ColorName>
+   <CategoryID>27</CategoryID>
+   <CategoryName>Plate, Modified</CategoryName>
+   <Status>I</Status>
+   <Qty>4</Qty>
+   <Price>0.000</Price>
+   <Condition>N</Condition>
+   <OrigQty>0</OrigQty>
+  </Item>
+  <Item>
+   <ItemID>2412b</ItemID>
+   <ItemTypeID>P</ItemTypeID>
+   <ColorID>85</ColorID>
+   <ItemName>Tile, Modified 1 x 2 Grille with Bottom Groove / Lip</ItemName>
+   <ItemTypeName>Part</ItemTypeName>
+   <ColorName>Dark Bluish Gray</ColorName>
+   <CategoryID>38</CategoryID>
+   <CategoryName>Tile, Modified</CategoryName>
+   <Status>I</Status>
+   <Qty>4</Qty>
+   <Price>0.000</Price>
+   <Condition>N</Condition>
+   <OrigQty>0</OrigQty>
+  </Item>
+  <Item>
+   <ItemID>3960px4</ItemID>
+   <ItemTypeID>P</ItemTypeID>
+   <ColorID>85</ColorID>
+   <ItemName>Dish 4 x 4 Inverted (Radar) with Star Wars TIE Hatch Pattern</ItemName>
+   <ItemTypeName>Part</ItemTypeName>
+   <ColorName>Dark Bluish Gray</ColorName>
+   <CategoryID>779</CategoryID>
+   <CategoryName>Dish, Decorated</CategoryName>
+   <Status>I</Status>
+   <Qty>1</Qty>
+   <Price>0.000</Price>
+   <Condition>N</Condition>
+   <OrigQty>0</OrigQty>
+  </Item>
+  <Item>
+   <ItemID>4079b</ItemID>
+   <ItemTypeID>P</ItemTypeID>
+   <ColorID>85</ColorID>
+   <ItemName>Minifig, Utensil Seat 2 x 2 with Center Sprue Mark</ItemName>
+   <ItemTypeName>Part</ItemTypeName>
+   <ColorName>Dark Bluish Gray</ColorName>
+   <CategoryID>18</CategoryID>
+   <CategoryName>Minifig, Utensil</CategoryName>
+   <Status>I</Status>
+   <Qty>1</Qty>
+   <Price>0.000</Price>
+   <Condition>N</Condition>
+   <OrigQty>0</OrigQty>
+  </Item>
+  <Item>
+   <ItemID>32209</ItemID>
+   <ItemTypeID>P</ItemTypeID>
+   <ColorID>85</ColorID>
+   <ItemName>Technic, Axle 5.5 With Stop</ItemName>
+   <ItemTypeName>Part</ItemTypeName>
+   <ColorName>Dark Bluish Gray</ColorName>
+   <CategoryID>134</CategoryID>
+   <CategoryName>Technic, Axle</CategoryName>
+   <Status>I</Status>
+   <Qty>2</Qty>
+   <Price>0.000</Price>
+   <Condition>N</Condition>
+   <OrigQty>0</OrigQty>
+  </Item>
+  <Item>
+   <ItemID>92950</ItemID>
+   <ItemTypeID>P</ItemTypeID>
+   <ColorID>85</ColorID>
+   <ItemName>Brick, Arch 1 x 6 Raised Arch</ItemName>
+   <ItemTypeName>Part</ItemTypeName>
+   <ColorName>Dark Bluish Gray</ColorName>
+   <CategoryID>6</CategoryID>
+   <CategoryName>Brick, Arch</CategoryName>
+   <Status>I</Status>
+   <Qty>1</Qty>
+   <Price>0.000</Price>
+   <Condition>N</Condition>
+   <OrigQty>0</OrigQty>
+  </Item>
+  <Item>
+   <ItemID>3024</ItemID>
+   <ItemTypeID>P</ItemTypeID>
+   <ColorID>85</ColorID>
+   <ItemName>Plate 1 x 1</ItemName>
+   <ItemTypeName>Part</ItemTypeName>
+   <ColorName>Dark Bluish Gray</ColorName>
+   <CategoryID>26</CategoryID>
+   <CategoryName>Plate</CategoryName>
+   <Status>I</Status>
+   <Qty>6</Qty>
+   <Price>0.000</Price>
+   <Condition>N</Condition>
+   <OrigQty>0</OrigQty>
+  </Item>
+  <Item>
+   <ItemID>3023</ItemID>
+   <ItemTypeID>P</ItemTypeID>
+   <ColorID>85</ColorID>
+   <ItemName>Plate 1 x 2</ItemName>
+   <ItemTypeName>Part</ItemTypeName>
+   <ColorName>Dark Bluish Gray</ColorName>
+   <CategoryID>26</CategoryID>
+   <CategoryName>Plate</CategoryName>
+   <Status>I</Status>
+   <Qty>6</Qty>
+   <Price>0.000</Price>
+   <Condition>N</Condition>
+   <OrigQty>0</OrigQty>
+  </Item>
+  <Item>
+   <ItemID>2420</ItemID>
+   <ItemTypeID>P</ItemTypeID>
+   <ColorID>85</ColorID>
+   <ItemName>Plate 2 x 2 Corner</ItemName>
+   <ItemTypeName>Part</ItemTypeName>
+   <ColorName>Dark Bluish Gray</ColorName>
+   <CategoryID>26</CategoryID>
+   <CategoryName>Plate</CategoryName>
+   <Status>I</Status>
+   <Qty>4</Qty>
+   <Price>0.000</Price>
+   <Condition>N</Condition>
+   <OrigQty>0</OrigQty>
+  </Item>
+  <Item>
+   <ItemID>3710</ItemID>
+   <ItemTypeID>P</ItemTypeID>
+   <ColorID>85</ColorID>
+   <ItemName>Plate 1 x 4</ItemName>
+   <ItemTypeName>Part</ItemTypeName>
+   <ColorName>Dark Bluish Gray</ColorName>
+   <CategoryID>26</CategoryID>
+   <CategoryName>Plate</CategoryName>
+   <Status>I</Status>
+   <Qty>10</Qty>
+   <Price>0.000</Price>
+   <Condition>N</Condition>
+   <OrigQty>0</OrigQty>
+  </Item>
+  <Item>
+   <ItemID>92593</ItemID>
+   <ItemTypeID>P</ItemTypeID>
+   <ColorID>85</ColorID>
+   <ItemName>Plate, Modified 1 x 4 with 2 Studs</ItemName>
+   <ItemTypeName>Part</ItemTypeName>
+   <ColorName>Dark Bluish Gray</ColorName>
+   <CategoryID>27</CategoryID>
+   <CategoryName>Plate, Modified</CategoryName>
+   <Status>I</Status>
+   <Qty>4</Qty>
+   <Price>0.000</Price>
+   <Condition>N</Condition>
+   <OrigQty>0</OrigQty>
+  </Item>
+  <Item>
+   <ItemID>2429c01</ItemID>
+   <ItemTypeID>P</ItemTypeID>
+   <ColorID>85</ColorID>
+   <ItemName>Hinge Plate 1 x 4 Swivel Top / Base Complete Assembly</ItemName>
+   <ItemTypeName>Part</ItemTypeName>
+   <ColorName>Dark Bluish Gray</ColorName>
+   <CategoryID>22</CategoryID>
+   <CategoryName>Hinge</CategoryName>
+   <Status>I</Status>
+   <Qty>8</Qty>
+   <Price>0.000</Price>
+   <Condition>N</Condition>
+   <OrigQty>0</OrigQty>
+  </Item>
+  <Item>
+   <ItemID>99784</ItemID>
+   <ItemTypeID>P</ItemTypeID>
+   <ColorID>86</ColorID>
+   <ItemName>Bar 1 x 12 with 1 x 2 Plate End Hollow Studs and 1 x 1 Round Plate End</ItemName>
+   <ItemTypeName>Part</ItemTypeName>
+   <ColorName>Light Bluish Gray</ColorName>
+   <CategoryID>46</CategoryID>
+   <CategoryName>Bar</CategoryName>
+   <Status>I</Status>
+   <Qty>12</Qty>
+   <Price>0.000</Price>
+   <Condition>N</Condition>
+   <OrigQty>0</OrigQty>
+  </Item>
+  <Item>
+   <ItemID>3794b</ItemID>
+   <ItemTypeID>P</ItemTypeID>
+   <ColorID>86</ColorID>
+   <ItemName>Plate, Modified 1 x 2 with 1 Stud with Groove (Jumper)</ItemName>
+   <ItemTypeName>Part</ItemTypeName>
+   <ColorName>Light Bluish Gray</ColorName>
+   <CategoryID>27</CategoryID>
+   <CategoryName>Plate, Modified</CategoryName>
+   <Status>I</Status>
+   <Qty>4</Qty>
+   <Price>0.000</Price>
+   <Condition>N</Condition>
+   <OrigQty>0</OrigQty>
+  </Item>
+ </Inventory>
+ <GuiState Application="BrickStore" Version="1" >
+  <ItemView>
+   <ColumnOrder>0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30</ColumnOrder>
+   <ColumnWidths>21,45,65,173,35,95,35,53,53,35,35,53,53,77,77,35,53,35,53,35,53,0,0,0,0,0,0,35,35,53,53</ColumnWidths>
+   <ColumnWidthsHidden>0,0,0,0,0,0,0,0,0,35,35,53,0,0,0,35,53,35,53,35,53,53,53,53,53,65,35,35,35,53,53</ColumnWidthsHidden>
+   <SortColumn>32</SortColumn>
+   <SortDirection>A</SortDirection>
+  </ItemView>
+ </GuiState>
+</BrickStoreXML>

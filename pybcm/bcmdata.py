@@ -22,14 +22,16 @@ class BCMData(UserDict):
         UserDict.__init__(self)
         self.data = dict() #self.data[elementid, vendorid] = (price, qty) #essentially a copy of the Bricklink data.  Don't change this once initialized
         self.wanted = dict() #don't change this either
+        
         self.vendorlist = list()  #this is a working list.  We'll cull this from time to time and rebuild it if neccessary.
         #                          it's important that these lists are kept current, since they're used as keys for interating over data[elementid, vendorid]
         self.elementlist = list() #this is also a working list, but it won't likely be modified
+        
         self.pricearray = None #a numpy array
         self.stockarray = None #a numpy array
         self.wantedarray = None #a numpy array
         
-        self.items = dict() # itemdescription[elementid] = [avgprice, #vendors, stddev]
+        #self.items = dict() # itemdescription[elementid] = [avgprice, #vendors, stddev]
         self.buildfrombricklink(bricklink, wanteddict) #initialize all of the above lists/arrays
         
         self.result = None  #will use this calculated array result[i,j] = 'quantity to buy', where i = elementindex, j = vendorindex
@@ -120,6 +122,7 @@ class BCMData(UserDict):
         return wantedarray    
     
     def buildarrays(self):
+        logging.info("Rebuilding arrays...")
         self.createpricearray()
         self.createstockarray()
         self.createwantedarray()
@@ -163,6 +166,7 @@ class BCMData(UserDict):
         assert vendorid in self.vendorlist, "Vendor %r does not exist in vendorlist" % vendorid
         self.vendorlist.remove(vendorid)
                       
+    '''
     def vendorcostmetric(self):
         vendorcostmetric = dict()
         for vendorid in self.vendorlist:
@@ -186,7 +190,8 @@ class BCMData(UserDict):
 
         
         return vendorcostmetric
-                      
+    '''
+    '''                  
     def cullvendors(self):
         logging.info( "Searching for vendors to cull")
         initialcount = len(self.vendorlist)
@@ -208,40 +213,46 @@ class BCMData(UserDict):
         vendorsremoved = initialcount - finalcount
         self.buildarrays()
         logging.info( "Removed " + str(vendorsremoved) + " vendors from the working list.")
+    ''' 
+       
     def cullvendorsbyprice(self):
         cheapvendoridx = self.cheapvendorsbyitem()
         #make a new list containing only these vendors
-        initiallength = len(self.vendorlist)
+        initial_length = len(self.vendorlist)
         cheapvendors = [ self.vendorlist[i] for i in cheapvendoridx ]
         self.vendorlist = cheapvendors
         self.buildarrays()
         finallength = len(self.vendorlist)
-        removed = initiallength = finallength
+        removed = initial_length - finallength
         print("Removed " + str(removed) + " vendors from the list")
         #print(cheapvendors)
+        
     def cheapvendorsbyitem(self):
+        #this is returning seemingly random results
         #keep the cheapest N vendors for each item
         #at most, this leaves us with NumElements x N vendors
         #use the pricearray and loop over vendor list
-        nvendors = int(24)
-        v = self.vendorlist
+        nvendors = int(10)
+        #v = self.vendorlist
         e = self.elementlist
-        tempv = list() #running list of vendor indices to keep
+        tempv = np.ndarray(shape=(0), dtype='int') #running list of vendor indices to keep
         for eindex, element in enumerate(e):
             #for this element, find the N cheapest vendors
-            rowslice = self.pricearray[eindex]
-            vlist = rowslice[ np.nonzero( rowslice ) ] #slices out a row of the pricearray containing prices
-            #get the list of NONZERO sorted indices
-            vindices = np.argsort(vlist)
-            #get the first N of the sorted indices
-            keepv = vindices[:nvendors]
-            tempv.append(keepv)
+            row = self.pricearray[eindex] #slices out a row of the pricearray containing prices
+            indexlist = np.nonzero( row ) #gets indices of the non-zero elements
+            sortedvals = np.sort(row[indexlist]) #sort the non-zero values
+            lowestprice = sortedvals[nvendors] #get the nth lowest price
+            indexlist = np.nonzero( (row > 0) & (row <= lowestprice) )
+
+            tempv = np.append(tempv, indexlist) 
+            #tempv += keepv
+
         #flatten, sort, and remove duplicates from tempvarray    
         
-        flatv = np.unique( np.sort(tempv, axis=None) ).tolist()
+        flatv = np.unique( tempv )
         
         return flatv
-    
+    '''
     def elementweights(self):
         
         avgprices = self.calculateavgprices()
@@ -287,7 +298,7 @@ class BCMData(UserDict):
         logging.info( "Removed " + str(vendorsremoved) + " vendors from the working list.")
         
         return 
-    '''
+    
     def describevendors(self):
         
         print( "There are " + str(len(self.vendormap)) + " vendors with sufficient quantity of at least one element in our list.")
@@ -319,12 +330,12 @@ class BCMData(UserDict):
         
         return d
         
-    def rawshoppinglist(self):
+    def rawshoppinglist(self, result):
         #for each vendor, item & quantity
         #converts result array from Opt into a vendorid, elementid dictionary
         rawshoppinglist = dict()       #rawshoppinglist[vendorid, elementid] = qty
-        if self.result.any():
-            r = self.result
+        if result.any():
+            r = result
             for vindex, vendor in enumerate(r.T):  #iterate over columns in result
                 if any(val > 0 for val in vendor): #check if any values in column 'vendor' are greater than zero
                     eindices = np.nonzero(vendor)
@@ -345,8 +356,8 @@ class BCMData(UserDict):
         for item in self.data.items():
             print (item)
 
-    def shoppinglist(self):
-        rsl = self.rawshoppinglist() #this is a dictionary keyed on vendorid 
+    def shoppinglist(self, result):
+        rsl = self.rawshoppinglist(result) #this is a dictionary keyed on vendorid 
         #print(rawshoppinglist)
         #additem(self, itemid, colorid, wantedqty, vendorid, vendorname, vendorqty, vendorprice
         shoppinglist = ShoppingList()

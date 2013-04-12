@@ -57,6 +57,8 @@ class ShoppingList():
         return xml_string        
     
     def display(self):
+        
+        
         print( self.toXML()  )    
             
 if __name__ == '__main__':

@@ -97,13 +97,20 @@ if __name__ == '__main__':
     #si = [ shortvlist.index(i) for i in shortvlist]
     #print (si)
     opt = Optimizer()
-    data.cullvendorsbyprice()
-    result = opt.simplesearch(data)
-    data.describevendors()
     
-    data.result = result
-    opt = Optimizer()
     result = opt.simplesearch(data)
+    #ata.describevendors()
+    
+    data.cullvendorsbyprice()
+    
+    
+    result = opt.simplesearch(data)
+   
+    print( data.shoppinglist(result).display() )
+    
+    
+    
+    #data.describevendors()
     #print(result)
     
     #result = opt.simplesearch(data)
