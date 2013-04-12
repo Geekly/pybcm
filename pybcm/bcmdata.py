@@ -32,8 +32,8 @@ class BCMData(UserDict):
         self.items = dict() # itemdescription[elementid] = [avgprice, #vendors, stddev]
         self.buildfrombricklink(bricklink, wanteddict) #initialize all of the above lists/arrays
         
-        self.result = None #will use this calculated array result[i,j] = 'quantity to buy', where i = elementindex, j = vendorindex
-                         #indexes i, j need to match indexes in elementlist[i] and vendorlist[j] for successful remapping
+        self.result = None  #will use this calculated array result[i,j] = 'quantity to buy', where i = elementindex, j = vendorindex
+                            #indexes i, j need to match indexes in elementlist[i] and vendorlist[j] for successful remapping
         self.initialized = False
         
     def buildfrombricklink(self, bricklink, wanteddict): 
@@ -72,13 +72,13 @@ class BCMData(UserDict):
                 
             A[i,j] = item[i]vendor[j] price    
         '''
-        n = len(self.elementlist)
-        m = len(self.vendorlist)
+        m = len(self.elementlist) #rows
+        n = len(self.vendorlist) #columns
         
-        pricearray = np.ndarray(shape = (n, m), dtype=np.float)
+        pricearray = np.ndarray(shape = (m, n), dtype=np.float) #I used the wrong matrix notation, should I change it now?
         
-        for i in range(0, n):
-            for j in range(0, m):
+        for i in range(0, m):
+            for j in range(0, n):
                 keytuple = (self.elementlist[i], self.vendorlist[j])
                 if keytuple in self.keys():
                     pricearray[i,j] = float(self[self.elementlist[i], self.vendorlist[j]][1])
@@ -94,12 +94,12 @@ class BCMData(UserDict):
                 [item2vendor1stock, item2vendor2stock, item2vendor3stock],...]              
             B[i,j] = item[i]vendor[j] stock    
         '''
-        n = len(self.elementlist)
-        m = len(self.vendorlist)
-        stockarray = np.ndarray(shape = (n, m), dtype=np.int)
+        m = len(self.elementlist)
+        n = len(self.vendorlist)
+        stockarray = np.ndarray(shape = (m, n), dtype=np.int)
         stockarray.fill(0)
-        for i in range(0, n):
-            for j in range(0, m):
+        for i in range(0, m):
+            for j in range(0, n):
                 keytuple = (self.elementlist[i], self.vendorlist[j])
                 if keytuple in self.keys():
                     stockarray[i,j] = int(self[self.elementlist[i], self.vendorlist[j]][0])
@@ -110,10 +110,10 @@ class BCMData(UserDict):
         return stockarray
     
     def createwantedarray(self):    #returns numpy array of wanted items
-        n = len(self.elementlist)
+        m = len(self.elementlist)
         
-        wantedarray = np.ndarray(shape = (n), dtype=np.int)
-        for i in range(0, n):
+        wantedarray = np.ndarray(shape = (m), dtype=np.int)
+        for i in range(0, m):
             elementid = self.elementlist[i]
             wantedarray[i] = self.wanted[elementid]
         self.wantedarray = wantedarray    
@@ -127,7 +127,10 @@ class BCMData(UserDict):
     def describesolution(self, result):
         if self.result:
             pass
-    
+    def describevendors(self):
+        #print out some information about the vendors
+        print("There are " + str(len(self.vendorlist)) + " in Vendorlist")
+        
     def getqtyandprice(self, elementid, vendorid):
         assert( (elementid, vendorid) in self.data.keys() ), "ElementID %r, VendorID %r not found" % (elementid, vendorid)
         (qty, price) = self[elementid, vendorid]       
@@ -135,7 +138,7 @@ class BCMData(UserDict):
         
     def addtolist(self, alist, value):             
         if value not in alist:
-            string = "Adding value: " + str( value) + " to list " + str( alist)
+            #string = "Adding value: " + str( value) + " to list " + str( alist)
             #logging.debug(string)
             alist.append(value)
         return True
@@ -160,9 +163,10 @@ class BCMData(UserDict):
         assert vendorid in self.vendorlist, "Vendor %r does not exist in vendorlist" % vendorid
         self.vendorlist.remove(vendorid)
                       
-    def describevendors(self):
+    def vendorcostmetric(self):
         vendorcostmetric = dict()
-        
+        for vendorid in self.vendorlist:
+            vendorcostmetric[vendorid] = 0.0        
         for vindex, vendorqty in enumerate(self.stockarray.T):
             vendorid = self.vendorlist[vindex]
             metric = float(0.0)
@@ -174,12 +178,12 @@ class BCMData(UserDict):
                 itemcount += wantedqty
             metric = partcost/wantedqty
             vendorcostmetric[vendorid] = metric
+        
         return vendorcostmetric   
         #define a metric for vendor pricing to weigh relative cost
         #use items on the wanted list and weight them by total cost or something
         #cost if I bought all the items a vendor offers / # of items vendor offers
-        for vendorid in self.vendorlist:
-            vendorcostmetric[vendorid] = 0.0
+
         
         return vendorcostmetric
                       
@@ -204,6 +208,39 @@ class BCMData(UserDict):
         vendorsremoved = initialcount - finalcount
         self.buildarrays()
         logging.info( "Removed " + str(vendorsremoved) + " vendors from the working list.")
+    def cullvendorsbyprice(self):
+        cheapvendoridx = self.cheapvendorsbyitem()
+        #make a new list containing only these vendors
+        initiallength = len(self.vendorlist)
+        cheapvendors = [ self.vendorlist[i] for i in cheapvendoridx ]
+        self.vendorlist = cheapvendors
+        self.buildarrays()
+        finallength = len(self.vendorlist)
+        removed = initiallength = finallength
+        print("Removed " + str(removed) + " vendors from the list")
+        #print(cheapvendors)
+    def cheapvendorsbyitem(self):
+        #keep the cheapest N vendors for each item
+        #at most, this leaves us with NumElements x N vendors
+        #use the pricearray and loop over vendor list
+        nvendors = int(24)
+        v = self.vendorlist
+        e = self.elementlist
+        tempv = list() #running list of vendor indices to keep
+        for eindex, element in enumerate(e):
+            #for this element, find the N cheapest vendors
+            rowslice = self.pricearray[eindex]
+            vlist = rowslice[ np.nonzero( rowslice ) ] #slices out a row of the pricearray containing prices
+            #get the list of NONZERO sorted indices
+            vindices = np.argsort(vlist)
+            #get the first N of the sorted indices
+            keepv = vindices[:nvendors]
+            tempv.append(keepv)
+        #flatten, sort, and remove duplicates from tempvarray    
+        
+        flatv = np.unique( np.sort(tempv, axis=None) ).tolist()
+        
+        return flatv
     
     def elementweights(self):
         
@@ -213,9 +250,27 @@ class BCMData(UserDict):
         weights = (avgprices * wanted)/(avgprices * wanted).max()
         
         return weights
-            
     
-    def cullbyaverageprice(self):
+    def dropifsingle(self):
+        #if a vendor only has sufficient qty of one part and it's not the cheapest, drop it
+        #find the vendors with quantity in only one part
+        #count the rows per vendor that are > wanted qty
+        #wanted = self.wantedarray
+        ipv = self.itemspervendor()
+        avgprices = self.calculateavgprices()
+        onepartindexlist = list()
+        vendorswithonepart = (ipv <= 1)
+        indexlist = np.where(ipv <= 1) #this should be indices
+        #print(indexlist)
+        for index in indexlist[0]:
+            # true means this vendor has only one part            
+            vendorprices = self.pricearray.T[index]
+            thisprice = vendorprices[np.nonzero(vendorprices)] 
+            # get the price of the nonzero element
+            print(thisprice)    
+                #if self.pricearray[index] 
+               
+    def cullbymetric(self):
         #remove vendors that are above average price
         initialcount = len(self.vendorlist)
         avgprices = self.calculateavgprices()
@@ -225,9 +280,10 @@ class BCMData(UserDict):
             if all(prices > avgprices):               
                 self.removevendor(vendorid)
                 break;
+            
+        self.buildarrays()
         finalcount = len(self.vendorlist)
         vendorsremoved = initialcount - finalcount
-        self.buildarrays()
         logging.info( "Removed " + str(vendorsremoved) + " vendors from the working list.")
         
         return 
@@ -247,11 +303,12 @@ class BCMData(UserDict):
         return avgprices
         #for item in self.item
     
-    def countitemspervendor(self):
+    def itemspervendor(self):
         s = self.stockarray
         itemspervendor = (s > 0).sum(0)
         return itemspervendor
-    def maparray2vendor(self, array):
+    
+    def maparray2vendorid(self, array):
         d = dict()
         #width of array must be equal to length of vendorlist
         shape = array.shape

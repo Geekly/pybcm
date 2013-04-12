@@ -11,8 +11,10 @@ from legoutils import LegoColor
 from blreader import *
 from optimizer import *
 import io
+import numpy as np
 #from vendors import Vendors
 from bcmdata import BCMData
+from pprint import pprint
 
 
 
@@ -20,15 +22,15 @@ if __name__ == '__main__':
     
     
     logging.basicConfig(level=logging.DEBUG)
-    #wantedlistfilename = '../Molding Machine.bsx'
-    wantedlistfilename = '../Inventory for 4000001-1 short.bsx'
+    wantedlistfilename = '../Molding Machine.bsx'
+    #wantedlistfilename = '../Inventory for 6964-1.bsx'
     
     
     reloadpricesfromweb = False  #set this to true if you want to update prices from the web and rewrite pricefilename
     #make sure to run this once every time that the wanted list changes
                                    
     
-    pricefilename = '../400000-1 Bricklink.xml'
+    pricefilename = '../Molding Machine.xml'
     #vendorpricelist = '../vendorprices.xml'
     #outfilename = 'PriceGuidePy.mat'
     #USOnly=1
@@ -65,27 +67,82 @@ if __name__ == '__main__':
     #data.calculateavgprices()
     #print(data.vendormap.toXML())
     #print(data.avgprices())
-    data.cullvendors()
+    #data.cullvendors()
     #print(data.stockarray)
     #print(data.avgprices())
     #print(data.vendormap.toXML())
+    
+    
+    #print( result )
+    #pprint(data.maparray2vendorid(result))
+    #print( data.wantedarray )
+    #a = data.calculateavgprices() 
+    #pprint(a)
+    
+    #w = data.elementweights()
+    # pprint ( w )
+    #print( data.cullbymetric() )
+    # pprint( data.maparray2vendorid( data.pricearray))
+    #pprint( data.maparray2vendorid( data.stockarray) )
+    #pprint( data.itemspervendor())
+    #pprint( data.dropifsingle())
+    #vendoridx = data.cheapvendorsbyitem()
+    #data.pricearray = data.pricearray[:, vendoridx]
+    #data.stockarray = data.stockarray[:, vendoridx]
+    #pprint( vendoridx )
+    #print( data.describevendors() )
+    #print( data.countitemspervendor())
+    #pprint(data.vendorlist)
+    #shortvlist = [ data.vendorlist[i] for i in vendoridx]
+    #si = [ shortvlist.index(i) for i in shortvlist]
+    #print (si)
+    opt = Optimizer()
+    data.cullvendorsbyprice()
+    result = opt.simplesearch(data)
+    data.describevendors()
+    
+    data.result = result
     opt = Optimizer()
     result = opt.simplesearch(data)
     #print(result)
-    data.result = result
-    print( data.calculateavgprices())
-    #print( data.describevendors() )
-    print( data.countitemspervendor())
     
-    print(data.cullbyaverageprice())
-    print(data.elementweights())
+    #result = opt.simplesearch(data)
+    #data.describevendors()
+    #print(data.vendorlist)
+    #print (shortvlist)
+    #v = [ data.pricearray[:,i] for i in vendoridx ]
+    #print(vendoridx)
+    #print(data.vendorlist)
+    #vl = np.array(data.vendorlist)
+    #print( vl)
+    #pprint(vl[vendoridx])
+    #pprint(data.vendorlist[vendoridx])
+    #pprint( data.vendorlist[vendoridx,] )
+    #data.vendorlist = data.vendorlist[:vendoridx:]
+    #pprint(data.vendorlist)
+    #pprint( data.pricearray[:,vendoridx] ) #slice the pricearray using the vendor indices
+    #print("Average prices")
+    #pprint(data.calculateavgprices())
+    #print("Vendor price metrics")
+    #pprint(data.vendorcostmetric())
+    #print("Items Per Vendor")
+    #pprint(data.countitemspervendor())
+    
+    #pprint(data.wantedarray)
+    #print("Result matrix")
+    #pprint(data.result)
+    #np.savetxt("../result.csv", data.result, delimiter=",")
+    #np.savetxt("../vendorprices.csv", data.pricearray, delimiter=",")
+    #np.savetxt("../avgprices.csv", data.calculateavgprices, delimiter=",")
+    #np.savetxt("../costmetric.csv", data.vendorcostmetric, delimiter=",")
+    #print(data.elementweights())
     
     #print( data.maparray2vendor(data.stockarray) )
     #print( data.maparray2vendor(data.pricearray ))
     #for tuple in data.data.keys():
     #    print( tuple, data.data[tuple] )
-    result = opt.simplesearch(data)
-    shoppinglist = data.shoppinglist()
+    #result = opt.simplesearch(data)
+    #shoppinglist = data.shoppinglist()
     #print(shoppinglist.XMLforBricklink())
     #print(shoppinglist)
     #print(data.vendors)   
@@ -125,6 +182,6 @@ if __name__ == '__main__':
     #shoppinglist.display()  
 
 
-    
+
 
 

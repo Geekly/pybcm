@@ -46,6 +46,7 @@ class BricklinkData(UserDict):
         #self.data = dict() # a dictionary with keys itemid, and color.  each entry contains a list of lists
         for elementid in wanted.keys():
             #grab the needed variables for constructing the URL
+            logging.info("Loading element " + str(elementid))
             itemID = wanted[elementid].itemid          
             itemtypeID = wanted[elementid].itemtypeid
             itemColorID = wanted[elementid].colorid
@@ -61,6 +62,7 @@ class BricklinkData(UserDict):
            
     def read(self, filename=None):
         assert filename != None, "price List filename required"
+        
         logging.info("Building bricklink data from file: " + filename)
         self.data = dict()  #clear any existing data
         
@@ -74,7 +76,7 @@ class BricklinkData(UserDict):
             colorid = item.find('colorid').string
             elementid = LegoElement.joinelement(itemid, colorid)
             self[elementid] = [] #empty list
-            
+            logging.info("Loading element " + str(elementid))
             vendors = item.findAll('vendor')
             for vendor in vendors:
                 

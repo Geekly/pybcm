@@ -4,8 +4,8 @@ Created on Oct 23, 2012
 @author: khooks
 '''
 
-from shoppinglist import ShoppingList
-from bcmdata import BCMData
+#from shoppinglist import ShoppingList
+#from bcmdata import BCMData
 import numpy as np
 import logging
 
@@ -24,6 +24,7 @@ class Optimizer(object):
         
         self.optimizemethod = mode
         self.maxvendorsperitem = 1
+        self.wantedarray = None #needed to check feasibilty of solution
         self.result = None
         self.vendorweight = 3.0  #cost to add additional vendors, approximating average per/order shipping & handling cost
         
@@ -34,9 +35,9 @@ class Optimizer(object):
         #count nonzero columns
         nvendors = np.count_nonzero( np.any( product > 0, axis=0 ) )
         #print(product)
-        cost = np.sum(product)#sum all the elments
+        partcost = np.sum(product)#sum all the elments
         ordercost = nvendors * 3.0
-        return (cost, ordercost, nvendors)
+        return (partcost, ordercost, nvendors)
         #print(cost)
                 
     def simplesearch(self, bcmdata):
@@ -44,10 +45,11 @@ class Optimizer(object):
         #find the cheapest vendor that contains enough stock to satisfy the wanted quantity
         #return a numpy array n x m containing the quantity purchased from that vendor
         #    n - number of elementlist
-        #    m - number of vendors        
-        n = len(bcmdata.elementlist)
-        m = len(bcmdata.vendorlist)
-        result = np.zeros(shape=(n, m), dtype=np.int)
+        #    m - number of vendors     
+        self.wantedarray = bcmdata.wantedarray   
+        m = len(bcmdata.elementlist)
+        n = len(bcmdata.vendorlist)
+        result = np.zeros(shape=(m, n), dtype=np.int)
                
         #indices = bcmdata.wantedarray
         for eindex, wantedqty in np.ndenumerate(bcmdata.wantedarray):  #list of elementlist wanted
@@ -75,8 +77,14 @@ class Optimizer(object):
         #print(str(result))
         (cost, ordercost, nvendors) = self.cost(bcmdata.pricearray, result)
          
-        logging.info("Solution found.  Total cost is $" + str(cost) + " using " + str(nvendors) + " vendors") 
+        logging.info("Solution found.  Total part cost is $" + str(cost) + " using " + str(nvendors) + " vendors") 
+        logging.info("Shipping costs are ~$" + str(ordercost))
         return result
+
+    def isfeasible(self, result):
+        # if total quantities = wantedqty
+        partqty = result.sum(axis=1)
+        return partqty
         
 if __name__ == "__main__":
        
