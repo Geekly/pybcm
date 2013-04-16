@@ -7,6 +7,7 @@ from collections import UserDict
 from vendors import VendorMap
 import copy
 import numpy as np
+import numpy.ma as ma
 import logging
 from shoppinglist import ShoppingList
 from legoutils import LegoElement
@@ -146,26 +147,8 @@ class BCMData(UserDict):
             alist.append(value)
         return True
     
-    def sortedvendorindices(self):        
-        #this is returning seemingly random results
-        #keep the cheapest N vendors for each item
-        #at most, this leaves us with NumElements x N vendors
-        #use the pricearray and loop over vendor list
-        #nvendors = int(10)
-        #v = self.vendorlist
-        p = self.pricearray
-        pmask = p>0  #p and pmask share the same indices
-        s = p.argsort(axis=1) #indices are now sorted by s
+
         
-        for row in s:
-            ps = [ p[i][s[i]] for i in range(0, len(p)) ] #sorted indices
-            nz = [ row.nonzero() for row in p] #list of sorted non-zero INDICES for each row in p.  nonzero sorts them.
-            pz = [ p[i][nz[i]] for i in range(0, len(p)) ] #non-zero VALUES in p, sorted 
-        np.savetxt("../pricearray.txt", p)
-        #sortedvendors = np.argsort(p, axis=1)
-        np.savetxt("../sortedprice.txt", nz)
-        
-        return nz
     
     def getvendorlist(self):
         return self.vendorlist
@@ -248,13 +231,46 @@ class BCMData(UserDict):
         print("Removed " + str(removed) + " vendors from the list")
         #print(cheapvendors)
         
+    def ma_sortedvendorindices(self):        
+        #returns a masked array of the sorted vendor indices, masking the 0.0 values
+
+        p = self.pricearray       
+        s = p.argsort(axis=1) # sort array of vendor indices are now sorted by s
+
+        static_indices = np.indices( p.shape )
+        psorted = p[static_indices[0], s]     
+           
+        sortedmask = psorted <= 0.0  #p and pmask share the same indices
+        
+        m = ma.array( s, mask=sortedmask ) # a masked array of sorted vendor indice
+        
+        csm = [ ma.compressed( m[i] ) for i in range(0, len(m)) ]
+        return csm
+ #compressed, sorted, masked array of vendor indices
+            
     def cheapvendorsbyitem(self):
         #this is returning seemingly random results
         #keep the cheapest N vendors for each item
         #at most, this leaves us with NumElements x N vendors
         #use the pricearray and loop over vendor list
-        nvendors = int(10)
+        nvendors = int(20)
         #v = self.vendorlist
+        csm = self.ma_sortedvendorindices() #this is a list of vendor indices, sorted
+        
+        #trim this array, but shape is no longer m x n because the number of vendors per item won't be to be the same
+        vendorindices = list()
+        for rowindex, row in enumerate(csm):
+            p = self.pricearray
+            colindex = row[nvendors]
+            lowprice = p[rowindex, colindex] 
+            print("Lowprice " + str(lowprice) )
+            #get all the vendor indices that are equal to or lower than the low price
+            indices = [ vidx for vidx in row if p[rowindex, vidx] <= lowprice ]
+            vendorindices.append( indices )
+            #print( indices)
+        print(vendorindices)
+        return vendorindices
+        '''
         e = self.elementlist
         tempv = np.ndarray(shape=(0), dtype='int') #running list of vendor indices to keep
         for eindex, element in enumerate(e):
@@ -271,8 +287,8 @@ class BCMData(UserDict):
         #flatten, sort, and remove duplicates from tempvarray    
         
         flatv = np.unique( tempv )
-        
-        return flatv
+        '''
+
     '''
     def elementweights(self):
         
