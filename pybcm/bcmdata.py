@@ -146,6 +146,27 @@ class BCMData(UserDict):
             alist.append(value)
         return True
     
+    def sortedvendorindices(self):        
+        #this is returning seemingly random results
+        #keep the cheapest N vendors for each item
+        #at most, this leaves us with NumElements x N vendors
+        #use the pricearray and loop over vendor list
+        #nvendors = int(10)
+        #v = self.vendorlist
+        p = self.pricearray
+        pmask = p>0  #p and pmask share the same indices
+        s = p.argsort(axis=1) #indices are now sorted by s
+        
+        for row in s:
+            ps = [ p[i][s[i]] for i in range(0, len(p)) ] #sorted indices
+            nz = [ row.nonzero() for row in p] #list of sorted non-zero INDICES for each row in p.  nonzero sorts them.
+            pz = [ p[i][nz[i]] for i in range(0, len(p)) ] #non-zero VALUES in p, sorted 
+        np.savetxt("../pricearray.txt", p)
+        #sortedvendors = np.argsort(p, axis=1)
+        np.savetxt("../sortedprice.txt", nz)
+        
+        return nz
+    
     def getvendorlist(self):
         return self.vendorlist
     
@@ -371,6 +392,22 @@ class BCMData(UserDict):
             wantedqty = self.wanted[elementid]  
             shoppinglist.additem(itemid, colorid, wantedqty, vendorid, vendorname, vendorqty, vendorprice)
         return shoppinglist       
+    
+    def resultsummary(self, result):
+        
+        rsl = self.rawshoppinglist(result)
+        keytuples = rsl.keys()
+        #sort the keys on vendor (first element)
+        for vendorid, elementid in rsl:  #vendorindex is the key           
+            #print( rawshoppinglist[vendorid] )
+            vendorqty = rsl[vendorid, elementid]
+            vendorname = self.vendormap[vendorid]                
+            (stockqty, vendorprice) = self.getqtyandprice(elementid, vendorid)
+            (itemid, colorid) = LegoElement.splitelement(elementid)  
+            wantedqty = self.wanted[elementid]  
+                 
+        return
+        
     '''
             
     def vendorcount(self):     

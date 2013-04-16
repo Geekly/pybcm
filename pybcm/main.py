@@ -26,7 +26,7 @@ if __name__ == '__main__':
     #wantedlistfilename = '../Inventory for 6964-1.bsx'
     
     
-    reloadpricesfromweb = False  #set this to true if you want to update prices from the web and rewrite pricefilename
+    reloadpricesfromweb = True  #set this to true if you want to update prices from the web and rewrite pricefilename
     #make sure to run this once every time that the wanted list changes
                                    
     
@@ -96,17 +96,19 @@ if __name__ == '__main__':
     #shortvlist = [ data.vendorlist[i] for i in vendoridx]
     #si = [ shortvlist.index(i) for i in shortvlist]
     #print (si)
-    opt = Optimizer()
+    #opt = Optimizer()
     
-    result = opt.simplesearch(data)
+    #result = opt.simplesearch(data)
     #ata.describevendors()
     
-    data.cullvendorsbyprice()
+    #data.cullvendorsbyprice()
     
     
-    result = opt.simplesearch(data)
+    pprint( data.sortedvendorindices() )
+    
+    #result = opt.simplesearch(data)
    
-    print( data.shoppinglist(result).display() )
+    #print( data.shoppinglist(result).display() )
     
     
     
