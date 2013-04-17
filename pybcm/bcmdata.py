@@ -147,8 +147,6 @@ class BCMData(UserDict):
             alist.append(value)
         return True
     
-
-        
     
     def getvendorlist(self):
         return self.vendorlist
@@ -169,56 +167,7 @@ class BCMData(UserDict):
         #doesn't remove it from the .data, only from the list of vendors
         assert vendorid in self.vendorlist, "Vendor %r does not exist in vendorlist" % vendorid
         self.vendorlist.remove(vendorid)
-                      
-    '''
-    def vendorcostmetric(self):
-        vendorcostmetric = dict()
-        for vendorid in self.vendorlist:
-            vendorcostmetric[vendorid] = 0.0        
-        for vindex, vendorqty in enumerate(self.stockarray.T):
-            vendorid = self.vendorlist[vindex]
-            metric = float(0.0)
-            itemcount = int(0)
-            partcost = float(0.0)
-            for eindex, wantedqty in enumerate(self.wantedarray):
-                price = self.pricearray[eindex, vindex]
-                partcost += price * wantedqty
-                itemcount += wantedqty
-            metric = partcost/wantedqty
-            vendorcostmetric[vendorid] = metric
-        
-        return vendorcostmetric   
-        #define a metric for vendor pricing to weigh relative cost
-        #use items on the wanted list and weight them by total cost or something
-        #cost if I bought all the items a vendor offers / # of items vendor offers
-
-        
-        return vendorcostmetric
-    '''
-    '''                  
-    def cullvendors(self):
-        logging.info( "Searching for vendors to cull")
-        initialcount = len(self.vendorlist)
-        #consider implementing some kind of cull threshhold
-        
-        vendorcopy = copy.deepcopy(self.vendorlist)
-        for vendor in vendorcopy:
-            #if the vendor doesnt have min quantity of at least one item, remove them
-            gonnaremovevendor = True
-            for element in self.elementlist:               
-                if self.hasminquantity(element, vendor): 
-                    gonnaremovevendor = False
-                    break
-            if( gonnaremovevendor ):
-                #print( "Removing vendor: " + vendor)
-                self.removevendor(vendor)
-                #self.removeelementvendor(element, vendor)
-        finalcount = len(self.vendorlist)
-        vendorsremoved = initialcount - finalcount
-        self.buildarrays()
-        logging.info( "Removed " + str(vendorsremoved) + " vendors from the working list.")
-    ''' 
-       
+                            
     def cullvendorsbyprice(self):
         cheapvendoridx = self.cheapvendorsbyitem()
         #make a new list containing only these vendors
@@ -231,21 +180,15 @@ class BCMData(UserDict):
         print("Removed " + str(removed) + " vendors from the list")
         #print(cheapvendors)
         
-    def ma_sortedvendorindices(self):        
+    def maskedsortedvendorindices(self):        
         #returns a masked array of the sorted vendor indices, masking the 0.0 values
-
         p = self.pricearray       
         s = p.argsort(axis=1) # sort array of vendor indices are now sorted by s
-
         static_indices = np.indices( p.shape )
-        psorted = p[static_indices[0], s]     
-           
-        sortedmask = psorted <= 0.0  #p and pmask share the same indices
-        
-        m = ma.array( s, mask=sortedmask ) # a masked array of sorted vendor indice
-        
-        csm = [ ma.compressed( m[i] ) for i in range(0, len(m)) ]
-        return csm
+        psorted = p[static_indices[0], s]               
+        sortedmask = psorted <= 0.0  #p and pmask share the same indices       
+        m = ma.array( s, mask=sortedmask ) # a masked array of sorted vendor indice        
+        return m
  #compressed, sorted, masked array of vendor indices
             
     def cheapvendorsbyitem(self):
@@ -255,11 +198,24 @@ class BCMData(UserDict):
         #use the pricearray and loop over vendor list
         nvendors = int(20)
         #v = self.vendorlist
-        csm = self.ma_sortedvendorindices() #this is a list of vendor indices, sorted
+        msorted = self.maskedsortedvendorindices() #this is a list of vendor indices, sorted and masked > 0
+        #csm = [ ma.compressed( msorted[i] ) for i in range(0, len(msorted)) ]
+        #things like - start with most expensive part
+        #start with cheapest vendor        
+        print(msorted.shape)
+        elementweights = self.elementweights()
+        print(elementweights)
+         #order to iterate over these, indices map to elementlist
+        elementindexlist = [index for index, id in enumerate(self.elementlist) ]
         
+        pairs = sorted( zip(elementweights, elementindexlist), reverse = True ) # (weight, elementindex) tuples sorted on weight
+        elementorder = [ eidy for (x, eidy) in pairs] #this is the order to search elements
+        
+        #vendororder = list() #order to iterate, indices map to vendorlist
         #trim this array, but shape is no longer m x n because the number of vendors per item won't be to be the same
-        vendorindices = list()
-        for rowindex, row in enumerate(csm):
+        #sort vendors, starting with the cheapest for the highest weighted part
+        #vendorindices = list()
+        '''for rowindex, row in enumerate(csm):
             p = self.pricearray
             colindex = row[nvendors]
             lowprice = p[rowindex, colindex] 
@@ -268,8 +224,8 @@ class BCMData(UserDict):
             indices = [ vidx for vidx in row if p[rowindex, vidx] <= lowprice ]
             vendorindices.append( indices )
             #print( indices)
-        print(vendorindices)
-        return vendorindices
+        '''#print(vendorindices)
+        return elementorder, msorted
         '''
         e = self.elementlist
         tempv = np.ndarray(shape=(0), dtype='int') #running list of vendor indices to keep
@@ -289,7 +245,7 @@ class BCMData(UserDict):
         flatv = np.unique( tempv )
         '''
 
-    '''
+    
     def elementweights(self):
         
         avgprices = self.calculateavgprices()
@@ -298,7 +254,7 @@ class BCMData(UserDict):
         weights = (avgprices * wanted)/(avgprices * wanted).max()
         
         return weights
-    
+    '''
     def dropifsingle(self):
         #if a vendor only has sufficient qty of one part and it's not the cheapest, drop it
         #find the vendors with quantity in only one part

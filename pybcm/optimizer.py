@@ -39,6 +39,34 @@ class Optimizer(object):
         ordercost = nvendors * 3.0
         return (partcost, ordercost, nvendors)
         #print(cost)
+    
+    def orderedsearch(self, elementorder, msorted, bcmdata):
+        #pick a starting vendor.  Try and get all the parts this vendor has
+        #go to the next vendor and do the same until all quantities wanted are filled
+        #create an order of parts implicitly minimizing the number of vendors used
+        #evaluate cost
+        #change vendors and repeat
+        self.wantedarray = bcmdata.wantedarray
+        w = bcmdata.wantedarray
+        s = bcmdata.stockarray
+        m = len( elementorder )
+        n = msorted.shape[1]
+        dfilled= dict()
+        result = np.zeros(shape=(m, n), dtype=np.int)
+        for e in elementorder:
+            wanted = w[e]
+            dfilled[e] = 0.0
+            for v in msorted[e].compressed():
+                stock = s[e, v]
+                need = wanted - dfilled[e]
+                if need <= stock: #just buy what we still need
+                    trytobuy = need                
+                else:
+                    trytobuy = stock #buy all they have
+                dfilled[e] += trytobuy
+                result[e,v] = trytobuy
+                print( result[e,v], e, v)
+        return result
                 
     def simplesearch(self, bcmdata):
         #for each item in the wanted list

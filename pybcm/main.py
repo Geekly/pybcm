@@ -96,26 +96,29 @@ if __name__ == '__main__':
     #shortvlist = [ data.vendorlist[i] for i in vendoridx]
     #si = [ shortvlist.index(i) for i in shortvlist]
     #print (si)
-    #opt = Optimizer()
+    opt = Optimizer()
     
     #result = opt.simplesearch(data)
     #ata.describevendors()
     
     #data.cullvendorsbyprice()
     
-    
-    pprint( data.ma_sortedvendorindices())
-    pprint( data.cheapvendorsbyitem())
+    #snvi = data.maskedsortedvendorindices()
+ 
+    (elementorder, vsorted) = data.cheapvendorsbyitem()
+    print(elementorder)
+    #print(vsorted)
     #result = opt.simplesearch(data)
-   
+    #print( np.bincount( data.sortednonzerovendorindices.data ))
     #print( data.shoppinglist(result).display() )
     
-    
+
     
     #data.describevendors()
     #print(result)
     
-    #result = opt.simplesearch(data)
+    result = opt.orderedsearch( elementorder, vsorted, data )
+    print (opt.cost( data.pricearray, result ))
     #data.describevendors()
     #print(data.vendorlist)
     #print (shortvlist)
