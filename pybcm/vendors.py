@@ -3,8 +3,8 @@ Created on Oct 23, 2012
 
 @author: khooks
 '''
-from collections import UserDict
-from bs4 import BeautifulSoup as Soup
+from UserDict import UserDict
+import BeautifulSoup as Soup
 import logging
 
 class Vendor(object):

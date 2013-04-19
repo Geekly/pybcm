@@ -3,7 +3,7 @@ Created on Oct 30, 2012
 
 @author: khooks
 '''
-from collections import UserDict
+from UserDict import UserDict
 from vendors import VendorMap
 import copy
 import numpy as np
@@ -244,8 +244,7 @@ class BCMData(UserDict):
         
         flatv = np.unique( tempv )
         '''
-
-    
+  
     def elementweights(self):
         
         avgprices = self.calculateavgprices()
@@ -366,7 +365,7 @@ class BCMData(UserDict):
         return shoppinglist       
     
     def resultsummary(self, result):
-        
+        #found items from X vendors
         rsl = self.rawshoppinglist(result)
         keytuples = rsl.keys()
         #sort the keys on vendor (first element)

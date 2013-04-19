@@ -6,8 +6,8 @@ Created on Oct 23, 2012
 
 #Converted the dictionary key from itemid, colorid to elementid, which is of the format 'itemid|colorid'
 
-from collections import UserDict
-from bs4 import BeautifulSoup as Soup
+from UserDict import UserDict
+from BeautifulSoup import BeautifulSoup as Soup
 from legoutils import LegoElement
 #from string import Template
 #from xml.etree import ElementTree as ET 
@@ -31,7 +31,8 @@ class WantedDict(UserDict):
                           
     def read(self, filename=None):
         assert filename != None, "Wanted List filename required"
-        soup = Soup(open(filename).read())
+        f = open(filename, 'r')
+        soup = Soup( f )
         #wanteddict = dict() #initialize as an empty dictionary
         wantedlist = soup.findAll("item")
     
@@ -57,7 +58,7 @@ class WantedDict(UserDict):
         return self[elementid].wantedqty 
         
 if __name__ == '__main__':
-    wantedlistfilename = '..\\Molding Machine.bsx'
+    wantedlistfilename = '..\Molding Machine.bsx'
     wanteddict = WantedDict()
     wanteddict.read(wantedlistfilename)
     print( wanteddict.data )

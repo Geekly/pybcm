@@ -1,3 +1,17 @@
 # git ignore file
 
 *.pyc
+pybcm/bcmdata.pyc
+pybcm/__init__.pyc
+pybcm/bcmdata.pyc
+pybcm/blreader.py3
+pybcm/blreader.pyc
+pybcm/bricklinkdata.pyc
+pybcm/__init__.pyc
+pybcm/bcmdata.pyc
+pybcm/blreader.pyc
+pybcm/bricklinkdata.pyc
+pybcm/legoutils.pyc
+pybcm/main.pyc
+pybcm/optimizer.pyc
+pybcm/shoppinglist.pyc

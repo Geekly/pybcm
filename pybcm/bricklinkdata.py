@@ -3,8 +3,9 @@ Created on Oct 23, 2012
 
 @author: khooks
 '''
-from collections import UserDict
+from UserDict import UserDict
 from blreader import BricklinkWebReader
+from BeautifulSoup import BeautifulSoup
 from legoutils import LegoElement
 from vendors import *
 import logging
@@ -65,8 +66,8 @@ class BricklinkData(UserDict):
         
         logging.info("Building bricklink data from file: " + filename)
         self.data = dict()  #clear any existing data
-        
-        self.soup = Soup(open(filename).read(), "lxml")
+        f = open(filename, 'r')
+        self.soup = BeautifulSoup(f)
         wantedlist = self.soup.findAll("item")
         
             # for each item node, recurse over each vendor node      

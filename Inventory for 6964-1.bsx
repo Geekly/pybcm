@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE BrickStoreXML>
+<BrickStoreXML>
+ <Inventory>
+  <Item>
+   <ItemID>6005</ItemID>
+   <ItemTypeID>P</ItemTypeID>
+   <ColorID>11</ColorID>
+   <ItemName>Brick, Arch 1 x 3 x 2 Curved Top</ItemName>
+   <ItemTypeName>Part</ItemTypeName>
+   <ColorName>Black</ColorName>
+   <CategoryID>6</CategoryID>
+   <CategoryName>Brick, Arch</CategoryName>
+   <Status>I</Status>
+   <Qty>1</Qty>
+   <Price>0.000</Price>
+   <Condition>N</Condition>
+   <OrigQty>0</OrigQty>
+  </Item>
+  <Item>
+   <ItemID>4070</ItemID>
+   <ItemTypeID>P</ItemTypeID>
+   <ColorID>85</ColorID>
+   <ItemName>Brick, Modified 1 x 1 with Headlight</ItemName>
+   <ItemTypeName>Part</ItemTypeName>
+   <ColorName>Dark Bluish Gray</ColorName>
+   <CategoryID>7</CategoryID>
+   <CategoryName>Brick, Modified</CategoryName>
+   <Status>I</Status>
+   <Qty>2</Qty>
+   <Price>0.000</Price>
+   <Condition>N</Condition>
+   <OrigQty>0</OrigQty>
+  </Item>
+  <Item>
+   <ItemID>4589</ItemID>
+   <ItemTypeID>P</ItemTypeID>
+   <ColorID>2</ColorID>
+   <ItemName>Cone 1 x 1 without Top Groove</ItemName>
+   <ItemTypeName>Part</ItemTypeName>
+   <ColorName>Tan</ColorName>
+   <CategoryID>21</CategoryID>
+   <CategoryName>Cone</CategoryName>
+   <Status>I</Status>
+   <Qty>2</Qty>
+   <Price>0.000</Price>
+   <Condition>N</Condition>
+   <OrigQty>0</OrigQty>
+  </Item>
+  <Item>
+   <ItemID>3024</ItemID>
+   <ItemTypeID>P</ItemTypeID>
+   <ColorID>86</ColorID>
+   <ItemName>Plate 1 x 1</ItemName>
+   <ItemTypeName>Part</ItemTypeName>
+   <ColorName>Light Bluish Gray</ColorName>
+   <CategoryID>26</CategoryID>
+   <CategoryName>Plate</CategoryName>
+   <Status>I</Status>
+   <Qty>1</Qty>
+   <Price>0.000</Price>
+   <Condition>N</Condition>
+   <OrigQty>0</OrigQty>
+  </Item>
+  <Item>
+   <ItemID>3024</ItemID>
+   <ItemTypeID>P</ItemTypeID>
+   <ColorID>48</ColorID>
+   <ItemName>Plate 1 x 1</ItemName>
+   <ItemTypeName>Part</ItemTypeName>
+   <ColorName>Sand Green</ColorName>
+   <CategoryID>26</CategoryID>
+   <CategoryName>Plate</CategoryName>
+   <Status>I</Status>
+   <Qty>1</Qty>
+   <Price>0.000</Price>
+   <Condition>N</Condition>
+   <OrigQty>0</OrigQty>
+  </Item>
+  <Item>
+   <ItemID>4081b</ItemID>
+   <ItemTypeID>P</ItemTypeID>
+   <ColorID>86</ColorID>
+   <ItemName>Plate, Modified 1 x 1 with Clip Light - Thick Ring</ItemName>
+   <ItemTypeName>Part</ItemTypeName>
+   <ColorName>Light Bluish Gray</ColorName>
+   <CategoryID>27</CategoryID>
+   <CategoryName>Plate, Modified</CategoryName>
+   <Status>I</Status>
+   <Qty>1</Qty>
+   <Price>0.000</Price>
+   <Condition>N</Condition>
+   <OrigQty>0</OrigQty>
+  </Item>
+  <Item>
+   <ItemID>3023</ItemID>
+   <ItemTypeID>P</ItemTypeID>
+   <ColorID>2</ColorID>
+   <ItemName>Plate 1 x 2</ItemName>
+   <ItemTypeName>Part</ItemTypeName>
+   <ColorName>Tan</ColorName>
+   <CategoryID>26</CategoryID>
+   <CategoryName>Plate</CategoryName>
+   <Status>I</Status>
+   <Qty>2</Qty>
+   <Price>0.000</Price>
+   <Condition>N</Condition>
+   <OrigQty>0</OrigQty>
+  </Item>
+  <Item>
+   <ItemID>3794</ItemID>
+   <ItemTypeID>P</ItemTypeID>
+   <ColorID>48</ColorID>
+   <ItemName>Plate, Modified 1 x 2 with 1 Stud (Jumper)</ItemName>
+   <ItemTypeName>Part</ItemTypeName>
+   <ColorName>Sand Green</ColorName>
+   <CategoryID>27</CategoryID>
+   <CategoryName>Plate, Modified</CategoryName>
+   <Status>I</Status>
+   <Qty>3</Qty>
+   <Price>0.000</Price>
+   <Condition>N</Condition>
+   <OrigQty>0</OrigQty>
+  </Item>
+  <Item>
+   <ItemID>3666</ItemID>
+   <ItemTypeID>P</ItemTypeID>
+   <ColorID>86</ColorID>
+   <ItemName>Plate 1 x 6</ItemName>
+   <ItemTypeName>Part</ItemTypeName>
+   <ColorName>Light Bluish Gray</ColorName>
+   <CategoryID>26</CategoryID>
+   <CategoryName>Plate</CategoryName>
+   <Status>I</Status>
+   <Qty>1</Qty>
+   <Price>0.000</Price>
+   <Condition>N</Condition>
+   <OrigQty>0</OrigQty>
+  </Item>
+  <Item>
+   <ItemID>3021</ItemID>
+   <ItemTypeID>P</ItemTypeID>
+   <ColorID>2</ColorID>
+   <ItemName>Plate 2 x 3</ItemName>
+   <ItemTypeName>Part</ItemTypeName>
+   <ColorName>Tan</ColorName>
+   <CategoryID>26</CategoryID>
+   <CategoryName>Plate</CategoryName>
+   <Status>I</Status>
+   <Qty>1</Qty>
+   <Price>0.000</Price>
+   <Condition>N</Condition>
+   <OrigQty>0</OrigQty>
+  </Item>
+  <Item>
+   <ItemID>3795</ItemID>
+   <ItemTypeID>P</ItemTypeID>
+   <ColorID>85</ColorID>
+   <ItemName>Plate 2 x 6</ItemName>
+   <ItemTypeName>Part</ItemTypeName>
+   <ColorName>Dark Bluish Gray</ColorName>
+   <CategoryID>26</CategoryID>
+   <CategoryName>Plate</CategoryName>
+   <Status>I</Status>
+   <Qty>1</Qty>
+   <Price>0.000</Price>
+   <Condition>N</Condition>
+   <OrigQty>0</OrigQty>
+  </Item>
+  <Item>
+   <ItemID>4287</ItemID>
+   <ItemTypeID>P</ItemTypeID>
+   <ColorID>48</ColorID>
+   <ItemName>Slope, Inverted 33 3 x 1</ItemName>
+   <ItemTypeName>Part</ItemTypeName>
+   <ColorName>Sand Green</ColorName>
+   <CategoryID>32</CategoryID>
+   <CategoryName>Slope, Inverted</CategoryName>
+   <Status>I</Status>
+   <Qty>1</Qty>
+   <Price>0.000</Price>
+   <Condition>N</Condition>
+   <OrigQty>0</OrigQty>
+  </Item>
+  <Item>
+   <ItemID>3040</ItemID>
+   <ItemTypeID>P</ItemTypeID>
+   <ColorID>88</ColorID>
+   <ItemName>Slope 45 2 x 1</ItemName>
+   <ItemTypeName>Part</ItemTypeName>
+   <ColorName>Reddish Brown</ColorName>
+   <CategoryID>31</CategoryID>
+   <CategoryName>Slope</CategoryName>
+   <Status>I</Status>
+   <Qty>2</Qty>
+   <Price>0.000</Price>
+   <Condition>N</Condition>
+   <OrigQty>0</OrigQty>
+  </Item>
+  <Item>
+   <ItemID>4599</ItemID>
+   <ItemTypeID>P</ItemTypeID>
+   <ColorID>2</ColorID>
+   <ItemName>Tap 1 x 1</ItemName>
+   <ItemTypeName>Part</ItemTypeName>
+   <ColorName>Tan</ColorName>
+   <CategoryID>107</CategoryID>
+   <CategoryName>Tap</CategoryName>
+   <Status>I</Status>
+   <Qty>2</Qty>
+   <Price>0.000</Price>
+   <Condition>N</Condition>
+   <OrigQty>0</OrigQty>
+  </Item>
+  <Item>
+   <ItemID>48933pb01</ItemID>
+   <ItemTypeID>P</ItemTypeID>
+   <ColorID>88</ColorID>
+   <ItemName>Wedge 4 x 4 Triple with Stud Notches with Light Bluish Gray Stripe Mini Slave I Pattern (6964)</ItemName>
+   <ItemTypeName>Part</ItemTypeName>
+   <ColorName>Reddish Brown</ColorName>
+   <CategoryID>578</CategoryID>
+   <CategoryName>Wedge, Decorated</CategoryName>
+   <Status>I</Status>
+   <Qty>1</Qty>
+   <Price>0.000</Price>
+   <Condition>N</Condition>
+   <OrigQty>0</OrigQty>
+  </Item>
+  <Item>
+   <ItemID>298c02</ItemID>
+   <ItemTypeID>P</ItemTypeID>
+   <ColorID>48</ColorID>
+   <ItemName>Lever Small Base with Black Lever</ItemName>
+   <ItemTypeName>Part</ItemTypeName>
+   <ColorName>Sand Green</ColorName>
+   <CategoryID>24</CategoryID>
+   <CategoryName>Lever</CategoryName>
+   <Status>I</Status>
+   <Qty>2</Qty>
+   <Price>0.000</Price>
+   <Condition>N</Condition>
+   <OrigQty>0</OrigQty>
+  </Item>
+  <Item>
+   <ItemID>298c02</ItemID>
+   <ItemTypeID>P</ItemTypeID>
+   <ColorID>48</ColorID>
+   <ItemName>Lever Small Base with Black Lever</ItemName>
+   <ItemTypeName>Part</ItemTypeName>
+   <ColorName>Sand Green</ColorName>
+   <CategoryID>24</CategoryID>
+   <CategoryName>Lever</CategoryName>
+   <Status>E</Status>
+   <Qty>1</Qty>
+   <Price>0.000</Price>
+   <Condition>N</Condition>
+   <OrigQty>0</OrigQty>
+  </Item>
+  <Item>
+   <ItemID>2431</ItemID>
+   <ItemTypeID>P</ItemTypeID>
+   <ColorID>48</ColorID>
+   <ItemName>Tile 1 x 4</ItemName>
+   <ItemTypeName>Part</ItemTypeName>
+   <ColorName>Sand Green</ColorName>
+   <CategoryID>37</CategoryID>
+   <CategoryName>Tile</CategoryName>
+   <Status>I</Status>
+   <Qty>1</Qty>
+   <Price>0.000</Price>
+   <Condition>N</Condition>
+   <OrigQty>0</OrigQty>
+  </Item>
+ </Inventory>
+ <GuiState Application="BrickStore" Version="1" >
+  <ItemView>
+   <ColumnOrder>0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30</ColumnOrder>
+   <ColumnWidths>21,45,65,173,35,95,35,53,53,35,35,53,53,77,77,35,53,35,53,35,53,0,0,0,0,0,0,35,35,53,53</ColumnWidths>
+   <ColumnWidthsHidden>0,0,0,0,0,0,0,0,0,35,35,53,0,0,0,35,53,35,53,35,53,53,53,53,53,65,35,35,35,53,53</ColumnWidthsHidden>
+   <SortColumn>32</SortColumn>
+   <SortDirection>A</SortDirection>
+  </ItemView>
+ </GuiState>
+</BrickStoreXML>

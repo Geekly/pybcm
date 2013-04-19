@@ -9,9 +9,10 @@ from lxml import etree
 import re
 import io
 from vendors import *
-import http.cookiejar
+import cookielib
 import urllib
-from urllib.error import HTTPError, URLError
+import urllib2
+from urllib2 import HTTPError, URLError
 import logging
 
 class BricklinkReader(object):
@@ -128,16 +129,16 @@ class SomeBrowser:
         self.url = ''
         self.response = ''
         self.data = ''
-        self.cookies = http.cookiejar.CookieJar()
-        self.opener = urllib.request.build_opener(
-            urllib.request.HTTPRedirectHandler(),
-            urllib.request.HTTPSHandler(debuglevel=0),
-            urllib.request.HTTPCookieProcessor(self.cookies))
+        self.cookies = cookielib.CookieJar()
+        self.opener = urllib2.build_opener(
+            urllib2.HTTPRedirectHandler(),
+            urllib2.HTTPSHandler(debuglevel=0),
+            urllib2.HTTPCookieProcessor(self.cookies))
             
     def open(self, url):
         try:
             self.url = url          
-            req = urllib.request.Request(self.url)
+            req = urllib2.Request(self.url)
             response = self.opener.open(req)
             #response = urllib.request.urlopen(req)            
             the_page = response.read()
@@ -159,9 +160,9 @@ class SomeBrowser:
                        'frmUserName' : loginName,
                        'frmPassword' : passwd }
     
-            data = urllib.parse.urlencode(values).encode('utf-8')           
-            req = urllib.request.Request(url, data, method='POST')
-            response = self.opener.open(req)
+            data = urllib.urlencode(values).encode('utf-8')           
+            #req = urllib2.Request(url, data, method='POST')
+            response = self.opener.open( url, data )
             the_page = response.read().decode('utf-8')
 
         except HTTPError as e:
@@ -185,11 +186,14 @@ if __name__ == '__main__':
     logging.basicConfig(level=logging.DEBUG)
     logging.info('Started')
     
+    v = VendorMap()
+    
     br = BricklinkWebReader("Geekly", "codybricks")
     
-    br.readitemfromurl('P', '3001', '80')
-    br.readitemfromurl('P', '3001', '80')
-    br.readitemfromurl('P', '3001', '80')
+    br.readitemfromurl('P', '3001', '80', v)
+    br.readitemfromurl('P', '3001', '80', v)
+    print br.readitemfromurl('P', '3001', '80', v)
+    
     
     
     #bfr = BricklinkFileReader()
