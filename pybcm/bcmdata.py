@@ -5,9 +5,9 @@ Created on Oct 30, 2012
 '''
 from UserDict import UserDict
 from vendors import VendorMap
-import copy
 import numpy as np
 import numpy.ma as ma
+import pandas as pd
 import logging
 from shoppinglist import ShoppingList
 from legoutils import LegoElement
@@ -21,16 +21,23 @@ class BCMData(UserDict):
     
     def __init__(self, bricklink, wanteddict):
         UserDict.__init__(self)
+        
         self.data = dict() #self.data[elementid, vendorid] = (price, qty) #essentially a copy of the Bricklink data.  Don't change this once initialized
         self.wanted = dict() #don't change this either
         
         self.vendorlist = list()  #this is a working list.  We'll cull this from time to time and rebuild it if neccessary.
-        #                          it's important that these lists are kept current, since they're used as keys for interating over data[elementid, vendorid]
+        self.svendors = None                          #it's important that these lists are kept current, since they're used as keys for interating over data[elementid, vendorid]
         self.elementlist = list() #this is also a working list, but it won't likely be modified
+        self.selements = None
         
         self.pricearray = None #a numpy array
+        self.pprices = None
+        
         self.stockarray = None #a numpy array
+        self.pstock = None
+        
         self.wantedarray = None #a numpy array
+        self.pwanted = None #can be a series
         
         #self.items = dict() # itemdescription[elementid] = [avgprice, #vendors, stddev]
         self.buildfrombricklink(bricklink, wanteddict) #initialize all of the above lists/arrays
@@ -44,7 +51,7 @@ class BCMData(UserDict):
         #prices.append([vendorid, vendorname, vendorqty, vendorprice])                
         #self.headers.append("Vendor")
         logging.info("Building BCM data")
-        self.vendormap = bricklink.vendormap
+        BCMData.vendormap = bricklink.vendormap
         
         #create the price array
         #create the stock array        
@@ -88,7 +95,8 @@ class BCMData(UserDict):
                 else:
                     pricearray[i,j] = 0.0
         self.pricearray = pricearray
-        
+        self.pprices = pd.DataFrame( pricearray, index=self.elementlist, columns=self.vendorlist )
+        print (self.pprices)
         return pricearray
     
     def createstockarray(self): #returns numpy array of vendor stock   
@@ -109,7 +117,8 @@ class BCMData(UserDict):
                 else:
                     stockarray[i,j] = 0
         self.stockarray = stockarray
-        
+        self.pstock = pd.DataFrame( stockarray, index=self.elementlist, columns=self.vendorlist )
+        #self.pstock.to_csv('stock.csv', sep=',') #cols, header, index, index_label, mode, nanRep, encoding, quoting, line_terminator)
         return stockarray
     
     def createwantedarray(self):    #returns numpy array of wanted items
@@ -120,6 +129,8 @@ class BCMData(UserDict):
             elementid = self.elementlist[i]
             wantedarray[i] = self.wanted[elementid]
         self.wantedarray = wantedarray    
+        self.pwanted = pd.Series( wantedarray, index=self.elementlist )
+        print( self.pwanted )
         return wantedarray    
     
     def buildarrays(self):

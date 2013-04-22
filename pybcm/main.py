@@ -68,13 +68,13 @@ if __name__ == '__main__':
     opt = Optimizer()
     
     (elementorder, vsorted) = data.cheapvendorsbyitem()
-    print(elementorder)
+    #print(elementorder)
 
     result = opt.orderedsearch( elementorder, vsorted, data )
  
-    print( opt.numvendors(result, data.pricearray) )
+    #print( opt.numvendors(result, data.pricearray) )
     product = result * data.pricearray
-    print( product[np.all(product <= 0, axis=1)] )
-    mask = ~np.all(result<=0.0, axis=0)
-    print(result[mask])
-
+    #print( product[np.all(product <= 0, axis=1)] )
+    #mask = ~np.all(result<=0.0, axis=0)
+    #print(result[mask])
+    data.pprices.to_csv('../prices.csv', sep=',')#, na_rep, float_format, cols, header, index, index_label, mode, nanRep, encoding, quoting, line_terminator)

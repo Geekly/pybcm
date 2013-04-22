@@ -6,8 +6,12 @@ Created on Oct 23, 2012
 
 #from shoppinglist import ShoppingList
 #from bcmdata import BCMData
+from __future__ import division
 import numpy as np
 import logging
+
+from coopr.pyomo import *
+from coopr.opt import SolverFactory
 
 class Optimizer(object):   
     ''' 
@@ -123,6 +127,7 @@ class Optimizer(object):
         # if total quantities = wantedqty
         partqty = result.sum(axis=1)
         return partqty
+
         
 if __name__ == "__main__":
        
