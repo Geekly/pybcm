@@ -74,7 +74,7 @@ class Optimizer(object):
                     trytobuy = need                
                 else:
                     trytobuy = stock #buy all they have
-                logging.debug(" Needed: " + str(need) + " and bought " + str(trytobuy) + " of element " + str(e) + " from vendor " + str(v) )
+                #logging.debug(" Needed: " + str(need) + " and bought " + str(trytobuy) + " of element " + str(e) + " from vendor " + str(v) )
                 dfilled[e] += trytobuy
                 result[e,v] = trytobuy
                 #print( result[e,v], e, v)

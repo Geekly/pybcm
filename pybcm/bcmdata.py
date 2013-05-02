@@ -31,9 +31,11 @@ class BCMData(UserDict):
         self.selements = None
         
         self.pricearray = None #a numpy array
+        self.mpricearray = None #masked price array (mask by the stock mask)
         self.pprices = None
         
-        self.stockarray = None #a numpy array
+        self.stockarray = None 
+        self.mstockarray = None #a masked numpy array
         self.pstock = None
         
         self.wantedarray = None #a numpy array
@@ -52,7 +54,6 @@ class BCMData(UserDict):
         #self.headers.append("Vendor")
         logging.info("Building BCM data")
         BCMData.vendormap = bricklink.vendormap
-        
         #create the price array
         #create the stock array        
         for elementid in bricklink.keys(): #bricklink.data only has one key - the elementid
@@ -82,10 +83,10 @@ class BCMData(UserDict):
                 
             A[i,j] = item[i]vendor[j] price    
         '''
-        m = len(self.elementlist) #rows
-        n = len(self.vendorlist) #columns
+        m = len(self.elementlist) #rows (i)
+        n = len(self.vendorlist) #columns (j)
         
-        pricearray = np.ndarray(shape = (m, n), dtype=np.float) #I used the wrong matrix notation, should I change it now?
+        pricearray = np.ndarray(shape = (m, n), dtype=np.float) 
         
         for i in range(0, m):
             for j in range(0, n):
@@ -95,8 +96,10 @@ class BCMData(UserDict):
                 else:
                     pricearray[i,j] = 0.0
         self.pricearray = pricearray
+        mask = pricearray <= 0.0  #p and pmask share the same indices       
+        self.mpricearray = ma.array( pricearray, mask=mask ) # a masked array of sorted vendor indice      
         self.pprices = pd.DataFrame( pricearray, index=self.elementlist, columns=self.vendorlist )
-        print (self.pprices)
+        
         return pricearray
     
     def createstockarray(self): #returns numpy array of vendor stock   
@@ -117,6 +120,8 @@ class BCMData(UserDict):
                 else:
                     stockarray[i,j] = 0
         self.stockarray = stockarray
+        mask = stockarray <= 0.0  #p and pmask share the same indices       
+        self.mstockarray = ma.array( stockarray, mask=mask ) # a masked array of sorted vendor indice      
         self.pstock = pd.DataFrame( stockarray, index=self.elementlist, columns=self.vendorlist )
         #self.pstock.to_csv('stock.csv', sep=',') #cols, header, index, index_label, mode, nanRep, encoding, quoting, line_terminator)
         return stockarray
@@ -154,7 +159,7 @@ class BCMData(UserDict):
     def addtolist(self, alist, value):             
         if value not in alist:
             #string = "Adding value: " + str( value) + " to list " + str( alist)
-            #logging.debug(string)
+            #logging.(string)
             alist.append(value)
         return True
     
@@ -203,8 +208,7 @@ class BCMData(UserDict):
  #compressed, sorted, masked array of vendor indices
             
     def cheapvendorsbyitem(self):
-        #this is returning seemingly random results
-        #keep the cheapest N vendors for each item
+                #keep the cheapest N vendors for each item
         #at most, this leaves us with NumElements x N vendors
         #use the pricearray and loop over vendor list
         nvendors = int(20)
@@ -222,45 +226,13 @@ class BCMData(UserDict):
         pairs = sorted( zip(elementweights, elementindexlist), reverse = True ) # (weight, elementindex) tuples sorted on weight
         elementorder = [ eidy for (x, eidy) in pairs] #this is the order to search elements
         
-        #vendororder = list() #order to iterate, indices map to vendorlist
-        #trim this array, but shape is no longer m x n because the number of vendors per item won't be to be the same
-        #sort vendors, starting with the cheapest for the highest weighted part
-        #vendorindices = list()
-        '''for rowindex, row in enumerate(csm):
-            p = self.pricearray
-            colindex = row[nvendors]
-            lowprice = p[rowindex, colindex] 
-            print("Lowprice " + str(lowprice) )
-            #get all the vendor indices that are equal to or lower than the low price
-            indices = [ vidx for vidx in row if p[rowindex, vidx] <= lowprice ]
-            vendorindices.append( indices )
-            #print( indices)
-        '''#print(vendorindices)
         return elementorder, msorted
-        '''
-        e = self.elementlist
-        tempv = np.ndarray(shape=(0), dtype='int') #running list of vendor indices to keep
-        for eindex, element in enumerate(e):
-            #for this element, find the N cheapest vendors
-            row = self.pricearray[eindex] #slices out a row of the pricearray containing prices
-            indexlist = np.nonzero( row ) #gets indices of the non-zero elements
-            sortedvals = np.sort(row[indexlist]) #sort the non-zero values
-            lowestprice = sortedvals[nvendors] #get the nth lowest price
-            indexlist = np.nonzero( (row > 0) & (row <= lowestprice) )
 
-            tempv = np.append(tempv, indexlist) 
-            #tempv += keepv
-
-        #flatten, sort, and remove duplicates from tempvarray    
-        
-        flatv = np.unique( tempv )
-        '''
   
     def elementweights(self):
         
         avgprices = self.calculateavgprices()
-        wanted = self.wantedarray
-        
+        wanted = self.wantedarray       
         weights = (avgprices * wanted)/(avgprices * wanted).max()
         
         return weights
