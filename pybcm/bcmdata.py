@@ -32,14 +32,14 @@ class BCMData(UserDict):
         
         self.pricearray = None #a numpy array
         self.mpricearray = None #masked price array (mask by the stock mask)
-        self.pprices = None
+        self.pprices = None     #a pandas dataframe
         
         self.stockarray = None 
         self.mstockarray = None #a masked numpy array
-        self.pstock = None
+        self.pstock = None      #a pandas dataframe
         
         self.wantedarray = None #a numpy array
-        self.pwanted = None #can be a series
+        self.pwanted = None #a pandas series
         
         #self.items = dict() # itemdescription[elementid] = [avgprice, #vendors, stddev]
         self.buildfrombricklink(bricklink, wanteddict) #initialize all of the above lists/arrays
@@ -48,6 +48,15 @@ class BCMData(UserDict):
                             #indexes i, j need to match indexes in elementlist[i] and vendorlist[j] for successful remapping
         self.initialized = False
         
+    #overload the default get function.  If the key combo doesn't exist, return a 0,0 pair
+    def __getitem__(self, key):
+            if key in self.data:
+                return self.data[key]
+            if hasattr(self.__class__, "__missing__"):
+                return self.__class__.__missing__(self, key)
+            #raise KeyError(key)
+            return (0.0, 0)      
+          
     def buildfrombricklink(self, bricklink, wanteddict): 
         #creates a dictionary keyed to the vendor and an element that contains the qty and price for each vendor/element pair
         #prices.append([vendorid, vendorname, vendorqty, vendorprice])                
@@ -135,7 +144,7 @@ class BCMData(UserDict):
             wantedarray[i] = self.wanted[elementid]
         self.wantedarray = wantedarray    
         self.pwanted = pd.Series( wantedarray, index=self.elementlist )
-        print( self.pwanted )
+        
         return wantedarray    
     
     def buildarrays(self):
@@ -184,8 +193,11 @@ class BCMData(UserDict):
         assert vendorid in self.vendorlist, "Vendor %r does not exist in vendorlist" % vendorid
         self.vendorlist.remove(vendorid)
                             
+    #TODO: make this work
     def cullvendorsbyprice(self):
-        cheapvendoridx = self.cheapvendorsbyitem()
+        #NOT COMPLETE
+        cheapvendoridx = self.sortedvendoridx()
+        #keep the n cheapest
         #make a new list containing only these vendors
         initial_length = len(self.vendorlist)
         cheapvendors = [ self.vendorlist[i] for i in cheapvendoridx ]
@@ -193,96 +205,49 @@ class BCMData(UserDict):
         self.buildarrays()
         finallength = len(self.vendorlist)
         removed = initial_length - finallength
-        print("Removed " + str(removed) + " vendors from the list")
+        logging.INFO("Removed " + str(removed) + " vendors from the list")
         #print(cheapvendors)
         
-    def maskedsortedvendorindices(self):        
+
+ #compressed, sorted, masked array of vendor indices
+            
+    def cheapvendorsbyitem(self, nvendors):
+        #keep the cheapest N vendors for each item
+        #at most, this leaves us with NumElements x N vendors
+        #use the pricearray and loop over vendor list        
+        #msorted = self.sortedvendoridx() #this is a list of vendor indices, sorted and masked > 0
+        cheap = self.pricearray
+        avg = self.avgprices()
+        mask = ((cheap.T <= avg) & (cheap.T > 0.0)).T
+        
+        return cheap, mask
+    
+    def sortedvendoridx(self):        
         #returns a masked array of the sorted vendor indices, masking the 0.0 values
         p = self.pricearray       
         s = p.argsort(axis=1) # sort array of vendor indices are now sorted by s
         static_indices = np.indices( p.shape )
         psorted = p[static_indices[0], s]               
         sortedmask = psorted <= 0.0  #p and pmask share the same indices       
-        m = ma.array( s, mask=sortedmask ) # a masked array of sorted vendor indice        
+        m = ma.array( s, mask=sortedmask ) # a masked array of sorted vendor indices, sorted by price of element        
         return m
- #compressed, sorted, masked array of vendor indices
-            
-    def cheapvendorsbyitem(self):
-                #keep the cheapest N vendors for each item
-        #at most, this leaves us with NumElements x N vendors
-        #use the pricearray and loop over vendor list
-        nvendors = int(20)
-        #v = self.vendorlist
-        msorted = self.maskedsortedvendorindices() #this is a list of vendor indices, sorted and masked > 0
-        #csm = [ ma.compressed( msorted[i] ) for i in range(0, len(msorted)) ]
-        #things like - start with most expensive part
-        #start with cheapest vendor        
-        print(msorted.shape)
-        elementweights = self.elementweights()
-        print(elementweights)
-         #order to iterate over these, indices map to elementlist
-        elementindexlist = [index for index, id in enumerate(self.elementlist) ]
-        
-        pairs = sorted( zip(elementweights, elementindexlist), reverse = True ) # (weight, elementindex) tuples sorted on weight
-        elementorder = [ eidy for (x, eidy) in pairs] #this is the order to search elements
-        
-        return elementorder, msorted
-
-  
-    def elementweights(self):
-        
-        avgprices = self.calculateavgprices()
-        wanted = self.wantedarray       
-        weights = (avgprices * wanted)/(avgprices * wanted).max()
-        
-        return weights
-    '''
-    def dropifsingle(self):
-        #if a vendor only has sufficient qty of one part and it's not the cheapest, drop it
-        #find the vendors with quantity in only one part
-        #count the rows per vendor that are > wanted qty
-        #wanted = self.wantedarray
-        ipv = self.itemspervendor()
-        avgprices = self.calculateavgprices()
-        onepartindexlist = list()
-        vendorswithonepart = (ipv <= 1)
-        indexlist = np.where(ipv <= 1) #this should be indices
-        #print(indexlist)
-        for index in indexlist[0]:
-            # true means this vendor has only one part            
-            vendorprices = self.pricearray.T[index]
-            thisprice = vendorprices[np.nonzero(vendorprices)] 
-            # get the price of the nonzero element
-            print(thisprice)    
-                #if self.pricearray[index] 
-               
-    def cullbymetric(self):
-        #remove vendors that are above average price
-        initialcount = len(self.vendorlist)
-        avgprices = self.calculateavgprices()
-        vendorcopy = copy.deepcopy(self.vendorlist)
-        for vindex, vendorid in enumerate(vendorcopy):
-            prices = self.pricearray.T[vindex]
-            if all(prices > avgprices):               
-                self.removevendor(vendorid)
-                break;
-            
-        self.buildarrays()
-        finalcount = len(self.vendorlist)
-        vendorsremoved = initialcount - finalcount
-        logging.info( "Removed " + str(vendorsremoved) + " vendors from the working list.")
-        
-        return 
     
-    def describevendors(self):
-        
-        print( "There are " + str(len(self.vendormap)) + " vendors with sufficient quantity of at least one element in our list.")
-        
-        for v in self.vendormap.keys():
-            assert v in self.vendorcountsitems, "Vendor does not exist in counting dictionary"
-            #print self.vendormap[v] + " has enough quantity of " + str(self.vendorcountsitems[v]) + " elementlist"
-    '''
-    def calculateavgprices(self):
+    def sortedelementidx(self):
+        #returns a lsit of the indices of self.elementlist sorted by weight (descending)
+        elementweights = self.elementweights()
+        elementindexlist = [index for index, id in enumerate(self.elementlist) ]       
+        pairs = sorted( zip(elementweights, elementindexlist), reverse = True ) # (weight, elementindex) tuples sorted on weight
+        elementorder = [ eidy for (x, eidy) in pairs] #this is the order to search elements       
+        return elementorder
+    
+    def elementweights(self):
+        #generate a weight for each element - basically the avg price for that element * wanted qty, normalized
+        avgprices = self.avgprices()
+        wanted = self.wantedarray       
+        weights = (avgprices * wanted)/(avgprices * wanted).max()       
+        return weights
+  
+    def avgprices(self):
         #data[elementid, vendorid] = [price, qty]
         p = self.pricearray
         avgprices = p.sum(1)/(p > 0).sum(1) #the 1 causes

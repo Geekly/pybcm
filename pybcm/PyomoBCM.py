@@ -44,39 +44,35 @@ class PyomoBCM(object):
                 return (0,0)
 
         model.X = Var(model.E, model.V, initialize=0, within=NonNegativeIntegers, bounds=xbounds) #purchased quantity
-        
-        #def s_constraint_rule(model, i, j):
-        #    return model.X[i,j] <= model.S[i,j] #can't buy more than the vendor has         
-
-        #model.CANORDER = Constraint(model.E, model.V, rule=s_constraint_rule)
-        
-        #def v_constraint_rule(model, i, j):
-            #if we're buying some, then the vendor better have some      
-        #    if model.S[i,j] > 0:
-        #        return model.X[i,j] <= model.S[i,j]
-        #    else: 
-        #        return model.X[i,j] == 0    
-           
-        #model.CANORDER = Constraint(model.E, model.V, rule=v_constraint_rule)
-        
+        model.B = Var(model.V, initialize=False, domain=Boolean )   #vendor utilization booleans
+                
         def w_constraint_rule(model, i):
             #for each row, sum of X == W[i]
             return sum( model.X[i,j] for j in model.V) == model.W[i] #check that the total orders meets the wanted qty
         
         model.WANTED = Constraint(model.E, rule=w_constraint_rule)
+        
+        def VendorBoolean_rule(model, v):
+            return sum( [ model.X[e, v] for e in model.E ] ) >= 0
+        
+        model.VendorBoolean = Constraint(model.V, rule=VendorBoolean_rule)
+         
                
         def objective_expr(model):
+                       
+            cost = sum( model.B ) 
+            cost += summation( model.P, model.X )
             
-            partcost = summation( model.P, model.X )
+            #partcost = summation( model.P, model.X , index=model.E)
             #partcost = sum( model.X[i,j] * model.P[i,j] for i in model.E for j in model.V )
-            shipcost = sum( [ value(model.X[i,j] ) for i in model.E] > 0 for j in model.V  ) 
+            #cost = partcost + sum( [ value(model.X[i,j] ) for i in model.E] > 0 for j in model.V  ) 
             #test =  ( [ model.X[i,j] > 0.0 for i in model.E] > 0 for j in model.V  ) *3
             
             #obj = sum( (sum( model.X[i,j] * model.P[i,j] for i in model.E for j in model.V ), sum( [ model.X[i,j] > 0.0 for i in model.E] > 0 for j in model.V  ) *3) )
             
-            obj = shipcost
+            #obj = sum( model.B) * 3 + summation(model.P, model.X )
             #obj = sum( (partcost, shipcost) )
-            return obj
+            return cost
         
         model.OBJ = Objective(rule=objective_expr)
         

@@ -18,6 +18,7 @@ from bcmdata import BCMData
 from pprint import pprint
 from orBCM import OROptimizer
 from reporter import *
+from pyoptBCM import *
 
 
 if __name__ == '__main__':
@@ -53,12 +54,14 @@ if __name__ == '__main__':
 
    
     bcm = BCMData(bricklink, wanteddict)
-
-
+    print( bcm.cheapvendorsbyitem(5) )
+    #bcm.cullvendorsbyprice()
     rep = reporter(bcm)
-    
-    for elementid in bcm.elementlist:
-        rep.pricehistogram( elementid )
+    #rep.stockhistogram()
+    #for elementid in bcm.elementlist:
+        #rep.pricehistogram( elementid )
 
     #oro = OROptimizer(data)
     #oro.solve()
+    opt = BCMopt(bcm)
+    print( opt.solve() )
