@@ -16,7 +16,7 @@ from coopr.opt import SolverFactory
 class Optimizer(object):   
     ''' 
     BCMData reference
-        self.data = dict()
+        self.bcm = dict()
         self.wanted = dict()
         self.vendors = list()  #this is a working list.  We'll cull this from time to time and rebuild it if neccessary
         self.elementlist = list()

@@ -12,79 +12,51 @@ import logging
 from shoppinglist import ShoppingList
 from legoutils import LegoElement
 
-
-class BCMData(UserDict):
-    '''     
-    contains a dictionary that allows access via data[elementid, vendorid] = (price, qty)
-        '''
-    vendormap = VendorMap()
+class BCMDict(UserDict):
     
-    def __init__(self, bricklink, wanteddict):
+    def __init__(self):
         UserDict.__init__(self)
-        
-        self.data = dict() #self.data[elementid, vendorid] = (price, qty) #essentially a copy of the Bricklink data.  Don't change this once initialized
-        self.wanted = dict() #don't change this either
-        
-        self.vendorlist = list()  #this is a working list.  We'll cull this from time to time and rebuild it if neccessary.
-        self.svendors = None                          #it's important that these lists are kept current, since they're used as keys for interating over data[elementid, vendorid]
-        self.elementlist = list() #this is also a working list, but it won't likely be modified
-        self.selements = None
-        
-        self.pricearray = None #a numpy array
-        self.mpricearray = None #masked price array (mask by the stock mask)
-        self.pprices = None     #a pandas dataframe
-        
-        self.stockarray = None 
-        self.mstockarray = None #a masked numpy array
-        self.pstock = None      #a pandas dataframe
-        
-        self.wantedarray = None #a numpy array
-        self.pwanted = None #a pandas series
-        
-        #self.items = dict() # itemdescription[elementid] = [avgprice, #vendors, stddev]
-        self.buildfrombricklink(bricklink, wanteddict) #initialize all of the above lists/arrays
-        
-        self.result = None  #will use this calculated array result[i,j] = 'quantity to buy', where i = elementindex, j = vendorindex
-                            #indexes i, j need to match indexes in elementlist[i] and vendorlist[j] for successful remapping
-        self.initialized = False
-        
-    #overload the default get function.  If the key combo doesn't exist, return a 0,0 pair
+    
     def __getitem__(self, key):
             if key in self.data:
                 return self.data[key]
             if hasattr(self.__class__, "__missing__"):
                 return self.__class__.__missing__(self, key)
             #raise KeyError(key)
-            return (0.0, 0)      
-          
-    def buildfrombricklink(self, bricklink, wanteddict): 
-        #creates a dictionary keyed to the vendor and an element that contains the qty and price for each vendor/element pair
-        #prices.append([vendorid, vendorname, vendorqty, vendorprice])                
-        #self.headers.append("Vendor")
-        logging.info("Building BCM data")
-        BCMData.vendormap = bricklink.vendormap
-        #create the price array
-        #create the stock array        
-        for elementid in bricklink.keys(): #bricklink.data only has one key - the elementid
-            
-          
-            self.wanted[elementid] = wanteddict.getwantedqty(elementid) #populate the wanted qty dictionary
-                         
-            for vendorinfo in bricklink[elementid]:  #iterate over the list of vendors in bricklink[elementid] = (vendorid, qty, price)
+            return (0.0, 0) 
 
-                vendorid = str(vendorinfo[0])
-                vendorqty = int(vendorinfo[1])
-                vendorprice = float(vendorinfo[2]) 
-                
-                self.addtolist(self.vendorlist, vendorid)  #initialize the vendor list
-                self.addtolist(self.elementlist, elementid) #initialize the elementlist
-                
-                self[elementid, vendorid] = (vendorqty, vendorprice)  
-
-        self.buildarrays()
-        self.initialized = True    
+class BCMData(object):
+    # this is a mutable ndarray object that's passed to the optimizer
+    def __init__(self, bcmdict, wanteddict):
         
-    def createpricearray(self): #returns numpy array of the prices        
+        self.vendorlist = list() #match the indices of BCM in the column
+        self.elementlist = list() #match the indices of BCM in the row
+        self.wanted = None
+        self.prices = None
+        self.stock = None
+        
+        self.BCM = None #fancy ndarray
+         
+        self.build(bcmdict, wanteddict) #initializes all of the data above
+          
+    def build(self, bcmdict, wanteddict):
+        logging.info("Rebuilding arrays...")
+        self.buildlists(bcmdict)
+        self.buildarrays(bcmdict, wanteddict)
+        self.initbcm()
+        
+    def buildlists(self, bcmdict):        
+        for keytuple in bcmdict:
+            (elementid, vendorid) = keytuple
+            self.addtolist(self.vendorlist, vendorid)  #initialize the vendor list
+            self.addtolist(self.elementlist, elementid) #initialize the elementlist
+
+    def buildarrays(self, bcmdict, wanteddict):
+        self.prices = self.buildpricearray(bcmdict)
+        self.stock = self.buildstockarray(bcmdict)
+        self.wanted = self.buildwantedarray(wanteddict)
+        
+    def buildpricearray(self, bcmdict): #returns numpy array of the prices        
         '''
             n, m = num elements, num vendorlist  
             A = [[item1vendor1price, item1vendor2price, item1vendor3price],
@@ -96,22 +68,22 @@ class BCMData(UserDict):
         n = len(self.vendorlist) #columns (j)
         
         pricearray = np.ndarray(shape = (m, n), dtype=np.float) 
-        
+        pricearray.fill(0)
         for i in range(0, m):
             for j in range(0, n):
                 keytuple = (self.elementlist[i], self.vendorlist[j])
-                if keytuple in self.keys():
-                    pricearray[i,j] = float(self[self.elementlist[i], self.vendorlist[j]][1])
+                if keytuple in bcmdict.keys():
+                    pricearray[i,j] = float(bcmdict[self.elementlist[i], self.vendorlist[j]][1])
                 else:
                     pricearray[i,j] = 0.0
-        self.pricearray = pricearray
+        #self.pricearray = pricearray
         mask = pricearray <= 0.0  #p and pmask share the same indices       
-        self.mpricearray = ma.array( pricearray, mask=mask ) # a masked array of sorted vendor indice      
-        self.pprices = pd.DataFrame( pricearray, index=self.elementlist, columns=self.vendorlist )
+        #self.mpricearray = ma.array( pricearray, mask=mask ) # a masked array of sorted vendor indice      
+        #self.pprices = pd.DataFrame( pricearray, index=self.elementlist, columns=self.vendorlist )
         
         return pricearray
     
-    def createstockarray(self): #returns numpy array of vendor stock   
+    def buildstockarray(self, bcmdict): #returns numpy array of vendor stock   
         '''
             B = [[item1vendor1stock, item1vendor2stock, item1vendor3stock],
                 [item2vendor1stock, item2vendor2stock, item2vendor3stock],...]              
@@ -124,35 +96,102 @@ class BCMData(UserDict):
         for i in range(0, m):
             for j in range(0, n):
                 keytuple = (self.elementlist[i], self.vendorlist[j])
-                if keytuple in self.keys():
-                    stockarray[i,j] = int(self[self.elementlist[i], self.vendorlist[j]][0])
+                if keytuple in bcmdict.keys():
+                    stockarray[i,j] = int(bcmdict[self.elementlist[i], self.vendorlist[j]][0])
                 else:
                     stockarray[i,j] = 0
-        self.stockarray = stockarray
+        #self.stockarray = stockarray
         mask = stockarray <= 0.0  #p and pmask share the same indices       
-        self.mstockarray = ma.array( stockarray, mask=mask ) # a masked array of sorted vendor indice      
-        self.pstock = pd.DataFrame( stockarray, index=self.elementlist, columns=self.vendorlist )
+        #self.mstockarray = ma.array( stockarray, mask=mask ) # a masked array of sorted vendor indice      
+        #self.pstock = pd.DataFrame( stockarray, index=self.elementlist, columns=self.vendorlist )
         #self.pstock.to_csv('stock.csv', sep=',') #cols, header, index, index_label, mode, nanRep, encoding, quoting, line_terminator)
         return stockarray
     
-    def createwantedarray(self):    #returns numpy array of wanted items
-        m = len(self.elementlist)
-        
+    def buildwantedarray(self, wanteddict):    #returns numpy array of wanted items
+        m = len(self.elementlist)       
         wantedarray = np.ndarray(shape = (m), dtype=np.int)
         for i in range(0, m):
             elementid = self.elementlist[i]
-            wantedarray[i] = self.wanted[elementid]
-        self.wantedarray = wantedarray    
-        self.pwanted = pd.Series( wantedarray, index=self.elementlist )
-        
+            wantedarray[i] = wanteddict[elementid]
+        #self.wantedarray = wantedarray    
+        #self.pwanted = pd.Series( wantedarray, index=self.elementlist )       
         return wantedarray    
+             
+    def initbcm(self):
+        m = len(self.elementlist) #rows (i)
+        n = len(self.vendorlist) #columns (j)
+        self.BCM = np.ndarray(shape = (m, n), dtype=np.int)
+        self.BCM.fill(0)
+                   
+    def addtolist(self, alist, value):             
+        if value not in alist:
+            #string = "Adding value: " + str( value) + " to list " + str( alist)
+            #logging.(string)
+            alist.append(value)
+        return True
+        
+class BCMEngine(object):
+    '''     
+    contains a dictionary that allows access via data[elementid, vendorid] = (price, qty)
+        '''
+    vendormap = VendorMap()
     
-    def buildarrays(self):
-        logging.info("Rebuilding arrays...")
-        self.createpricearray()
-        self.createstockarray()
-        self.createwantedarray()
-              
+    def __init__(self, bricklink, wanteddict):
+        #UserDict.__init__(self)
+        BCMEngine.vendormap = bricklink.vendormap
+        #self.data = BCMData() #the mutable data object that's passed to the optimizer
+
+        self.bcmdict = self.createbcmdict(bricklink, wanteddict) #self.data[elementid, vendorid] = (price, qty) #essentially a copy of the Bricklink data.  Don't change this once initialized
+        self.wanted = self.createwanteddict(bricklink, wanteddict) #don't change this either
+        
+        self.data = BCMData(self.bcmdict, self.wanted)
+        
+        '''#this is a working list.  We'll cull this from time to time and rebuild it if neccessary.
+        self.svendors = None                          #it's important that these lists are kept current, since they're used as keys for interating over data[elementid, vendorid]
+ #this is also a working list, but it won't likely be modified
+        self.selements = None
+        
+        self.pricearray = None #a numpy array
+        self.mpricearray = None #masked price array (mask by the stock mask)
+        self.pprices = None     #a pandas dataframe
+        
+        self.stockarray = None 
+        self.mstockarray = None #a masked numpy array
+        self.pstock = None      #a pandas dataframe
+        
+        self.wantedarray = None #a numpy array
+        self.pwanted = None #a pandas series
+
+        self.result = None  #will use this calculated array result[i,j] = 'quantity to buy', where i = elementindex, j = vendorindex
+                            #indexes i, j need to match indexes in elementlist[i] and vendorlist[j] for successful remapping
+        self.initialized = False
+        '''
+        
+    #overload the default get function.  If the key combo doesn't exist, return a 0,0 pair      
+    def createwanteddict(self, bricklink, wanteddict):        
+        wanted = dict()        
+        for elementid in bricklink.keys(): #bricklink.data only has one key - the elementid                      
+            wanted[elementid] = wanteddict.getwantedqty(elementid) #populate the wanted qty dictionary        
+        return wanted
+
+          
+    def createbcmdict(self, bricklink, wanteddict): 
+        #creates a dictionary keyed to the vendor and an element that contains the qty and price for each vendor/element pair
+        #prices.append([vendorid, vendorname, vendorqty, vendorprice])                
+        #self.headers.append("Vendor")
+        logging.info("Building BCM data")
+        bcm = dict()
+        #create the price array
+        #create the stock array        
+        for elementid in bricklink.keys(): #bricklink.data only has one key - the elementid
+            for vendorinfo in bricklink[elementid]:  #iterate over the list of vendors in bricklink[elementid] = (vendorid, qty, price)
+                vendorid = str(vendorinfo[0])
+                vendorqty = int(vendorinfo[1])
+                vendorprice = float(vendorinfo[2])  
+                bcm[elementid, vendorid] = (vendorqty, vendorprice)  
+        self.initialized = True    
+        return bcm
+           
     def describesolution(self, result):
         if self.result:
             pass
@@ -161,30 +200,23 @@ class BCMData(UserDict):
         print("There are " + str(len(self.vendorlist)) + " in Vendorlist")
         
     def getqtyandprice(self, elementid, vendorid):
-        assert( (elementid, vendorid) in self.data.keys() ), "ElementID %r, VendorID %r not found" % (elementid, vendorid)
-        (qty, price) = self[elementid, vendorid]       
+        assert( (elementid, vendorid) in self.bcmdict.keys() ), "ElementID %r, VendorID %r not found" % (elementid, vendorid)
+        (qty, price) = self.bcmdict[elementid, vendorid]       
         return (qty, price)
         
-    def addtolist(self, alist, value):             
-        if value not in alist:
-            #string = "Adding value: " + str( value) + " to list " + str( alist)
-            #logging.(string)
-            alist.append(value)
-        return True
-    
-    
+  
     def getvendorlist(self):
-        return self.vendorlist
+        return self.data.vendorlist
     
     def getelementlist(self):
-        return self.elementlist
+        return self.data.elementlist
              
     def hasminquantity(self, elementid, vendorid ):
         assert vendorid in self.vendormap, "Cannot determine qantity, vendor %r does not exist in vendorlist" % vendorid
         
-        if (elementid, vendorid) in self.data:
+        if (elementid, vendorid) in self.bcmdict:
             wantedquantity = int(self.wanted[elementid])
-            return ( (self[elementid, vendorid][0]) >= wantedquantity )
+            return ( (self.bcmdict[elementid, vendorid][0]) >= wantedquantity )
         else: 
             return False
           
@@ -216,7 +248,7 @@ class BCMData(UserDict):
         #at most, this leaves us with NumElements x N vendors
         #use the pricearray and loop over vendor list        
         #msorted = self.sortedvendoridx() #this is a list of vendor indices, sorted and masked > 0
-        cheap = self.pricearray
+        cheap = self.data.prices
         avg = self.avgprices()
         mask = ((cheap.T <= avg) & (cheap.T > 0.0)).T
         
@@ -224,7 +256,7 @@ class BCMData(UserDict):
     
     def sortedvendoridx(self):        
         #returns a masked array of the sorted vendor indices, masking the 0.0 values
-        p = self.pricearray       
+        p = self.data.prices       
         s = p.argsort(axis=1) # sort array of vendor indices are now sorted by s
         static_indices = np.indices( p.shape )
         psorted = p[static_indices[0], s]               
@@ -243,19 +275,19 @@ class BCMData(UserDict):
     def elementweights(self):
         #generate a weight for each element - basically the avg price for that element * wanted qty, normalized
         avgprices = self.avgprices()
-        wanted = self.wantedarray       
+        wanted = self.data.wanted       
         weights = (avgprices * wanted)/(avgprices * wanted).max()       
         return weights
   
     def avgprices(self):
         #data[elementid, vendorid] = [price, qty]
-        p = self.pricearray
+        p = self.data.prices
         avgprices = p.sum(1)/(p > 0).sum(1) #the 1 causes
         return avgprices
         #for item in self.item
     
     def itemspervendor(self):
-        s = self.stockarray
+        s = self.data.stock
         itemspervendor = (s > 0).sum(0)
         return itemspervendor
     
@@ -293,7 +325,7 @@ class BCMData(UserDict):
             return False
         
     def printdata(self):
-        for item in self.data.items():
+        for item in self.bcmdict.items():
             print (item)
 
     def shoppinglist(self, result):
@@ -346,7 +378,7 @@ class BCMData(UserDict):
         print( self.headers)
         #print self.wantedqty
         for e in self.keys(): #vendors
-            thiselement = self[e]
+            thiselement = self.bcm[e]
             row = list()
             row.append(thiselement.id)
             for v in self.vendormap.keys():
@@ -368,8 +400,8 @@ class BCMData(UserDict):
         csvstring += '\n'
         for v in self.vendormap.keys(): #vendors
             csvstring += self.vendormap[v].name + ','
-            for e in self.data.keys():
-                thiselement = self[e]
+            for e in self.bcm.keys():
+                thiselement = self.bcm[e]
                 try:
                     csvstring += str(thiselement.vendorstock[v].quantity) + ',' + str(thiselement.vendorstock[v].price) 
                     csvstring += ','   
