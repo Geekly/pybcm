@@ -18,10 +18,12 @@ from bcm import *
 from pprint import pprint
 from orBCM import OROptimizer
 from reporter import *
+import cProfile, pstats
 
 
 
-if __name__ == '__main__':
+
+def main():
       
     logging.basicConfig(level=logging.DEBUG)
     wantedlistfilename = '../Star Destroyer 30056-1.bsx'
@@ -52,12 +54,7 @@ if __name__ == '__main__':
         bricklink.read(pricefilename)
         f.close()
 
-   
-    bcm = BCMEngine(bricklink, wanteddict)
-    
-    
-    
-    
+ 
     #print( bcm.ELEMDICT )
     #print( 'wut')
     #bcm.presolve()
@@ -69,7 +66,7 @@ if __name__ == '__main__':
     #w = bcm.elementweights()
     #print( bcm.data.elementsort(w) )
     
-
+    bcm = BCMEngine(bricklink, wanteddict)
     opt = Optimizer(bcm.data)
     result = opt.bucketsearch(bcm.data)
     print( result )
@@ -86,3 +83,15 @@ if __name__ == '__main__':
     #        print bcm.bcmdict[element, vid]
     #opt = BCMopt(bcm)
     #print( opt.solve() )
+    
+if __name__ == '__main__':
+    
+    #main() 
+    cp = cProfile.Profile()
+       
+    cp.run('main()')
+    
+    ps = pstats.Stats(cp)
+    ps.sort_stats('time')
+    ps.print_stats(0.3)
+    

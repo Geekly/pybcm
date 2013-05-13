@@ -15,16 +15,11 @@ from coopr.pyomo import *
 from coopr.opt import SolverFactory
 
 class Optimizer(object):   
-    ''' 
-    BCMData reference
-        self.bcm = dict()
-        self.wanted = dict()
-        self.vendors = list()  #this is a working list.  We'll cull this from time to time and rebuild it if neccessary
-        self.elementlist = list()
-        self.pricearray = None #a numpy array
-        self.stockarray = None #a numpy array
-        self.wantedarray = None #a numpy array
-    '''
+    """
+    Perform optimization on a BCMData object
+    
+    """
+
     def __init__(self, bcmdata, mode='cheapestpart'):
         
         #self.data = bcmdata
@@ -35,6 +30,7 @@ class Optimizer(object):
         self.vendorweight = 3.0  #cost to add additional vendors, approximating average per/order shipping & handling cost
         
     def cost(self, pricearray, resultarray):
+        """Return partcost, shippingcost, and numvendors based on pricearray and resultarray"""
         #print(resultarray)
         #print(pricearray)       
         product = resultarray * pricearray  #elementwise multiplication
@@ -47,6 +43,7 @@ class Optimizer(object):
         #print(cost)
     
     def numvendors(self, pricearray, resultarray):
+        """Count the number of vendors with a non-zero result"""
         product = resultarray * pricearray
         nvendors = np.count_nonzero( np.any( product > 0, axis=0 ) )
         return nvendors
@@ -106,12 +103,19 @@ class Optimizer(object):
                
         return r
     
-    def trytobuy(self, need, stock):
-        #normally we don't call this unless there is actual stock
-        #factor - don't buy less than half of what we need
-        #  1:  only buy all of what we need, don't settle for less
-        #  0.5: don't buy less than half of what we need
-        #  0:  no influence, buy whatever they have
+    def trytobuy(self, need, stock, threshold=1):
+        """Compare needed and available(stock) and return amount to buy
+        
+        Keyword arguments:
+        need -- number of items that need to be bought
+        stock -- number of available items from the vendor
+        threshold - percentage of need that determines whether a vendor is used
+            1:  only buy all of what we need, don't settle for less
+            0.5: don't buy less than half of what we need
+            0:  no influence, buy whatever they have
+            
+        """
+        
         buyit = -1
         threshold = .5
         
@@ -170,7 +174,7 @@ class Optimizer(object):
         v = data.vendorlist        
         m = len(data.elementlist)
         n = len(data.vendorlist)
-        svl = self.sortedvendorlists(data)
+        svl = self.data.sortedvendorlists(data)
         #seperate solutions for each element
         elist = list()
         print svl
@@ -234,8 +238,8 @@ class Optimizer(object):
     def isfeasible(self, result):
         # if total quantities = wantedqty
         partqty = result.sum(axis=1)
-        return partqty >= self.data.wanted
-
+        return partqty >= self.data.WANTED
+    
 class Result(dict):
     def __init__(self):
         #    def __init__(self):

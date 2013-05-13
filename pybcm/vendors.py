@@ -4,8 +4,8 @@ Created on Oct 23, 2012
 @author: khooks
 '''
 from UserDict import UserDict
-import BeautifulSoup as Soup
-import logging
+import BeautifulSoup as soup
+
 
 class Vendor(object):
     
@@ -31,7 +31,7 @@ class VendorMap(UserDict):
         '''              
         UserDict.__init__(self)
         self.data = dict()
-              
+        self.soup = None      
         #print self.data
         
     def __str__(self):
@@ -41,7 +41,8 @@ class VendorMap(UserDict):
         
                 for vendor in self.data.keys():
                 for items in self.data[vendor]:
-                returnstring += str(items) + "\n"'''
+                returnstring += str(items) + "\n"
+        '''
                                
     def addvendor(self, vendor):
         if vendor.id in self.keys():
@@ -66,7 +67,7 @@ class VendorMap(UserDict):
         print( "Building vendor map from file: " + filename)
         self.data = dict()  #clear any existing data
         
-        self.soup = Soup(open(filename).read(), "lxml")
+        self.soup = soup.soup( open(filename).read(), "lxml")
         vendorlist = self.soup.findAll("vendor")
         
             # for each item node, recurse over each vendor node      

@@ -12,6 +12,7 @@ import logging
 from shoppinglist import ShoppingList
 from legoutils import LegoElement
 from operator import itemgetter, attrgetter
+import cProfile
 
 #class BCMDict(dict):
     
@@ -43,18 +44,24 @@ class BCMData(object):
         self.WANTDICT = wanteddict
         self.ELEMDICT = elemdict
         
+        self.__buildlists(self.BCMDICT)
+                
+        self.PRICES = self.__buildpricearray(self.BCMDICT)
+        self.WANTED = self.__buildwantedarray(self.WANTDICT)
+        self.STOCK = self.__buildstockarray(self.BCMDICT)
+        
+        self.__elementsort()
         self.__need_rebuild = True 
-        self.__build() #initializes all of the data above
+        #self.__build() #initializes all of the data above
                   
-    def __build(self):     
+        '''    def __build(self):     
         self.__buildlists(self.BCMDICT)
         self.__buildarrays(self.BCMDICT, self.WANTDICT)
-        self.__initbcm()
         self.__elementsort()
-                       
+        '''                      
     def __buildlists(self, bcmdict): 
         logging.info("Building BCMData lists") 
-        k = [ keytuple for keytuple in bcmdict.keys() ]      
+        #k = [ keytuple for keytuple in bcmdict.keys() ]      
         for keytuple in bcmdict.keys():
             (elementid, vendorid) = keytuple
             #print("Adding ", keytuple)
@@ -77,7 +84,7 @@ class BCMData(object):
         logging.info("Forcing array update...")
         self.PRICES = self.__buildpricearray(self.BCMDICT)
         self.STOCK = self.__buildstockarray(self.BCMDICT)
-        self.__initbcm()
+        #self.__initbcm()
         self.__need_rebuild = False      
             
     def __buildpricearray(self, bcmdict): #returns numpy array of the PRICES        
@@ -91,17 +98,20 @@ class BCMData(object):
         m = len(self.elementlist) #rows (i)
         n = len(self.vendorlist) #columns (j)
         
-        pricearray = np.ndarray(shape = (m, n), dtype=np.float) 
-        pricearray.fill(0)
+        #pricearray = np.ndarray(shape = (m, n), dtype=np.float) 
+        #pricearray.fill(0)
+        pricearray = np.zeros(shape = (m,n), dtype=float)
+        bcmkeys = bcmdict.keys()
         for i in range(0, m):
             for j in range(0, n):
                 keytuple = (self.elementlist[i], self.vendorlist[j])
-                if keytuple in bcmdict.keys():
+                #TODO: Don't call .keys() if possible
+                if keytuple in bcmkeys: 
                     pricearray[i,j] = float(bcmdict[self.elementlist[i], self.vendorlist[j]][1])
                 else:
                     pricearray[i,j] = 0.0
         #self.pricearray = pricearray
-        mask = pricearray <= 0.0  #p and pmask share the same indices       
+        #mask = pricearray <= 0.0  #p and pmask share the same indices       
         #self.mpricearray = ma.array( pricearray, mask=mask ) # a masked array of sorted vendor indice      
         #self.pprices = pd.DataFrame( pricearray, index=self.elementlist, columns=self.vendorlist )
         
@@ -115,17 +125,19 @@ class BCMData(object):
         '''
         m = len(self.elementlist)
         n = len(self.vendorlist)
-        stockarray = np.ndarray(shape = (m, n), dtype=np.int)
-        stockarray.fill(0)
+        #stockarray = np.ndarray(shape = (m, n), dtype=np.int)
+        #stockarray.fill(0)
+        stockarray = np.zeros(shape=(m,n), dtype=np.int)
+        bcmkeys = bcmdict.keys()
         for i in range(0, m):
             for j in range(0, n):
                 keytuple = (self.elementlist[i], self.vendorlist[j])
-                if keytuple in bcmdict.keys():
+                if keytuple in bcmkeys:
                     stockarray[i,j] = int(bcmdict[self.elementlist[i], self.vendorlist[j]][0])
                 else:
                     stockarray[i,j] = 0
         #self.stockarray = stockarray
-        mask = stockarray <= 0.0  #p and pmask share the same indices       
+        #mask = stockarray <= 0.0  #p and pmask share the same indices       
         #self.mstockarray = ma.array( stockarray, mask=mask ) # a masked array of sorted vendor indice      
         #self.pstock = pd.DataFrame( stockarray, index=self.elementlist, columns=self.vendorlist )
         #self.pstock.to_csv('STOCK.csv', sep=',') #cols, header, index, index_label, mode, nanRep, encoding, quoting, line_terminator)
@@ -140,17 +152,11 @@ class BCMData(object):
         #self.wantedarray = wantedarray    
         #self.pwanted = pd.Series( wantedarray, index=self.elementlist )       
         return wantedarray    
-                
-    def __initbcm(self):
-        m = len(self.elementlist) #rows (i)
-        n = len(self.vendorlist) #columns (j)
-        self.soln = np.ndarray(shape = (m, n), dtype=np.int)
-        self.soln.fill(0)
-        
+                        
     def __elementsort(self, sortby=None):
         logging.info("Sorting Element-wise dictionary...")
         if sortby: weights = sortby
-        else: weights = self.elementweights()
+        else: weights = self.elementweights().keys()
         #resort the elementlist using these weights
         #print(self.elementlist)
         self.elementlist = [y for (x, y) in sorted( zip( weights, self.elementlist ), reverse=True )]
@@ -180,6 +186,20 @@ class BCMData(object):
         self.vendorlist = newvendors
         self.forceupdate()
     
+    
+    '''def avgprices(self):
+        """Calculate the average price of each element and return it in a dictionary"""
+        avgprice = dict()
+        for element in self.ELEMDICT:                                       #self.ELEMDICT[element] = (vendor, qty, price)
+            runningsum=0.0
+            n = 0
+            for (vendor, qty, price) in self.ELEMDICT[element]: #this is a list of tuples
+                runningsum += price
+                n += 1
+            avgprice[element] = runningsum/n        
+        return avgprice       
+    '''        
+    
     def avgprices(self):
         #data[elementid, vendorid] = [price, qty]
         p = self.PRICES
@@ -188,9 +208,12 @@ class BCMData(object):
     
     def elementweights(self):
         #generate a weight for each element - basically the avg price for that element * WANTED qty, normalized
-        avgprices = self.avgprices()
-        wanted = self.WANTED       
-        weights = (avgprices * wanted)/(avgprices * wanted).max()       
+        weights = dict()
+        avgprice = self.avgprices() #ndarray
+        wanted = self.WANTDICT #dictionary on elementname      
+        
+        for eidx, element in enumerate(self.elementlist):          
+            weights[element] = avgprice[eidx] * wanted[element]      
         return weights    
       
     '''def vendorsort(self, weights):
