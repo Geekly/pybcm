@@ -12,6 +12,7 @@ analytic PDF over it
 """
     def __init__(self, bcm):
         self.bcm = bcm
+        self.data = bcm.data
 
     def pricehistogram( self, elementid ):
        
@@ -69,35 +70,22 @@ analytic PDF over it
         uniq_keys = np.unique(keys)
         bins = uniq_keys.searchsorted(keys)
         return uniq_keys, np.bincount(bins)    
-        
-    def rankedvendors( self ):
-        
-        #rank and print the average prices for vendors
-        avg = self.bcm.avgprices() #uses pricearray indices
-        print ( self.bcm.elementweights() )       
-        print(avg)
-        
+               
     def elementstats( self ):
-        wanted = self.bcm.wantedarray
+        wanted = self.data.wantedarray
         avg = self.bcm.avgprices() #uses pricearray indices
-        print "Elements", str(self.bcm.elementlist)
+        print "Elements", str(self.data.elementlist)
         print "Wanted: ", str(wanted) 
         print "Average prices: " , str(avg)
         print "Element weights: " , str(avg * wanted) 
         print "Relative weights:" , str(self.bcm.elementweights())     
         
     def vendorstats( self ):
-        prices = self.bcm.pricearray
-        mprices = self.bcm.mpricearray
+        prices = self.data.prices
+        print("There are a total of " + str(len(self.data.vendorlist)) + " vendors.")
         itemcounts = self.bcm.itemspervendor()
         avg = self.bcm.avgprices()
         itemsper, counts = self.count_unique(itemcounts)
-        #for column in prices.T:
-        #    print( column / self.bcm.avgprices() )
-        #print( prices.T / avg )
-        #how about the price compared to the average price per vendor?
-        #print( itemcounts )
-        #print( np.unique(itemcounts, return_index=True) )
         for (per, count) in zip(itemsper, counts):
             print count, " vendors have at most <", per, "> items" 
         #print "Items per vendor: ", zip(itemsper, counts) 

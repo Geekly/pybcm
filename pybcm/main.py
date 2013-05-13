@@ -24,14 +24,14 @@ from reporter import *
 if __name__ == '__main__':
       
     logging.basicConfig(level=logging.DEBUG)
-    wantedlistfilename = '../Molding Machine.bsx'
+    wantedlistfilename = '../Star Destroyer 30056-1.bsx'
     #wantedlistfilename = '../Inventory for 6964-1.bsx'
     
     
     reloadpricesfromweb = False  #set this to true if you want to update prices from the web and rewrite pricefilename
     #make sure to run this once every time that the wanted list changes
                                      
-    pricefilename = '../Molding Machine.xml'
+    pricefilename = '../Star Destroyer 30056-1.xml'
 
     wanteddict = WantedDict()
     bricklink = BricklinkData()
@@ -54,16 +54,35 @@ if __name__ == '__main__':
 
    
     bcm = BCMEngine(bricklink, wanteddict)
-    print( bcm.cheapvendorsbyitem(5) )
-    #bcm.cullvendorsbyprice()
-    rep = reporter(bcm)
     
-    #print( bcm.createbcmarray() )
-    #rep.stockhistogram()
-    #for elementid in bcm.elementlist:
-        #rep.pricehistogram( elementid )
+    
+    
+    
+    #print( bcm.ELEMDICT )
+    #print( 'wut')
+    #bcm.presolve()
+    #print( bcm.cheapvendorsbyitem(5) )
+    #bcm.cullvendorsbyprice()
+    #rep = reporter(bcm)
+    #rep.vendorstats()
+    
+    #w = bcm.elementweights()
+    #print( bcm.data.elementsort(w) )
+    
 
-    #oro = OROptimizer(data)
-    #oro.solve()
+    opt = Optimizer(bcm.data)
+    result = opt.bucketsearch(bcm.data)
+    print( result )
+    #print( result.cost() )
+    
+    #result = opt.allfeasible(bcm.data) 
+    #pprint( result )
+    #svl = bcm.sortedvendorlists()
+    #print svl
+    #for element in svl: 
+        #print element 
+    #    for vid in svl[element]:
+            #print vid
+    #        print bcm.bcmdict[element, vid]
     #opt = BCMopt(bcm)
     #print( opt.solve() )
