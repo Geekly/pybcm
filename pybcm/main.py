@@ -51,7 +51,8 @@ def main():
     else: 
         logging.info("Reading prices from file")
         f = open(pricefilename, 'r')
-        bricklink.read(pricefilename)
+        #bricklink.read(pricefilename)
+        bricklink.read_nosoup(pricefilename)
         f.close()
 
  
@@ -66,10 +67,10 @@ def main():
     #w = bcm.elementweights()
     #print( bcm.data.elementsort(w) )
     
-    bcm = BCMEngine(bricklink, wanteddict)
-    opt = Optimizer(bcm.data)
-    result = opt.bucketsearch(bcm.data)
-    print( result )
+    #bcm = BCMEngine(bricklink, wanteddict)
+    #opt = Optimizer(bcm.data)
+    #result = opt.bucketsearch(bcm.data)
+    #print( result )
     #print( result.cost() )
     
     #result = opt.allfeasible(bcm.data) 
@@ -93,5 +94,5 @@ if __name__ == '__main__':
     
     ps = pstats.Stats(cp)
     ps.sort_stats('time')
-    ps.print_stats(0.3)
-    
+    ps.print_stats(0.2)
+

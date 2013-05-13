@@ -7,6 +7,10 @@ from UserDict import UserDict
 from blreader import BricklinkWebReader
 from BeautifulSoup import BeautifulSoup
 from legoutils import LegoElement
+#import elementtree.ElementTree as ET
+from lxml import etree as ET
+#from elementtree.ElementTree import parse
+
 from vendors import *
 import logging
 
@@ -86,8 +90,8 @@ class BricklinkData(UserDict):
                 vendorqty = vendor.find('vendorqty').string
                 vendorprice = vendor.find('vendorprice').string
 
-                listitem = [vendorid, vendorqty, vendorprice]              
-                self[elementid].append(listitem) 
+                #listitem = [vendorid, vendorqty, vendorprice]              
+                self[elementid].append([vendorid, vendorqty, vendorprice]) 
         
                 vendorname = vendor.find('vendorname').string
                 self.vendormap.addvendor( Vendor(vendorid=vendorid, vendorname=vendorname) )
@@ -95,7 +99,35 @@ class BricklinkData(UserDict):
         
         self.bricklink_initialized = True
         
+    def read_nosoup(self, filename=None):
+        assert filename != None, "price List filename required"
+        logging.info("Building bricklink data from file: " + filename)
+        self.data = dict()  #clear any existing data
 
+        tree = ET.parse(filename)
+        
+        
+        wantedlist = tree.findall('Item')
+        for item in wantedlist:
+            #print(item.text)
+            
+            itemid = item.find('ItemID').text
+            colorid = item.find('ColorID').text
+            elementid = LegoElement.joinelement(itemid, colorid)
+            self[elementid] = [] #empty list
+            logging.info("Loading element " + str(elementid))
+            
+            vendors = item.findall('Vendor')
+            for vendor in vendors:
+                
+                vendorid = vendor.find('VendorID').text
+                vendorqty = vendor.find('VendorQty').text
+                vendorprice = vendor.find('VendorPrice').text
+                #listitem = [vendorid, vendorqty, vendorprice]              
+                self[elementid].append([vendorid, vendorqty, vendorprice])         
+                vendorname = vendor.find('VendorName').text
+                self.vendormap.addvendor( Vendor(vendorid=vendorid, vendorname=vendorname) )
+        
     def dataquality(self):
         assert self.bricklink_initialized == True, "bricklink not initialized, cannot report dataquality"
         
@@ -110,8 +142,9 @@ class BricklinkData(UserDict):
         xml_string = ''
         for elementid in self.keys():
             itemid, color = LegoElement.splitelement(elementid)
+            xml_string += '<xml>\n'
             xml_string += '<Item>\n'
-            xml_string += ' <Itemid>{}</ItemID>\n'.format(itemid)
+            xml_string += ' <ItemID>{}</ItemID>\n'.format(itemid)
             xml_string += ' <ColorID>{}</ColorID>\n'.format(color)
             for vendor in self.data[elementid]:
                 vendorid = vendor[0]
@@ -124,5 +157,5 @@ class BricklinkData(UserDict):
                 xml_string += '  </Vendor>\n'
                         
             xml_string += '</Item>\n'    
-        
+        xml_string += '</xml>'
         return xml_string

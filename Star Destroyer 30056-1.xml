@@ -1,5 +1,6 @@
+<xml>
 <Item>
- <Itemid>3623</ItemID>
+ <ItemID>3623</ItemID>
  <ColorID>86</ColorID>
   <Vendor>
    <VendorID>163688</VendorID>
@@ -1656,11 +1657,7 @@
    <VendorName>Sable Wyvern</VendorName>
    <VendorQty>14</VendorQty>
    <VendorPrice>0.64</VendorPrice>
-  </Vendor>
-</Item>
-<Item>
- <Itemid>3794b</ItemID>
- <ColorID>86</ColorID>
+  </Vendor></Item><Item><ItemID>3794b</ItemID><ColorID>86</ColorID>
   <Vendor>
    <VendorID>137083</VendorID>
    <VendorName>Another Brick Closer</VendorName>
@@ -2509,7 +2506,7 @@
   </Vendor>
 </Item>
 <Item>
- <Itemid>3070b</ItemID>
+ <ItemID>3070b</ItemID>
  <ColorID>85</ColorID>
   <Vendor>
    <VendorID>343339</VendorID>
@@ -3941,7 +3938,7 @@
   </Vendor>
 </Item>
 <Item>
- <Itemid>4073</ItemID>
+ <ItemID>4073</ItemID>
  <ColorID>85</ColorID>
   <Vendor>
    <VendorID>343339</VendorID>
@@ -6345,7 +6342,7 @@
   </Vendor>
 </Item>
 <Item>
- <Itemid>4073</ItemID>
+ <ItemID>4073</ItemID>
  <ColorID>15</ColorID>
   <Vendor>
    <VendorID>229643</VendorID>
@@ -9997,7 +9994,7 @@
   </Vendor>
 </Item>
 <Item>
- <Itemid>3023</ItemID>
+ <ItemID>3023</ItemID>
  <ColorID>2</ColorID>
   <Vendor>
    <VendorID>328787</VendorID>
@@ -12533,7 +12530,7 @@
   </Vendor>
 </Item>
 <Item>
- <Itemid>3710</ItemID>
+ <ItemID>3710</ItemID>
  <ColorID>86</ColorID>
   <Vendor>
    <VendorID>328787</VendorID>
@@ -14673,7 +14670,7 @@
   </Vendor>
 </Item>
 <Item>
- <Itemid>3040</ItemID>
+ <ItemID>3040</ItemID>
  <ColorID>85</ColorID>
   <Vendor>
    <VendorID>8564</VendorID>
@@ -18277,7 +18274,7 @@
   </Vendor>
 </Item>
 <Item>
- <Itemid>2436</ItemID>
+ <ItemID>2436</ItemID>
  <ColorID>86</ColorID>
   <Vendor>
    <VendorID>198322</VendorID>
@@ -20789,7 +20786,7 @@
   </Vendor>
 </Item>
 <Item>
- <Itemid>54383</ItemID>
+ <ItemID>54383</ItemID>
  <ColorID>86</ColorID>
   <Vendor>
    <VendorID>328787</VendorID>
@@ -21219,7 +21216,7 @@
   </Vendor>
 </Item>
 <Item>
- <Itemid>43722</ItemID>
+ <ItemID>43722</ItemID>
  <ColorID>86</ColorID>
   <Vendor>
    <VendorID>328787</VendorID>
@@ -22099,7 +22096,7 @@
   </Vendor>
 </Item>
 <Item>
- <Itemid>3031</ItemID>
+ <ItemID>3031</ItemID>
  <ColorID>85</ColorID>
   <Vendor>
    <VendorID>248176</VendorID>
@@ -24953,7 +24950,7 @@
   </Vendor>
 </Item>
 <Item>
- <Itemid>3795</ItemID>
+ <ItemID>3795</ItemID>
  <ColorID>1</ColorID>
   <Vendor>
    <VendorID>747</VendorID>
@@ -26949,7 +26946,7 @@
   </Vendor>
 </Item>
 <Item>
- <Itemid>54200</ItemID>
+ <ItemID>54200</ItemID>
  <ColorID>86</ColorID>
   <Vendor>
    <VendorID>194489</VendorID>
@@ -30355,7 +30352,7 @@
   </Vendor>
 </Item>
 <Item>
- <Itemid>3794</ItemID>
+ <ItemID>3794</ItemID>
  <ColorID>86</ColorID>
   <Vendor>
    <VendorID>145719</VendorID>
@@ -32537,7 +32534,7 @@
   </Vendor>
 </Item>
 <Item>
- <Itemid>61409</ItemID>
+ <ItemID>61409</ItemID>
  <ColorID>85</ColorID>
   <Vendor>
    <VendorID>3062</VendorID>
@@ -36201,7 +36198,7 @@
   </Vendor>
 </Item>
 <Item>
- <Itemid>54384</ItemID>
+ <ItemID>54384</ItemID>
  <ColorID>86</ColorID>
   <Vendor>
    <VendorID>92406</VendorID>
@@ -37141,7 +37138,7 @@
   </Vendor>
 </Item>
 <Item>
- <Itemid>43723</ItemID>
+ <ItemID>43723</ItemID>
  <ColorID>86</ColorID>
   <Vendor>
    <VendorID>328787</VendorID>
@@ -38069,7 +38066,7 @@
   </Vendor>
 </Item>
 <Item>
- <Itemid>2412b</ItemID>
+ <ItemID>2412b</ItemID>
  <ColorID>85</ColorID>
   <Vendor>
    <VendorID>225226</VendorID>
@@ -41187,7 +41184,7 @@
   </Vendor>
 </Item>
 <Item>
- <Itemid>3020</ItemID>
+ <ItemID>3020</ItemID>
  <ColorID>85</ColorID>
   <Vendor>
    <VendorID>338233</VendorID>
@@ -45234,3 +45231,4 @@
    <VendorPrice>0.55</VendorPrice>
   </Vendor>
 </Item>
+</xml>
