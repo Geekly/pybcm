@@ -51,8 +51,8 @@ def main():
     else: 
         logging.info("Reading prices from file")
         f = open(pricefilename, 'r')
-        #bricklink.read(pricefilename)
-        bricklink.read_nosoup(pricefilename)
+        
+        bricklink.read(pricefilename)
         f.close()
 
  

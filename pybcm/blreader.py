@@ -8,7 +8,7 @@ from lxml import etree
 
 import re
 import io
-from vendors import *
+from vendors import VendorMap, Vendor
 import cookielib
 import urllib
 import urllib2

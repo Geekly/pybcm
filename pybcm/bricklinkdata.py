@@ -5,12 +5,9 @@ Created on Oct 23, 2012
 '''
 from UserDict import UserDict
 from blreader import BricklinkWebReader
-from BeautifulSoup import BeautifulSoup
+#from BeautifulSoup import BeautifulSoup
 from legoutils import LegoElement
-#import elementtree.ElementTree as ET
 from lxml import etree as ET
-#from elementtree.ElementTree import parse
-
 from vendors import *
 import logging
 
@@ -65,7 +62,8 @@ class BricklinkData(UserDict):
         self.bricklink_initialized = True
                
            
-    def read(self, filename=None):
+    '''
+    def read_soup(self, filename=None):
         assert filename != None, "price List filename required"
         
         logging.info("Building bricklink data from file: " + filename)
@@ -98,8 +96,9 @@ class BricklinkData(UserDict):
                 
         
         self.bricklink_initialized = True
+        '''
         
-    def read_nosoup(self, filename=None):
+    def read(self, filename=None):
         assert filename != None, "price List filename required"
         logging.info("Building bricklink data from file: " + filename)
         self.data = dict()  #clear any existing data
