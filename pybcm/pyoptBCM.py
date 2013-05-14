@@ -3,7 +3,7 @@ Created on May 6, 2013
 
 @author: khooks
 '''
-import pyopt
+import pyOpt
 
 
 
@@ -12,7 +12,7 @@ class BCMopt():
 
     def __init__(self, bcmdata):
                 
-        self.bcm = bcmdata
+        self.data = bcmdata
         self.problem = None
         
         return

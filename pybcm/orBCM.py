@@ -6,43 +6,55 @@ Created on Apr 23, 2013
 
 from google.apputils import app
 import gflags
-from linear_solver import pywraplp
 
+from collections import defaultdict
+import operator
+from constraint_solver import pywrapcp as orsolver
+#from linear_solver import pywraplp as orsolver
 class OROptimizer():
     
     def __init__( self, bcmdata ):
-        self.solver = pywraplp.Solver("Get best price", pywraplp.Solver.GLPK_MIXED_INTEGER_PROGRAMMING)
-        self.bcm = bcmdata
+        #data[elementid, vendorid] = (price, qty)
+        self.solver = orsolver.Solver("Get best price")#, orsolver.Solver.GLPK_MIXED_INTEGER_PROGRAMMING)
         
+        self.__v = bcmdata.vendorlist
+        self.__e = bcmdata.elementlist
+        
+        self.__BCMDICT = bcmdata.BCMDICT
+        self.__ELEMDICT = bcmdata.ELEMDICT
+        self.__VENDICT = bcmdata.VENDICT
+        self.__WANTDICT = bcmdata.WANTDICT
+                
+        self.__PRICES = bcmdata.PRICES
+        self.__STOCK = bcmdata.STOCK
+        self.__WANTED = bcmdata.WANTED
+        
+        self.__X = dict()  #solution
         
     def setup(self):      
         #set up the problem
         #create the solution domain
-        m = len(self.bcm.elementlist)
-        n = len(self.bcm.vendorlist)
+        bcmdict = self.__BCMDICT #price dictionary #does not include every combination of element, vendor - only ones with stock
+        wanted = self.__WANTDICT       
+        bcmkeys = bcmdict.keys()
         
-        price = self.bcm.data #price dictionary #does not include every combination of element, vendor - only ones with stock
-        
-        e = self.bcm.elementlist
-        v = self.bcm.vendorlist
-        
-        P = self.bcm.pricearray #mxn
-        S = self.bcm.stockarray #mxn
-        W = self.bcm.wantedarray #m
-        
-        X = {} # "X", solution 
-        #qtyarray = [[ 0 for j in range(0, n)] for i in range(0,m)]
+        X = defaultdict(dict) # "X", solution X[element]->[vendor]->(quantity)
+        #ekeys = sorted(bcmkeys) #keys of X sorted on element
+        #vkeys = sorted(bcmkeys, key=lambda x: x[1]) #keys of X sorted on vendor
+        vdict = defaultdict(list)
+        for element, vendor in bcmkeys: vdict[vendor].append(element)
         
         #establish wanted/stock constraints and bound X by the stock or wanted constraint
-        for eindex, element in enumerate( e ): #iterate over elements           
-            for vindex, vendor in enumerate( v ): #iterate over vendors
-                string = 'w.%s.%s' % (element, vendor) 
-                wantedqty = int(W[eindex])
-                maxstock = int( S[eindex, vindex])
-                xlimit = min( wantedqty, maxstock )               
-                X[element,vendor] = self.solver.IntVar(0, xlimit, string ) 
+        for (element, vendor) in bcmkeys: #iterate over elements                 
+            string = 'w.%s.%s' % (element, vendor) 
+            maxstock = bcmdict[element, vendor][0]
+            xlimit = min( wanted[element], maxstock )        
+            print(( 0, xlimit, string ))       
+            X[element][vendor] = self.solver.IntVar(0, xlimit, string ) 
                         #wanted constraints on solution
-            self.solver.Add( wantedqty == self.solver.Sum( [ X[element, vendor] for vendor in v ]))    
+            #elem_vend_dict[element][vendor] = ()
+        for (element) in X:
+            self.solver.Add( wanted[element] == self.solver.Sum( [ X[element][vendor] for vendor in X[element] ]))    
 
         #self.solver.Add( data.wantedarray[eindex] == self.solver.Sum( [ qtyarray[element, vendor] for vendor in data.vendorlist ]))
         #db = self.solver.Phase(X, 
@@ -53,18 +65,24 @@ class OROptimizer():
         shippingcost = 0.0
         
         #the price
-        partcost = self.solver.Sum( [ X[element, vendor] * float(price[element, vendor][0]) for (element, vendor) in price.keys() ] ) 
+        #loop over vendors
+        partcost = self.solver.Sum( [ X[element][vendor] * float(bcmdict[element, vendor][0]) for (element, vendor) in bcmkeys ] ) 
         
         num_orders = 0
-        b_vendors = list()
+        #b_vendors = dict() #b_vendors[vendor] = True/False
         #count the vendors with quantity > 0 in the X array
         #make a list of boolean variables that tell whether a vendor is used or not
         
-        for vindex, vendor in enumerate(v): #create a list of vendors that have some quantity in X[,vendor]            
-            b_vendors.append( self.solver.Sum( [ X[element, vendor] > 0 for element in e if (element, vendor) in X.keys() ] ) )
         
         
-        shippingcost = 2.5 * self.solver.Sum( b_vendors ) 
+        #for vendor in enumerate(v): #create a list of vendors that have some quantity in X[,vendor]            
+            #b_vendors.append( self.solver.Sum( [ X[element][vendor] > 0 for element in e if (element, vendor) in X.keys() ] ) )
+        #X[element][vendor]
+        
+        #shippingcost = 2.5 * self.solver.Sum( [X[element][vendor] > 0 for vendor in vdict for element in vdict[vendor]] ) 
+        
+        
+        shippingcost = 2.5 * self.solver.Sum( [any( X[element, vendor] > 0.0 for element in vdict[vendor]) for vendor in vdict]  ) 
 
         
         #for vendor in v:
@@ -74,15 +92,20 @@ class OROptimizer():
         
         objective = self.solver.Minimize(z)
         
-        self.solver.Solve()
+        sc = self.solver.BestValueSolutionCollector()
+        #sc.add(X)
         
-        print( shippingcost )
+        self.solver.Solve()
+        print(partcost)
+        print(X)
+        #print(b_vendors)
+        print( "Shipping Cost: $%f.2" % shippingcost )
         
         print( 'Cost: ', float(self.solver.ObjectiveValue()))
         
         print( self.solver.NumConstraints() )
         
-        print( [X[element, vendor].SolutionValue() for element, vendor in price.keys()] ) 
+        #print( [X[element][vendor].SolutionValue() for element in X.keys() for vendor in element.keys()] ) 
         #self.solver.Add(qtyarray)
         #create the wanted constraints
         #create the available quantity (stock) constraints

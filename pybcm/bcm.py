@@ -13,6 +13,7 @@ from shoppinglist import ShoppingList
 from legoutils import LegoElement
 from operator import itemgetter, attrgetter
 import cProfile
+from collections import defaultdict
 
 #class BCMDict(dict):
     
@@ -31,7 +32,7 @@ import cProfile
 
 class BCMData(object):
     # this is a mutable ndarray object that's passed to the optimizer
-    def __init__(self, bcmdict, wanteddict, elemdict):
+    def __init__(self, bcmdict, wanteddict, elemdict, vendict):
         
         self.vendorlist = list() #match the indices of soln in the column
         self.elementlist = list() #match the indices of soln in the row
@@ -43,12 +44,13 @@ class BCMData(object):
         self.BCMDICT = bcmdict
         self.WANTDICT = wanteddict
         self.ELEMDICT = elemdict
+        self.VENDICT = vendict
         
         self.__buildlists(self.BCMDICT)
                 
-        self.PRICES = self.__buildpricearray(self.BCMDICT)
+        #self.PRICES = self.__buildpricearray(self.BCMDICT)
         self.WANTED = self.__buildwantedarray(self.WANTDICT)
-        self.STOCK = self.__buildstockarray(self.BCMDICT)
+        self.STOCK, self.PRICES = self.__buildvendorarrays(self.BCMDICT)
         
         self.__elementsort()
         self.__need_rebuild = True 
@@ -70,8 +72,8 @@ class BCMData(object):
 
     def __buildarrays(self, bcmdict, wanteddict):
         logging.info("Building BCMData arrays...")
-        self.PRICES = self.__buildpricearray(bcmdict)
-        self.STOCK = self.__buildstockarray(bcmdict)
+        self.STOCK, self.PRICES = self.__buildvendorarrays(bcmdict)
+        #self.STOCK = self.__buildstockarray(bcmdict)
         self.WANTED = self.__buildwantedarray(wanteddict)
         
     def update(self):
@@ -82,10 +84,25 @@ class BCMData(object):
     
     def forceupdate(self):
         logging.info("Forcing array update...")
-        self.PRICES = self.__buildpricearray(self.BCMDICT)
-        self.STOCK = self.__buildstockarray(self.BCMDICT)
+        self.STOCK, self.PRICES = self.__buildvendorarrays(self.BCMDICT)
+        #self.PRICES = self.__buildpricearray(self.BCMDICT)
+        #self.STOCK = self.__buildstockarray(self.BCMDICT)
         #self.__initbcm()
         self.__need_rebuild = False      
+    
+    def __buildvendorarrays(self, bcmdict):
+        
+        logging.info("Building Stock Array")
+        shape = ( len(self.elementlist), len(self.vendorlist) )
+        stockarray = np.zeros(shape, dtype='int')
+        pricearray = np.zeros(shape, dtype='float')
+        for element, vendor in bcmdict.keys():
+            i = self.elementlist.index(element)
+            j = self.vendorlist.index(vendor)
+            stockarray[i,j] = int(bcmdict[self.elementlist[i], self.vendorlist[j]][0])
+            pricearray[i,j] = float(bcmdict[self.elementlist[i], self.vendorlist[j]][1])
+        
+        return stockarray, pricearray
             
     def __buildpricearray(self, bcmdict): #returns numpy array of the PRICES        
         '''
@@ -123,19 +140,26 @@ class BCMData(object):
                 [item2vendor1stock, item2vendor2stock, item2vendor3stock],...]              
             B[i,j] = item[i]vendor[j] STOCK    
         '''
+        logging.info("Building Stock Array")
         m = len(self.elementlist)
         n = len(self.vendorlist)
         #stockarray = np.ndarray(shape = (m, n), dtype=np.int)
         #stockarray.fill(0)
         stockarray = np.zeros(shape=(m,n), dtype=np.int)
         bcmkeys = bcmdict.keys()
-        for i in range(0, m):
+        '''for i in range(0, m):
             for j in range(0, n):
                 keytuple = (self.elementlist[i], self.vendorlist[j])
                 if keytuple in bcmkeys:
                     stockarray[i,j] = int(bcmdict[self.elementlist[i], self.vendorlist[j]][0])
-                else:
-                    stockarray[i,j] = 0
+                #else:
+                    #stockarray[i,j] = 0
+        '''            
+        for element, vendor in bcmkeys:
+            i = self.elementlist.index(element)
+            j = self.vendorlist.index(vendor)
+            stockarray[i,j] = int(bcmdict[self.elementlist[i], self.vendorlist[j]][0])
+            
         #self.stockarray = stockarray
         #mask = stockarray <= 0.0  #p and pmask share the same indices       
         #self.mstockarray = ma.array( stockarray, mask=mask ) # a masked array of sorted vendor indice      
@@ -169,11 +193,14 @@ class BCMData(object):
         self.vendorlist.remove(vendorid) 
         self.__need_rebuild = True                    
          
-    def removevendors(self, vendors):
-        #try and remove this list of vendors
-        for v in vendors:
-            if v in self.vendorlist: self.vendorlist.remove(v)
-        self.__need_rebuild = True
+    def removevendors(self, vendorindices):
+        #Create a new vendorlist that doesn't include the list of id's passed via vendorindices
+        before = len(self.vendorlist)
+        newlist = [ vendor for vendor in self.vendorlist if self.vendorlist.index(vendor) not in vendorindices ]       
+        #self.replacevendorlist(newlist)
+        after = len(self.vendorlist)
+        logging.info("Removed: " + str(before - after) + " vendors.")
+        return newlist
                     
     def addtolist(self, alist, value):             
         if value not in alist:
@@ -184,6 +211,7 @@ class BCMData(object):
 
     def replacevendorlist(self, newvendors):
         self.vendorlist = newvendors
+        #remove all items that contain these vendors from the dictionaries?
         self.forceupdate()
     
     
@@ -238,7 +266,8 @@ class BCMEngine(object):
         self.BCMDICT = self.__createbcmdict(bricklink, wanteddict) #self.data[elementid, vendorid] = (price, qty) #essentially a copy of the Bricklink data.  Don't change this once initialized
         self.WANTED = self.__createwanteddict(bricklink, wanteddict) #don't change this either
         self.ELEMDICT = self.__createelementdict(self.BCMDICT)
-        self.data = BCMData(self.BCMDICT, self.WANTED, self.ELEMDICT)
+        self.VENDICT = self.__createvendict(self.BCMDICT)
+        self.data = BCMData(self.BCMDICT, self.WANTED, self.ELEMDICT, self.VENDICT)
 
         
     #overload the default get function.  If the key combo doesn't exist, return a 0,0 pair      
@@ -248,7 +277,7 @@ class BCMEngine(object):
         for elementid in bricklink.keys(): #bricklink.data only has one key - the elementid                      
             wanted[elementid] = wanteddict.getwantedqty(elementid) #populate the WANTED qty dictionary        
         return wanted
-          
+                   
     def __createbcmdict(self, bricklink, wanteddict): 
         #creates a dictionary keyed to the vendor and an element that contains the qty and price for each vendor/element pair
         #PRICES.append([vendorid, vendorname, vendorqty, vendorprice])                
@@ -268,12 +297,13 @@ class BCMEngine(object):
     
     def __createelementdict(self, bcmdict):
         logging.info("Building Element-wise Dictionary")
-        elementdict = dict()
+        elementdict = defaultdict(list)
         for keys, values in bcmdict.items():
             element, vendor = keys
             qty, price = values
-            if element in elementdict: elementdict[element].append( (vendor, qty, price ))
-            else: elementdict[element] = [(vendor, qty, price)]
+            elementdict[element].append( (vendor, qty, price) )
+            #if element in elementdict: elementdict[element].append( (vendor, qty, price ))
+            #else: elementdict[element] = [(vendor, qty, price)]
 
         for element, plist in elementdict.items():
             #sort the list price
@@ -281,6 +311,16 @@ class BCMEngine(object):
             elementdict[element] = sortedlist #reassign the sorted list instead
             #print sortedlist              
         return elementdict   
+    
+    def __createvendict(self, bcmdict):
+        logging.info("Building Vendor-wise Dictionary")
+        vendict = defaultdict(list)
+        for keys, values in bcmdict.items():
+            element, vendor = keys
+            qty, price = values
+            vendict[vendor].append( (element, qty, price) )
+        
+        return vendict
     
     def presolve(self):
         self.prunevendorsbyavgprice()
@@ -290,6 +330,7 @@ class BCMEngine(object):
             pass
     def describevendors(self):
         #print out some information about the vendors
+        
         print("There are " + str(len(self.vendorlist)) + " in Vendorlist")
         
     def getqtyandprice(self, elementid, vendorid):
@@ -316,16 +357,23 @@ class BCMEngine(object):
     #prune vendors that are above average in price
     def prunevendorsbyavgprice(self, pricefactor=0.5):
         #prune the vendors that are more greater than pricefactor * average (0.5 keeps average and cheaper)
+        logging.info("Removing vendors with above-average pricing")
+        data = self.data
         removethese = list()
         p = self.data.PRICES
-        avgprices = self.avgprices() #same indices as elementlist
-        for eindex, elementid in enumerate(self.data.elementlist):
-            for vindex, vendorid in enumerate(self.data.vendorlist):
-                if p[eindex][vindex] > avgprices[eindex]:
-                    removethese.append(vendorid) 
-        self.data.removevendors(removethese)
-        self.data.update()             
-                       
+        avgprices = data.avgprices() #same indices as elementlist
+        for element, vendor in self.BCMDICT.keys():
+            eindex = data.elementlist.index(element)
+            vindex = data.vendorlist.index(vendor)
+            
+            if p[eindex][vindex] > avgprices[eindex]:
+                removethese.append(vindex)
+                   
+        newlist = data.removevendors(removethese)
+        #data.update()
+        return newlist
+
+
     #TODO: make this work
     def cullvendorsbyprice(self):
         #NOT COMPLETE

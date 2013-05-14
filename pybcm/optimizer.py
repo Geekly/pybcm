@@ -96,7 +96,9 @@ class Optimizer(object):
                                 #now I've found a vendor of interest.  Buy the current element and every other element they have
                                 fulfilled[element2] += buyit
                                 if fulfilled[element2] >= want[element2]: break
-                if fulfilled[element] >= want[element]: break #move on to the next element
+                if fulfilled[element] >= want[element]: 
+                    unfilled.remove(element)
+                    break #move on to the next element
             # if more of the element are needed, go to the next vendor and buy all they have
             # update the needed amount
             #print element

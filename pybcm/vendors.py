@@ -45,7 +45,7 @@ class VendorMap(UserDict):
         '''
                                
     def addvendor(self, vendor):
-        if vendor.id in self.keys():
+        if vendor.id in self.data:
             return False
         else:
             #logging.debug("Adding vendor: " + vendor.name)

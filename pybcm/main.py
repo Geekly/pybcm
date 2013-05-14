@@ -11,6 +11,7 @@ from bricklinkdata import BricklinkData
 from legoutils import LegoColor
 from blreader import *
 from optimizer import *
+
 import io
 import numpy as np
 #from vendors import Vendors
@@ -67,7 +68,12 @@ def main():
     #w = bcm.elementweights()
     #print( bcm.data.elementsort(w) )
     
-    #bcm = BCMEngine(bricklink, wanteddict)
+    bcm = BCMEngine(bricklink, wanteddict)
+    bcm.prunevendorsbyavgprice()
+    
+    oro = OROptimizer(bcm.data)
+    oro.solve()
+    
     #opt = Optimizer(bcm.data)
     #result = opt.bucketsearch(bcm.data)
     #print( result )
@@ -87,12 +93,14 @@ def main():
     
 if __name__ == '__main__':
     
-    #main() 
-    cp = cProfile.Profile()
+    main()
        
-    cp.run('main()')
+     
+    #cp = cProfile.Profile()
+       
+    #cp.run('main()')
     
-    ps = pstats.Stats(cp)
-    ps.sort_stats('time')
-    ps.print_stats(0.2)
+    #ps = pstats.Stats(cp)
+    #ps.sort_stats('time')
+    #ps.print_stats(0.2)
 
