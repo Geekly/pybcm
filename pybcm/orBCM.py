@@ -17,9 +17,11 @@ class OROptimizer():
         #data[elementid, vendorid] = (price, qty)
         self.solver = orsolver.Solver("Get best price")#, orsolver.Solver.GLPK_MIXED_INTEGER_PROGRAMMING)
         
+
+        self.m = len(bcmdata.elementlist)
+        self.n = len(bcmdata.vendorlsit)
         self.__v = bcmdata.vendorlist
         self.__e = bcmdata.elementlist
-        
         self.__BCMDICT = bcmdata.BCMDICT
         self.__ELEMDICT = bcmdata.ELEMDICT
         self.__VENDICT = bcmdata.VENDICT
@@ -42,18 +44,26 @@ class OROptimizer():
         #ekeys = sorted(bcmkeys) #keys of X sorted on element
         #vkeys = sorted(bcmkeys, key=lambda x: x[1]) #keys of X sorted on vendor
         vdict = defaultdict(list)
-        for element, vendor in bcmkeys: vdict[vendor].append(element)
+        
         
         #establish wanted/stock constraints and bound X by the stock or wanted constraint
         for (element, vendor) in bcmkeys: #iterate over elements                 
             string = 'w.%s.%s' % (element, vendor) 
-            maxstock = bcmdict[element, vendor][0]
-            xlimit = min( wanted[element], maxstock )        
-            print(( 0, xlimit, string ))       
-            X[element][vendor] = self.solver.IntVar(0, xlimit, string ) 
+            stock = bcmdict[element, vendor][0]                   
+            #print(( 0, xlimit, string )) 
+            ''' Changed the logic here to only include vendors with all of the quantity needed.  This pruning should
+                really be done outside of this function
+                '''
+            buylimit = wanted[element]
+            if( stock >= buylimit ): 
+                #xlimit = min( wanted[element], stock )     
+                X[element][vendor] = self.solver.IntVar(0, buylimit, string ) 
                         #wanted constraints on solution
             #elem_vend_dict[element][vendor] = ()
-        for (element) in X:
+        #have to get the keys from X now since we eliminated some of the vendors
+        for element in X:
+            for vendor in X[element]: vdict[vendor].append(element)
+
             self.solver.Add( wanted[element] == self.solver.Sum( [ X[element][vendor] for vendor in X[element] ]))    
 
         #self.solver.Add( data.wantedarray[eindex] == self.solver.Sum( [ qtyarray[element, vendor] for vendor in data.vendorlist ]))
@@ -61,41 +71,48 @@ class OROptimizer():
         #                  solver.CHOOSE_FIRST_UNBOUND,
         #                  solver.INT_VALUE_DEFAULT) 
                    
-        partcost = 0.0
-        shippingcost = 0.0
+        partcost = 0
+        shippingcost = 0
         
         #the price
         #loop over vendors
-        partcost = self.solver.Sum( [ X[element][vendor] * float(bcmdict[element, vendor][0]) for (element, vendor) in bcmkeys ] ) 
+        partcost = self.solver.Sum( [X[element][vendor] * int(bcmdict[element, vendor][0]*100) for element in X for vendor in X[element] ] ) 
         
-        num_orders = 0
-        #b_vendors = dict() #b_vendors[vendor] = True/False
-        #count the vendors with quantity > 0 in the X array
-        #make a list of boolean variables that tell whether a vendor is used or not
+        #try to count the number of vendors being used
+        v_bools = dict()
+        #for vendor in vdict:
+        #    v_bools[vendor] = self.solver.BoolVar()
+        for vendor in vdict:
+            v_bools[vendor] = self.solver.Sum( [X[element][vendor] > 0 for element in vdict[vendor]] ) > 0
         
-        
-        
-        #for vendor in enumerate(v): #create a list of vendors that have some quantity in X[,vendor]            
-            #b_vendors.append( self.solver.Sum( [ X[element][vendor] > 0 for element in e if (element, vendor) in X.keys() ] ) )
-        #X[element][vendor]
-        
-        #shippingcost = 2.5 * self.solver.Sum( [X[element][vendor] > 0 for vendor in vdict for element in vdict[vendor]] ) 
-        
-        
-        shippingcost = 2.5 * self.solver.Sum( [any( X[element, vendor] > 0.0 for element in vdict[vendor]) for vendor in vdict]  ) 
-
+        vendor_count = self.solver.Sum( [v_bools[b] for b in v_bools])
+                
+        #temp = self.solver.Sum( [ any( X[element][vendor].Value() > 0 for element in vdict[vendor] ) for vendor in vdict ] )
+        #shippingcost = 2.5 * self.solver.Sum( [any( X[element, vendor] > 0.0 for element in vdict[vendor]) for vendor in vdict]  ) 
+        #shippingcost = 2.5 * temp
         
         #for vendor in v:
         #    b_vendors.append( self.solver.BoolVar( self.solver.Sum( X[vendor, element] > 0 for element in e ) > 0 ) )
+        shippingcost = vendor_count * 3
+        cost = partcost + shippingcost
         
-        z = partcost + shippingcost
+        objective = self.solver.Minimize(cost, 1)
         
-        objective = self.solver.Minimize(z)
+        solution = self.solver.Assignment()
+        solution.AddObjective(cost)
+        #solution.Add(X)
         
-        sc = self.solver.BestValueSolutionCollector()
+        sc = self.solver.LastSolutionCollector(solution)
         #sc.add(X)
         
-        self.solver.Solve()
+        '''self.solver.Solve( self.solver.Phase(X + [cost],
+                                             self.solver.INT_VAR_SIMPLE,
+                                             [objective, sc]) )
+        '''
+        self.solver.Solve( self.solver.Phase(X,
+                                             self.solver.INT_VAR_SIMPLE,
+                                             self.solver.ASSIGN_MIN_VALUE
+                                             ))
         print(partcost)
         print(X)
         #print(b_vendors)
@@ -121,3 +138,5 @@ class OROptimizer():
  
         
         return
+
+

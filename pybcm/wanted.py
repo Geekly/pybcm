@@ -19,6 +19,7 @@ class WantedDict(UserDict):
     def __init__(self, filename=None):
         UserDict.__init__(self)
         if filename != None: self.filename = filename
+        self.totalcount = 0
     
     def __str__(self):
         returnstring = "Item, Color, Qty\n"
@@ -43,19 +44,21 @@ class WantedDict(UserDict):
             itemtypename = node.find('itemtypename').string
             colorid = node.find('colorid').string
             colorname = node.find('colorname').string
-            qty = int(node.find('qty').string)
+            wantedqty = int(node.find('qty').string)
+            self.totalcount += wantedqty
             
-            
-            element = LegoElement( itemid, colorid, itemname, itemtypeid, itemtypename, colorname, qty)
+            element = LegoElement( itemid, colorid, itemname, itemtypeid, itemtypename, colorname, wantedqty)
             
             #dictvalue = { 'itemid':itemid, 'itemname':itemname, 'itemtypeid':itemtypeid, 'itemtypename':itemtypename, 'colorid':colorid, 'colorname':colorname, 'qty':qty, 'condition':'N'}
             #self.data[itemid, colorid] = dictvalue #the key is a tuple of the itemid and the color id
             self[element.id] = element
-    def getnumwanted(self):
+            
+    def uniqueitems(self):
         return len(self)        
     
     def getwantedqty(self, elementid):
         return self[elementid].wantedqty 
+     
         
 if __name__ == '__main__':
     wantedlistfilename = '..\Molding Machine.bsx'
