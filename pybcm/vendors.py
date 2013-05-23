@@ -109,6 +109,17 @@ class VendorStats():
         self.VENDORSPERELEMENT = self.__vendorsperelement()
         self.TOTALPERVENDOR = self.__totalitemspervendor()
         self.VDICT = self.__makedictionary()
+    
+    def update(self, bcmdata):
+        self.data = bcmdata
+        self.ELEMWEIGHTS = bcmdata.elementweights() #dictionary
+        self.NUMVENDORS = len(self.data.vendorlist)
+        self.NUMELEMS = len(self.data.elementlist)
+        self.ITEMS = len(self.data.elementlist)
+        self.ITEMSPERVENDOR = self.__itemspervendor()
+        self.VENDORSPERELEMENT = self.__vendorsperelement()
+        self.TOTALPERVENDOR = self.__totalitemspervendor()
+        self.VDICT = self.__makedictionary()
         
     def __itemspervendor(self):
         s = self.data.STOCK

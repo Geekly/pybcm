@@ -3,66 +3,6 @@
 <BrickStoreXML>
  <Inventory>
   <Item>
-   <ItemID>sw374</ItemID>
-   <ItemTypeID>M</ItemTypeID>
-   <ColorID>0</ColorID>
-   <ItemName>Death Star Trooper (9492)</ItemName>
-   <ItemTypeName>Minifig</ItemTypeName>
-   <ColorName>(Not Applicable)</ColorName>
-   <CategoryID>65</CategoryID>
-   <CategoryName>Star Wars</CategoryName>
-   <Status>I</Status>
-   <Qty>1</Qty>
-   <Price>0.000</Price>
-   <Condition>N</Condition>
-   <OrigQty>0</OrigQty>
-  </Item>
-  <Item>
-   <ItemID>sw376</ItemID>
-   <ItemTypeID>M</ItemTypeID>
-   <ColorID>0</ColorID>
-   <ItemName>Imperial Officer - Black Belt (9492)</ItemName>
-   <ItemTypeName>Minifig</ItemTypeName>
-   <ColorName>(Not Applicable)</ColorName>
-   <CategoryID>65</CategoryID>
-   <CategoryName>Star Wars</CategoryName>
-   <Status>I</Status>
-   <Qty>1</Qty>
-   <Price>0.000</Price>
-   <Condition>N</Condition>
-   <OrigQty>0</OrigQty>
-  </Item>
-  <Item>
-   <ItemID>sw375</ItemID>
-   <ItemTypeID>M</ItemTypeID>
-   <ColorID>0</ColorID>
-   <ItemName>R5-J2 (9492)</ItemName>
-   <ItemTypeName>Minifig</ItemTypeName>
-   <ColorName>(Not Applicable)</ColorName>
-   <CategoryID>65</CategoryID>
-   <CategoryName>Star Wars</CategoryName>
-   <Status>I</Status>
-   <Qty>1</Qty>
-   <Price>0.000</Price>
-   <Condition>N</Condition>
-   <OrigQty>0</OrigQty>
-  </Item>
-  <Item>
-   <ItemID>sw268a</ItemID>
-   <ItemTypeID>M</ItemTypeID>
-   <ColorID>0</ColorID>
-   <ItemName>TIE Fighter Pilot (Patterned Head)</ItemName>
-   <ItemTypeName>Minifig</ItemTypeName>
-   <ColorName>(Not Applicable)</ColorName>
-   <CategoryID>65</CategoryID>
-   <CategoryName>Star Wars</CategoryName>
-   <Status>I</Status>
-   <Qty>1</Qty>
-   <Price>0.000</Price>
-   <Condition>N</Condition>
-   <OrigQty>0</OrigQty>
-  </Item>
-  <Item>
    <ItemID>3022</ItemID>
    <ItemTypeID>P</ItemTypeID>
    <ColorID>1</ColorID>

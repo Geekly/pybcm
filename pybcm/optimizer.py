@@ -7,6 +7,7 @@ Created on May 16, 2013
 import numpy as np
 from solution import Solution, SolutionSet
 from vendors import VendorStats
+import itertools
 
 class Optimizer():
     """Uses ndarrays to setup and solve an or-tools problem"""
@@ -30,9 +31,9 @@ class Optimizer():
          
     def solve(self):
         
-        return (self.search())
+        self.search()
         
-    def Vendors(self):
+    def getvendor(self):
         for vrow in self.VSORTED:
             #return a vendor for elements that are still unfilled
             vidx = vrow[0]
@@ -46,7 +47,8 @@ class Optimizer():
             if (element, vendor) in self.__BCMDICT:
                 vendorstock, price = self.__BCMDICT[element, vendor]
                 purchase = min( qty, vendorstock )
-                if purchase > 0:  #has all of the qty
+                #if purchase >= self.__WANTDICT[element]/3:  #has at least half the desired qty
+                if purchase > 0:  #has any of the qty    
                     order.addPurchase( element, vendor, purchase, price )
             
         return
@@ -59,35 +61,84 @@ class Optimizer():
         firstsearchorder = list(vendors) #convert to a list
         # while still need elements
         # get a vendor search order
-        for searchorder in self.searchorder(firstsearchorder):
-            order = Solution(self.__WANTDICT)
+        # could truncate the vendor list here if we wanted to
+        firstsearchorder = firstsearchorder[:10]
+        #limit = 10000
+        #count = 1
+        
+        #gen = self.shiftorder(firstsearchorder)
+        gen = self.orderswaps(firstsearchorder)
+        for searchorder in gen: #gets search order from generator
+            #print("Next search order: ")
+            #print(searchorder)
+            order = Solution(self.__WANTDICT) #create empty solution
             for vendor in searchorder:
+                #print("Filling order from next vendor: %s" % vendor)
                 if order.incomplete():
                     self.fillOrders(order, vendor)
                 else: #order is complete, now wrap it up
-                    order.searchorder = searchorder[:] # assign it to a copy of this search order
+                    order.vendorsearchorder = searchorder[:] # assign it to a copy of this search order
                     break
-            self.solutions.add(order)
+            if order.isfeasible(): 
+                #print("Feasible order found")
+                self.solutions.add(order)
             #break #until I can limit the number of loops
+            #count += 1
+            #if count > limit: break
             
             #print( order )
-            if len(self.solutions) > 10: return
+            #if len(self.solutions) >= 500: return
             
-        return order
+        return True #if a feasible solution is found
     
     def cost(self, order):
         
         return order.cost()
     
-    def searchorder(self, initialorder):
+    
+    def shiftorder(self, seq):
+        """unfortunately, the generator starts shifting values at the far end of the range, 
+           when it's preferable to shift them at the beginning"""
+        
+        if len(seq) == 1:
+            yield seq
+        
+        for indexoffset in range( len(seq) ):
+            newseq = seq[:]
+            newseq.insert( 0, newseq.pop(indexoffset))
+            for tail in self.shiftorder( newseq[1:]):
+                yield [newseq[0]] + tail
+    
+    def orderswaps(self, seq, depth=15):       
+        depth = min( depth, len(seq) )
+        for offset in range(1, 10):                
+            for i in range(depth):
+                for j in range(offset, depth-offset):               
+                    if i == j:
+                        break
+                    newseq = seq[:]
+                    newseq[i], newseq[j] = newseq[j], newseq[i]      
+                    yield newseq
+    
+    """def vendorsearchorder(self, initialorder):
         #each time, pick the next vendor and put it at the beginning of the search order
-        #searchorder = initialorder[:]
-        indextomove = 0
-        while 1:
+        #vendorsearchorder = initialorder[:]
+        size = len(initialorder)
+        index1tomove = 0
+        while index1tomove < size:
             searchorder = initialorder[:]
-            if indextomove != 0: searchorder.insert(0, searchorder.pop(indextomove) ) #inserts indexttomove at the beginning of the list
-            indextomove += 1
-            yield searchorder
+            if index1tomove > 0: searchorder.insert(0, searchorder.pop(index1tomove) ) #inserts indexttomove at the beginning of the list
+            index2tomove = index1tomove + 1
+            while index2tomove < size:
+                if index2tomove > index1tomove: searchorder.insert(index1tomove-1, searchorder.pop(index2tomove) )
+                index2tomove += 1
+                index3tomove = index3tomove + 1
+                while index3tomove < size:
+                    if index3tomove > index2tomove: searchorder.insert(index2tomove-1, searchorder.pop(index3tomove) )
+                    index3tomove += 1
+                yield searchorder
+            index1tomove += 1
             #if indextomove >= 5: return
         #yield a new search order (list of vendors)
+    """
            

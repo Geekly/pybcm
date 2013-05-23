@@ -138,10 +138,10 @@ class BricklinkData(UserDict):
         
         assert self.bricklink_initialized == True, "bricklink not initialized, cannot convert to XML"
         #[itemID, storeID, quantity, price]
-        xml_string = ''
+        xml_string = '<xml>\n'
         for elementid in self.keys():
             itemid, color = LegoElement.splitelement(elementid)
-            xml_string += '<xml>\n'
+            
             xml_string += '<Item>\n'
             xml_string += ' <ItemID>{}</ItemID>\n'.format(itemid)
             xml_string += ' <ColorID>{}</ColorID>\n'.format(color)

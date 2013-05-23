@@ -30,14 +30,15 @@ def main():
     
     #np.set_printoptions(threshold=np.nan)  
     logging.basicConfig(level=logging.DEBUG)
-    wantedlistfilename = '../Star Destroyer 30056-1.bsx'
+    #wantedlistfilename = '../Star Destroyer 30056-1.bsx'
+    wantedlistfilename = '../Tie Fighter 9492-1.bsx'
     #wantedlistfilename = '../Inventory for 6964-1.bsx'
        
     reloadpricesfromweb = False  #set this to true if you want to update prices from the web and rewrite pricefilename
     #make sure to run this once every time that the wanted list changes
                                      
-    pricefilename = '../Star Destroyer 30056-1.xml'
-
+    #pricefilename = '../Star Destroyer 30056-1.xml'
+    pricefilename = '../Tie Fighter 9492-1.xml'
     wanteddict = WantedDict()
     logging.info( "Reading wanted list: " + wantedlistfilename)
     wanteddict.read(wantedlistfilename)
@@ -61,13 +62,24 @@ def main():
     
     bcm = BCMEngine(bricklink, wanteddict)
 
-    bcm.prunevendorsbyavgprice()
+    #bcm.prunevendorsbyavgprice()
 
-    
+    #print( bcm.data.elementlist)
+    #print( bcm.data.WANTED)
+    #print( bcm.data.avgprices())
+    #print( bcm.data.avgprices(stockweighted=True))
+    #rep = reporter(bcm)
+    #rep.allpartsbarchart()
     ndo = Optimizer(bcm.data)
-    print( ndo.solve() )
+    ndo.solve()
     
-    print( ndo.solutions.summary() )
+    #print( ndo.solutions.summary() )
+    
+    #print("The best solution found:\n")
+    #print( ndo.solutions.best() )
+    
+    shopping = ShoppingList(ndo.solutions.best() )
+    print( shopping.XMLforBricklink() )
     
 if __name__ == '__main__':
     

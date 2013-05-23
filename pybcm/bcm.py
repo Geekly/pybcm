@@ -39,20 +39,26 @@ class BCMData(object):
         self.WANTED = None  #numpy array
         self.PRICES = None  #numpy array
         self.STOCK = None   #numpy array
-               
+        
+              
         #self.soln = None #fancy ndarray that contains the result
         self.BCMDICT = bcmdict
+        self.__initialize_lists(self.BCMDICT) 
+        
         self.WANTDICT = wanteddict
         self.ELEMDICT = elemdict
         self.VENDICT = vendict
-        
-        self.__initialize_lists(self.BCMDICT)
-                
+       
         self.WANTED = self.__buildwantedarray(self.WANTDICT)
         self.STOCK, self.PRICES = self.__buildvendorarrays(self.BCMDICT)
-        self.AVGPRICES = self.avgprices()
-        self.__vs = VendorStats(self)
+        self.__vs = VendorStats(self) 
+              
         self.__sortlists()
+        self.__updatearrays()
+        
+        self.__vs.update(self)
+
+        self.AVGPRICES = self.avgprices(stockweighted=True)
         
         self.__need_rebuild = False 
 
@@ -67,14 +73,16 @@ class BCMData(object):
             self.addtolist(self.vendorlist, vendorid)  #initialize the vendor list
             self.addtolist(self.elementlist, elementid) #initialize the elementlist
        
-    def update(self):
+    '''def update(self):
         if self.__need_rebuild:
             logging.info("Updating BCMData arrays")
             self.forceupdate()
             self.__need_rebuild = False      
-    
-    def forceupdate(self):
+    '''
+            
+    def __updatearrays(self):
         logging.info("Forcing array update...")
+        self.WANTED = self.__buildwantedarray(self.WANTDICT)
         self.__updatevendorarrays()
         self.__need_rebuild = False      
     
@@ -110,27 +118,29 @@ class BCMData(object):
                
     def __buildwantedarray(self, wanteddict):    #returns numpy array of WANTED items
         """ Create a numpy array of wanted quantities """
+        logging.info("Building WANTED array...")
+        #print(self.elementlist)
         m = len(self.elementlist) #ensure the size of the array is consistent with the others      
         wantedarray = np.ndarray(shape = (m), dtype=np.int)       
         for eidx, elementid in enumerate( self.elementlist ):
             wantedarray[eidx] = wanteddict[elementid]
-        #wantedarray.reshape( m, 1 )   
+        #print(wantedarray)  
         return wantedarray   
      
     def __sortlists(self):                    
         self.__elementsort()
+        #self.WANTED = self.__buildwantedarray(self.WANTDICT)
         self.__vendorsort()
-        self.forceupdate()
+        #self.STOCK, self.PRICES = self.__buildvendorarrays(self.BCMDICT)
+        
     
     def __elementsort(self, sortweights=None):
         logging.info("Sorting Element List...")
         if sortweights: weights = sortweights
         else: weights = self.elementweights()
         #resort the elementlist using these weights
-        #print(self.elementlist)
         self.elementlist = [y for (x, y) in sorted( zip( weights, self.elementlist ), reverse=True )]
-        #print(self.elementlist)
-        #self.forceupdate()
+
     
     def __vendorsort(self, sortby='uniqueitems'):
         logging.info("Sorting Vendor List...")
@@ -217,18 +227,19 @@ class BCMData(object):
         self.forceupdate()
     
     
-    def avgprices(self):
-        p = self.PRICES
-        avgprices = p.sum(1)/(p > 0).sum(1) #the 1 causes
+    def avgprices(self, stockweighted=False):
+        p = ma.array(self.PRICES, mask=self.PRICES <= 0)
+                
+        if stockweighted:
+            s = ma.array(self.STOCK, mask=self.STOCK <= 0)
+            avgprices = ma.average( p, weights=s, axis=1 )      
+        else:
+            #avgprices = p.sum(axis=1)/(p > 0).sum(axis=1) #denominator sums the non-zero values
+            avgprices = ma.average( p, axis=1 )
         return avgprices    
     
     def elementweights(self):
         #generate a weight for each element - basically the avg price for that element * WANTED qty, normalized
-        #weights = np.zeros( shape=len(self.elementlist))
-        #avgprice = self.avgprices() #ndarray
-        #wanted = self.WANTDICT #dictionary on elementname              
-        #for eidx, element in enumerate(self.elementlist):          
-        #    weights[element] = avgprice[eidx] * wanted[element] 
         weights = self.WANTED * self.avgprices()         
         return weights    
     

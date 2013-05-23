@@ -18,6 +18,11 @@ class Solution():
         
         return
     
+    def isfeasible(self):  
+        #it's feasible if there are NO non-zero values in self.__needed    
+        if any( self.__needed.values() ): return False
+        return True
+    
     def numVendors(self):
         seen = set()        
         for (element, myvendor, qty, price) in self.data:
@@ -103,9 +108,19 @@ class SolutionSet():
     
     def __init__(self):
         self.data = list()
+        #persistant info for comparing new solutions
+        self.bestsolution = None
+        self.bestcost = 1000
+        self.costperorder = 2.5
                 
     def add(self, solution):
         self.data.append(solution)
+        #check to see if this is the best solution so far
+        numorders, partcost = solution.vitalStats()
+        cost = numorders*self.costperorder + partcost
+        if cost < self.bestcost:
+            self.bestsolution = solution
+            self.bestcost = cost
     
     def summary(self):        
         s = ""
@@ -120,5 +135,4 @@ class SolutionSet():
         return len(self.data)
         
     def best(self):
-        solution = None
-        return solution
+        return self.bestsolution

@@ -3,6 +3,7 @@ Created on Oct 26, 2012
 
 @author: khooks
 '''
+from solution import *
 
 class ShoppingList():
     '''
@@ -11,16 +12,11 @@ class ShoppingList():
     also need to create one by vendor for Bricklink wanted lists
     
     '''      
-    def __init__(self):
+    def __init__(self, solution):
         '''
         Constructor
         '''
-        self.data = list()
-        
-    def additem(self, itemid, colorid, wantedqty, vendorid, vendorname, vendorqty, vendorprice):
-        cost = float(wantedqty) * float(vendorprice)
-            
-        self.data.append( (itemid, colorid, wantedqty, vendorid, vendorname, vendorqty, vendorprice, cost) )
+        self.soln = solution
         
     def toXML(self):
         
@@ -43,17 +39,22 @@ class ShoppingList():
         return xml_string
     
     def XMLforBricklink(self):
-        xml_string = ''
-        xml_string += "<INVENTORY>"
-        for row in self.data:
-            xml_string += '<ITEM>\n'
-            xml_string += ' <ITEMTYPE>P</ITEMTYPE>'
-            xml_string += ' <ITEMID>{}</ITEMID>\n'.format(row[0])
-            xml_string += ' <COLOR>{}</COLOR>\n'.format(row[1])
-            xml_string += ' <MINQTY>{}</MINQTY>\n'.format(row[2])
-            xml_string += ' <CONDITION>N</CONDITION>'            
-            xml_string += '</ITEM>\n'
-        xml_string += "</INVENTORY>"
+        
+        vdict = self.soln.byVendorDict()
+        #TODO: Finish this routine
+        for vendor in vdict.data:
+            vendorname = vendor[1]
+            xml_string = ''
+            xml_string += "<INVENTORY>"
+            for row in self.data:
+                xml_string += '<ITEM>\n'
+                xml_string += ' <ITEMTYPE>P</ITEMTYPE>'
+                xml_string += ' <ITEMID>{}</ITEMID>\n'.format(row[0])
+                xml_string += ' <COLOR>{}</COLOR>\n'.format(row[1])
+                xml_string += ' <MINQTY>{}</MINQTY>\n'.format(row[2])
+                xml_string += ' <CONDITION>N</CONDITION>'            
+                xml_string += '</ITEM>\n'
+            xml_string += "</INVENTORY>"
         return xml_string        
     
     def display(self):

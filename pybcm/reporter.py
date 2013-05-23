@@ -14,7 +14,7 @@ analytic PDF over it
         self.bcm = bcm
         self.data = bcm.data
 
-    def pricehistogram( self, elementid ):
+    def partpricehistogram( self, elementid ):
        
         fig = plt.figure()
         ax = fig.add_subplot(111)
@@ -39,6 +39,46 @@ analytic PDF over it
         ax.grid(True)
 
         plt.show()
+        
+    def allpartsbarchart( self ):
+       
+        fig = plt.figure()
+        ax = fig.add_subplot(111)
+        N = len( self.data.WANTED )
+        ind = np.arange(N)
+        width = .2
+        
+        elements = self.data.elementlist[:]       
+        avgprices = self.data.avgprices()/100 #Y1
+        maxprice = avgprices.max()
+        totalcosts = avgprices * self.data.WANTED #Y2
+
+        #index = self.bcm.elementlist.index(elementid)
+        totalcosts, prices, elements = zip(*sorted(zip(totalcosts, avgprices, elements), reverse = True))
+        
+        costbars = ax.bar(ind, totalcosts, color='green')
+        pricebars = ax.bar(ind, prices, color='blue')
+        
+        maxheight = int( max( [ bar.get_height() for bar in costbars ] ) * 1.2 )
+        
+        def autolabel(rects, elements):
+    # attach some text labels
+            for i, rect in enumerate(rects):
+                height = rect.get_height()
+                ax.text(rect.get_x()+rect.get_width()/2., 1.05*height, elements[i],
+                ha='center', va='bottom', rotation='vertical')
+        
+        autolabel(costbars, elements)
+        
+        #ax.tick_params(axis='x', )
+        print( maxheight )
+        yticks = [ x for x in range(0, maxheight)]
+        ax.set_yticks( yticks )
+        #ax.set_xticks(ind)
+        #ax.set_xticklabels( elements )
+        
+        ax.legend( (pricebars[0], costbars[0]), ('Price', 'Total'))
+        plt.show()    
     
     def stockhistogram( self ):
         #create a histogram showing how many parts a vendor can supply
