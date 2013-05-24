@@ -62,7 +62,7 @@ class Optimizer():
         # while still need elements
         # get a vendor search order
         # could truncate the vendor list here if we wanted to
-        firstsearchorder = firstsearchorder[:10]
+        firstsearchorder = firstsearchorder[:25]
         #limit = 10000
         #count = 1
         
@@ -109,8 +109,12 @@ class Optimizer():
             for tail in self.shiftorder( newseq[1:]):
                 yield [newseq[0]] + tail
     
-    def orderswaps(self, seq, depth=15):       
+    def orderswaps(self, seq, depth=25):       
+        
+        yield seq #need to return an unmodified version
+        
         depth = min( depth, len(seq) )
+        
         for offset in range(1, 10):                
             for i in range(depth):
                 for j in range(offset, depth-offset):               

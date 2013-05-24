@@ -21,24 +21,24 @@ from pprint import pprint
 
 from reporter import *
 import cProfile, pstats
-from vendors import VendorStats
+from vendors import VendorMap, VendorStats
 
 
-
+#vendormap = VendorMap()
 
 def main():
     
     #np.set_printoptions(threshold=np.nan)  
     logging.basicConfig(level=logging.DEBUG)
     #wantedlistfilename = '../Star Destroyer 30056-1.bsx'
-    wantedlistfilename = '../Tie Fighter 9492-1.bsx'
+    wantedlistfilename = '../Inventory for 10129-1.bsx'
     #wantedlistfilename = '../Inventory for 6964-1.bsx'
        
-    reloadpricesfromweb = False  #set this to true if you want to update prices from the web and rewrite pricefilename
+    reloadpricesfromweb = True  #set this to true if you want to update prices from the web and rewrite pricefilename
     #make sure to run this once every time that the wanted list changes
                                      
     #pricefilename = '../Star Destroyer 30056-1.xml'
-    pricefilename = '../Tie Fighter 9492-1.xml'
+    pricefilename = '../Inventory for 10129-1.xml'
     wanteddict = WantedDict()
     logging.info( "Reading wanted list: " + wantedlistfilename)
     wanteddict.read(wantedlistfilename)
@@ -59,7 +59,7 @@ def main():
         bricklink.read(pricefilename)
         f.close()
 
-    
+    vendormap = bricklink.vendormap
     bcm = BCMEngine(bricklink, wanteddict)
 
     #bcm.prunevendorsbyavgprice()
@@ -76,9 +76,9 @@ def main():
     #print( ndo.solutions.summary() )
     
     #print("The best solution found:\n")
-    #print( ndo.solutions.best() )
+    print( ndo.solutions.best() )
     
-    shopping = ShoppingList(ndo.solutions.best() )
+    shopping = ShoppingList(ndo.solutions.best(), vendormap )
     print( shopping.XMLforBricklink() )
     
 if __name__ == '__main__':

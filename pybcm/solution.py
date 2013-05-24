@@ -94,12 +94,13 @@ class Solution():
         s += "\n"
         vdict = self.byVendorDict()
         for vendor in vdict:
-            s += "Vendor: " + vendor + "\n"
+            numitems = len(vdict[vendor])
+            s += "VendorID: %s\n" % vendor             
             for element, qty, price in vdict[vendor]:
                 s += "    "
                 s += "Qty: %d" % qty + " of Element: " + element + " Price: $%.2f" % price + " Total: $%.2f\n" % (qty * price)
             
-            s += "Total Order: $%.2f\n" % self.vendorCost(vendor)
+            s += "Found %d items for Total: $%.2f\n" % (numitems, self.vendorCost(vendor))
             s += "\n"
        
         return s

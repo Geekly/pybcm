@@ -4,6 +4,7 @@ Created on Oct 26, 2012
 @author: khooks
 '''
 from solution import *
+from legoutils import LegoElement
 
 class ShoppingList():
     '''
@@ -12,11 +13,12 @@ class ShoppingList():
     also need to create one by vendor for Bricklink wanted lists
     
     '''      
-    def __init__(self, solution):
+    def __init__(self, solution, vendormap):
         '''
         Constructor
         '''
         self.soln = solution
+        self.vendormap = vendormap
         
     def toXML(self):
         
@@ -39,19 +41,25 @@ class ShoppingList():
         return xml_string
     
     def XMLforBricklink(self):
+        #TODO: access vendormap
         
         vdict = self.soln.byVendorDict()
         #TODO: Finish this routine
-        for vendor in vdict.data:
-            vendorname = vendor[1]
-            xml_string = ''
-            xml_string += "<INVENTORY>"
-            for row in self.data:
-                xml_string += '<ITEM>\n'
+        xml_string = ''
+        #print(self.vendormap)
+        
+        for vendorid, itemlist in vdict.items(): 
+            vendorname = self.vendormap[vendorid]
+            print( vendorid, vendorname )  
+            xml_string += "\n\n<INVENTORY>\n"
+            
+            for element, qty, price in itemlist:
+                elementid, color = LegoElement.splitelement(element)
+                xml_string += '<ITEM>'
                 xml_string += ' <ITEMTYPE>P</ITEMTYPE>'
-                xml_string += ' <ITEMID>{}</ITEMID>\n'.format(row[0])
-                xml_string += ' <COLOR>{}</COLOR>\n'.format(row[1])
-                xml_string += ' <MINQTY>{}</MINQTY>\n'.format(row[2])
+                xml_string += ' <ITEMID>%s</ITEMID>' % elementid
+                xml_string += ' <COLOR>%s</COLOR>' % color
+                xml_string += ' <MINQTY>%d</MINQTY>' % qty
                 xml_string += ' <CONDITION>N</CONDITION>'            
                 xml_string += '</ITEM>\n'
             xml_string += "</INVENTORY>"
