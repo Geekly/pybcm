@@ -31,43 +31,46 @@ class BricklinkReader(object):
     def getStoreElementsFromTree(self, datatree):
         #print(etree.tostring(datatree))        
         topparents = datatree.xpath("//td[table/tr/td/font/b[text()[contains(.,'Currently Available')]]]") #contains all the info we want
-        currentroot = topparents[0]#this table contains the Currently Available text and all of the other information
+        if topparents:
+            currentroot = topparents[0]#this table contains the Currently Available text and all of the other information
         #drill down to the table containing store entry tr's
-        stores = currentroot.xpath("./table/tr/td/table/tr[td/a]") #find all the rows that contain links
-
+            stores = currentroot.xpath("./table/tr/td/table/tr[td/a]") #find all the rows that contain links
+        else:
+            stores = None
               
         return stores  
     
     def readItemFromTree(self, datatree):
         prices = []   
         stores = self.getStoreElementsFromTree(datatree) #all store tr's
-        suLink = re.compile( "sID=(\d+).*itemID=(\d+)" )#\&itemID=(\d+)
-        suStore = re.compile( "Store:.(.*)\".title")
-        suPrice = re.compile("[US\$\s\~]") 
-        for store in stores:
-            #print(etree.tostring(store))
-            td = store.xpath('./td')
-            #td[0] contains the Store name
-            linktext = etree.tostring(td[0]).decode()
-            #print( linktext)
-            storematch = re.search(suLink, linktext)
-            if storematch:
-                storeID = str(storematch.group(1))
-                itemID = storematch.group(2)  #we don't pay attention to this since it's defined upstream.  we could check to see if they're the same
-                storenamematch = re.search(suStore, linktext)
-                storename = storenamematch.group(1)
-                #print("Storename: " + storename)
-                
-            #td[1] contains the Quantity
-                quantity = int(td[1].text)
-                if quantity > 0:  #don't bother adding the vendor if it doesn't have any quantity for this item
-            #td[2] is empty
-            #td[3] contains the price
-                    BricklinkReader.vendormap.addvendor( Vendor(storeID, storename) )
-                    pricestring = td[3].text
-                    price = float(re.sub(suPrice, '', pricestring))
-                    prices.append([storeID, quantity, price])
-                #print([itemID, storeID, quantity, price])
+        if stores:  #check if list is empty
+            suLink = re.compile( "sID=(\d+).*itemID=(\d+)" )#\&itemID=(\d+)
+            suStore = re.compile( "Store:.(.*)\".title")
+            suPrice = re.compile("[US\$\s\~]") 
+            for store in stores:
+                #print(etree.tostring(store))
+                td = store.xpath('./td')
+                #td[0] contains the Store name
+                linktext = etree.tostring(td[0]).decode()
+                #print( linktext)
+                storematch = re.search(suLink, linktext)
+                if storematch:
+                    storeID = str(storematch.group(1))
+                    itemID = storematch.group(2)  #we don't pay attention to this since it's defined upstream.  we could check to see if they're the same
+                    storenamematch = re.search(suStore, linktext)
+                    storename = storenamematch.group(1)
+                    #print("Storename: " + storename)
+                    
+                #td[1] contains the Quantity
+                    quantity = int(td[1].text)
+                    if quantity > 0:  #don't bother adding the vendor if it doesn't have any quantity for this item
+                #td[2] is empty
+                #td[3] contains the price
+                        BricklinkReader.vendormap.addvendor( Vendor(storeID, storename) )
+                        pricestring = td[3].text
+                        price = float(re.sub(suPrice, '', pricestring))
+                        prices.append([storeID, quantity, price])
+                    #print([itemID, storeID, quantity, price])
 
         return prices  
                

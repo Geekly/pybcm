@@ -42,27 +42,27 @@ class ShoppingList():
     
     def XMLforBricklink(self):
         #TODO: access vendormap
-        
-        vdict = self.soln.byVendorDict()
-        #TODO: Finish this routine
         xml_string = ''
-        #print(self.vendormap)
-        
-        for vendorid, itemlist in vdict.items(): 
-            vendorname = self.vendormap[vendorid]
-            print( vendorid, vendorname )  
-            xml_string += "\n\n<INVENTORY>\n"
+        if self.soln:
+            vdict = self.soln.byVendorDict()       
+        #TODO: Finish this routine
             
-            for element, qty, price in itemlist:
-                elementid, color = LegoElement.splitelement(element)
-                xml_string += '<ITEM>'
-                xml_string += ' <ITEMTYPE>P</ITEMTYPE>'
-                xml_string += ' <ITEMID>%s</ITEMID>' % elementid
-                xml_string += ' <COLOR>%s</COLOR>' % color
-                xml_string += ' <MINQTY>%d</MINQTY>' % qty
-                xml_string += ' <CONDITION>N</CONDITION>'            
-                xml_string += '</ITEM>\n'
-            xml_string += "</INVENTORY>"
+        #print(self.vendormap)
+            for vendorid, itemlist in vdict.items(): 
+                vendorname = self.vendormap[vendorid]
+                print( vendorid, vendorname )  
+                xml_string += "\n\n<INVENTORY>\n"
+                
+                for element, qty, price in itemlist:
+                    elementid, color = LegoElement.splitelement(element)
+                    xml_string += '<ITEM>'
+                    xml_string += ' <ITEMTYPE>P</ITEMTYPE>'
+                    xml_string += ' <ITEMID>%s</ITEMID>' % elementid
+                    xml_string += ' <COLOR>%s</COLOR>' % color
+                    xml_string += ' <MINQTY>%d</MINQTY>' % qty
+                    xml_string += ' <CONDITION>N</CONDITION>'            
+                    xml_string += '</ITEM>\n'
+                xml_string += "</INVENTORY>"
         return xml_string        
     
     def display(self):
