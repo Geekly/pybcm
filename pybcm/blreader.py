@@ -8,7 +8,8 @@ from lxml import etree
 
 import re
 import io
-from vendors import VendorMap, Vendor
+import vendors
+from vendors import vendorMap, Vendor
 import cookielib
 import urllib
 import urllib2
@@ -22,7 +23,7 @@ class BricklinkReader(object):
     
     #returns prices[] =([itemid, vendorid, vendorqty, vendorprice)
     '''
-    vendormap = VendorMap()
+    #vendormap = VendorMap()
     
     def __init__(self):
         """ Start up..."""
@@ -41,6 +42,7 @@ class BricklinkReader(object):
         return stores  
     
     def readItemFromTree(self, datatree):
+        global vendorMap
         prices = []   
         stores = self.getStoreElementsFromTree(datatree) #all store tr's
         if stores:  #check if list is empty
@@ -66,7 +68,8 @@ class BricklinkReader(object):
                     if quantity > 0:  #don't bother adding the vendor if it doesn't have any quantity for this item
                 #td[2] is empty
                 #td[3] contains the price
-                        BricklinkReader.vendormap.addvendor( Vendor(storeID, storename) )
+                        #BricklinkReader.vendormap.addvendor( Vendor(storeID, storename) )
+                        vendorMap.addvendor( Vendor(storeID, storename) )
                         pricestring = td[3].text
                         price = float(re.sub(suPrice, '', pricestring))
                         prices.append([storeID, quantity, price])
@@ -91,13 +94,15 @@ class BricklinkWebReader(BricklinkReader):
         self.blbrowser.login(url, self.login, self.password)
      
      
-    def readitemfromurl(self, itemtypeID, itemID, itemColorID, vendormap):
-            
+    def readitemfromurl(self, itemtypeID, itemID, itemColorID):
+            global vendorMap
             #extract the info from the site and return it as a dictionary 
             # need to find and return itemID, storeID's, itemQty, itemPrice for each url
             # we also need to extract real vendor names during this search
             #returns prices[] =([itemid, vendorid, vendorqty, vendorprice)
-            BricklinkReader.vendormap = vendormap
+            #BricklinkReader.vendormap = vendormap
+            if not isinstance(vendorMap, vendors.VendorMap):
+                raise Exception, "global vendorMap does not exist"
             url = "http://www.bricklink.com/catalogPG.asp?itemType=" + itemtypeID + '&itemNo=' + itemID + '&itemSeq=1&colorID=' + itemColorID + '&v=P&priceGroup=Y&prDec=2'
                         
             #itemprices = []
@@ -113,8 +118,8 @@ class BricklinkFileReader(BricklinkReader):
         BricklinkReader.__init__(self)
         
         #page is androgenous
-    def readItemFromFile(self, filename, vendormap):
-        BricklinkReader.vendormap = vendormap
+    def readItemFromFile(self, filename):
+        #BricklinkReader.vendormap = vendormap
         #itemprices = []        
         parser = etree.HTMLParser(remove_blank_text=True, remove_comments=True, encoding='utf-8')      
         with io.open(filename, 'r') as f:     
@@ -189,13 +194,13 @@ if __name__ == '__main__':
     logging.basicConfig(level=logging.DEBUG)
     logging.info('Started')
     
-    v = VendorMap()
+    #v = VendorMap()
     
     br = BricklinkWebReader("Geekly", "codybricks")
     
-    br.readitemfromurl('P', '3001', '80', v)
-    br.readitemfromurl('P', '3001', '80', v)
-    print br.readitemfromurl('P', '3001', '80', v)
+    br.readitemfromurl('P', '3001', '80')
+    br.readitemfromurl('P', '3001', '80')
+    print br.readitemfromurl('P', '3001', '80')
     
     
     

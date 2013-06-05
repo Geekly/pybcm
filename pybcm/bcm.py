@@ -3,17 +3,17 @@ Created on Oct 30, 2012
 
 @author: khooks
 '''
-from UserDict import UserDict
-from vendors import VendorMap, VendorStats
+#from UserDict import UserDict
+import vendors
+from vendors import VendorStats, vendorMap
 import numpy as np
 import numpy.ma as ma
-import pandas as pd
 import logging
 from shoppinglist import ShoppingList
 from legoutils import LegoElement
-from operator import itemgetter, attrgetter
-import cProfile
+from operator import itemgetter
 from collections import defaultdict
+from exceptions import Exception
 
 #class BCMDict(dict):
     
@@ -248,24 +248,22 @@ class BCMData(object):
         itemspervendor = (s > 0).sum(0)
         return itemspervendor  
 
-     
-     
-     
-     
-     
-     
+         
               
 class BCMEngine(object):
     '''     
     contains a dictionary that allows access via data[elementid, vendorid] = (price, qty)
         '''
-    vendormap = VendorMap()
+    #vendormap = VendorMap()
     
     def __init__(self, bricklink, wanteddict):
         #UserDict.__init__(self)
-        BCMEngine.vendormap = bricklink.vendormap
+        #BCMEngine.vendormap = bricklink.vendormap
         #self.data = BCMData() #the mutable data object that's passed to the optimizer
-
+        
+        if not isinstance(vendorMap, vendors.VendorMap):
+            raise Exception, "global vendorMap doesn't exist.  Make sure to include Vendor module"
+        
         self.BCMDICT = self.__createbcmdict(bricklink, wanteddict) #self.data[elementid, vendorid] = (price, qty) #essentially a copy of the Bricklink data.  Don't change this once initialized
         self.WANTED = self.__createwanteddict(bricklink, wanteddict) #don't change this either
         self.ELEMDICT = self.__createelementdict(self.BCMDICT)
@@ -352,7 +350,8 @@ class BCMEngine(object):
         return self.data.elementlist
              
     def hasminquantity(self, elementid, vendorid ):
-        assert vendorid in self.vendormap, "Cannot determine qantity, vendor %r does not exist in vendorlist" % vendorid
+        assert vendorid in vendorMap, "Cannot determine qantity, vendor %r does not exist in vendorlist" % vendorid
+        #assert vendorid in self.vendormap, "Cannot determine qantity, vendor %r does not exist in vendorlist" % vendorid
         
         if (elementid, vendorid) in self.BCMDICT:
             wantedquantity = int(self.WANTED[elementid])
@@ -513,7 +512,8 @@ class BCMEngine(object):
         for vendorid, elementid in rsl:  #vendorindex is the key           
             #print( rawshoppinglist[vendorid] )
             vendorqty = rsl[vendorid, elementid]
-            vendorname = self.vendormap[vendorid]                
+            #vendorname = self.vendormap[vendorid]
+            vendorname = vendorMap[vendorid]                 
             (stockqty, vendorprice) = self.getqtyandprice(elementid, vendorid)
             (itemid, colorid) = LegoElement.splitelement(elementid)  
             wantedqty = self.WANTED[elementid]  

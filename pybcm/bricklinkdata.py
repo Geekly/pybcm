@@ -8,10 +8,13 @@ from blreader import BricklinkWebReader
 #from BeautifulSoup import BeautifulSoup
 from legoutils import LegoElement
 from lxml import etree as ET
-from vendors import Vendor, VendorMap
+import vendors
+from vendors import Vendor, vendorMap
 import logging
 
 #from wanted import Wanted
+
+
 
 class BricklinkData(UserDict):
     '''
@@ -26,10 +29,14 @@ class BricklinkData(UserDict):
     
     '''
     def __init__(self):
+        global vendorMap
+        if not isinstance(vendorMap, vendors.VendorMap): #check for global vendormap
+            vendorMap = vendors.VendorMap()
+            #raise Exception, "vendorMap not defined"
         
         UserDict.__init__(self)
         self.data = dict()   # self.data[elementid] = list of vendors with prices
-        self.vendormap = VendorMap()
+        #self.vendormap = VendorMap()
         
         self.bricklink_initialized = False
         self.vendor_initialized = False
@@ -53,7 +60,7 @@ class BricklinkData(UserDict):
             itemtypeID = wanted[elementid].itemtypeid
             itemColorID = wanted[elementid].colorid
             #elementID = lego.joinelement(itemID, itemColorID)
-            pricelist = self.webreader.readitemfromurl( itemtypeID, itemID, itemColorID, self.vendormap)
+            pricelist = self.webreader.readitemfromurl( itemtypeID, itemID, itemColorID)
             if pricelist: 
                 self[elementid] = pricelist   #get the item page, parse it, and get back a list of (itemid<-this is vendorid, vendorqty, vendorprice) tuples
             else:
@@ -64,6 +71,7 @@ class BricklinkData(UserDict):
         self.bricklink_initialized = True
                       
     def read(self, filename=None):
+        global vendorMap
         assert filename != None, "price List filename required"
         logging.info("Building bricklink data from file: " + filename)
         self.data = dict()  #clear any existing data
@@ -90,17 +98,18 @@ class BricklinkData(UserDict):
                 #listitem = [vendorid, vendorqty, vendorprice]              
                 self[elementid].append([vendorid, vendorqty, vendorprice])         
                 vendorname = vendor.find('VendorName').text
-                self.vendormap.addvendor( Vendor(vendorid=vendorid, vendorname=vendorname) )
+                vendorMap.addvendor( Vendor(vendorid=vendorid, vendorname=vendorname) )
         
     def dataquality(self):
+        global vendorMap
         assert self.bricklink_initialized == True, "bricklink not initialized, cannot report dataquality"
         
         print( "Price list includes:")
         print( str( len(self.keys()) ) + " Total Items")
-        print( str( len(self.vendormap.keys()) ) + " Total Vendors")
+        print( str( len(vendorMap.keys()) ) + " Total Vendors")
     
     def toXML(self):
-        
+        global vendorMap
         assert self.bricklink_initialized == True, "bricklink not initialized, cannot convert to XML"
         #[itemID, storeID, quantity, price]
         xml_string = '<xml>\n'
@@ -112,7 +121,7 @@ class BricklinkData(UserDict):
             xml_string += ' <ColorID>{}</ColorID>\n'.format(color)
             for vendor in self.data[elementid]:
                 vendorid = vendor[0]
-                vendorname = self.vendormap[vendorid]
+                vendorname = vendorMap[vendorid]
                 xml_string += '  <Vendor>\n'
                 xml_string += '   <VendorID>{}</VendorID>\n'.format(vendor[0])
                 xml_string += '   <VendorName>{}</VendorName>\n'.format(vendorname)

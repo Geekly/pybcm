@@ -21,7 +21,8 @@ from pprint import pprint
 
 from reporter import *
 import cProfile, pstats
-from vendors import VendorMap, VendorStats
+import vendors
+from vendors import vendorMap, VendorStats
 
 
 #vendormap = VendorMap()
@@ -44,6 +45,8 @@ def main():
     wanteddict.read(wantedlistfilename)
     #print("want this many items: " , wanteddict.totalcount) 
     
+    #vendorMap = vendors.VendorMap()
+    
     bricklink = BricklinkData()
                      
     if reloadpricesfromweb == True:
@@ -59,7 +62,7 @@ def main():
         bricklink.read(pricefilename)
         f.close()
 
-    vendormap = bricklink.vendormap
+    #vendormap = bricklink.vendormap
     bcm = BCMEngine(bricklink, wanteddict)
 
     #bcm.prunevendorsbyavgprice()
@@ -78,7 +81,7 @@ def main():
     #print("The best solution found:\n")
     print( ndo.solutions.best() )
     
-    shopping = ShoppingList(ndo.solutions.best(), vendormap )
+    shopping = ShoppingList(ndo.solutions.best())
     print( shopping.XMLforBricklink() )
     
 if __name__ == '__main__':

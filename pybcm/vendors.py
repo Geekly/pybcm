@@ -7,6 +7,8 @@ from UserDict import UserDict
 import BeautifulSoup as soup
 import numpy as np
 
+global vendorMap
+
 
 class Vendor(object):
     
@@ -96,6 +98,9 @@ class VendorMap(UserDict):
             xml_string += '</Vendor>\n'
             '''
         return xml_string
+
+vendorMap = VendorMap() 
+
     
 class VendorStats():
     

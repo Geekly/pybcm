@@ -5,6 +5,7 @@ Created on Oct 26, 2012
 '''
 from solution import *
 from legoutils import LegoElement
+from vendors import vendorMap, VendorMap
 
 class ShoppingList():
     '''
@@ -13,12 +14,14 @@ class ShoppingList():
     also need to create one by vendor for Bricklink wanted lists
     
     '''      
-    def __init__(self, solution, vendormap):
+    def __init__(self, solution):
         '''
         Constructor
         '''
         self.soln = solution
-        self.vendormap = vendormap
+        if not isinstance(vendorMap, VendorMap):
+            raise Exception, "vendorMap does not exist"
+        #self.vendormap = vendormap
         
     def toXML(self):
         
@@ -41,6 +44,7 @@ class ShoppingList():
         return xml_string
     
     def XMLforBricklink(self):
+        global vendorMap
         #TODO: access vendormap
         xml_string = ''
         if self.soln:
@@ -49,7 +53,7 @@ class ShoppingList():
             
         #print(self.vendormap)
             for vendorid, itemlist in vdict.items(): 
-                vendorname = self.vendormap[vendorid]
+                vendorname = vendorMap[vendorid]
                 print( vendorid, vendorname )  
                 xml_string += "\n\n<INVENTORY>\n"
                 
