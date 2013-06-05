@@ -100,7 +100,7 @@ class BricklinkWebReader(BricklinkReader):
             BricklinkReader.vendormap = vendormap
             url = "http://www.bricklink.com/catalogPG.asp?itemType=" + itemtypeID + '&itemNo=' + itemID + '&itemSeq=1&colorID=' + itemColorID + '&v=P&priceGroup=Y&prDec=2'
                         
-            itemprices = []
+            #itemprices = []
             page = self.blbrowser.open(url)
             parser = etree.HTMLParser(remove_blank_text=True, remove_comments=True, encoding='utf-8')      
             datatree = etree.HTML(page, parser)        
@@ -115,7 +115,7 @@ class BricklinkFileReader(BricklinkReader):
         #page is androgenous
     def readItemFromFile(self, filename, vendormap):
         BricklinkReader.vendormap = vendormap
-        itemprices = []        
+        #itemprices = []        
         parser = etree.HTMLParser(remove_blank_text=True, remove_comments=True, encoding='utf-8')      
         with io.open(filename, 'r') as f:     
             #print( "Parsing item from file..." )

@@ -8,7 +8,7 @@ from blreader import BricklinkWebReader
 #from BeautifulSoup import BeautifulSoup
 from legoutils import LegoElement
 from lxml import etree as ET
-from vendors import *
+from vendors import Vendor, VendorMap
 import logging
 
 #from wanted import Wanted
@@ -54,50 +54,15 @@ class BricklinkData(UserDict):
             itemColorID = wanted[elementid].colorid
             #elementID = lego.joinelement(itemID, itemColorID)
             pricelist = self.webreader.readitemfromurl( itemtypeID, itemID, itemColorID, self.vendormap)
-            self[elementid] = pricelist   #get the item page, parse it, and get back a list of (itemid<-this is vendorid, vendorqty, vendorprice) tuples
-            
+            if pricelist: 
+                self[elementid] = pricelist   #get the item page, parse it, and get back a list of (itemid<-this is vendorid, vendorqty, vendorprice) tuples
+            else:
+                logging.error("No Information found for %s" % elementid)
         #self.buildvendormap()
         #self.buildvendordata()
         
         self.bricklink_initialized = True
-               
-           
-    '''
-    def read_soup(self, filename=None):
-        assert filename != None, "price List filename required"
-        
-        logging.info("Building bricklink data from file: " + filename)
-        self.data = dict()  #clear any existing data
-        f = open(filename, 'r')
-        self.soup = BeautifulSoup(f)
-        wantedlist = self.soup.findAll("item")
-        
-            # for each item node, recurse over each vendor node      
-            
-        for item in wantedlist:
-            itemid = item.find('itemid').string
-            colorid = item.find('colorid').string
-            elementid = LegoElement.joinelement(itemid, colorid)
-            self[elementid] = [] #empty list
-            logging.info("Loading element " + str(elementid))
-            vendors = item.findAll('vendor')
-            for vendor in vendors:
-                
-                vendorid = vendor.find('vendorid').string
-
-                vendorqty = vendor.find('vendorqty').string
-                vendorprice = vendor.find('vendorprice').string
-
-                #listitem = [vendorid, vendorqty, vendorprice]              
-                self[elementid].append([vendorid, vendorqty, vendorprice]) 
-        
-                vendorname = vendor.find('vendorname').string
-                self.vendormap.addvendor( Vendor(vendorid=vendorid, vendorname=vendorname) )
-                
-        
-        self.bricklink_initialized = True
-        '''
-        
+                      
     def read(self, filename=None):
         assert filename != None, "price List filename required"
         logging.info("Building bricklink data from file: " + filename)

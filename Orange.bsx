@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE BrickStoreXML>
+<BrickStoreXML>
+ <Inventory>
+  <Item>
+   <ItemID>30363</ItemID>
+   <ItemTypeID>P</ItemTypeID>
+   <ColorID>4</ColorID>
+   <ItemName>Slope 18 4 x 2</ItemName>
+   <ItemTypeName>Part</ItemTypeName>
+   <ColorName>Orange</ColorName>
+   <CategoryID>31</CategoryID>
+   <CategoryName>Slope</CategoryName>
+   <Status>I</Status>
+   <Qty>4</Qty>
+   <Price>0.000</Price>
+   <Condition>N</Condition>
+   <OrigQty>0</OrigQty>
+  </Item>
+  <Item>
+   <ItemID>4161</ItemID>
+   <ItemTypeID>P</ItemTypeID>
+   <ColorID>4</ColorID>
+   <ItemName>Slope 33 3 x 3</ItemName>
+   <ItemTypeName>Part</ItemTypeName>
+   <ColorName>Orange</ColorName>
+   <CategoryID>31</CategoryID>
+   <CategoryName>Slope</CategoryName>
+   <Status>I</Status>
+   <Qty>6</Qty>
+   <Price>10.894</Price>
+   <Condition>N</Condition>
+   <OrigPrice>0.000</OrigPrice>
+   <OrigQty>0</OrigQty>
+  </Item>
+ </Inventory>
+ <GuiState Application="BrickStore" Version="1" >
+  <ItemView>
+   <ColumnOrder>0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30</ColumnOrder>
+   <ColumnWidths>21,45,110,173,35,95,35,53,53,35,35,53,53,77,77,35,53,35,53,35,53,0,0,0,0,0,0,35,35,53,53</ColumnWidths>
+   <ColumnWidthsHidden>0,0,0,0,0,0,0,0,0,35,35,53,0,0,0,35,53,35,53,35,53,53,53,53,53,65,35,35,35,53,53</ColumnWidthsHidden>
+   <SortColumn>5</SortColumn>
+   <SortDirection>A</SortDirection>
+  </ItemView>
+ </GuiState>
+</BrickStoreXML>

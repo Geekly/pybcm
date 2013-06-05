@@ -13,7 +13,7 @@
    <CategoryName>Plate</CategoryName>
    <Status>I</Status>
    <Qty>9</Qty>
-   <Price>0.383</Price>
+   <Price>0.297</Price>
    <Condition>N</Condition>
    <OrigPrice>0.000</OrigPrice>
    <OrigQty>0</OrigQty>
@@ -29,7 +29,7 @@
    <CategoryName>Tile</CategoryName>
    <Status>I</Status>
    <Qty>5</Qty>
-   <Price>0.467</Price>
+   <Price>0.530</Price>
    <Condition>N</Condition>
    <OrigPrice>0.000</OrigPrice>
    <OrigQty>0</OrigQty>
@@ -45,7 +45,7 @@
    <CategoryName>Brick</CategoryName>
    <Status>I</Status>
    <Qty>11</Qty>
-   <Price>0.130</Price>
+   <Price>0.158</Price>
    <Condition>N</Condition>
    <OrigPrice>0.000</OrigPrice>
    <OrigQty>0</OrigQty>
@@ -61,7 +61,7 @@
    <CategoryName>Technic, Brick</CategoryName>
    <Status>I</Status>
    <Qty>2</Qty>
-   <Price>0.171</Price>
+   <Price>0.194</Price>
    <Condition>N</Condition>
    <OrigPrice>0.000</OrigPrice>
    <OrigQty>0</OrigQty>
