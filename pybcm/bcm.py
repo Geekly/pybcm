@@ -15,20 +15,6 @@ from operator import itemgetter
 from collections import defaultdict
 from exceptions import Exception
 
-#class BCMDict(dict):
-    
-#    def __init__(self):
-#        dict.__init__(self)
-    
-    #def __getitem__(self, key):
-    #       if key in self.data:
-    #            return self.data[key]
-    #       if hasattr(self.__class__, "__missing__"):
-    #            return self.__class__.__missing__(self, key)
-    #        #raise KeyError(key)
-    #        return (0.0, 0) 
-        
-    #def keys(self): return self.data.keys()
 
 class BCMData(object):
     # this is a mutable ndarray object that's passed to the optimizer
@@ -39,10 +25,8 @@ class BCMData(object):
         self.WANTED = None  #numpy array
         self.PRICES = None  #numpy array
         self.STOCK = None   #numpy array
-        
-              
-        #self.soln = None #fancy ndarray that contains the result
         self.BCMDICT = bcmdict
+        
         self.__initialize_lists(self.BCMDICT) 
         
         self.WANTDICT = wanteddict
@@ -72,13 +56,6 @@ class BCMData(object):
             (elementid, vendorid) = keytuple
             self.addtolist(self.vendorlist, vendorid)  #initialize the vendor list
             self.addtolist(self.elementlist, elementid) #initialize the elementlist
-       
-    '''def update(self):
-        if self.__need_rebuild:
-            logging.info("Updating BCMData arrays")
-            self.forceupdate()
-            self.__need_rebuild = False      
-    '''
             
     def __updatearrays(self):
         logging.info("Forcing array update...")
@@ -119,21 +96,16 @@ class BCMData(object):
     def __buildwantedarray(self, wanteddict):    #returns numpy array of WANTED items
         """ Create a numpy array of wanted quantities """
         logging.info("Building WANTED array...")
-        #print(self.elementlist)
         m = len(self.elementlist) #ensure the size of the array is consistent with the others      
         wantedarray = np.ndarray(shape = (m), dtype=np.int)       
         for eidx, elementid in enumerate( self.elementlist ):
-            wantedarray[eidx] = wanteddict[elementid]
-        #print(wantedarray)  
+            wantedarray[eidx] = wanteddict[elementid] 
         return wantedarray   
      
     def __sortlists(self):                    
         self.__elementsort()
-        #self.WANTED = self.__buildwantedarray(self.WANTDICT)
         self.__vendorsort()
-        #self.STOCK, self.PRICES = self.__buildvendorarrays(self.BCMDICT)
-        
-    
+            
     def __elementsort(self, sortweights=None):
         logging.info("Sorting Element List...")
         if sortweights: weights = sortweights
@@ -153,7 +125,7 @@ class BCMData(object):
             return #nothing sorted
             
         self.vendorlist = [y for (x, y) in sorted( zip( weights, self.vendorlist ), reverse=True )]
-        #self.forceupdate()
+
               
     def __createvendsortinglist(self, bcmdict):
         """ Return list of tuples (vendor index, element index, price)
@@ -228,6 +200,7 @@ class BCMData(object):
     
     
     def avgprices(self, stockweighted=False):
+        """Return a masked array of the average price by element"""
         p = ma.array(self.PRICES, mask=self.PRICES <= 0)
                 
         if stockweighted:
@@ -451,7 +424,7 @@ class BCMEngine(object):
     def sortedelementidx(self):
         #returns a lsit of the indices of self.elementlist sorted by weight (descending)
         elementweights = self.elementweights()
-        elementindexlist = [index for index, id in enumerate(self.elementlist) ]       
+        elementindexlist = [index for index, elementid in enumerate(self.elementlist) ]       
         pairs = sorted( zip(elementweights, elementindexlist), reverse = True ) # (weight, elementindex) tuples sorted on weight
         elementorder = [ eidy for (x, eidy) in pairs] #this is the order to search elements       
         return elementorder

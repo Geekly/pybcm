@@ -8,11 +8,10 @@ Created on Jul 26, 2012
 from wanted import WantedDict
 
 from bricklinkdata import BricklinkData
-
+from bcmconfig import *
 from blreader import *
 from optimizer import *
 
-import io
 import numpy as np
 #from vendors import Vendors
 from bcm import *
@@ -30,26 +29,18 @@ from vendors import vendorMap, VendorStats
 def main():
     
     #np.set_printoptions(threshold=np.nan)  
-    logging.basicConfig(level=logging.DEBUG)
-    #wantedlistfilename = '../Star Destroyer 30056-1.bsx'
-    wantedlistfilename = '../Orange.bsx'
-    #wantedlistfilename = '../Inventory for 6964-1.bsx'
-       
-    reloadpricesfromweb = True  #set this to true if you want to update prices from the web and rewrite pricefilename
-    #make sure to run this once every time that the wanted list changes
-                                     
-    #pricefilename = '../Star Destroyer 30056-1.xml'
-    pricefilename = '../Orange.xml'
-    wanteddict = WantedDict()
-    logging.info( "Reading wanted list: " + wantedlistfilename)
-    wanteddict.read(wantedlistfilename)
-    #print("want this many items: " , wanteddict.totalcount) 
+    logging.basicConfig(level=logging.DEBUG)    
+
     
-    #vendorMap = vendors.VendorMap()
+    wantedlistfilename = BCMConfig.wantedfilename
+    pricefilename = BCMConfig.pricefilename
+    logging.info( "Reading wanted list: %s" % wantedlistfilename )
+    wanteddict = WantedDict()
+    wanteddict.read(wantedlistfilename)
     
     bricklink = BricklinkData()
                      
-    if reloadpricesfromweb == True:
+    if BCMConfig.reloadpricesfromweb == True:
         logging.info("Reading prices from web")
         bricklink.readpricesfromweb( wanteddict )
         logging.info("Saving XML file")
@@ -71,29 +62,28 @@ def main():
     #print( bcm.data.WANTED)
     #print( bcm.data.avgprices())
     #print( bcm.data.avgprices(stockweighted=True))
-    #rep = reporter(bcm)
-    #rep.allpartsbarchart()
-    ndo = Optimizer(bcm.data)
+
+    ndo = Optimizer(bcm.data, search=SearchTypes.Swap)
     ndo.solve()
+    print( ndo.solutions.summary() )
     
-    #print( ndo.solutions.summary() )
-    
-    #print("The best solution found:\n")
     print( ndo.solutions.best() )
     
-    shopping = ShoppingList(ndo.solutions.best())
-    print( shopping.XMLforBricklink() )
+    #     rep = reporter(bcm)
+    #     rep.allpartsbarchart()
+    #shopping = ShoppingList(ndo.solutions.best())
+    #print( shopping.XMLforBricklink() )
     
 if __name__ == '__main__':
     
     main()
           
-    '''
-    cp = cProfile.Profile()
+    
+    '''cp = cProfile.Profile()
        
     cp.run('main()')
     
     ps = pstats.Stats(cp)
-    ps.sort_stats('time')
-    ps.print_stats(0.2)
+    ps.sort_stats('cumulative')
+    ps.print_stats(0.1)
     '''

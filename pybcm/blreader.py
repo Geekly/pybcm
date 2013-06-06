@@ -104,7 +104,7 @@ class BricklinkWebReader(BricklinkReader):
             if not isinstance(vendorMap, vendors.VendorMap):
                 raise Exception, "global vendorMap does not exist"
             url = "http://www.bricklink.com/catalogPG.asp?itemType=" + itemtypeID + '&itemNo=' + itemID + '&itemSeq=1&colorID=' + itemColorID + '&v=P&priceGroup=Y&prDec=2'
-                        
+            logging.info("Reading item from %s" % url)            
             #itemprices = []
             page = self.blbrowser.open(url)
             parser = etree.HTMLParser(remove_blank_text=True, remove_comments=True, encoding='utf-8')      

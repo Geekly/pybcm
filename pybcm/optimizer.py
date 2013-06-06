@@ -9,10 +9,14 @@ from solution import Solution, SolutionSet
 from vendors import VendorStats
 import itertools
 
+class SearchTypes():
+    (Shift, Swap) = range(0,2)
+
 class Optimizer():
+    #TODO: Convert this class to use only numpy arrays
     """Uses ndarrays to setup and solve an or-tools problem"""
     
-    def __init__(self, bcmdata):
+    def __init__(self, bcmdata, search=SearchTypes.Swap):
         #self.solver = orsolver.Solver("Find the best price")
         self.m = len(bcmdata.elementlist)
         self.n = len(bcmdata.vendorlist)
@@ -22,6 +26,7 @@ class Optimizer():
         self.__WANTDICT = bcmdata.WANTDICT
         self.__vs = VendorStats(bcmdata)
         self.solutions = SolutionSet()
+        self.search_type = search
         #self.P = bcmdata.PRICES
         #self.S = bcmdata.STOCK
         #self.W = bcmdata.WANTED
@@ -30,18 +35,19 @@ class Optimizer():
         #self.VSORTED = bcmdata.VENDSORTLIST
          
     def solve(self):
-        
+        #TODO: cullvendors
         self.search()
         
-    def getvendor(self):
+    """def getvendor(self):
         for vrow in self.VSORTED:
             #return a vendor for elements that are still unfilled
             vidx = vrow[0]
             vendor = self.__v[vidx]
             #vendor = self.__v[vidx]
             yield vendor
-    
+    """
     def fillOrders(self, order, vendor):
+        #TODO: Convert this to use only the numpy arrays
         #buy all available elements from the current vendor
         for element, qty in order.needed().items():            
             if (element, vendor) in self.__BCMDICT:
@@ -62,12 +68,14 @@ class Optimizer():
         # while still need elements
         # get a vendor search order
         # could truncate the vendor list here if we wanted to
-        firstsearchorder = firstsearchorder[:25]
-        #limit = 10000
-        #count = 1
+        #firstsearchorder = firstsearchorder[:6] #limit how deep to swap vendors.  8 or higher will blow it up on the Shift search
+
+        #establish the generator to be used
+        if self.search_type == SearchTypes.Shift:
+            gen = self.shiftorder(firstsearchorder[:6])
+        elif self.search_type == SearchTypes.Swap:
+            gen = self.orderswaps(firstsearchorder[:25])
         
-        #gen = self.shiftorder(firstsearchorder)
-        gen = self.orderswaps(firstsearchorder)
         for searchorder in gen: #gets search order from generator
             #print("Next search order: ")
             #print(searchorder)
@@ -103,7 +111,7 @@ class Optimizer():
         if len(seq) == 1:
             yield seq
         
-        for indexoffset in range( len(seq) ):
+        for indexoffset in reversed(range( len(seq) )):
             newseq = seq[:]
             newseq.insert( 0, newseq.pop(indexoffset))
             for tail in self.shiftorder( newseq[1:]):
@@ -115,7 +123,7 @@ class Optimizer():
         
         depth = min( depth, len(seq) )
         
-        for offset in range(1, 10):                
+        for offset in range(1, depth):                
             for i in range(depth):
                 for j in range(offset, depth-offset):               
                     if i == j:
@@ -124,25 +132,3 @@ class Optimizer():
                     newseq[i], newseq[j] = newseq[j], newseq[i]      
                     yield newseq
     
-    """def vendorsearchorder(self, initialorder):
-        #each time, pick the next vendor and put it at the beginning of the search order
-        #vendorsearchorder = initialorder[:]
-        size = len(initialorder)
-        index1tomove = 0
-        while index1tomove < size:
-            searchorder = initialorder[:]
-            if index1tomove > 0: searchorder.insert(0, searchorder.pop(index1tomove) ) #inserts indexttomove at the beginning of the list
-            index2tomove = index1tomove + 1
-            while index2tomove < size:
-                if index2tomove > index1tomove: searchorder.insert(index1tomove-1, searchorder.pop(index2tomove) )
-                index2tomove += 1
-                index3tomove = index3tomove + 1
-                while index3tomove < size:
-                    if index3tomove > index2tomove: searchorder.insert(index2tomove-1, searchorder.pop(index3tomove) )
-                    index3tomove += 1
-                yield searchorder
-            index1tomove += 1
-            #if indextomove >= 5: return
-        #yield a new search order (list of vendors)
-    """
-           
