@@ -1,8 +1,8 @@
-'''
+"""
 Created on Oct 23, 2012
 
 @author: khooks
-'''
+"""
 from UserDict import UserDict
 import BeautifulSoup as soup
 import numpy as np
@@ -25,28 +25,21 @@ class Vendor(object):
         return xmlstring
     
 class VendorMap(UserDict):
-    '''
+    """
     classdocs
-    '''
+    """
     def __init__(self):
-        '''
+        """
         Constructor
-        '''              
+        """
         UserDict.__init__(self)
         self.data = dict()
         self.soup = None      
         #print self.data
         
     def __str__(self):
-        
         return self.toXML()
-        '''    returnstring = "Vendor, Item, Color, Vendor Qty, Cost\n"
-        
-                for vendor in self.data.keys():
-                for items in self.data[vendor]:
-                returnstring += str(items) + "\n"
-        '''
-                               
+
     def addvendor(self, vendor):
         if vendor.id in self.data:
             return False
@@ -66,7 +59,7 @@ class VendorMap(UserDict):
     
 #not sure this works                           
     def read(self, filename=None):
-        assert filename != None, "price List filename required"
+        assert filename is not None, "price List filename required"
         print( "Building vendor map from file: " + filename)
         self.data = dict()  #clear any existing data
         
@@ -99,14 +92,14 @@ class VendorMap(UserDict):
             '''
         return xml_string
 
+#Expose a global vendormap
 vendorMap = VendorMap() 
-
     
 class VendorStats():
     
     def __init__(self, bcmdata):
         self.data = bcmdata
-        self.ELEMWEIGHTS = bcmdata.elementweights() #dictionary
+        self.ELEMWEIGHTS = bcmdata.elementweights() #numpy array
         self.NUMVENDORS = len(self.data.vendorlist)
         self.NUMELEMS = len(self.data.elementlist)
         self.ITEMS = len(self.data.elementlist)
@@ -152,25 +145,30 @@ class VendorStats():
         vendorsperelement = ( s > 0).sum(1)
         return vendorsperelement
     
+    def stockbywanted(self):
+        return self.__stockbywanted()
+    
     def __stockbywanted(self):
         """  
+        Calculates a sorting helper for vendors.  The more items a vendor can completely fill, the higher its
+            value.
         SBW = STOCK / WANTED
         SBW = 1.0 if STOCK/WANTED >= 1.0 ELSE STOCK/WANTED
         """
         S = self.data.STOCK.astype('float')
         W = self.data.WANTED.reshape(self.NUMELEMS, 1).astype('float')
         stockbywant = S/W
-        greaterthan1 = stockbywant > 1.0
-        stockbywant[greaterthan1] = 1.0
+        greaterthan1 = stockbywant >= 1.0 #creates a true/false array that will be used in the next line
+        stockbywant[greaterthan1] = 2.0 #completely filling an order counts 3X more than a partial fill
         return stockbywant
     
     def vendorstockweights(self):
-        return 2.5 * self.__stockbywanted().sum(0)
+        return self.__stockbywanted().sum(0)
     
     def vendorpriceweights(self):
         # function of element weight, vendor price, vendor qty (gets credit for how many it has)
         #sort by self.data.elementlist
-        sortedweights = [self.ELEMWEIGHTS[element] for element in self.data.elementlist] #aligned with elementlist now
+        sortedweights = self.ELEMWEIGHTS #aligned with elementlist now
         #print(sortedweights)
         EWD = np.array(sortedweights, dtype='float').reshape((len(self.ELEMWEIGHTS),1))
         P = self.data.PRICES

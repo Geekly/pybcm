@@ -1,9 +1,9 @@
-'''
+"""
 Created on Oct 23, 2012
 
 @author: khooks
-'''
-
+"""
+#TODO: replace beautifulsoup with lxml
 #Converted the dictionary key from itemid, colorid to elementid, which is of the format 'itemid|colorid'
 
 from UserDict import UserDict
@@ -13,12 +13,13 @@ from legoutils import LegoElement
 #from xml.etree import ElementTree as ET 
 
 class WantedDict(UserDict):
-    '''
+    """
     classdocs
-    '''
+    """
     def __init__(self, filename=None):
         UserDict.__init__(self)
-        if filename != None: self.filename = filename
+        if filename is not None:
+            self.filename = filename
         self.totalcount = 0
     
     def __str__(self):
@@ -31,7 +32,7 @@ class WantedDict(UserDict):
         return returnstring
                           
     def read(self, filename=None):
-        assert filename != None, "Wanted List filename required"
+        assert filename is not None, "Wanted List filename required"
         f = open(filename, 'r')
         soup = Soup( f )
         #wanteddict = dict() #initialize as an empty dictionary
@@ -55,7 +56,10 @@ class WantedDict(UserDict):
             
     def uniqueitems(self):
         return len(self)        
-    
+
+    def totalitems(self):
+        return self.totalcount
+
     def getwantedqty(self, elementid):
         return self[elementid].wantedqty 
      

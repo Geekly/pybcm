@@ -1,15 +1,15 @@
-'''
+"""
 Created on Oct 23, 2012
 
 @author: khooks
-'''
+"""
 from UserDict import UserDict
 from blreader import BricklinkWebReader
 #from BeautifulSoup import BeautifulSoup
 from legoutils import LegoElement
 from lxml import etree as ET
 import vendors
-from vendors import Vendor, vendorMap
+from vendors import Vendor
 import logging
 
 #from wanted import Wanted
@@ -17,17 +17,17 @@ import logging
 
 
 class BricklinkData(UserDict):
-    '''
+    """
     data is a dictionary of the format:
     [storeID, quantity, price]
     data[elementid] = { [vendor1id, vendor1qty, vendor1price],
                             [vendor2id, vendor2qty, vendor2price],
                             ... }
     where elementid is itemid|colorid
-    
+
     this class also works on the vendormap, which maps vendor ID to vendor name
-    
-    '''
+
+    """
     def __init__(self):
         global vendorMap
         if not isinstance(vendorMap, vendors.VendorMap): #check for global vendormap
@@ -44,7 +44,7 @@ class BricklinkData(UserDict):
         self.webreader = None
         
     def __str__(self):
-        assert self.bricklink_initialized == True, "bricklink not initialized, cannot convert to string"
+        assert self.bricklink_initialized, "bricklink not initialized, cannot convert to string"
         return self.toXML()    
     
     def readpricesfromweb(self, wanted):
@@ -64,7 +64,7 @@ class BricklinkData(UserDict):
             if pricelist: 
                 self[elementid] = pricelist   #get the item page, parse it, and get back a list of (itemid<-this is vendorid, vendorqty, vendorprice) tuples
             else:
-                logging.error("No Information found for %s" % elementid)
+                logging.error("No Price Information found for %s" % elementid)
         #self.buildvendormap()
         #self.buildvendordata()
         
@@ -72,13 +72,12 @@ class BricklinkData(UserDict):
                       
     def read(self, filename=None):
         global vendorMap
-        assert filename != None, "price List filename required"
+        assert filename is not None, "price List filename required"
         logging.info("Building bricklink data from file: " + filename)
         self.data = dict()  #clear any existing data
 
         tree = ET.parse(filename)
-        
-        
+
         wantedlist = tree.findall('Item')
         for item in wantedlist:
             #print(item.text)
@@ -102,6 +101,7 @@ class BricklinkData(UserDict):
         
     def dataquality(self):
         global vendorMap
+        
         assert self.bricklink_initialized == True, "bricklink not initialized, cannot report dataquality"
         
         print( "Price list includes:")

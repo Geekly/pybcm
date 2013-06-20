@@ -1,28 +1,28 @@
-'''
+"""
 Created on Oct 26, 2012
 
 @author: khooks
-'''
+"""
 from solution import *
 from legoutils import LegoElement
 from vendors import vendorMap, VendorMap
 
 class ShoppingList():
-    '''
+    """
     shoppinglist = [ { itemid, color, vendorid, price, qty }, ...]
-    
+
     also need to create one by vendor for Bricklink wanted lists
-    
-    '''      
+
+    """
     def __init__(self, solution):
-        '''
+        """
         Constructor
-        '''
+        """
         self.soln = solution
         if not isinstance(vendorMap, VendorMap):
             raise Exception, "vendorMap does not exist"
         #self.vendormap = vendormap
-        
+
     def toXML(self):
         
         xml_string = ''
@@ -49,9 +49,9 @@ class ShoppingList():
         xml_string = ''
         if self.soln:
             vdict = self.soln.byVendorDict()       
-        #TODO: Finish this routine
+            #TODO: Finish this routine
             
-        #print(self.vendormap)
+            #print(self.vendormap)
             for vendorid, itemlist in vdict.items(): 
                 vendorname = vendorMap[vendorid]
                 print( vendorid, vendorname )  

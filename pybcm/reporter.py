@@ -3,13 +3,11 @@ import matplotlib.pyplot as plt
 import matplotlib.mlab as mlab
 
 class reporter(object):
-    """description of class"""
-
-
     """
-Make a histogram of normally distributed random numbers and plot the
-analytic PDF over it
-"""
+    Make a histogram of normally distributed random numbers and plot the
+    analytic PDF over it
+    """
+
     def __init__(self, bcm):
         self.bcm = bcm
         self.data = bcm.data

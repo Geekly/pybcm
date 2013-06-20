@@ -1,15 +1,15 @@
-'''
+"""
 Created on Oct 26, 2012
 
 @author: khooks
-'''
+"""
 
 from lxml import etree
 
 import re
 import io
 import vendors
-from vendors import vendorMap, Vendor
+from vendors import Vendor
 import cookielib
 import urllib
 import urllib2
@@ -17,12 +17,12 @@ from urllib2 import HTTPError, URLError
 import logging
 
 class BricklinkReader(object):
-    '''
+    """
     The BricklinkReader will read the information about a single Bricklink Item from the Price Catalog
     the color and type are not handled except in the URL of the webreader, which are passed in.
-    
+
     #returns prices[] =([itemid, vendorid, vendorqty, vendorprice)
-    '''
+    """
     #vendormap = VendorMap()
     
     def __init__(self):
@@ -48,7 +48,7 @@ class BricklinkReader(object):
         if stores:  #check if list is empty
             suLink = re.compile( "sID=(\d+).*itemID=(\d+)" )#\&itemID=(\d+)
             suStore = re.compile( "Store:.(.*)\".title")
-            suPrice = re.compile("[US\$\s\~]") 
+            suPrice = re.compile("[US\$\s~]")  #says that the \~ is redundant
             for store in stores:
                 #print(etree.tostring(store))
                 td = store.xpath('./td')
@@ -113,7 +113,7 @@ class BricklinkWebReader(BricklinkReader):
             return itemprices    
           
 class BricklinkFileReader(BricklinkReader):
-    ''' A Bricklink 'File' is a single html page in file format which represents a single part.  It's mainly for testing purposes.'''    
+    """ A Bricklink 'File' is a single html page in file format which represents a single part.  It's mainly for testing purposes."""
     def __init__(self):       
         BricklinkReader.__init__(self)
         
@@ -151,12 +151,13 @@ class SomeBrowser:
             #response = urllib.request.urlopen(req)            
             the_page = response.read()
             logging.debug("Opening URL:" + url)
+            return the_page
         except HTTPError as e:
             logging.debug("Http Error: ", e.code, url)
         except URLError as e:
             logging.debug("URL Error:", e.reason, url)        
         
-        return the_page
+
     
     def login(self, url, loginName, passwd):
         
@@ -172,12 +173,12 @@ class SomeBrowser:
             #req = urllib2.Request(url, data, method='POST')
             response = self.opener.open( url, data )
             the_page = response.read().decode('utf-8')
-
+            return the_page
         except HTTPError as e:
             logging.debug("Http Error: ", e.code, url)
         except URLError as e:
             logging.debug("URL Error:", e.reason, url)
-        return the_page
+
                 
         
 #def remove_accents(input_str):

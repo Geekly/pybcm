@@ -1,13 +1,12 @@
-'''
+"""
 Created on May 16, 2013
 
 @author: khooks
-'''
+"""
 
-import numpy as np
 from solution import Solution, SolutionSet
 from vendors import VendorStats
-import itertools
+
 
 class SearchTypes():
     (Shift, Swap) = range(0,2)
@@ -37,15 +36,7 @@ class Optimizer():
     def solve(self):
         #TODO: cullvendors
         self.search()
-        
-    """def getvendor(self):
-        for vrow in self.VSORTED:
-            #return a vendor for elements that are still unfilled
-            vidx = vrow[0]
-            vendor = self.__v[vidx]
-            #vendor = self.__v[vidx]
-            yield vendor
-    """
+
     def fillOrders(self, order, vendor):
         #TODO: Convert this to use only the numpy arrays
         #buy all available elements from the current vendor
@@ -53,8 +44,9 @@ class Optimizer():
             if (element, vendor) in self.__BCMDICT:
                 vendorstock, price = self.__BCMDICT[element, vendor]
                 purchase = min( qty, vendorstock )
+                wanted = self.__WANTDICT[element]
                 #if purchase >= self.__WANTDICT[element]/3:  #has at least half the desired qty
-                if purchase > 0:  #has any of the qty    
+                if purchase >= ( wanted/2 ):  #has at least half of the wanted qty   
                     order.addPurchase( element, vendor, purchase, price )
             
         return
@@ -64,7 +56,7 @@ class Optimizer():
         stockweights = self.__vs.vendorstockweights()
         sortedtuples = sorted( zip(stockweights, vlist ), reverse=True)
         weights, vendors = zip(*sortedtuples) #unzip the sorted tuples
-        firstsearchorder = list(vendors) #convert to a list
+        initialsearchorder = list(vendors) #convert to a list
         # while still need elements
         # get a vendor search order
         # could truncate the vendor list here if we wanted to
@@ -72,10 +64,11 @@ class Optimizer():
 
         #establish the generator to be used
         if self.search_type == SearchTypes.Shift:
-            gen = self.shiftorder(firstsearchorder[:6])
+            gen = self.shiftorder(initialsearchorder[:6])
         elif self.search_type == SearchTypes.Swap:
-            gen = self.orderswaps(firstsearchorder[:25])
-        
+            gen = self.orderswaps(initialsearchorder[:25])
+        else: gen = self.orderswaps(initialsearchorder[:25])
+
         for searchorder in gen: #gets search order from generator
             #print("Next search order: ")
             #print(searchorder)

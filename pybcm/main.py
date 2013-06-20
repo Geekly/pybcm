@@ -1,8 +1,8 @@
-'''
+"""
 Created on Jul 26, 2012
 
 @author: khooks
-'''
+"""
 
 
 from wanted import WantedDict
@@ -40,7 +40,7 @@ def main():
     
     bricklink = BricklinkData()
                      
-    if BCMConfig.reloadpricesfromweb == True:
+    if BCMConfig.reloadpricesfromweb:
         logging.info("Reading prices from web")
         bricklink.readpricesfromweb( wanteddict )
         logging.info("Saving XML file")
@@ -56,23 +56,32 @@ def main():
     #vendormap = bricklink.vendormap
     bcm = BCMEngine(bricklink, wanteddict)
 
-    #bcm.prunevendorsbyavgprice()
+    #print (bcm.data.vendorlist)
+    #print bcm.data.partcount()
+    bcm.prunevendorsbyavgprice()
+    #print bcm.data.partcount()
+    #print (bcm.data.vendorlist)
 
     #print( bcm.data.elementlist)
     #print( bcm.data.WANTED)
     #print( bcm.data.avgprices())
     #print( bcm.data.avgprices(stockweighted=True))
 
-    ndo = Optimizer(bcm.data, search=SearchTypes.Swap)
-    ndo.solve()
-    print( ndo.solutions.summary() )
+    #ndo = Optimizer(bcm.data, search=SearchTypes.Swap)
+    #ndo.solve()
+    #print( ndo.solutions.summary() )
     
-    print( ndo.solutions.best() )
+    #print( ndo.solutions.best() )
     
-    #     rep = reporter(bcm)
-    #     rep.allpartsbarchart()
+    #rep = reporter(bcm)
+    #rep.allpartsbarchart()
     #shopping = ShoppingList(ndo.solutions.best())
     #print( shopping.XMLforBricklink() )
+    
+    vs = VendorStats(bcm.data)
+    #print(vs.stockbywanted().sum(0) )
+    print(vs.vendorpriceweights())
+    #print bcm.data.count()
     
 if __name__ == '__main__':
     

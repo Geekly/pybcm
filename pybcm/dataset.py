@@ -1,11 +1,11 @@
-'''
+"""
 Created on Apr 12, 2013
 
 @author: khooks
 
-Similar to BCMData, but simplifies and consolidates the data 
+Similar to BCMData, but simplifies and consolidates the data
 
-'''
+"""
 
 class ResultSet(object):
     
