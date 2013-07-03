@@ -5,7 +5,6 @@ Created on Oct 23, 2012
 """
 from UserDict import UserDict
 from blreader import BricklinkWebReader
-#from BeautifulSoup import BeautifulSoup
 from legoutils import LegoElement
 from lxml import etree as ET
 import vendors
@@ -30,11 +29,9 @@ class BricklinkData(UserDict):
     """
     def __init__(self):
         global vendorMap
-        if not isinstance(vendorMap, vendors.VendorMap): #check for global vendormap
-            vendorMap = vendors.VendorMap()
-            #raise Exception, "vendorMap not defined"
-        
         UserDict.__init__(self)
+        if not isinstance(vendors.vendorMap, vendors.VendorMap): #check for global vendormap
+            vendors.vendorMap = vendors.VendorMap()  #if it doesn't exist, create it
         self.data = dict()   # self.data[elementid] = list of vendors with prices
         #self.vendormap = VendorMap()
         
@@ -97,7 +94,7 @@ class BricklinkData(UserDict):
                 #listitem = [vendorid, vendorqty, vendorprice]              
                 self[elementid].append([vendorid, vendorqty, vendorprice])         
                 vendorname = vendor.find('VendorName').text
-                vendorMap.addvendor( Vendor(vendorid=vendorid, vendorname=vendorname) )
+                vendorMap.addvendor(Vendor(vendorid=vendorid, vendorname=vendorname))
         
     def dataquality(self):
         global vendorMap

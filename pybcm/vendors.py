@@ -4,7 +4,7 @@ Created on Oct 23, 2012
 @author: khooks
 """
 from UserDict import UserDict
-import BeautifulSoup as soup
+from BeautifulSoup import BeautifulSoup as Soup
 import numpy as np
 
 global vendorMap
@@ -13,30 +13,34 @@ global vendorMap
 class Vendor(object):
     
     def __init__(self, vendorid='', vendorname=''):
-        self.id = vendorid
-        self.name = vendorname
-        
+        self._id = vendorid
+        self._name = vendorname
+
+    @property
+    def id(self):
+        return self._id
+
+    @property
+    def name(self):
+        return self._name
+
     def toXML(self):
         xmlstring = ''
         xmlstring += "<Vendor>\n"
-        xmlstring += "<VendorID>" + str(self.id) + "</VendorID>\n"
-        xmlstring += "<VendorName>" + str(self.name) + "</VendorName>\n"     
+        xmlstring += "<VendorID>" + str(self._id) + "</VendorID>\n"
+        xmlstring += "<VendorName>" + str(self._name) + "</VendorName>\n"
         xmlstring += "</Vendor>\n"
         return xmlstring
-    
+
+
 class VendorMap(UserDict):
     """
-    classdocs
+    Dict[vendor.id] = Vendor
     """
     def __init__(self):
-        """
-        Constructor
-        """
         UserDict.__init__(self)
         self.data = dict()
-        self.soup = None      
-        #print self.data
-        
+
     def __str__(self):
         return self.toXML()
 
@@ -45,7 +49,7 @@ class VendorMap(UserDict):
             return False
         else:
             #logging.debug("Adding vendor: " + vendor.name)
-            self[vendor.id] = vendor.name
+            self[vendor.id] = vendor  #assign the whole vendor object in case we add to it later
             return True      
     
     def getnumvendors(self):
@@ -53,29 +57,29 @@ class VendorMap(UserDict):
         
     def getvendorname(self, vendorid):
         if vendorid in self.keys():
-            return self[vendorid] 
+            return self[vendorid].name
         else:
-            pass 
-    
+            return ''
+
 #not sure this works                           
-    def read(self, filename=None):
-        assert filename is not None, "price List filename required"
-        print( "Building vendor map from file: " + filename)
-        self.data = dict()  #clear any existing data
-        
-        self.soup = soup.soup( open(filename).read(), "lxml")
-        vendorlist = self.soup.findAll("vendor")
-        
-            # for each item node, recurse over each vendor node      
-            
-        for vendor in vendorlist:
-            vendorid = vendor.find('vendorid').string
-            vendorname = vendor.find('vendorname').string
-            
-            self[vendorid] = vendorname
-         
-        # for now, just save and process the prices structure.  They contain the same data.
-        return
+    # def read(self, filename=None):
+    #     assert filename is not None, "price List filename required"
+    #     print( "Building vendor map from file: " + filename)
+    #     self.data = dict()  #clear any existing data
+    #
+    #     soup = Soup( open(filename).read(), "lxml")
+    #     vendorlist = soup.findAll("vendor")
+    #
+    #         # for each item node, recurse over each vendor node
+    #
+    #     for vendor in vendorlist:
+    #         vendorid = vendor.find('vendorid').string
+    #         vendorname = vendor.find('vendorname').string
+    #
+    #         self[vendorid] = vendorname
+    #
+    #     # for now, just save and process the prices structure.  They contain the same data.
+    #     return
 #not sure this works    
     def toXML(self):
         
@@ -121,7 +125,7 @@ class VendorStats():
         
     def __itemspervendor(self):
         s = self.data.STOCK
-        itemspervendor = (s > 0).sum(0)
+        itemspervendor = np.ndarray(s > 0).sum(0)
         return itemspervendor        
     
     def __totalitemspervendor(self):
@@ -142,7 +146,7 @@ class VendorStats():
     
     def __vendorsperelement(self):
         s = self.data.STOCK
-        vendorsperelement = ( s > 0).sum(1)
+        vendorsperelement = np.ndarray(s > 0).sum(1)
         return vendorsperelement
     
     def stockbywanted(self):
@@ -191,7 +195,7 @@ class VendorStats():
     def avgprices(self):
         #data[elementid, vendorid] = [price, qty]
         p = self.data.PRICES
-        avgprices = p.sum(1)/(p > 0).sum(1) #the 1 causes
+        avgprices = p.sum(1) / np.ndarray(p > 0).sum(1) #the 1 causes
         return avgprices 
     
     def vendorweights(self):
@@ -202,8 +206,7 @@ class VendorStats():
         
         print( vendorstockweights)
         print( vendorpriceweights)
-        
-    
+
     def __makedictionary(self):
         vdict = dict()
         avgprices = self.data.avgprices()
@@ -211,8 +214,7 @@ class VendorStats():
             vdict[vendor] = ( self.ITEMSPERVENDOR[vindex], self.TOTALPERVENDOR[vindex])
         return vdict    
     
-               
-        
+
     def report(self):
         print("There are %d items to purchase" % self.ITEMS)
         print("%d vendors have the following number distinct items available:" % self.NUMVENDORS)

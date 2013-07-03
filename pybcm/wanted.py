@@ -14,7 +14,7 @@ from legoutils import LegoElement
 
 class WantedDict(UserDict):
     """
-    classdocs
+    Dict[elementid] = LegoElement
     """
     def __init__(self, filename=None):
         UserDict.__init__(self)
@@ -30,7 +30,7 @@ class WantedDict(UserDict):
             returnstring += str(self[element].itemid + ", " + self[element].colorid + ", " + str(self[element].wantedqty) + "\n")
             
         return returnstring
-                          
+
     def read(self, filename=None):
         assert filename is not None, "Wanted List filename required"
         f = open(filename, 'r')
@@ -55,13 +55,19 @@ class WantedDict(UserDict):
             self[element.id] = element
             
     def uniqueitems(self):
+        """Return the total number of unique items in the Wanted List"""
         return len(self)        
 
     def totalitems(self):
+        """Return the total number of parts in the Wanted List"""
         return self.totalcount
 
     def getwantedqty(self, elementid):
-        return self[elementid].wantedqty 
+        """Return the quantity wanted for the passed elementid"""
+        if elementid in self.data:
+            return self[elementid].wantedqty
+        else:
+            raise Exception("Elementid does not exist in Wanted Dictionary")
      
         
 if __name__ == '__main__':
