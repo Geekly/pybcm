@@ -42,7 +42,7 @@ class BricklinkData(UserDict):
     
     def readpricesfromweb(self, wanted):
     #    Build a dictionary of price info
-        self.webreader = BricklinkWebReader("Geekly", "codybricks")
+        self.webreader = BricklinkWebReader("****", "****")
         numitems = len(wanted)
         logging.info("Loading " + str(numitems) + " items from the web")
         #self.data = dict() # a dictionary with keys itemid, and color.  each entry contains a list of lists
