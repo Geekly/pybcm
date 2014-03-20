@@ -7,8 +7,11 @@ Created on Oct 23, 2012
 #Converted the dictionary key from itemid, colorid to elementid, which is of the format 'itemid|colorid'
 
 from UserDict import UserDict
+
 from BeautifulSoup import BeautifulSoup as Soup
+
 from legoutils import LegoElement
+
 #from string import Template
 #from xml.etree import ElementTree as ET 
 
@@ -47,13 +50,13 @@ class WantedDict(UserDict):
             colorname = node.find('colorname').string
             wantedqty = int(node.find('qty').string)
             self.totalcount += wantedqty
-            
-            element = LegoElement( itemid, colorid, itemname, itemtypeid, itemtypename, colorname, wantedqty)
-            
+
+            element = LegoElement(itemid, colorid, itemname, itemtypeid, itemtypename, colorname, wantedqty)
+
             #dictvalue = { 'itemid':itemid, 'itemname':itemname, 'itemtypeid':itemtypeid, 'itemtypename':itemtypename, 'colorid':colorid, 'colorname':colorname, 'qty':qty, 'condition':'N'}
             #self.data[itemid, colorid] = dictvalue #the key is a tuple of the itemid and the color id
-            self[element.id] = element
-            
+            self[element.itemid] = element
+
     def uniqueitems(self):
         """Return the total number of unique items in the Wanted List"""
         return len(self)        

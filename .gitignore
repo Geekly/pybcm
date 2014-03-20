@@ -16,6 +16,7 @@ pybcm/main.pyc
 pybcm/optimizer.pyc
 pybcm/shoppinglist.pyc
 pybcm/__init__.pyc
+.idea/
 
 #ignore thumbnails created by windows
 Thumbs.db

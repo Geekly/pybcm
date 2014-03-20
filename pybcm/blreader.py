@@ -4,16 +4,18 @@ Created on Oct 26, 2012
 @author: khooks
 """
 
-from lxml import etree
-
 import re
 import io
-from vendors import VendorMap, Vendor
 import cookielib
 import urllib
 import urllib2
 from urllib2 import HTTPError, URLError
 import logging
+
+from lxml import etree
+
+import vendors
+
 
 class BricklinkReader(object):
     """
@@ -41,7 +43,7 @@ class BricklinkReader(object):
         return stores  
     
     def readItemFromTree(self, datatree):
-        global vendorMap
+        #global vendorMap
         prices = []   
         stores = self.getStoreElementsFromTree(datatree) #all store tr's
         if stores:  #check if list is empty
@@ -57,18 +59,19 @@ class BricklinkReader(object):
                 storematch = re.search(suLink, linktext)
                 if storematch:
                     storeID = str(storematch.group(1))
-                    itemID = storematch.group(2)  #we don't pay attention to this since it's defined upstream.  we could check to see if they're the same
+                    itemID = storematch.group(
+                        2)  # we don't pay attention to this since it's defined upstream.  we could check to see if they're the same
                     storenamematch = re.search(suStore, linktext)
                     storename = storenamematch.group(1)
                     #print("Storename: " + storename)
                     
                 #td[1] contains the Quantity
                     quantity = int(td[1].text)
-                    if quantity > 0:  #don't bother adding the vendor if it doesn't have any quantity for this item
-                #td[2] is empty
+                    if quantity > 0:  # don't bother adding the vendor if it doesn't have any quantity for this item
+                        #td[2] is empty
                 #td[3] contains the price
                         #BricklinkReader.vendormap.addvendor( Vendor(storeID, storename) )
-                        vendorMap.addvendor( Vendor(storeID, storename) )
+                        vendors.vendorMap.addvendor(Vendor(storeID, storename))
                         pricestring = td[3].text
                         price = float(re.sub(suPrice, '', pricestring))
                         prices.append([storeID, quantity, price])
@@ -94,14 +97,14 @@ class BricklinkWebReader(BricklinkReader):
      
      
     def readitemfromurl(self, itemtypeID, itemID, itemColorID):
-            global vendorMap
-            #extract the info from the site and return it as a dictionary 
+        # global vendorMap
+        #extract the info from the site and return it as a dictionary
             # need to find and return itemID, storeID's, itemQty, itemPrice for each url
             # we also need to extract real vendor names during this search
             #returns prices[] =([itemid, vendorid, vendorqty, vendorprice)
             #BricklinkReader.vendormap = vendormap
-            if not isinstance(vendorMap, vendors.VendorMap):
-                raise Exception, "global vendorMap does not exist"
+        if not isinstance(vendors.vendorMap, vendors.VendorMap):
+            raise Exception, "global vendorMap does not exist"
             url = "http://www.bricklink.com/catalogPG.asp?itemType=" + itemtypeID + '&itemNo=' + itemID + '&itemSeq=1&colorID=' + itemColorID + '&v=P&priceGroup=Y&prDec=2'
             logging.info("Reading item from %s" % url)            
             #itemprices = []
@@ -115,12 +118,9 @@ class BricklinkFileReader(BricklinkReader):
     """ A Bricklink 'File' is a single html page in file format which represents a single part.  It's mainly for testing purposes."""
     def __init__(self):       
         BricklinkReader.__init__(self)
-        
-        #page is androgenous
-    def readItemFromFile(self, filename):
-        #BricklinkReader.vendormap = vendormap
-        #itemprices = []        
-        parser = etree.HTMLParser(remove_blank_text=True, remove_comments=True, encoding='utf-8')      
+
+    def readitemfromfile(self, filename):
+        parser = etree.HTMLParser(remove_blank_text=True, remove_comments=True, encoding='utf-8')
         with io.open(filename, 'r') as f:     
             #print( "Parsing item from file..." )
             datatree = etree.HTML(f.read(), parser)
@@ -163,13 +163,12 @@ class SomeBrowser:
         try:            
             self.url = url
             values = {
-                       'a':'a',
-                       'logFrmFlag':'Y',
-                       'frmUserName' : loginName,
-                       'frmPassword' : passwd }
-    
-            data = urllib.urlencode(values).encode('utf-8')           
-            #req = urllib2.Request(url, data, method='POST')
+                'a': 'a',
+                'logFrmFlag': 'Y',
+                'frmUserName': loginName,
+                'frmPassword': passwd}
+
+            data = urllib.urlencode(values).encode('utf-8')
             response = self.opener.open( url, data )
             the_page = response.read().decode('utf-8')
             return the_page

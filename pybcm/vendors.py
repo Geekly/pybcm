@@ -4,10 +4,11 @@ Created on Oct 23, 2012
 @author: khooks
 """
 from UserDict import UserDict
-from BeautifulSoup import BeautifulSoup as Soup
+
 import numpy as np
 
-global vendorMap
+
+#global vendorMap
 
 
 class Vendor(object):
@@ -49,7 +50,7 @@ class VendorMap(UserDict):
             return False
         else:
             #logging.debug("Adding vendor: " + vendor.name)
-            self[vendor.id] = vendor  #assign the whole vendor object in case we add to it later
+            self[vendor.id] = vendor  # assign the whole vendor object in case we add to it later
             return True      
     
     def getnumvendors(self):
