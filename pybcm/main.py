@@ -14,27 +14,27 @@ from optimizer import *
 
 import io
 import numpy as np
-#from vendors import Vendors
+# from vendors import Vendors
 from bcm import *
-from pprint import pprint
-#from orBCM import OROptimizer
+# from pprint import pprint
+# from orBCM import OROptimizer
 
-from reporter import *
-import cProfile, pstats
-from vendors import VendorMap, VendorStats
+# from reporter import *
+# import cProfile, pstats
+# from vendors import VendorMap, VendorStats
 
 
 #vendormap = VendorMap()
 
 def main():
     
-    #np.set_printoptions(threshold=np.nan)  
+    # np.set_printoptions(threshold=np.nan)
     logging.basicConfig(level=logging.DEBUG)
-    #wantedlistfilename = '../Star Destroyer 30056-1.bsx'
-    wantedlistfilename = '../Orange.bsx'
-    #wantedlistfilename = '../Inventory for 6964-1.bsx'
+    # wantedlistfilename = '../Star Destroyer 30056-1.bsx'
+    # wantedlistfilename = '../Orange.bsx'
+    wantedlistfilename = '../Sampledata/Inventory for 6964-1.bsx'
        
-    reloadpricesfromweb = True  #set this to true if you want to update prices from the web and rewrite pricefilename
+    reloadpricesfromweb = True  # set this to true if you want to update prices from the web and rewrite pricefilename
     #make sure to run this once every time that the wanted list changes
                                      
     #pricefilename = '../Star Destroyer 30056-1.xml'
@@ -46,12 +46,12 @@ def main():
     
     bricklink = BricklinkData()
                      
-    if reloadpricesfromweb == True:
+    if reloadpricesfromweb:
         logging.info("Reading prices from web")
-        bricklink.readpricesfromweb( wanteddict )
+        bricklink.readpricesfromweb(wanteddict)
         logging.info("Saving XML file")
         f = open(pricefilename, 'w')
-        f.write( bricklink.toXML() ) 
+        f.write(bricklink.toXML())
     else: 
         logging.info("Reading prices from file")
         f = open(pricefilename, 'r')
@@ -76,10 +76,10 @@ def main():
     #print( ndo.solutions.summary() )
     
     #print("The best solution found:\n")
-    print( ndo.solutions.best() )
+    print(ndo.solutions.best())
     
-    shopping = ShoppingList(ndo.solutions.best(), vendormap )
-    print( shopping.XMLforBricklink() )
+    shopping = ShoppingList(ndo.solutions.best(), vendormap)
+    print(shopping.XMLforBricklink())
     
 if __name__ == '__main__':
     
