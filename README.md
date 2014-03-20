@@ -3,16 +3,17 @@ Bricklink Cart Manager
 
 Python modules for building and optimizing Bricklink Orders
 
-Usage
-=====
+*Usage*
 
-Create an xml inventory file using Brickstore anc change wantedlistfilename in main.py to point to it.
+Create an xml inventory file using Brickstore and change wantedlistfilename in main.py to point to it.
 
-''''
+````python
 wantedlistfilename = '../Sampledata/Inventory for 6964-1.bsx
-''''
+````
 
-Required Modules
-================
+run main.py
 
-BeautifulSoup
+*Required Modules*
+
+- Numpy
+- BeautifulSoup
