@@ -8,8 +8,7 @@ from lxml import etree
 
 import re
 import io
-import vendors
-from vendors import Vendor
+from vendors import VendorMap, Vendor
 import cookielib
 import urllib
 import urllib2
@@ -195,9 +194,9 @@ if __name__ == '__main__':
     logging.basicConfig(level=logging.DEBUG)
     logging.info('Started')
     
-    #v = VendorMap()
-    
-    br = BricklinkWebReader("Geekly", "codybricks")
+    v = VendorMap()
+    # TODO:  replace login info with app config settings
+    br = BricklinkWebReader("XXXXX", "XXXXXX")
     
     br.readitemfromurl('P', '3001', '80')
     br.readitemfromurl('P', '3001', '80')
