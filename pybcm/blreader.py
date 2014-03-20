@@ -190,8 +190,8 @@ if __name__ == '__main__':
     logging.info('Started')
     
     v = VendorMap()
-    
-    br = BricklinkWebReader("Geekly", "codybricks")
+    # TODO:  replace login info with app config settings
+    br = BricklinkWebReader("XXXXX", "XXXXXX")
     
     br.readitemfromurl('P', '3001', '80', v)
     br.readitemfromurl('P', '3001', '80', v)
