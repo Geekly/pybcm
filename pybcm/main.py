@@ -15,21 +15,21 @@ from optimizer import *
 def main():
     # np.set_printoptions(threshold=np.nan)
     logging.basicConfig(level=logging.DEBUG)
-    wantedlistfilename = BCMConfig.wantedfilename
-    reloadpricesfromweb = BCMConfig.reloadpricesfromweb  # set this to true if you want to update prices from the web and rewrite pricefilename
-    # make sure to run this once every time that the wanted list changes
 
-    # pricefilename = '../Star Destroyer 30056-1.xml'
-    pricefilename = BCMConfig.pricefilename
+    config = BCMConfig()
+
+    wantedlistfilename = config.wantedfilename
+    reloadpricesfromweb = config.reloadpricesfromweb  # set this to true if you want to update prices from the web and rewrite pricefilename
+    pricefilename = config.pricefilename
 
     wanteddict = WantedDict()
     logging.info("Reading wanted list: " + wantedlistfilename)
     wanteddict.read(wantedlistfilename)
-    #print("want this many items: " , wanteddict.totalcount) 
+    # print("want this many items: " , wanteddict.totalcount)
     
     bricklink = BricklinkData()
                      
-    if BCMConfig.reloadpricesfromweb:
+    if config.reloadpricesfromweb:
         logging.info("Reading prices from web")
         bricklink.readpricesfromweb(wanteddict)
         logging.info("Saving XML file")

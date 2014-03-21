@@ -37,7 +37,7 @@ class WantedDict(UserDict):
     def read(self, filename=None):
         assert filename is not None, "Wanted List filename required"
         f = open(filename, 'r')
-        soup = Soup( f )
+        soup = Soup(f)
         #wanteddict = dict() #initialize as an empty dictionary
         wantedlist = soup.findAll("item")
     
