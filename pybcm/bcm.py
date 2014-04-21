@@ -4,24 +4,38 @@ Created on Oct 30, 2012
 @author: khooks
 """
 
-import vendors
-from vendors import VendorStats, vendorMap
+#import pybcm.vendors
+from pybcm.vendors import VendorStats, vendorMap
 import numpy as np
 import numpy.ma as ma
 import logging
-from shoppinglist import ShoppingList
-from legoutils import LegoElement
+#from shoppinglist import ShoppingList
+#from legoutils import LegoElement
 from operator import itemgetter
 from collections import defaultdict
-from exceptions import Exception
+#from exceptions import Exception
 
 
 class BCMData():
-    # this is a mutable ndarray object that's passed to the optimizer
+    """ Contains the core data of pybcm.
+
+    It contains several constant references, as well as mutable data, that
+    is used by other classes in the system.
+
+    Attributes:
+        vendorsortdict(): returns a dictionary that defines sorting
+        removevendor( vendorid ): remove a vendor from the vendorlist
+        removevendors( vendorindices ): remove the list of vendor indices
+                from the vendorlsit
+        replacevendorlist(): replace the vendor with
+        avgprices( ): return an array of average element prices
+    """
     def __init__(self, bcmdict, wanteddict, elemdict, vendict):
 
-        self.vendorlist = list()  #contains the active list of vendors.  All matrix keys match this list.
-        self.elementlist = list()  #contains the list of elements.  All matrix keys match this list.
+        self.vendorlist = list()  # contains the active list of vendors.
+                                  # All matrix keys match this list.
+        self.elementlist = list() # contains the list of elements.
+                                  # All matrix keys match this list.
         self.wanted = None  #numpy array
         self.prices = None  #numpy array
         self.stock = None   #numpy array
@@ -40,25 +54,27 @@ class BCMData():
         self.__update()
 
         self.__need_rebuild = False
-
+        #self. = None
         #self.VENDSORTLIST = self.__createvendsortinglist(self.BCMDICT)
 
     def __update(self):
+        """Update the various arrays."""
         self.__sortlists()
         self.__updatearrays()
         self.__vs.update(self)
-        self.AVGPRICES = self.avgprices(stockweighted=True)
+        #self.AVGPRICES = self.avgprices(stockweighted=True)
 
     def __initialize_lists(self, bcmdict):
-        """ Build the initial elementlist and vendorlist based on bcmdict """
+        """ Build the initial elementlist and vendorlist based on bcmdict."""
         logging.info("Building BCMData lists")
         #k = [ keytuple for keytuple in bcmdict.keys() ]
         for keytuple in bcmdict.keys():
             (elementid, vendorid) = keytuple
-            self.addtolist(self.vendorlist, vendorid)  #initialize the vendor list
-            self.addtolist(self.elementlist, elementid) #initialize the elementlist
+            addtolist(self.vendorlist, vendorid)
+            addtolist(self.elementlist, elementid)
 
     def __updatearrays(self):
+        """Build the various arrays."""
         logging.info("Forcing array update...")
         self.wanted = self.__buildwantedarray(self.wantdict)
         self.__updatevendorarrays()
@@ -68,7 +84,7 @@ class BCMData():
         """ Iterate over element, vendor in the elementlist and vendorlist to create the numpy
             arrays.  Get the data from the bcmdict.
         """
-        shape = ( len(self.elementlist), len(self.vendorlist) )
+        shape = (len(self.elementlist), len(self.vendorlist))
         pricearray = ma.masked_array(np.zeros(shape, dtype='int'))
         stockarray = ma.masked_array(np.zeros(shape, dtype='int'))
         #wanted doesnt change
@@ -186,12 +202,8 @@ class BCMData():
         self.__update()
         return newlist
 
-    def addtolist(self, alist, value):
-        if value not in alist:
-            #string = "Adding value: " + str( value) + " to list " + str( alist)
-            #logging.(string)
-            alist.append(value)
-        return True
+
+
 
     def replacevendorlist(self, newvendors):
         self.vendorlist = newvendors
@@ -322,14 +334,11 @@ class BCMEngine(object):
         (qty, price) = self.BCMDICT[elementid, vendorid]
         return qty, price
 
-
     def getvendorlist(self):
         return self.data.vendorlist
 
     def getelementlist(self):
         return self.data.elementlist
-
-
 
     #prune vendors that are above average in price
     def prunevendorsbyavgprice(self, pricefactor=0.5):
@@ -381,6 +390,15 @@ class BCMEngine(object):
         sortedmask = psorted <= 0.0  #p and pmask share the same indices
         m = ma.array( s, mask=sortedmask ) # a masked array of sorted vendor indices, sorted by price of element
         return m
+
+
+def addtolist(alist, value):
+    """Add value to alist if it doesn't exist"""
+    if value not in alist:
+        #string = "Adding value: " + str( value) + " to list " + str( alist)
+        #logging.(string)
+        alist.append(value)
+    return True
 
 #compressed, sorted, masked array of vendor indices
     # def hasminquantity(self, elementid, vendorid ):
