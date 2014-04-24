@@ -4,22 +4,22 @@ Created on Jun 6, 2013
 @author: khooks
 """
 
+from ConfigParser import SafeConfigParser
 
 
 class BCMConfig():
-    
-    #logging.basicConfig(level=logging.DEBUG)
-    wantedfilename = '../Star Destroyer 30056-1.bsx'
-    #wantedlistfilename = '../Orange.bsx'
-    #wantedlistfilename = '../Inventory for 6964-1.bsx'
-       
-    reloadpricesfromweb = False  #set this to true if you want to update prices from the web and rewrite pricefilename
-    #make sure to run this once every time that the wanted list changes
-                                     
-    pricefilename = '../Star Destroyer 30056-1.xml'
-    #pricefilename = '../Orange.xml'
-    #wanteddict = WantedDict()
-    #logging.info( "Reading wanted list: " + wantedlistfilename)
-    #wanteddict.read(wantedlistfilename)
-    
-    
+
+    def __init__(self):
+        parser = SafeConfigParser()
+        parser.read('../bcm.ini')
+        self.wantedfilename = parser.get('filenames', 'wanted')
+        self.pricefilename = parser.get('filenames', 'prices')
+        self.reloadpricesfromweb = parser.get('options', 'reloadpricesfromweb')
+
+if __name__ == '__main__':
+
+    config = BCMConfig()
+    open(config.wantedfilename, 'r')
+
+    wanted = '../Sampledata/Star Destroyer 30056-1.bsx'
+    open(wanted, 'r')
