@@ -1,5 +1,7 @@
 # git ignore file
 
+bcm.ini
+
 *.pyc
 pybcm/bcmdata.pyc
 pybcm/__init__.pyc
