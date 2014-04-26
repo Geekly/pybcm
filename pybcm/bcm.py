@@ -3,9 +3,14 @@ Created on Oct 30, 2012
 
 @author: khooks
 """
+<<<<<<< development
 #from UserDict import UserDict
 import vendors
 from vendors import VendorStats, vendorMap
+=======
+
+from pybcm.vendors import VendorStats, vendorMap
+>>>>>>> local
 import numpy as np
 import numpy.ma as ma
 import logging
@@ -17,7 +22,29 @@ from exceptions import Exception
 
 
 class BCMData():
+<<<<<<< development
     # this is a mutable ndarray object that's passed to the optimizer
+=======
+    """ Contains the core data of pybcm.
+
+    It contains several constant references, as well as mutable data, that
+    is used by other classes in the system.
+
+    Args:
+        bcmdict( dict(elementid, vendorid) = :
+        wanteddict:
+        elemdict:
+        vendict:
+
+    Attributes:
+        vendorsortdict(): returns a dictionary that defines sorting
+        removevendor( vendorid ): remove a vendor from the vendorlist
+        removevendors( vendorindices ): remove the list of vendor indices
+                from the vendorlsit
+        replacevendorlist(): replace the vendor with
+        avgprices( ): return an array of average element prices
+    """
+>>>>>>> local
     def __init__(self, bcmdict, wanteddict, elemdict, vendict):
         
         self.vendorlist = list()  #contains the active list of vendors.  All matrix keys match this list.

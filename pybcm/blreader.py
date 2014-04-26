@@ -14,38 +14,34 @@ import logging
 
 from lxml import etree
 
-import vendors
+from vendors import Vendor, vendorMap, VendorMap
+
 
 
 class BricklinkReader(object):
-    """
-    The BricklinkReader will read the information about a single Bricklink Item from the Price Catalog
-    the color and type are not handled except in the URL of the webreader, which are passed in.
+    """ Base class for reading the information of a single Lego elementid
 
-    #returns prices[] =([itemid, vendorid, vendorqty, vendorprice)
+        Sub-class this file to read different data sources including Bricklink website and text file.
+
+        Attributes:
+
+        The BricklinkReader will read the information about a single Bricklink Item from the Price Catalog
+        the color and type are not handled except in the URL of the webreader, which are passed in.
+
+        #returns prices[] =([itemid, vendorid, vendorqty, vendorprice)
     """
     #vendormap = VendorMap()
 
     def __init__(self):
         """ Start up..."""
 
-    def getStoreElementsFromTree(datatree):
-        #print(etree.tostring(datatree))        
-        topparents = datatree.xpath(
-            "//td[table/tr/td/font/b[text()[contains(.,'Currently Available')]]]")  # contains all the info we want
-        if topparents:
-            currentroot = topparents[0]  # this table contains the Currently Available text and all of the other information
-            #drill down to the table containing store entry tr's
-            stores = currentroot.xpath("./table/tr/td/table/tr[td/a]")  # find all the rows that contain links
-        else:
-            stores = None
-
-        return stores
-
     def readItemFromTree(self, datatree):
+        """Parse the etree and return a price array
+
+        """
         #global vendorMap
         prices = []
-        stores = self.getStoreElementsFromTree()  #all store tr's
+        stores = getStoreElementsFromTree()  #all store tr's
         if stores:  #check if list is empty
             suLink = re.compile("sID=(\d+).*itemID=(\d+)")  #\&itemID=(\d+)
             suStore = re.compile("Store:.(.*)\".title")
@@ -71,7 +67,7 @@ class BricklinkReader(object):
                         #td[2] is empty
                         #td[3] contains the price
                         #BricklinkReader.vendormap.addvendor( Vendor(storeID, storename) )
-                        vendors.vendorMap.addvendor(Vendor(storeID, storename))
+                        vendorMap.addvendor(Vendor(storeID, storename))
                         pricestring = td[3].text
                         price = float(re.sub(suPrice, '', pricestring))
                         prices.append([storeID, quantity, price])
@@ -80,19 +76,37 @@ class BricklinkReader(object):
         return prices
 
 
+def getStoreElementsFromTree(datatree):
+    """Extracts a list of stores and their price & quantity data from the datatree
+        Args:
+            datatree (lxml.etree):
+    """
+    #print(etree.tostring(datatree))
+    topparents = datatree.xpath(
+        "//td[table/tr/td/font/b[text()[contains(.,'Currently Available')]]]")  # contains all the info we want
+    if topparents:
+        currentroot = topparents[0]  # this table contains the Currently Available text and all of the other information
+        #drill down to the table containing store entry tr's
+        stores = currentroot.xpath("./table/tr/td/table/tr[td/a]")  # find all the rows that contain links
+    else:
+        stores = None
+
+    return stores
+
+
 class BricklinkWebReader(BricklinkReader):
     def __init__(self, login='', password=''):
         """ Start up..."""
 
         BricklinkReader.__init__(self)
 
-        self.login = login
-        self.password = password
+        self._login = login
+        self._password = password
 
         #self.blbrowser = twillbrowser()
         url = "https://www.bricklink.com/login.asp"
         self.blbrowser = SomeBrowser()
-        self.blbrowser.login(url, self.login, self.password)
+        self.blbrowser.login(url, self._login, self._password)
 
     def readitemfromurl(self, itemtypeID, itemID, itemColorID):
         # global vendorMap
@@ -101,16 +115,16 @@ class BricklinkWebReader(BricklinkReader):
         # we also need to extract real vendor names during this search
         #returns prices[] =([itemid, vendorid, vendorqty, vendorprice)
         #BricklinkReader.vendormap = vendormap
-        if not isinstance(vendors.vendorMap, vendors.VendorMap):
+        if not isinstance(vendorMap, VendorMap):
             raise Exception, "global vendorMap does not exist"
-            url = "http://www.bricklink.com/catalogPG.asp?itemType=" + itemtypeID + '&itemNo=' + itemID + '&itemSeq=1&colorID=' + itemColorID + '&v=P&priceGroup=Y&prDec=2'
-            logging.info("Reading item from %s" % url)
-            #itemprices = []
-            page = self.blbrowser.open(url)
-            parser = etree.HTMLParser(remove_blank_text=True, remove_comments=True, encoding='utf-8')
-            datatree = etree.HTML(page, parser)
-            itemprices = self.readItemFromTree(datatree)
-            return itemprices
+        url = "http://www.bricklink.com/catalogPG.asp?itemType=" + itemtypeID + '&itemNo=' + itemID + '&itemSeq=1&colorID=' + itemColorID + '&v=P&priceGroup=Y&prDec=2'
+        logging.info("Reading item from %s" % url)
+        #itemprices = []
+        page = self.blbrowser.open(url)
+        parser = etree.HTMLParser(remove_blank_text=True, remove_comments=True, encoding='utf-8')
+        datatree = etree.HTML(page, parser)
+        itemprices = self.readItemFromTree(datatree)
+        return itemprices
 
 
 class BricklinkFileReader(BricklinkReader):

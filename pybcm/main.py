@@ -1,6 +1,9 @@
 """
 Created on Jul 26, 2012
 
+The main function loads the wanted list, optional price list, and calls the optimization
+and shopping list functions.
+
 @author: khooks
 """
 

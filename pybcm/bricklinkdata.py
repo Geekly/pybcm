@@ -45,7 +45,10 @@ class BricklinkData(UserDict):
         return self.toXML()    
     
     def readpricesfromweb(self, wanted):
-    #    Build a dictionary of price info
+        """Build a dictionary of price info from the Bricklink website
+            Attributes:
+                wanted(WantedDict): wanted[elementid] = LegoElement
+        """
         self.webreader = BricklinkWebReader("****", "****")
         numitems = len(wanted)
         logging.info("Loading " + str(numitems) + " items from the web")
