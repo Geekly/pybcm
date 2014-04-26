@@ -4,3 +4,7 @@ prices = ../Sampledata/Star Destroyer 30056-1.xml
 
 [options]
 reloadpricesfromweb = True
+
+[bricklink]
+username = USERNAME
+password = PASSWORD
