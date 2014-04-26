@@ -34,7 +34,7 @@ def main():
                      
     if config.reloadpricesfromweb:
         logging.info("Reading prices from web")
-        bricklink.readpricesfromweb(wanteddict)
+        bricklink.readpricesfromweb(config.username, config.password, wanteddict)
         logging.info("Saving XML file")
         f = open(pricefilename, 'w')
         f.write(bricklink.toXML())

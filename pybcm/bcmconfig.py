@@ -11,6 +11,8 @@ class BCMConfig():
     """ Reads configuration information from bcm.ini.
 
         Args:
+            username (str): bricklink username
+            password (str): bricklink password
             wantedfilename (str): path of the wanted list
             pricefilename (str): path of the previously scrubbed price list
             reloadpricesfromweb (bool): if true, download and parse all of the price data again and save it to
@@ -26,6 +28,8 @@ class BCMConfig():
         self._parser = SafeConfigParser()
 
         self._parser.read(self._configfile)
+        self.username = self._parser.get('bricklink', 'username')
+        self.password = self._parser.get('bricklink', 'password')
         self.wantedfilename = self._parser.get('filenames', 'wanted')
         self.pricefilename = self._parser.get('filenames', 'prices')
         self.reloadpricesfromweb = self._parser.get('options', 'reloadpricesfromweb')
@@ -42,3 +46,4 @@ if __name__ == '__main__':
     print config.reloadpricesfromweb
     print config._parser.items('filenames')
     print config._parser.items('options')
+    print config._parser.items('bricklink')

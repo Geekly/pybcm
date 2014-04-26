@@ -8,7 +8,7 @@ from blreader import BricklinkWebReader
 from legoutils import LegoElement
 from lxml import etree as ET
 import vendors
-from vendors import Vendor
+from vendors import Vendor, vendorMap, VendorMap
 import logging
 
 #from wanted import Wanted
@@ -44,12 +44,12 @@ class BricklinkData(UserDict):
         assert self.bricklink_initialized, "bricklink not initialized, cannot convert to string"
         return self.toXML()    
     
-    def readpricesfromweb(self, wanted):
+    def readpricesfromweb(self, username, password, wanted):
         """Build a dictionary of price info from the Bricklink website
             Attributes:
                 wanted(WantedDict): wanted[elementid] = LegoElement
         """
-        self.webreader = BricklinkWebReader("****", "****")
+        self.webreader = BricklinkWebReader(username, password)
         numitems = len(wanted)
         logging.info("Loading " + str(numitems) + " items from the web")
         #self.data = dict() # a dictionary with keys itemid, and color.  each entry contains a list of lists

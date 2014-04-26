@@ -5,11 +5,7 @@ Created on Oct 30, 2012
 """
 
 #import pybcm.vendors
-from pybcm.vendors import VendorStats, vendorMap
-=======
-
-from pybcm.vendors import VendorStats, vendorMap
->>>>>>> local
+from pybcm.vendors import VendorStats, vendorMap, VendorMap
 import numpy as np
 import numpy.ma as ma
 import logging
@@ -35,15 +31,6 @@ class BCMData():
         avgprices( ): return an array of average element prices
     """
 
-    Attributes:
-        vendorsortdict(): returns a dictionary that defines sorting
-        removevendor( vendorid ): remove a vendor from the vendorlist
-        removevendors( vendorindices ): remove the list of vendor indices
-                from the vendorlsit
-        replacevendorlist(): replace the vendor with
-        avgprices( ): return an array of average element prices
-    """
->>>>>>> local
     def __init__(self, bcmdict, wanteddict, elemdict, vendict):
 
         self.vendorlist = list()  # contains the active list of vendors.
@@ -263,7 +250,7 @@ class BCMEngine(object):
         #BCMEngine.vendormap = bricklink.vendormap
         #self.data = BCMData() #the mutable data object that's passed to the optimizer
 
-        if not isinstance(vendorMap, vendors.VendorMap):
+        if not isinstance(vendorMap, VendorMap):
             raise Exception, "global vendorMap doesn't exist.  Make sure to include Vendor module"
 
         self.BCMDICT = self.__createbcmdict(bricklink, wanteddict) #self.data[elementid, vendorid] = (price, qty) #essentially a copy of the Bricklink data.  Don't change this once initialized
