@@ -7,11 +7,15 @@ from UserDict import UserDict
 
 import numpy as np
 
-
-#global vendorMap
-
-
 class Vendor(object):
+    """Vendor represented by id and name and can be output to XML.
+        Args:
+            vendorid (str):  Bricklink id of the vendor
+            vendorname (str):  Name of the vendor store
+        Attributes:
+            vendorid (str):  Bricklink id of the vendor
+            vendorname (str):  Name of the vendor store
+    """
     
     def __init__(self, vendorid='', vendorname=''):
         self._id = vendorid
@@ -26,6 +30,8 @@ class Vendor(object):
         return self._name
 
     def toXML(self):
+        """Return an XML string of the Vendor."""
+
         xmlstring = ''
         xmlstring += "<Vendor>\n"
         xmlstring += "<VendorID>" + str(self._id) + "</VendorID>\n"
@@ -35,17 +41,28 @@ class Vendor(object):
 
 
 class VendorMap(UserDict):
-    """
-    Dict[vendor.id] = Vendor
+    """ Map of Bricklink vendor id to Vendor object as extracted from the Bricklink item page
+
+        Attributes:
+            data(dict): dict[vendor.id] = Vendor
     """
     def __init__(self):
         UserDict.__init__(self)
         self.data = dict()
 
     def __str__(self):
+        """ Return an XML formatted vendor map. """
         return self.toXML()
 
     def addvendor(self, vendor):
+        """Add a vendor to the vendor map.
+            If the vendor id is not present yet, add it.
+
+            Args:
+                vendor (Vendor): the Vendor object to be added
+            Returns:
+                false if the vendor id is already present, true otherwise
+        """
         if vendor.id in self.data:
             return False
         else:
@@ -54,9 +71,11 @@ class VendorMap(UserDict):
             return True      
     
     def getnumvendors(self):
+        """Get the length of the vendor map."""
         return len(self)
         
     def getvendorname(self, vendorid):
+        """Get the name of the vendor for a given id."""
         if vendorid in self.keys():
             return self[vendorid].name
         else:
@@ -83,25 +102,32 @@ class VendorMap(UserDict):
     #     return
 #not sure this works    
     def toXML(self):
-        
-        xml_string = ''
+        """Return an XML string of the VendorMap."""
+
         vendorkeys = self.keys()
+        xml_string = '<VendorMap>'
         for vendorid in vendorkeys:
-            vendorname = self[vendorid]
-            xml_string += Vendor(vendorid, vendorname).toXML()
-            '''
-            xml_string += '<Vendor>\n'
-            xml_string += ' <VendorID>{}</VendorID>\n'.format(vendorid)
-            xml_string += ' <VendorName>{}</VendorName>\n'.format(self[vendorid])
-            xml_string += '</Vendor>\n'
-            '''
+            vendor = self[vendorid]
+            xml_string += vendor.toXML()
+        xml_string += '</VendorMap>'
         return xml_string
 
 #Expose a global vendormap
 vendorMap = VendorMap() 
     
 class VendorStats():
-    
+    """Process bcmdata and organize stats.
+
+        Attributes:
+            data(BCMData): the BCMData object
+            ELEMWEIGHTS(ndarray): numpy array of element weights
+            NUMVENDORS(int): number of vendors in vendorlist
+            NUMELEMS(int): number of elements in elementlist
+            ITEMS(ndarray): points to elementlist
+            ITEMSPERVENDOR(ndarray): ITEMSPERVENDOR[vendorid] = num different items stocked by vendorid
+            VENDORSPERELEMENT(ndarray): VENDORSPERELEMENT[elementid] = num vendors stocking elementid
+            TOTALPERVENDOR(ndarray): TOTALPERVENDOR[
+    """
     def __init__(self, bcmdata):
         self.data = bcmdata
         self.ELEMWEIGHTS = bcmdata.elementweights() #numpy array
