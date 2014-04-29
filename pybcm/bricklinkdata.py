@@ -8,7 +8,7 @@ from blreader import BricklinkWebReader
 from legoutils import LegoElement
 from lxml import etree as ET
 import vendors
-from vendors import Vendor, vendorMap, VendorMap
+from vendors import Vendor, VendorMap
 import logging
 
 #from wanted import Wanted
@@ -16,30 +16,31 @@ import logging
 
 
 class BricklinkData(UserDict):
-    """
-    data is a dictionary of the format:
-    [storeID, quantity, price]
-    data[elementid] = { [vendor1id, vendor1qty, vendor1price],
-                            [vendor2id, vendor2qty, vendor2price],
-                            ... }
-    where elementid is itemid|colorid
+    """Stores bricklink wanted and price information.
+        data is a dictionary of the format:
+        [storeID, quantity, price]
+        data[elementid] = { [vendor1id, vendor1qty, vendor1price],
+                                [vendor2id, vendor2qty, vendor2price],
+                                ... }
+        where elementid is itemid|colorid
 
-    this class also works on the vendormap, which maps vendor ID to vendor name
+        this class also works on the vendormap, which maps vendor ID to vendor name
 
     """
     def __init__(self):
-        global vendorMap
+
         UserDict.__init__(self)
-        if not isinstance(vendors.vendorMap, vendors.VendorMap): #check for global vendormap
-            vendors.vendorMap = vendors.VendorMap()  #if it doesn't exist, create it
         self.data = dict()   # self.data[elementid] = list of vendors with prices
-        #self.vendormap = VendorMap()
-        
+        self._vendormap = VendorMap()
         self.bricklink_initialized = False
         self.vendor_initialized = False
         self.averageprices = dict()
         self.webreader = None
-        
+
+    @property
+    def vendormap(self):
+        return self._vendormap
+
     def __str__(self):
         assert self.bricklink_initialized, "bricklink not initialized, cannot convert to string"
         return self.toXML()    
@@ -59,19 +60,18 @@ class BricklinkData(UserDict):
             itemID = wanted[elementid].itemid          
             itemtypeID = wanted[elementid].itemtypeid
             itemColorID = wanted[elementid].colorid
-            #elementID = lego.joinelement(itemID, itemColorID)
-            pricelist = self.webreader.readitemfromurl( itemtypeID, itemID, itemColorID)
+            pricelist = self.webreader.readitemfromurl(itemtypeID, itemID, itemColorID)
             if pricelist: 
                 self[elementid] = pricelist   #get the item page, parse it, and get back a list of (itemid<-this is vendorid, vendorqty, vendorprice) tuples
             else:
                 logging.error("No Price Information found for %s" % elementid)
-        #self.buildvendormap()
-        #self.buildvendordata()
+
         
         self.bricklink_initialized = True
                       
     def read(self, filename=None):
-        global vendorMap
+        """Read vendor price information from a file."""
+
         assert filename is not None, "price List filename required"
         logging.info("Building bricklink data from file: " + filename)
         self.data = dict()  #clear any existing data
@@ -95,21 +95,21 @@ class BricklinkData(UserDict):
                 vendorqty = vendor.find('VendorQty').text
                 vendorprice = vendor.find('VendorPrice').text
                 #listitem = [vendorid, vendorqty, vendorprice]              
-                self[elementid].append([vendorid, vendorqty, vendorprice])         
+                assert isinstance(elementid, object)
+                self[elementid].append([vendorid, vendorqty, vendorprice])
                 vendorname = vendor.find('VendorName').text
-                vendorMap.addvendor(Vendor(vendorid=vendorid, vendorname=vendorname))
+                self.vendormap.addvendor(Vendor(vendorid=vendorid, vendorname=vendorname))
         
-    def dataquality(self):
-        global vendorMap
-        
+    def summarize(self):
+        """Return a summary string of the bricklink data."""
         assert self.bricklink_initialized == True, "bricklink not initialized, cannot report dataquality"
         
         print( "Price list includes:")
         print( str( len(self.keys()) ) + " Total Items")
-        print( str( len(vendorMap.keys()) ) + " Total Vendors")
+        print( str( len(self.vendormap.keys()) ) + " Total Vendors")
     
     def toXML(self):
-        global vendorMap
+        """Return an XML string of the bricklink data."""
         assert self.bricklink_initialized == True, "bricklink not initialized, cannot convert to XML"
         #[itemID, storeID, quantity, price]
         xml_string = '<xml>\n'
@@ -121,7 +121,7 @@ class BricklinkData(UserDict):
             xml_string += ' <ColorID>{}</ColorID>\n'.format(color)
             for vendor in self.data[elementid]:
                 vendorid = vendor[0]
-                vendorname = vendorMap[vendorid]
+                vendorname = self.vendormap[vendorid]
                 xml_string += '  <Vendor>\n'
                 xml_string += '   <VendorID>{}</VendorID>\n'.format(vendor[0])
                 xml_string += '   <VendorName>{}</VendorName>\n'.format(vendorname)

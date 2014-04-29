@@ -81,6 +81,17 @@ class VendorMap(UserDict):
         else:
             return ''
 
+    def toXML(self):
+        """Return an XML string of the VendorMap."""
+
+        vendorkeys = self.keys()
+        xml_string = '<VendorMap>'
+        for vendorid in vendorkeys:
+            vendor = self[vendorid]
+            xml_string += vendor.toXML()
+        xml_string += '</VendorMap>'
+        return xml_string
+
 #not sure this works                           
     # def read(self, filename=None):
     #     assert filename is not None, "price List filename required"
@@ -100,20 +111,7 @@ class VendorMap(UserDict):
     #
     #     # for now, just save and process the prices structure.  They contain the same data.
     #     return
-#not sure this works    
-    def toXML(self):
-        """Return an XML string of the VendorMap."""
-
-        vendorkeys = self.keys()
-        xml_string = '<VendorMap>'
-        for vendorid in vendorkeys:
-            vendor = self[vendorid]
-            xml_string += vendor.toXML()
-        xml_string += '</VendorMap>'
-        return xml_string
-
-#Expose a global vendormap
-vendorMap = VendorMap() 
+#not sure this works
     
 class VendorStats():
     """Process bcmdata and organize stats.
@@ -129,6 +127,8 @@ class VendorStats():
             TOTALPERVENDOR(ndarray): TOTALPERVENDOR[
     """
     def __init__(self, bcmdata):
+        self.update(bcmdata)
+        '''
         self.data = bcmdata
         self.ELEMWEIGHTS = bcmdata.elementweights() #numpy array
         self.NUMVENDORS = len(self.data.vendorlist)
@@ -138,6 +138,7 @@ class VendorStats():
         self.VENDORSPERELEMENT = self.__vendorsperelement()
         self.TOTALPERVENDOR = self.__totalitemspervendor()
         self.VDICT = self.__makedictionary()
+        '''
     
     def update(self, bcmdata):
         self.data = bcmdata

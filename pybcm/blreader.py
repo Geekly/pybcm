@@ -32,8 +32,13 @@ class BricklinkReader(object):
     """
     #vendormap = VendorMap()
 
-    def __init__(self):
+    def __init__(self, vendormap):
         """ Start up..."""
+        self._vendormap = vendormap
+
+    @property
+    def vendormap(self):
+        return self._vendormap
 
     def readItemFromTree(self, datatree):
         """Parse the etree and return a price array
@@ -95,10 +100,12 @@ def getStoreElementsFromTree(datatree):
 
 
 class BricklinkWebReader(BricklinkReader):
-    def __init__(self, login='', password=''):
-        """ Start up..."""
 
-        BricklinkReader.__init__(self)
+    def __init__(self, login='', password='', vendormap):
+        """ Start up...
+        :param vendormap:
+        """
+        BricklinkReader.__init__(self, vendormap)
 
         self._login = login
         self._password = password
@@ -132,8 +139,8 @@ class BricklinkFileReader(BricklinkReader):
     It's mainly for testing purposes.
     """
 
-    def __init__(self):
-        BricklinkReader.__init__(self)
+    def __init__(self, vendormap):
+        BricklinkReader.__init__(self, vendormap)
 
     def readitemfromfile(self, filename):
         parser = etree.HTMLParser(remove_blank_text=True, remove_comments=True, encoding='utf-8')

@@ -40,7 +40,9 @@ class LegoElement(object):
 
     @staticmethod
     def splitelement(elementid):
-        """ Split an elementid into itemid and color tuple"""
+        """ Split an elementid into itemid and color tuple
+        :rtype : string tuple
+        """
         return elementid.split("|")
 
     def __init__(self, itemid=None, colorid=None, itemname=None, itemtypeid=None, itemtypename=None, colorname=None,
