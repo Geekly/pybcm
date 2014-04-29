@@ -41,7 +41,7 @@ class LegoElement(object):
     @staticmethod
     def splitelement(elementid):
         """ Split an elementid into itemid and color tuple
-        :rtype : string tuple
+        :rtype : string tuple (itemid, colorid)
         """
         return elementid.split("|")
 
@@ -49,12 +49,12 @@ class LegoElement(object):
                  wantedqty=0):
         """ A typical lego element
 
-        :param itemid:
-        :param colorid:
-        :param itemname:
-        :param itemtypeid:
-        :param itemtypename:
-        :param colorname:
+        :param itemid: Bricklink Item ID
+        :param colorid: Lego Color ID
+        :param itemname: Human Readable Item Name
+        :param itemtypeid: Lego Type ID
+        :param itemtypename: Human Readable Type Name
+        :param colorname: Human Readable Type Name
         :param wantedqty: Quantity from the wanted list
         """
         self.itemid = str(itemid)
@@ -80,12 +80,12 @@ if __name__ == "__main__":
     colorid = '88'
     wantedqty = '123'
     element = LegoElement.joinelement(itemid, colorid)
-    print (element)
-    print (LegoElement.splitelement(element))
+    print(element)
+    print(LegoElement.splitelement(element))
 
     element = LegoElement(itemid, colorid, wantedqty)
-    print (element.elementid)
+    print(element.elementid)
 
-    print (element.itemid)
-    print (element.colorid)
-    print (element.wantedqty)
+    print(element.itemid)
+    print(element.colorid)
+    print(element.wantedqty)

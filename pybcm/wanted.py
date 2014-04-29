@@ -6,13 +6,15 @@ Created on Oct 23, 2012
 #TODO: replace beautifulsoup with lxml
 #Converted the dictionary key from itemid, colorid to elementid, which is of the format 'itemid|colorid'
 
-from UserDict import UserDict
-from BeautifulSoup import BeautifulSoup as Soup
-import os.path
-from legoutils import LegoElement
+from collections import UserDict
+from bs4 import BeautifulSoup as Soup
+from pybcm.legoutils import LegoElement
+
+# from .legoutils import LegoElement
 
 #from string import Template
 #from xml.etree import ElementTree as ET 
+
 
 class WantedDict(UserDict):
     """
@@ -27,7 +29,7 @@ class WantedDict(UserDict):
 
     def __str__(self):
         returnstring = "Item, Color, Qty\n"
-        for element in self.keys():
+        for element in list(self.keys()):
             #d = self.data[elementid]
             #print self[element]
             returnstring += str(
@@ -75,7 +77,7 @@ class WantedDict(UserDict):
 
 
 if __name__ == '__main__':
-    wantedlistfilename = '..\Sampledata\Orange.bsx'
+    wantedlistfilename = '..\Sampledata\Remaining Falcon.bsx'
     wanteddict = WantedDict()
     wanteddict.read(wantedlistfilename)
     print(wanteddict.data)

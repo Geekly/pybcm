@@ -52,7 +52,7 @@ class reporter(object):
         totalcosts = avgprices * self.data.WANTED #Y2
 
         #index = self.bcm.elementlist.index(elementid)
-        totalcosts, prices, elements = zip(*sorted(zip(totalcosts, avgprices, elements), reverse = True))
+        totalcosts, prices, elements = list(zip(*sorted(zip(totalcosts, avgprices, elements), reverse = True)))
         
         costbars = ax.bar(ind, totalcosts, color='green')
         pricebars = ax.bar(ind, prices, color='blue')
@@ -112,20 +112,20 @@ class reporter(object):
     def elementstats( self ):
         wanted = self.data.wantedarray
         avg = self.bcm.avgprices() #uses pricearray indices
-        print "Elements", str(self.data.elementlist)
-        print "Wanted: ", str(wanted) 
-        print "Average prices: " , str(avg)
-        print "Element weights: " , str(avg * wanted) 
-        print "Relative weights:" , str(self.bcm.elementweights())     
+        print("Elements", str(self.data.elementlist))
+        print("Wanted: ", str(wanted)) 
+        print("Average prices: " , str(avg))
+        print("Element weights: " , str(avg * wanted)) 
+        print("Relative weights:" , str(self.bcm.elementweights()))     
         
     def vendorstats( self ):
         prices = self.data.prices
-        print("There are a total of " + str(len(self.data.vendorlist)) + " vendors.")
+        print(("There are a total of " + str(len(self.data.vendorlist)) + " vendors."))
         itemcounts = self.bcm.itemspervendor()
         avg = self.bcm.avgprices()
         itemsper, counts = self.count_unique(itemcounts)
         for (per, count) in zip(itemsper, counts):
-            print count, " vendors have at most <", per, "> items" 
+            print(count, " vendors have at most <", per, "> items") 
         #print "Items per vendor: ", zip(itemsper, counts) 
         
 

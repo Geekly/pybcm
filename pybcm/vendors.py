@@ -3,9 +3,9 @@ Created on Oct 23, 2012
 
 @author: khooks
 """
-from UserDict import UserDict
-
+from collections import UserDict
 import numpy as np
+
 
 class Vendor(object):
     """Vendor represented by id and name and can be output to XML.
@@ -29,7 +29,7 @@ class Vendor(object):
     def name(self):
         return self._name
 
-    def toXML(self):
+    def toxml(self):
         """Return an XML string of the Vendor."""
 
         xmlstring = ''
@@ -52,7 +52,7 @@ class VendorMap(UserDict):
 
     def __str__(self):
         """ Return an XML formatted vendor map. """
-        return self.toXML()
+        return self.toxml()
 
     def addvendor(self, vendor):
         """Add a vendor to the vendor map.
@@ -76,19 +76,19 @@ class VendorMap(UserDict):
         
     def getvendorname(self, vendorid):
         """Get the name of the vendor for a given id."""
-        if vendorid in self.keys():
+        if vendorid in list(self.keys()):
             return self[vendorid].name
         else:
             return ''
 
-    def toXML(self):
+    def toxml(self):
         """Return an XML string of the VendorMap."""
 
-        vendorkeys = self.keys()
+        vendorkeys = list(self.keys())
         xml_string = '<VendorMap>'
         for vendorid in vendorkeys:
             vendor = self[vendorid]
-            xml_string += vendor.toXML()
+            xml_string += vendor.toxml()
         xml_string += '</VendorMap>'
         return xml_string
 
@@ -98,7 +98,7 @@ class VendorMap(UserDict):
     #     print( "Building vendor map from file: " + filename)
     #     self.data = dict()  #clear any existing data
     #
-    #     soup = Soup( open(filename).read(), "lxml")
+    #     soup = stockarrayoup( open(filename).read(), "lxml")
     #     vendorlist = soup.findAll("vendor")
     #
     #         # for each item node, recurse over each vendor node
@@ -112,7 +112,8 @@ class VendorMap(UserDict):
     #     # for now, just save and process the prices structure.  They contain the same data.
     #     return
 #not sure this works
-    
+
+
 class VendorStats():
     """Process bcmdata and organize stats.
 
@@ -128,31 +129,30 @@ class VendorStats():
     """
     def __init__(self, bcmdata):
         self.update(bcmdata)
-        '''
+
         self.data = bcmdata
-        self.ELEMWEIGHTS = bcmdata.elementweights() #numpy array
-        self.NUMVENDORS = len(self.data.vendorlist)
-        self.NUMELEMS = len(self.data.elementlist)
-        self.ITEMS = len(self.data.elementlist)
-        self.ITEMSPERVENDOR = self.__itemspervendor()
-        self.VENDORSPERELEMENT = self.__vendorsperelement()
-        self.TOTALPERVENDOR = self.__totalitemspervendor()
-        self.VDICT = self.__makedictionary()
-        '''
-    
+        self.elemweights = bcmdata.elementweights()  # numpy array
+        self.numvendors = len(self.data.vendorlist)
+        self.numelems = len(self.data.elementlist)
+        self.items = len(self.data.elementlist)
+        self.itemspervendor = self.__itemspervendor()
+        self.vendorsperelement = self.__vendorsperelement()
+        self.totalvendor = self.__totalitemspervendor()
+        self.vdict = self.__makedictionary()
+
     def update(self, bcmdata):
         self.data = bcmdata
-        self.ELEMWEIGHTS = bcmdata.elementweights() #dictionary
-        self.NUMVENDORS = len(self.data.vendorlist)
-        self.NUMELEMS = len(self.data.elementlist)
-        self.ITEMS = len(self.data.elementlist)
-        self.ITEMSPERVENDOR = self.__itemspervendor()
-        self.VENDORSPERELEMENT = self.__vendorsperelement()
-        self.TOTALPERVENDOR = self.__totalitemspervendor()
-        self.VDICT = self.__makedictionary()
+        self.elemweights = bcmdata.elementweights()  # dictionary
+        self.numvendors = len(self.data.vendorlist)
+        self.numelems = len(self.data.elementlist)
+        self.items = len(self.data.elementlist)
+        self.itemspervendor = self.__itemspervendor()
+        self.vendorsperelement = self.__vendorsperelement()
+        self.totalvendor = self.__totalitemspervendor()
+        self.vdict = self.__makedictionary()
         
     def __itemspervendor(self):
-        s = self.data.STOCK
+        s = self.data.stock
         itemspervendor = np.ndarray(s > 0).sum(0)
         return itemspervendor        
     
@@ -160,20 +160,20 @@ class VendorStats():
         # for each vendor
         # sum the min( stock, wanted) for each element
         #vitems = np.zeros(shape=(self.NUMVENDORS), dtype='int')
-        S = self.data.STOCK
-        W = self.data.WANTED.reshape(len(self.data.elementlist), 1)
-        vitems = np.minimum(S,W).sum(0)
-        vitems.mask = S.mask
+        stockarray = self.data.stock
+        wantedarray = self.data.wanted.reshape(len(self.data.elementlist), 1)
+        vitems = np.minimum(stockarray, wantedarray).sum(0)
+        vitems.mask = stockarray.mask
         #print(vitems)
-        #print(np.minimum(S,W))
-        #print(np.minimum(S,W).sum(0))
-        #for vidx, stock in enumerate(S.T): #enumerate over the columns in STOCK
-        #    for eidx, wanted in enumerate(W): #enumerate over each element in the wanted list
+        #print(np.minimum(stockarray,wantedarray))
+        #print(np.minimum(stockarray,wantedarray).sum(0))
+        #for vidx, stock in enumerate(stockarray.T): #enumerate over the columns in stock
+        #    for eidx, wanted in enumerate(wantedarray): #enumerate over each element in the wanted list
         #        vitems[vidx] += min( stock[eidx], wanted )
         return vitems
     
     def __vendorsperelement(self):
-        s = self.data.STOCK
+        s = self.data.stock
         vendorsperelement = np.ndarray(s > 0).sum(1)
         return vendorsperelement
     
@@ -184,14 +184,14 @@ class VendorStats():
         """  
         Calculates a sorting helper for vendors.  The more items a vendor can completely fill, the higher its
             value.
-        SBW = STOCK / WANTED
-        SBW = 1.0 if STOCK/WANTED >= 1.0 ELSE STOCK/WANTED
+        SBW = stock / wanted
+        SBW = 1.0 if stock/wanted >= 1.0 ELSE stock/wanted
         """
-        S = self.data.STOCK.astype('float')
-        W = self.data.WANTED.reshape(self.NUMELEMS, 1).astype('float')
-        stockbywant = S/W
-        greaterthan1 = stockbywant >= 1.0 #creates a true/false array that will be used in the next line
-        stockbywant[greaterthan1] = 2.0 #completely filling an order counts 3X more than a partial fill
+        stockarray = self.data.stock.astype('float')
+        wantedarray = self.data.wanted.reshape(self.numelems, 1).astype('float')
+        stockbywant = stockarray/wantedarray
+        greaterthan1 = stockbywant >= 1.0  # creates a true/false array that will be used in the next line
+        stockbywant[greaterthan1] = 2.0  # completely filling an order counts 3X more than a partial fill
         return stockbywant
     
     def vendorstockweights(self):
@@ -200,16 +200,16 @@ class VendorStats():
     def vendorpriceweights(self):
         # function of element weight, vendor price, vendor qty (gets credit for how many it has)
         #sort by self.data.elementlist
-        sortedweights = self.ELEMWEIGHTS #aligned with elementlist now
+        sortedweights = self.elemweights  # aligned with elementlist now
         #print(sortedweights)
-        EWD = np.array(sortedweights, dtype='float').reshape((len(self.ELEMWEIGHTS),1))
-        P = self.data.PRICES
-        S = self.data.STOCK
-        AVG = self.avgprices()
-        #print(EWD)
-        #print(P)
+        elemweight = np.array(sortedweights, dtype='float').reshape((len(self.elemweights), 1))
+        pricearray = self.data.prices
+        stockarray = self.data.stock
+        avgpricearray = self.avgprices()
+        #print(elemweight)
+        #print(pricearray)
         
-        priceweight = EWD/P
+        priceweight = elemweight/pricearray
         #for vindex, vendor in enumerate(self.data.vendorlist):
         #    totalweight = 0
         #    for eindex, element in enumerate(self.data.elementlist):
@@ -222,8 +222,8 @@ class VendorStats():
     
     def avgprices(self):
         #data[elementid, vendorid] = [price, qty]
-        p = self.data.PRICES
-        avgprices = p.sum(1) / np.ndarray(p > 0).sum(1) #the 1 causes
+        p = self.data.prices
+        avgprices = p.sum(1) / np.ndarray(p > 0).sum(1) # the 1 causes
         return avgprices 
     
     def vendorweights(self):
@@ -232,25 +232,25 @@ class VendorStats():
         vendorstockweights = self.__stockbywanted().sum(0) * 2.5
         vendorpriceweights = self.vendorpriceweights().sum(0)
         
-        print( vendorstockweights)
-        print( vendorpriceweights)
+        print(vendorstockweights)
+        print(vendorpriceweights)
 
     def __makedictionary(self):
         vdict = dict()
-        avgprices = self.data.avgprices()
+        #avgprices = self.data.avgprices()
         for vindex, vendor in enumerate(self.data.vendorlist):
-            vdict[vendor] = ( self.ITEMSPERVENDOR[vindex], self.TOTALPERVENDOR[vindex])
-        return vdict    
-    
+            vdict[vendor] = (self.itemspervendor[vindex], self.totalvendor[vindex])
+        return vdict
 
     def report(self):
-        print("There are %d items to purchase" % self.ITEMS)
-        print("%d vendors have the following number distinct items available:" % self.NUMVENDORS)
-        print("Vendors per element", self.ITEMSPERVENDOR)
-        print("Elements per vendor", self.VENDORSPERELEMENT)
-        print(self.VDICT)
+        print("There are %d items to purchase" % self.items)
+        print("%d vendors have the following number distinct items available:" % self.numvendors)
+        print("Vendors per element", self.itemspervendor)
+        print("Elements per vendor", self.vendorsperelement)
+        print(self.vdict)
         #vlist = self.data.vendorlist
-#test code goes here    
+
+#test code goes here
 if __name__ == '__main__':
     pass
     

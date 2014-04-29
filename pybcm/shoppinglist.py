@@ -3,9 +3,10 @@ Created on Oct 26, 2012
 
 @author: khooks
 """
-from solution import *
-from legoutils import LegoElement
-from vendors import vendorMap, VendorMap
+from pybcm.legoutils import LegoElement
+from pybcm.vendors import VendorMap
+from pybcm.solution import *
+
 
 class ShoppingList():
     """Create shopping lists from Solutions
@@ -17,11 +18,15 @@ class ShoppingList():
     def __init__(self, solution):
         self.data = list()
         self.soln = solution
-        if not isinstance(vendorMap, VendorMap):
+        if not isinstance(solution.vendormap, VendorMap):
             raise Exception("vendorMap does not exist")
         #self.vendormap = vendormap
 
-    def toXML(self):
+    def additem(self, item):
+        if isinstance(item, LegoElement):
+            self.data.append(item)
+
+    def toxml(self):
         """Generate the XML for a wanted list."""
         xml_string = ''
         xml_string += "<INVENTORY>"
@@ -41,19 +46,19 @@ class ShoppingList():
         xml_string += "</Inventory>"
         return xml_string
 
-    def XMLforBricklink(self):
+    def xmlforbricklink(self):
         """Generate the XML for a Bricklink wanted list."""
         #global vendorMap
         #TODO: access vendormap
         xml_string = ''
         if self.soln:
-            vdict = self.soln.byVendorDict()
+            vdict = self.soln.byvendordict()
             #TODO: Finish this routine
 
             #print(self.vendormap)
-            for vendorid, itemlist in vdict.items():
-                vendorname = vendorMap[vendorid]
-                print(vendorid, vendorname)
+            for vendorid, itemlist in list(vdict.items()):
+                vendorname = self.vendormap[vendorid]
+                print((vendorid, vendorname))
                 xml_string += "\n\n<INVENTORY>\n"
 
                 for element, qty, price in itemlist:
@@ -70,11 +75,12 @@ class ShoppingList():
 
     def display(self):
 
-
-        print(self.toXML())
+        print(self.toxml())
 
 if __name__ == '__main__':
 
-    testlist = ShoppingList()
+    testlist = ShoppingList(4323, 88, 167895, "House of Lolgos", 15, 0.15)
+
+    element = LegoElement()
     testlist.additem(4323, 88, 167895, "House of Lolgos", 15, 0.15)
     testlist.display()

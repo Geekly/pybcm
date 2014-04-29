@@ -7,11 +7,11 @@ and shopping list functions.
 @author: khooks
 """
 
-from bcm import *
-from wanted import WantedDict
-from bricklinkdata import BricklinkData
-from bcmconfig import BCMConfig
-from optimizer import *
+from .bcm import *
+from .wanted import WantedDict
+from .bricklinkdata import BricklinkData
+from .bcmconfig import BCMConfig
+from .optimizer import *
 # vendormap = VendorMap()
 
 

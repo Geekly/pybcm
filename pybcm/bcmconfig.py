@@ -4,7 +4,7 @@ Created on Jun 6, 2013
 @author: khooks
 """
 
-from ConfigParser import SafeConfigParser
+from configparser import SafeConfigParser
 
 
 class BCMConfig():
@@ -42,8 +42,8 @@ if __name__ == '__main__':
     wanted = '../Sampledata/Star Destroyer 30056-1.bsx'
     open(wanted, 'r')
 
-    print config.pricefilename
-    print config.reloadpricesfromweb
-    print config._parser.items('filenames')
-    print config._parser.items('options')
-    print config._parser.items('bricklink')
+    print(config.pricefilename)
+    print(config.reloadpricesfromweb)
+    print(config._parser.items('filenames'))
+    print(config._parser.items('options'))
+    print(config._parser.items('bricklink'))

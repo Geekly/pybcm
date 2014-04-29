@@ -17,15 +17,20 @@ class Solution():
             __filled is the quantity already filled
     """
 
-    def __init__(self, wanted):
+    def __init__(self, wanted, vendormap):
 
         #list of (element, vendor, qty, price) tuples
         self.data = list()
         self.searchorder = None
+        self._vendormap = vendormap
         self.__needed = copy.deepcopy(wanted)
-        self.__filled = dict.fromkeys(wanted.keys(), 0)
+        self.__filled = dict.fromkeys(list(wanted.keys()), 0)
 
         return
+
+    @property
+    def vendormap(self):
+        return self._vendormap
 
     def isfeasible(self):
         """It's feasible if there are NO non-zero values in self.__needed"""
@@ -33,7 +38,7 @@ class Solution():
             return False
         return True
 
-    def numOrders(self):
+    def numorders(self):
         """Return the total number of seperate orders in the solution"""
         seen = set()
         for (element, myvendor, qty, price) in self.data:
@@ -41,7 +46,7 @@ class Solution():
         numvendors = len(seen)
         return numvendors
 
-    def totalPartCost(self):
+    def totalpartcost(self):
         """Sum the total part cost the solution.
 
             Does not account for shipping.
@@ -51,7 +56,7 @@ class Solution():
             cost += qty * price
         return cost
 
-    def costFromVendor(self, vendor):
+    def costfromvendor(self, vendor):
         """Sum the total amount bought from this vendor."""
         cost = 0.0
         mylist = ([qty, price] for (element, myvendor, qty, price) in self.data if myvendor == vendor)
@@ -59,7 +64,7 @@ class Solution():
             cost += qty * price
         return cost
 
-    def addPurchase(self, element, vendor, qty, price):
+    def addpurchase(self, element, vendor, qty, price):
         """Include this purchase in the solution
 
             __filled is increased by the quantity and __needed is reduced
@@ -69,16 +74,17 @@ class Solution():
         self.data.append((element, vendor, qty, price))
 
     def incomplete(self):
-        return any( [x > 0 for x in self.__needed.values() ])
+        return any([x > 0 for x in list(self.__needed.values())])
 
     def needed(self):
         """Return dictionary of needed quantities by element. """
         stillneeded = dict()
-        for element, qty in self.__needed.items():
-            if qty > 0: stillneeded[element] = qty
+        for element, qty in list(self.__needed.items()):
+            if qty > 0:
+                stillneeded[element] = qty
         return stillneeded
 
-    def byElementDict(self):
+    def byelementdict(self):
         """ Return dictionary keyed on element """
 
         edict = defaultdict(list)
@@ -90,7 +96,7 @@ class Solution():
             edict[element].append(vendor, qty, price)
         return edict
 
-    def byVendorDict(self):
+    def byvendordict(self):
         """ Return dictionary keyed on vendor """
 
         vdict = defaultdict(list)
@@ -99,18 +105,18 @@ class Solution():
             vendor = orderTuple[1]
             qty = int(orderTuple[2])
             price = float(orderTuple[3])
-            vdict[vendor].append( (element, qty, price) )
+            vdict[vendor].append((element, qty, price))
         return vdict
 
-    def vitalStats(self):
+    def vitalstats(self):
         """Return various vital stats including number of orders and cost."""
-        n = self.numOrders()
-        p = self.totalPartCost()
+        n = self.numorders()
+        p = self.totalpartcost()
         return n, p
 
     def __str__(self):
 
-        vdict = self.byVendorDict()
+        vdict = self.byvendordict()
 
         s = "Solution results:\n"
 
@@ -123,12 +129,13 @@ class Solution():
                 s += "    "
                 s += "Qty: %d" % qty + " of Element: " + element + " Price: $%.2f" % price + " Total: $%.2f\n" % (qty * price)
 
-            s += "Found %d items for Total: $%.2f\n" % (numitems, self.costFromVendor(vendor))
+            s += "Found %d items for Total: $%.2f\n" % (numitems, self.costfromvendor(vendor))
             s += "\n"
-        s += "Number of Orders: %d\n" % self.numOrders()
-        s += "Total Part Cost: $%.2f\n" % self.totalPartCost()
+        s += "Number of Orders: %d\n" % self.numorders()
+        s += "Total Part Cost: $%.2f\n" % self.totalpartcost()
 
         return s
+
 
 class SolutionSet():
 
@@ -147,7 +154,7 @@ class SolutionSet():
         """
         self.data.append(solution)
         #check to see if this is the best solution so far
-        numorders, partcost = solution.vitalStats()
+        numorders, partcost = solution.vitalstats()
         cost = numorders*self.costperorder + partcost
         if cost < self.bestcost:
             self.bestsolution = solution
@@ -159,20 +166,20 @@ class SolutionSet():
         numsolutions = len(self.data)
         s += "%d Complete Order Found\n\n" % numsolutions
 
-        sortedsolutions = sorted([(soln.vitalStats()[0]*self.costperorder + soln.vitalStats()[1], soln) for soln in self.data])
-        print (sortedsolutions)
-        (costs, solnlist) = zip(*sortedsolutions)
-        for index, soln in enumerate(solnlist[:20]): #first ten solutions
-            numvendors, partcost = soln.vitalStats()
+        sortedsolutions = sorted([(soln.vitalstats()[0]*self.costperorder + soln.vitalstats()[1], soln) for soln in self.data])
+        print(sortedsolutions)
+        (costs, solnlist) = list(zip(*sortedsolutions))
+        for index, soln in enumerate(solnlist[:20]):  # first ten solutions
+            numvendors, partcost = soln.vitalstats()
             totalcost = numvendors*self.costperorder + partcost
             s += "Solution %d, Number of Separate Orders: %d, Part Cost: $%.2f, Total: $%.2f\n" % (index, numvendors, partcost, totalcost)
         return s
 
-    def totalOrderCost(self, solution):
+    def totalordercost(self, solution):
         """Calculate the total cost of a solution, including shipping."""
-        (n, p) = solution.vitalStats()
-        totalCost = n * self.costperorder + p
-        return totalCost
+        (n, p) = solution.vitalstats()
+        totalcost = n * self.costperorder + p
+        return totalcost
 
     def __len__(self):
         return len(self.data)
@@ -183,5 +190,5 @@ class SolutionSet():
         s = ""
         s += str(soln)
         s += "\n"
-        s += "Total Cost @ $%.2f per order: $%.2f\n" % (self.costperorder, self.totalOrderCost(soln))
+        s += "Total Cost @ $%.2f per order: $%.2f\n" % (self.costperorder, self.totalordercost(soln))
         return s

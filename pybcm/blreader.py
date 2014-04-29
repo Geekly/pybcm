@@ -6,16 +6,14 @@ Created on Oct 26, 2012
 
 import re
 import io
-import cookielib
-import urllib
-import urllib2
-from urllib2 import HTTPError, URLError
+import http.cookiejar
+from urllib import request, parse
+from urllib.error import HTTPError, URLError
 import logging
 
 from lxml import etree
 
-from vendors import Vendor, vendorMap, VendorMap
-
+from .vendors import Vendor, VendorMap
 
 
 class BricklinkReader(object):
@@ -30,7 +28,6 @@ class BricklinkReader(object):
 
         #returns prices[] =([itemid, vendorid, vendorqty, vendorprice)
     """
-    #vendormap = VendorMap()
 
     def __init__(self, vendormap):
         """ Start up..."""
@@ -40,17 +37,17 @@ class BricklinkReader(object):
     def vendormap(self):
         return self._vendormap
 
-    def readItemFromTree(self, datatree):
+    def readitemfromtree(self, datatree):
         """Parse the etree and return a price array
 
         """
         #global vendorMap
         prices = []
-        stores = getStoreElementsFromTree()  #all store tr's
-        if stores:  #check if list is empty
-            suLink = re.compile("sID=(\d+).*itemID=(\d+)")  #\&itemID=(\d+)
+        stores = getstoreelementsfromtree(datatree)  # all store tr's
+        if stores:  # check if list is empty
+            suLink = re.compile("sID=(\d+).*itemID=(\d+)")  # \&itemID=(\d+)
             suStore = re.compile("Store:.(.*)\".title")
-            suPrice = re.compile("[US\$\s~]")  #says that the \~ is redundant
+            suPrice = re.compile("[US\$\s~]")  # says that the \~ is redundant
             for store in stores:
                 #print(etree.tostring(store))
                 td = store.xpath('./td')
@@ -59,9 +56,10 @@ class BricklinkReader(object):
                 #print( linktext)
                 storematch = re.search(suLink, linktext)
                 if storematch:
-                    storeID = str(storematch.group(1))
-                    itemID = storematch.group(
-                        2)  # we don't pay attention to this since it's defined upstream.  we could check to see if they're the same
+                    storeid = str(storematch.group(1))
+                    #  we don't pay attention to this since it's defined upstream.
+                    # TODO: we should check to see if retrived itemid are the same
+                    itemid = storematch.group(2)
                     storenamematch = re.search(suStore, linktext)
                     storename = storenamematch.group(1)
                     #print("Storename: " + storename)
@@ -72,16 +70,16 @@ class BricklinkReader(object):
                         #td[2] is empty
                         #td[3] contains the price
                         #BricklinkReader.vendormap.addvendor( Vendor(storeID, storename) )
-                        vendorMap.addvendor(Vendor(storeID, storename))
+                        self._vendormap.addvendor(Vendor(storeid, storename))
                         pricestring = td[3].text
                         price = float(re.sub(suPrice, '', pricestring))
-                        prices.append([storeID, quantity, price])
+                        prices.append([storeid, quantity, price])
                         #print([itemID, storeID, quantity, price])
 
         return prices
 
 
-def getStoreElementsFromTree(datatree):
+def getstoreelementsfromtree(datatree):
     """Extracts a list of stores and their price & quantity data from the datatree
         Args:
             datatree (lxml.etree):
@@ -101,7 +99,7 @@ def getStoreElementsFromTree(datatree):
 
 class BricklinkWebReader(BricklinkReader):
 
-    def __init__(self, login='', password='', vendormap):
+    def __init__(self, vendormap, login='', password=''):
         """ Start up...
         :param vendormap:
         """
@@ -122,15 +120,15 @@ class BricklinkWebReader(BricklinkReader):
         # we also need to extract real vendor names during this search
         #returns prices[] =([itemid, vendorid, vendorqty, vendorprice)
         #BricklinkReader.vendormap = vendormap
-        if not isinstance(vendorMap, VendorMap):
-            raise Exception, "global vendorMap does not exist"
+        if not isinstance(self.vendormap, VendorMap):
+            raise Exception("global vendorMap does not exist")
         url = "http://www.bricklink.com/catalogPG.asp?itemType=" + itemtypeID + '&itemNo=' + itemID + '&itemSeq=1&colorID=' + itemColorID + '&v=P&priceGroup=Y&prDec=2'
         logging.info("Reading item from %s" % url)
         #itemprices = []
         page = self.blbrowser.open(url)
         parser = etree.HTMLParser(remove_blank_text=True, remove_comments=True, encoding='utf-8')
         datatree = etree.HTML(page, parser)
-        itemprices = self.readItemFromTree(datatree)
+        itemprices = self.readitemfromtree(datatree)
         return itemprices
 
 
@@ -148,7 +146,7 @@ class BricklinkFileReader(BricklinkReader):
             #print( "Parsing item from file..." )
             datatree = etree.HTML(f.read(), parser)
             #print( etree.tostring(datatree))
-        itemprices = self.readItemFromTree(datatree)
+        itemprices = self.readitemfromtree(datatree)
         return itemprices
 
 
@@ -158,16 +156,16 @@ class SomeBrowser:
         self.url = ''
         self.response = ''
         self.data = ''
-        self.cookies = cookielib.CookieJar()
-        self.opener = urllib2.build_opener(
-            urllib2.HTTPRedirectHandler(),
-            urllib2.HTTPSHandler(debuglevel=0),
-            urllib2.HTTPCookieProcessor(self.cookies))
+        self.cookies = http.cookiejar.CookieJar()
+        self.opener = request.build_opener(
+            request.HTTPRedirectHandler(),
+            request.HTTPSHandler(debuglevel=0),
+            request.HTTPCookieProcessor(self.cookies))
 
     def open(self, url):
         try:
             self.url = url
-            req = urllib2.Request(self.url)
+            req = request.Request(self.url)
             response = self.opener.open(req)
             #response = urllib.request.urlopen(req)            
             the_page = response.read()
@@ -178,17 +176,17 @@ class SomeBrowser:
         except URLError as e:
             logging.debug("URL Error:", e.reason, url)
 
-    def login(self, url, loginName, passwd):
+    def login(self, url, loginname, passwd):
 
         try:
             self.url = url
             values = {
                 'a': 'a',
                 'logFrmFlag': 'Y',
-                'frmUserName': loginName,
+                'frmUserName': loginname,
                 'frmPassword': passwd}
 
-            data = urllib.urlencode(values).encode('utf-8')
+            data = parse.urlencode(values).encode('utf-8')
             response = self.opener.open(url, data)
             the_page = response.read().decode('utf-8')
             return the_page
@@ -216,7 +214,7 @@ if __name__ == '__main__':
 
     br.readitemfromurl('P', '3001', '80')
     br.readitemfromurl('P', '3001', '80')
-    print br.readitemfromurl('P', '3001', '80')
+    print(br.readitemfromurl('P', '3001', '80'))
 
     #bfr = BricklinkFileReader()
     #bfr.readItemFromFile("../BrickLink Price Guide - Part 3001 in Dark Green Color.htm")

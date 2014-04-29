@@ -3,16 +3,12 @@ Created on Oct 23, 2012
 
 @author: khooks
 """
-from UserDict import UserDict
-from blreader import BricklinkWebReader
-from legoutils import LegoElement
+from collections import UserDict
 from lxml import etree as ET
-import vendors
-from vendors import Vendor, VendorMap
 import logging
-
-#from wanted import Wanted
-
+from .blreader import BricklinkWebReader
+from .legoutils import LegoElement
+from .vendors import Vendor, VendorMap
 
 
 class BricklinkData(UserDict):
@@ -50,11 +46,11 @@ class BricklinkData(UserDict):
             Attributes:
                 wanted(WantedDict): wanted[elementid] = LegoElement
         """
-        self.webreader = BricklinkWebReader(username, password)
+        self.webreader = BricklinkWebReader(self._vendormap, username, password)
         numitems = len(wanted)
         logging.info("Loading " + str(numitems) + " items from the web")
         #self.data = dict() # a dictionary with keys itemid, and color.  each entry contains a list of lists
-        for elementid in wanted.keys():
+        for elementid in list(wanted.keys()):
             #grab the needed variables for constructing the URL
             logging.info("Loading element " + str(elementid))
             itemID = wanted[elementid].itemid          
@@ -104,16 +100,16 @@ class BricklinkData(UserDict):
         """Return a summary string of the bricklink data."""
         assert self.bricklink_initialized == True, "bricklink not initialized, cannot report dataquality"
         
-        print( "Price list includes:")
-        print( str( len(self.keys()) ) + " Total Items")
-        print( str( len(self.vendormap.keys()) ) + " Total Vendors")
+        print("Price list includes:")
+        print(str(len(list(self.keys()))) + " Total Items")
+        print(str(len(list(self.vendormap.keys()))) + " Total Vendors")
     
     def toXML(self):
         """Return an XML string of the bricklink data."""
         assert self.bricklink_initialized == True, "bricklink not initialized, cannot convert to XML"
         #[itemID, storeID, quantity, price]
         xml_string = '<xml>\n'
-        for elementid in self.keys():
+        for elementid in list(self.keys()):
             itemid, color = LegoElement.splitelement(elementid)
             
             xml_string += '<Item>\n'

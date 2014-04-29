@@ -4,12 +4,12 @@ Created on May 16, 2013
 @author: khooks
 """
 
-from solution import Solution, SolutionSet
-from vendors import VendorStats
+from .solution import Solution, SolutionSet
+from .vendors import VendorStats
 
 
 class SearchTypes():
-    (Shift, Swap) = range(0,2)
+    (Shift, Swap) = list(range(0,2))
 
 class Optimizer():
     #TODO: Convert this class to use only numpy arrays
@@ -40,14 +40,14 @@ class Optimizer():
     def fillOrders(self, order, vendor):
         #TODO: Convert this to use only the numpy arrays
         #buy all available elements from the current vendor
-        for element, qty in order.needed().items():            
+        for element, qty in list(order.needed().items()):            
             if (element, vendor) in self.__BCMDICT:
                 vendorstock, price = self.__BCMDICT[element, vendor]
                 purchase = min( qty, vendorstock )
                 wanted = self.__WANTDICT[element]
                 #if purchase >= self.__WANTDICT[element]/3:  #has at least half the desired qty
                 if purchase >= ( wanted/2 ):  #has at least half of the wanted qty   
-                    order.addPurchase( element, vendor, purchase, price )
+                    order.addpurchase( element, vendor, purchase, price )
             
         return
         
@@ -55,7 +55,7 @@ class Optimizer():
         vlist = self.__v
         stockweights = self.__vs.vendorstockweights()
         sortedtuples = sorted( zip(stockweights, vlist ), reverse=True)
-        weights, vendors = zip(*sortedtuples) #unzip the sorted tuples
+        weights, vendors = list(zip(*sortedtuples)) #unzip the sorted tuples
         initialsearchorder = list(vendors) #convert to a list
         # while still need elements
         # get a vendor search order
@@ -104,7 +104,7 @@ class Optimizer():
         if len(seq) == 1:
             yield seq
         
-        for indexoffset in reversed(range( len(seq) )):
+        for indexoffset in reversed(list(range( len(seq)))):
             newseq = seq[:]
             newseq.insert( 0, newseq.pop(indexoffset))
             for tail in self.shiftorder( newseq[1:]):
