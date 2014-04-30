@@ -234,31 +234,24 @@ class BCMData():
         return len(self.wanted), self.wanted.sum()
 
 
-class BCMEngine(object):
-    """
-    contains a dictionary that allows access via data[elementid, vendorid] = (price, qty)
+class BCMManager(object):
+    """ Provides encapsulation of a BCMData object
+        contains a dictionary that allows access via data[elementid, vendorid] = (price, qty)
         """
-    #vendormap = VendorMap()
 
     def __init__(self, bricklink, wanteddict):
-        #UserDict.__init__(self)
-        #BCMEngine.vendormap = bricklink.vendormap
-        #self.data = BCMData() #the mutable data object that's passed to the optimizer
 
         if not isinstance(bricklink.vendormap, VendorMap):
-            raise Exception("global vendorMap doesn't exist.  Make sure to include Vendor module")
+            raise Exception("vendormap doesn't exist.")
 
-        self.bcmdict = self.__createbcmdict(bricklink,
-                                            wanteddict)  #self.data[elementid, vendorid] = (price, qty) #essentially a copy of the Bricklink data.  Don't change this once initialized
-        # self.WANTED = self.__createwanteddict(bricklink, wanteddict) #don't change this either
-        # self.ELEMDICT = self.__createelementdict(self.BCMDICT)
-        # self.VENDICT = self.__createvendict(self.BCMDICT)
-        #
-        self.data = BCMData(self.__createbcmdict(bricklink, wanteddict),
+        self.bcmdict = self.__createbcmdict(bricklink)
+        #TODO: check dictionaries for validity prior to creating the BCMData object
+        # self.data[elementid, vendorid] = (price, qty) #essentially a copy of the Bricklink data with a different lookup.
+        # Don't change this once initialized
+        self.data = BCMData(self.__createbcmdict(bricklink),
                             self.__createwanteddict(bricklink, wanteddict),
                             self.__createelementdict(self.bcmdict),
                             self.__createvendict(self.bcmdict))
-        #self.BCMDICT, self.WANTED, self.ELEMDICT, self.VENDICT)
 
         self.initialized = False
 
@@ -271,12 +264,11 @@ class BCMEngine(object):
             wanted[elementid] = wanteddict[elementid].wantedqty  # populate the WANTED qty dictionary
         return wanted
 
-    def __createbcmdict(self, bricklink, wanteddict):
+    def __createbcmdict(self, bricklink):
         """Creates a dictionary keyed to the vendor and an element that contains the qty
             and price for each vendor/element pair
         """
-        #PRICES.append([vendorid, vendorname, vendorqty, vendorprice])
-        #self.headers.append("Vendor")
+
         logging.info("Building soln(Element,Vendor) Dictionary")
         bcm = dict()
         #create the price array
@@ -299,8 +291,6 @@ class BCMEngine(object):
             element, vendor = keys
             qty, price = values
             elementdict[element].append((vendor, qty, price))
-            #if element in elementdict: elementdict[element].append( (vendor, qty, price ))
-            #else: elementdict[element] = [(vendor, qty, price)]
 
         for element, plist in list(elementdict.items()):
             #sort the list price
@@ -321,7 +311,9 @@ class BCMEngine(object):
         return vendict
 
     def presolve(self):
-        self.prunevendorsbyavgprice()
+        """Prunes the data before looking for a solution.
+        """
+        self.data.replacevendorlist(self.prunedvendorsbyavgprice())
 
     @staticmethod
     def describesolution(result):
@@ -346,7 +338,11 @@ class BCMEngine(object):
         return self.data.elementlist
 
     #prune vendors that are above average in price
-    def prunevendorsbyavgprice(self, pricefactor=0.5):
+    def prunedvendorsbyavgprice(self, pricefactor=1.0):
+        """Remove vendor id from the active vendorlist based on relative vendor pricing
+            Args:
+                pricefactor, optional:  remove vendor if pricing is > pricefactor*average pricing
+        """
         #prune the vendors that are more greater than pricefactor * average (0.5 keeps average and cheaper)
         logging.info("Removing vendors with above-average pricing")
         data = self.data
@@ -358,7 +354,7 @@ class BCMEngine(object):
             eindex = data.elementlist.index(element)
             vindex = data.vendorlist.index(vendor)
 
-            if p[eindex][vindex] > avgprices[eindex]:
+            if p[eindex][vindex] > pricefactor * avgprices[eindex]:
                 if vindex not in removethese:
                     removethese.append(vindex)
 
@@ -379,11 +375,11 @@ class BCMEngine(object):
         cheapvendoridx = self.sortedvendoridx()
         #keep the n cheapest
         #make a new list containing only these vendors
-        initial_length = len(self.vendorlist)
-        cheapvendors = [self.vendorlist[i] for i in cheapvendoridx]
-        self.vendorlist = cheapvendors
-        self.__update()
-        finallength = len(self.vendorlist)
+        initial_length = len(self.data.vendorlist)
+        cheapvendors = [self.data.vendorlist[i] for i in cheapvendoridx]
+        self.data.replacevendorlist(cheapvendors)
+        #  self.data.__update()
+        finallength = len(self.data.vendorlist)
         removed = initial_length - finallength
         logging.info("Removed " + str(removed) + " vendors from the list")
         #print(cheapvendors)

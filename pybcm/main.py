@@ -46,7 +46,7 @@ def main():
         f.close()
 
     #vendormap = bricklink.vendormap
-    bcm = BCMEngine(bricklink, wanteddict)
+    bcm = BCMManager(bricklink, wanteddict)
 
     #bcm.prunevendorsbyavgprice()
 
