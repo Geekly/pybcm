@@ -39,7 +39,7 @@ class BricklinkData(UserDict):
 
     def __str__(self):
         assert self.bricklink_initialized, "bricklink not initialized, cannot convert to string"
-        return self.toXML()    
+        return self.xmlvendordata()
     
     def readpricesfromweb(self, username, password, wanted):
         """Build a dictionary of price info from the Bricklink website
@@ -50,7 +50,7 @@ class BricklinkData(UserDict):
         numitems = len(wanted)
         logging.info("Loading " + str(numitems) + " items from the web")
         #self.data = dict() # a dictionary with keys itemid, and color.  each entry contains a list of lists
-        for elementid in list(wanted.keys()):
+        for elementid in list(wanted.keys()):  # TODO: elementid is not the correct key
             #grab the needed variables for constructing the URL
             logging.info("Loading element " + str(elementid))
             itemID = wanted[elementid].itemid          
@@ -104,8 +104,8 @@ class BricklinkData(UserDict):
         print(str(len(list(self.keys()))) + " Total Items")
         print(str(len(list(self.vendormap.keys()))) + " Total Vendors")
     
-    def toXML(self):
-        """Return an XML string of the bricklink data."""
+    def xmlvendordata(self):
+        """Return an XML string of the bricklink vendor price & qty data."""
         assert self.bricklink_initialized == True, "bricklink not initialized, cannot convert to XML"
         #[itemID, storeID, quantity, price]
         xml_string = '<xml>\n'
@@ -115,14 +115,14 @@ class BricklinkData(UserDict):
             xml_string += '<Item>\n'
             xml_string += ' <ItemID>{}</ItemID>\n'.format(itemid)
             xml_string += ' <ColorID>{}</ColorID>\n'.format(color)
-            for vendor in self.data[elementid]:
-                vendorid = vendor[0]
-                vendorname = self.vendormap[vendorid]
+            for stockentry in self.data[elementid]:
+                vendorid = stockentry[0]
+                vendor = self.vendormap[vendorid]
                 xml_string += '  <Vendor>\n'
-                xml_string += '   <VendorID>{}</VendorID>\n'.format(vendor[0])
-                xml_string += '   <VendorName>{}</VendorName>\n'.format(vendorname)
-                xml_string += '   <VendorQty>{}</VendorQty>\n'.format(vendor[1])
-                xml_string += '   <VendorPrice>{}</VendorPrice>\n'.format(vendor[2])
+                xml_string += '   <VendorID>{}</VendorID>\n'.format(stockentry[0])
+                xml_string += '   <VendorName>{}</VendorName>\n'.format(vendor.name)
+                xml_string += '   <VendorQty>{}</VendorQty>\n'.format(stockentry[1])
+                xml_string += '   <VendorPrice>{}</VendorPrice>\n'.format(stockentry[2])
                 xml_string += '  </Vendor>\n'
                         
             xml_string += '</Item>\n'    

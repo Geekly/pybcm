@@ -5,13 +5,12 @@ Created on Oct 30, 2012
 """
 
 from pybcm.vendors import VendorStats, VendorMap
-import numpy
+import numpy as np
 import numpy.ma as ma
-from numpy import *
+#  from numpy import *
 import logging
 from operator import itemgetter
 from collections import defaultdict
-
 
 
 class BCMData():
@@ -95,7 +94,7 @@ class BCMData():
                     pricearray[eindex, vindex] = int(self.bcmdict[element, vendor][1] * 100)
 
         # clip the max value of stock to the wanted quantity
-        stockarray = numpy.minimum(stockarray, self.wanted.reshape(len(self.elementlist), 1))
+        stockarray = np.minimum(stockarray, self.wanted.reshape(len(self.elementlist), 1))
 
         mask = stockarray <= 0
         stockarray.mask = mask
@@ -114,7 +113,7 @@ class BCMData():
         """ Create a numpy array of wanted quantities """
         logging.info("Building WANTED array...")
         m = len(self.elementlist)  # ensure the size of the array is consistent with the others
-        wantedarray = np.ndarray(shape=tuple(m), dtype=np.int)
+        wantedarray = np.ndarray(shape=(m,), dtype=np.int)
         for eidx, elementid in enumerate(self.elementlist):
             wantedarray[eidx] = wanteddict[elementid]
         return wantedarray

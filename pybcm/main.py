@@ -7,11 +7,11 @@ and shopping list functions.
 @author: khooks
 """
 
-from .bcm import *
-from .wanted import WantedDict
-from .bricklinkdata import BricklinkData
-from .bcmconfig import BCMConfig
-from .optimizer import *
+from pybcm.bcm import *
+from pybcm.wanted import WantedDict
+from pybcm.bricklinkdata import BricklinkData
+from pybcm.bcmconfig import BCMConfig
+from pybcm.optimizer import *
 # vendormap = VendorMap()
 
 
@@ -22,7 +22,7 @@ def main():
     config = BCMConfig()
 
     wantedlistfilename = config.wantedfilename
-    reloadpricesfromweb = config.reloadpricesfromweb  # set this to true if you want to update prices from the web and rewrite pricefilename
+    # reloadpricesfromweb = config.reloadpricesfromweb  # set this to true if you want to update prices from the web and rewrite pricefilename
     pricefilename = config.pricefilename
 
     wanteddict = WantedDict()
@@ -37,7 +37,7 @@ def main():
         bricklink.readpricesfromweb(config.username, config.password, wanteddict)
         logging.info("Saving XML file")
         f = open(pricefilename, 'w')
-        f.write(bricklink.toXML())
+        f.write(bricklink.xmlvendordata())
     else: 
         logging.info("Reading prices from file")
         f = open(pricefilename, 'r')

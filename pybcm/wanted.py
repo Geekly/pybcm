@@ -56,7 +56,7 @@ class WantedDict(UserDict):
 
                 element = LegoElement(itemid, colorid, itemname, itemtypeid, itemtypename, colorname, wantedqty)
 
-                self[element.itemid] = element
+                self[element.elementid] = element
         except IOError as e:
             print(e)
 

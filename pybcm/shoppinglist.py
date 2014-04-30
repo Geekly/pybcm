@@ -79,7 +79,8 @@ class ShoppingList():
 
 if __name__ == '__main__':
 
-    testlist = ShoppingList(4323, 88, 167895, "House of Lolgos", 15, 0.15)
+    slist = Solution()
+    testlist = ShoppingList(slist)
 
     element = LegoElement()
     testlist.additem(4323, 88, 167895, "House of Lolgos", 15, 0.15)

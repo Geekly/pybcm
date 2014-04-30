@@ -88,7 +88,7 @@ class VendorMap(UserDict):
         xml_string = '<VendorMap>'
         for vendorid in vendorkeys:
             vendor = self[vendorid]
-            xml_string += vendor.toxml()
+            xml_string += vendor.xmlvendordata()
         xml_string += '</VendorMap>'
         return xml_string
 
@@ -153,7 +153,7 @@ class VendorStats():
         
     def __itemspervendor(self):
         s = self.data.stock
-        itemspervendor = np.ndarray(s > 0).sum(0)
+        itemspervendor = (s > 0).sum(0)
         return itemspervendor        
     
     def __totalitemspervendor(self):
@@ -174,7 +174,7 @@ class VendorStats():
     
     def __vendorsperelement(self):
         s = self.data.stock
-        vendorsperelement = np.ndarray(s > 0).sum(1)
+        vendorsperelement = (s > 0).sum(1)
         return vendorsperelement
     
     def stockbywanted(self):
@@ -223,7 +223,7 @@ class VendorStats():
     def avgprices(self):
         #data[elementid, vendorid] = [price, qty]
         p = self.data.prices
-        avgprices = p.sum(1) / np.ndarray(p > 0).sum(1) # the 1 causes
+        avgprices = p.sum(1) / (p > 0).sum(1)  # the 1 causes
         return avgprices 
     
     def vendorweights(self):
