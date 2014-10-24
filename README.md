@@ -35,12 +35,7 @@ reloadpricesfromweb = False
 username = Geekly
 password = **redacted**
 ````
-
 Create an xml inventory file using Brickstore and change *wanted* to point to it
-
-````python
-wantedlistfilename = '../Sampledata/Inventory for 6964-1.bsx
-````
 
 run main.py
 
