@@ -8,10 +8,11 @@ and shopping list functions.
 """
 
 from pybcm.bcm import *
+from pybcm.bcmconfig import BCMConfig
 from pybcm.wanted import WantedDict
 from pybcm.bricklinkdata import BricklinkData
-from pybcm.bcmconfig import BCMConfig
 from pybcm.optimizer import *
+from pybcm.shoppinglist import *
 # vendormap = VendorMap()
 
 

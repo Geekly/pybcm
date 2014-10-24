@@ -13,13 +13,13 @@ class Solution():
         Attributes:
             data (list): element, vendor, qty, price tuples
             searchorder:
+            vendormap (VendorMap): points to the global vendormap
             __needed is a running list of unfufilled quantity
             __filled is the quantity already filled
     """
 
     def __init__(self, wanted, vendormap):
 
-        #list of (element, vendor, qty, price) tuples
         self.data = list()
         self.searchorder = None
         self._vendormap = vendormap
@@ -33,13 +33,17 @@ class Solution():
         return self._vendormap
 
     def isfeasible(self):
-        """It's feasible if there are NO non-zero values in self.__needed"""
+        """It's feasible if there are NO non-zero values in self.__needed
+
+            A False value means there are some unfulfilled quantities
+        """
         if any(self.__needed.values()):
             return False
         return True
 
     def numorders(self):
-        """Return the total number of seperate orders in the solution"""
+        """Return the total number of seperate orders in the solution
+        """
         seen = set()
         for (element, myvendor, qty, price) in self.data:
             seen.add(myvendor)
@@ -138,7 +142,11 @@ class Solution():
 
 
 class SolutionSet():
+    """A collection of solutions
 
+        SolutionSet is a live collection of solutions that are added to by the optimizer.  It contains functions for
+        interacting with individual solutions, as well as identifying a "best" solution within the set.
+    """
     def __init__(self):
         self.data = list()
         #persistant info for comparing new solutions

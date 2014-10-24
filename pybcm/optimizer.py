@@ -13,7 +13,6 @@ class SearchTypes():
 
 class Optimizer():
     #TODO: Convert this class to use only numpy arrays
-    """Uses ndarrays to setup and solve an or-tools problem"""
     
     def __init__(self, bcmdata, search=SearchTypes.Swap):
         #self.solver = orsolver.Solver("Find the best price")

@@ -4,8 +4,7 @@ Created on Jun 6, 2013
 @author: khooks
 """
 
-from configparser import SafeConfigParser
-
+from configparser import RawConfigParser
 
 class BCMConfig():
     """ Reads configuration information from bcm.ini.
@@ -25,14 +24,14 @@ class BCMConfig():
     def __init__(self):
         #  _parser = SafeConfigParser()
         self._configfile = '../bcm.ini'
-        self._parser = SafeConfigParser()
+        self._parser = RawConfigParser()
 
         self._parser.read(self._configfile)
         self.username = self._parser.get('bricklink', 'username')
         self.password = self._parser.get('bricklink', 'password')
         self.wantedfilename = self._parser.get('filenames', 'wanted')
         self.pricefilename = self._parser.get('filenames', 'prices')
-        self.reloadpricesfromweb = self._parser.get('options', 'reloadpricesfromweb')
+        self.reloadpricesfromweb = self._parser.getboolean('options', 'reloadpricesfromweb')
 
 
 if __name__ == '__main__':
