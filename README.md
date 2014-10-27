@@ -3,25 +3,10 @@ Bricklink Cart Manager
 
 Python modules for building and optimizing Bricklink Orders
 
-<<<<<<< HEAD
 BCM is intended to read in a wanted list, search Bricklink for the related prices, then export and optimized
 shopping list in the form of XML "want" lists that can be imported back into Bricklink for easy ordering.
 
 The optimization
-=======
-*Overview*
-
-BCM is intended to read in a wanted list, search Bricklink for the related prices, then export an optimized
-shopping list in the form of XML "want" lists that can be imported back into Bricklink for easy ordering.
-
-The optimization problem is a difficult one.  For any wanted list, there are n unique parts (different colors are
- different parts).  For each part, there is a wanted quantity w.
-
-The customer pays shipping on every order (usually around $3).  It can easily take orders from multiple vendors to
-complete even small orders of multiple unique parts. The goal of the optimization is to find the combination(s)
-of vendors and associated quantities that satisfies the wanted list and minimizes the total cost.
-
->>>>>>> development
 
 *Usage*
 
@@ -37,7 +22,6 @@ prices = ../Sampledata/One Element Prices.xml
 
 [options]
 reloadpricesfromweb = False
-<<<<<<< HEAD
 
 [bricklink]
 username = Geekly
@@ -45,14 +29,10 @@ password = **redacted**
 ````
 
 Create an xml inventory file using Brickstore and change *wanted* to point to it
-=======
->>>>>>> development
 
-[bricklink]
-username = Geekly
-password = **redacted**
+````python
+wantedlistfilename = '../Sampledata/Inventory for 6964-1.bsx
 ````
-Create an xml inventory file using Brickstore and change *wanted* to point to it
 
 run main.py
 
