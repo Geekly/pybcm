@@ -13,7 +13,7 @@ import logging
 
 from lxml import etree
 
-from .vendors import Vendor, VendorMap
+from pybcm.vendors import Vendor, VendorMap
 
 
 class BricklinkReader(object):
@@ -111,7 +111,8 @@ class BricklinkWebReader(BricklinkReader):
         #self.blbrowser = twillbrowser()
         url = "https://www.bricklink.com/login.asp"
         self.blbrowser = SomeBrowser()
-        self.blbrowser.login(url, self._login, self._password)
+        login_response = self.blbrowser.login(url, self._login, self._password)
+        self.loggedin = self.isloggedin(login_response)
 
     def readitemfromurl(self, itemtypeID, itemID, itemColorID):
         # global vendorMap
@@ -131,6 +132,16 @@ class BricklinkWebReader(BricklinkReader):
         itemprices = self.readitemfromtree(datatree)
         return itemprices
 
+    def isloggedin(self, page):
+        """Search the page for the log off URL to determine if currently logged in
+
+        """
+        logoff_url = 'href="https://www.bricklink.com/logoff.asp"'
+        logoff_url_xpath = '/html/body/center/table[1]/tbody/tr/td/table/tbody/tr/td[3]/span/font/a'
+        parser = etree.HTMLParser(remove_blank_text=True, remove_comments=True, encoding='utf-8')
+        datatree = etree.HTML(page, parser)
+        r = datatree.xpath(logoff_url_xpath)
+        return
 
 class BricklinkFileReader(BricklinkReader):
     """ A Bricklink 'File' is a single html page in file format which represents a single part.
@@ -206,11 +217,15 @@ if __name__ == '__main__':
     #prices = BricklinkFileReader(filename)
     #print prices.readAllItems() 
 
+    from pybcm.bcmconfig import BCMConfig
+
     logging.basicConfig(level=logging.DEBUG)
     logging.info('Started')
 
-    # TODO:  replace login info with app config settings
-    br = BricklinkWebReader("XXXXX", "XXXXXX")
+    vendormap = VendorMap()
+
+    config = BCMConfig()
+    br = BricklinkWebReader(vendormap, config.username, config.password)
 
     br.readitemfromurl('P', '3001', '80')
     br.readitemfromurl('P', '3001', '80')
@@ -218,5 +233,7 @@ if __name__ == '__main__':
 
     #bfr = BricklinkFileReader()
     #bfr.readItemFromFile("../BrickLink Price Guide - Part 3001 in Dark Green Color.htm")
+    page = br.blbrowser.open('http://www.bricklink.com/my.asp')
+    br.isloggedin(page)
 
     logging.info('Done!')

@@ -10,24 +10,30 @@ class LegoColor:
 
     anycolorID = [11, 1, 9, 10, 86, 85, 7, 5, 3, 6, 2, 8, 88]
 
-    colors = {1: 'White',
+    _colorset = set(anycolorID)
+
+    colors = {1:  'White',
               49: 'Very Light Gray',
               99: 'Very Light Bluish Gray',
               86: 'Light Bluish Gray',
-              9: 'Light Gray',
+              9:  'Light Gray',
               10: 'Dark Gray',
               85: 'Dark Bluish Gray',
               11: 'Black',
               59: 'Dark Red',
-              5: 'Red',
+              5:  'Red',
               27: 'Rust',
               25: 'Salmon',
               26: 'Light Salmon',
               58: 'Sand Red',
               88: 'Reddish Brown',
-              8: 'Brown',
+              8:  'Brown',
               120: 'Dark Brown',
               69: 'Dark Tan'}
+
+    @staticmethod
+    def isvalidcolor(colorid):
+        return int(colorid) in LegoColor._colorset
 
 
 class LegoElement(object):
@@ -45,7 +51,7 @@ class LegoElement(object):
         """
         return elementid.split("|")
 
-    def __init__(self, itemid=None, colorid=None, itemname=None, itemtypeid=None, itemtypename=None, colorname=None,
+    def __init__(self, itemid, colorid, itemname=None, itemtypeid=None, itemtypename=None, colorname=None,
                  wantedqty=0):
         """ A typical lego element
 
@@ -57,6 +63,7 @@ class LegoElement(object):
         :param colorname: Human Readable Type Name
         :param wantedqty: Quantity from the wanted list
         """
+
         self.itemid = str(itemid)
         self.colorid = str(colorid)
         self.itemname = str(itemname)
@@ -67,12 +74,24 @@ class LegoElement(object):
 
         self._elementid = LegoElement.joinelement(itemid, colorid)
 
-    def __str__(self):
-        return self._elementid
+        # Check if colorid exists in list
+        try:
+            if LegoColor.isvalidcolor(colorid): pass
+            else:
+                raise ValueError("Invalid Color ID")
+
+        except ValueError as error:
+            print(error)
+
+
 
     @property
     def elementid(self):
         return self._elementid
+
+    def __str__(self):
+        return self._elementid
+
 
 
 if __name__ == "__main__":
@@ -89,3 +108,5 @@ if __name__ == "__main__":
     print(element.itemid)
     print(element.colorid)
     print(element.wantedqty)
+
+    ele2 = LegoElement('6234', '4', 25)
