@@ -13,7 +13,7 @@ import logging
 
 from lxml import etree
 
-from pybcm.vendors import Vendor, VendorMap
+from vendors import Vendor, VendorMap
 
 
 class BricklinkReader(object):
@@ -217,7 +217,7 @@ if __name__ == '__main__':
     #prices = BricklinkFileReader(filename)
     #print prices.readAllItems() 
 
-    from pybcm.bcmconfig import BCMConfig
+    from bcmconfig import BCMConfig
 
     logging.basicConfig(level=logging.DEBUG)
     logging.info('Started')

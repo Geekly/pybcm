@@ -6,13 +6,14 @@ and shopping list functions.
 
 @author: khooks
 """
-
-from pybcm.bcm import *
-from pybcm.bcmconfig import BCMConfig
-from pybcm.wanted import WantedDict
-from pybcm.bricklinkdata import BricklinkData
-from pybcm.optimizer import *
-from pybcm.shoppinglist import *
+import logging
+from bcm import BCMManager
+from bcmconfig import BCMConfig
+from wanted import WantedDict
+from bricklinkdata import BricklinkData
+import optimizer
+from shoppinglist import ShoppingList
+from vendors import VendorStats, Vendor
 # vendormap = VendorMap()
 
 
@@ -41,10 +42,10 @@ def main():
         f.write(bricklink.xmlvendordata())
     else: 
         logging.info("Reading prices from file")
-        f = open(pricefilename, 'r')
+        #f = open(pricefilename, 'r')
         
         bricklink.read(pricefilename)
-        f.close()
+        #f.close()
 
     #vendormap = bricklink.vendormap
     bcm = BCMManager(bricklink, wanteddict)

@@ -6,9 +6,9 @@ Created on Oct 23, 2012
 from collections import UserDict
 from lxml import etree
 import logging
-from .blreader import BricklinkWebReader
-from .legoutils import LegoElement
-from .vendors import Vendor, VendorMap
+from blreader import BricklinkWebReader
+from legoutils import LegoElement
+from vendors import Vendor, VendorMap
 
 
 class BricklinkData(UserDict):

@@ -3,9 +3,9 @@ Created on Oct 26, 2012
 
 @author: khooks
 """
-from pybcm.legoutils import LegoElement
-from pybcm.vendors import VendorMap
-from pybcm.solution import *
+from legoutils import LegoElement
+from vendors import VendorMap
+from solution import *
 
 
 class ShoppingList():

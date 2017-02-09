@@ -4,7 +4,7 @@ Created on Oct 30, 2012
 @author: khooks
 """
 
-from pybcm.vendors import VendorStats, VendorMap
+from vendors import VendorStats, VendorMap
 import numpy as np
 import numpy.ma as ma
 #  from numpy import *

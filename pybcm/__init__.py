@@ -1,4 +1,4 @@
 
-__all__ = ["getdata", "parsedata", "exports", "optimize"]
+#__all__ = ['bcm', 'bcmconfig', 'blreader', 'bricklinkdata', 'legoutils', 'optimizer', 'reporter', 'shoppinglist']
 
-from pybcm.legoutils import LegoElement
+#from pybcm.legoutils import LegoElement

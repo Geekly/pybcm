@@ -38,7 +38,7 @@ if __name__ == '__main__':
     config = BCMConfig()
     open(config.wantedfilename, 'r')
 
-    wanted = '../Sampledata/Star Destroyer 30056-1.bsx'
+    wanted = '../Sampledata/Molding Machine.bsx'
     open(wanted, 'r')
 
     print(config.pricefilename)
