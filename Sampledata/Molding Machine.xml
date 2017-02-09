@@ -1,5 +1,6 @@
+<PriceList>
 <Item>
- <Itemid>6541</ItemID>
+ <ItemID>6541</ItemID>
  <ColorID>6</ColorID>
   <Vendor>
    <VendorID>8564</VendorID>
@@ -165,7 +166,7 @@
   </Vendor>
 </Item>
 <Item>
- <Itemid>3460</ItemID>
+ <ItemID>3460</ItemID>
  <ColorID>86</ColorID>
   <Vendor>
    <VendorID>48071</VendorID>
@@ -1339,7 +1340,7 @@
   </Vendor>
 </Item>
 <Item>
- <Itemid>3009</ItemID>
+ <ItemID>3009</ItemID>
  <ColorID>6</ColorID>
   <Vendor>
    <VendorID>348710</VendorID>
@@ -1673,7 +1674,7 @@
   </Vendor>
 </Item>
 <Item>
- <Itemid>4162</ItemID>
+ <ItemID>4162</ItemID>
  <ColorID>6</ColorID>
   <Vendor>
    <VendorID>163688</VendorID>
@@ -2270,3 +2271,4 @@
    <VendorPrice>0.92</VendorPrice>
   </Vendor>
 </Item>
+</PriceList>
