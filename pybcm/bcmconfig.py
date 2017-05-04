@@ -23,7 +23,7 @@ class BCMConfig():
 
     def __init__(self):
         #  _parser = SafeConfigParser()
-        self._configfile = '../bcm.ini'
+        self._configfile = '../config/bcm.ini'
         self._parser = RawConfigParser()
 
         self._parser.read(self._configfile)
@@ -35,11 +35,8 @@ class BCMConfig():
 
 
 if __name__ == '__main__':
-    config = BCMConfig()
-    open(config.wantedfilename, 'r')
 
-    wanted = '../Sampledata/Molding Machine.bsx'
-    open(wanted, 'r')
+    config = BCMConfig()
 
     print(config.pricefilename)
     print(config.reloadpricesfromweb)

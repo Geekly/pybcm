@@ -28,39 +28,39 @@ class BCMData():
         avgprices( ): return an array of average element prices
     """
 
-    def __init__(self, bcmdict, wanteddict, elemdict, vendict):
+    def __init__(self, bcmDict, wantedDict, elemDict, venDict):
 
-        self.vendorlist = list()  # contains the active list of vendors.
+        self.vendorList = list()  # contains the active list of vendors.
         # All matrix keys match this list.
-        self.elementlist = list()  # contains the list of elements.
+        self.elementList = list()  # contains the list of elements.
         # All matrix keys match this list.
         self.wanted = None  # numpy array
         self.prices = None  # numpy array
         self.stock = None  # numpy array
-        self.bcmdict = bcmdict
+        self.bcmDict = bcmDict
 
-        self.__initialize_lists(self.bcmdict)
+        self.__initialize_lists(self.bcmDict)
 
-        self.wantdict = wanteddict
-        self.elemdict = elemdict
-        self.vendict = vendict
+        self.wantDict = wantedDict
+        self.elemDict = elemDict
+        self.venDict = venDict
 
-        self.wanted = self.__buildwantedarray(self.wantdict)
-        self.stock, self.prices = self.__buildvendorarrays()
+        self.wanted = self.__buildwantedarray(self.wantDict)
+        self.stock, self.prices = self.__buildVendorArrays()
         self.__vs = VendorStats(self)
 
         self.__update()
 
         self.__need_rebuild = False
-        #self. = None
-        #self.VENDSORTLIST = self.__createvendsortinglist(self.BCMDICT)
+        # self. = None
+        # self.VENDSORTLIST = self.__createvendsortinglist(self.BCMDICT)
 
     def __update(self):
         """Update the various arrays."""
         self.__sortlists()
         self.__updatearrays()
         self.__vs.update(self)
-        #self.AVGPRICES = self.avgprices(stockweighted=True)
+        # self.AVGPRICES = self.avgprices(stockweighted=True)
 
     def __initialize_lists(self, bcmdict):
         """ Build the initial elementlist and vendorlist based on bcmdict."""
@@ -68,55 +68,55 @@ class BCMData():
         #k = [ keytuple for keytuple in bcmdict.keys() ]
         for keytuple in list(bcmdict.keys()):
             (elementid, vendorid) = keytuple
-            addtolist(self.vendorlist, vendorid)
-            addtolist(self.elementlist, elementid)
+            addtolist(self.vendorList, vendorid)
+            addtolist(self.elementList, elementid)
 
-    def __updatearrays(self):
+    def __updateArrays(self):
         """Build the various arrays."""
         logging.info("Forcing array update...")
-        self.wanted = self.__buildwantedarray(self.wantdict)
+        self.wanted = self.__buildwantedarray(self.wantDict)
         self.__updatevendorarrays()
         self.__need_rebuild = False
 
-    def __buildvendorarrays(self):
+    def __buildVendorArrays(self):
         """ Iterate over element, vendor in the elementlist and vendorlist to create the numpy
             arrays.  Get the data from the bcmdict.
         """
-        shape = (len(self.elementlist), len(self.vendorlist))
-        pricearray = ma.masked_array(np.zeros(shape, dtype='int'))
-        stockarray = ma.masked_array(np.zeros(shape, dtype='int'))
-        #wanted doesnt change
+        shape = (len(self.elementList), len(self.vendorList))
+        priceArray = ma.masked_array(np.zeros(shape, dtype='int'))
+        stockArray = ma.masked_array(np.zeros(shape, dtype='int'))
+        # wanted doesnt change
 
-        for eindex, element in enumerate(self.elementlist):
-            for vindex, vendor in enumerate(self.vendorlist):
-                if (element, vendor) in self.bcmdict:
-                    stockarray[eindex, vindex] = int(self.bcmdict[element, vendor][0])
-                    pricearray[eindex, vindex] = int(self.bcmdict[element, vendor][1] * 100)
+        for eindex, element in enumerate(self.elementList):
+            for vindex, vendor in enumerate(self.vendorList):
+                if (element, vendor) in self.bcmDict:
+                    stockArray[eindex, vindex] = int(self.bcmDict[element, vendor][0])
+                    priceArray[eindex, vindex] = int(self.bcmDict[element, vendor][1] * 100)
 
         # clip the max value of stock to the wanted quantity
-        stockarray = np.minimum(stockarray, self.wanted.reshape(len(self.elementlist), 1))
+        stockArray = np.minimum(stockArray, self.wanted.reshape(len(self.elementList), 1))
 
-        mask = stockarray <= 0
-        stockarray.mask = mask
-        pricearray.mask = mask
+        mask = stockArray <= 0
+        stockArray.mask = mask
+        priceArray.mask = mask
 
-        return stockarray, pricearray
+        return stockArray, priceArray
 
     def __updatevendorarrays(self):
         """ Create new arrays in case elementlist and vendorlits have changed size """
-        stockarray, pricearray = self.__buildvendorarrays()
+        stockarray, pricearray = self.__buildVendorArrays()
         self.prices = pricearray
         self.stock = stockarray
         return stockarray, pricearray
 
-    def __buildwantedarray(self, wanteddict):  # returns numpy array of WANTED items
+    def __buildwantedarray(self, wantedDict):  # returns numpy array of WANTED items
         """ Create a numpy array of wanted quantities """
         logging.info("Building WANTED array...")
-        m = len(self.elementlist)  # ensure the size of the array is consistent with the others
-        wantedarray = np.ndarray(shape=(m,), dtype=np.int)
-        for eidx, elementid in enumerate(self.elementlist):
-            wantedarray[eidx] = wanteddict[elementid]
-        return wantedarray
+        m = len(self.elementList)  # ensure the size of the array is consistent with the others
+        wantedArray = np.ndarray(shape=(m,), dtype=np.int)
+        for eidx, elementId in enumerate(self.elementList):
+            wantedArray[eidx] = wantedDict[elementId]
+        return wantedArray
 
     def __sortlists(self):
         self.__elementsort()
@@ -128,8 +128,8 @@ class BCMData():
             weights = sortweights
         else:
             weights = self.elementweights()
-        #resort the elementlist using these weights
-        self.elementlist = [y for (x, y) in sorted(zip(weights, self.elementlist), reverse=True)]
+        # resort the elementlist using these weights
+        self.elementList = [y for (x, y) in sorted(zip(weights, self.elementList), reverse=True)]
 
     def __vendorsort(self, sortby='uniqueitems'):
         logging.info("Sorting Vendor List...")
@@ -141,7 +141,7 @@ class BCMData():
         else:
             return  # nothing sorted
 
-        self.vendorlist = [y for (x, y) in sorted(zip(weights, self.vendorlist), reverse=True)]
+        self.vendorList = [y for (x, y) in sorted(zip(weights, self.vendorList), reverse=True)]
 
     def __createvendsortinglist(self):
         """ Return list of tuples (vendor index, element index, price)
@@ -187,23 +187,23 @@ class BCMData():
 
     def removevendor(self, vendorid):
         #doesn't remove it from the .data, only from the list of vendors
-        assert vendorid in self.vendorlist, "Vendor %r does not exist in vendorlist" % vendorid
-        self.vendorlist.remove(vendorid)
+        assert vendorid in self.vendorList, "Vendor %r does not exist in vendorlist" % vendorid
+        self.vendorList.remove(vendorid)
         self.__need_rebuild = True
 
     def removevendors(self, vendorindices):
         #Create a new vendorlist that doesn't include the list of id's passed via vendorindices
         logging.info("Trying to remove " + str(len(vendorindices)) + " vendors.")
-        before = len(self.vendorlist)
-        newlist = [vendor for vendor in self.vendorlist if self.vendorlist.index(vendor) not in vendorindices]
+        before = len(self.vendorList)
+        newlist = [vendor for vendor in self.vendorList if self.vendorList.index(vendor) not in vendorindices]
         self.replacevendorlist(newlist)
-        after = len(self.vendorlist)
+        after = len(self.vendorList)
         logging.info("Removed: " + str(before - after) + " vendors.")
         self.__update()
         return newlist
 
     def replacevendorlist(self, newvendors):
-        self.vendorlist = newvendors
+        self.vendorList = newvendors
         #remove all items that contain these vendors from the dictionaries?
         self.__update()
 
@@ -332,10 +332,10 @@ class BCMManager(object):
         return qty, price
 
     def getvendorlist(self):
-        return self.data.vendorlist
+        return self.data.vendorList
 
     def getelementlist(self):
-        return self.data.elementlist
+        return self.data.elementList
 
     #prune vendors that are above average in price
     def prunedvendorsbyavgprice(self, pricefactor=1.0):
@@ -351,8 +351,8 @@ class BCMManager(object):
         avgprices = data.avgprices()  #same indices as elementlist
 
         for element, vendor in list(self.bcmdict.keys()):
-            eindex = data.elementlist.index(element)
-            vindex = data.vendorlist.index(vendor)
+            eindex = data.elementList.index(element)
+            vindex = data.vendorList.index(vendor)
 
             if p[eindex][vindex] > pricefactor * avgprices[eindex]:
                 if vindex not in removethese:
@@ -375,11 +375,11 @@ class BCMManager(object):
         cheapvendoridx = self.sortedvendoridx()
         #keep the n cheapest
         #make a new list containing only these vendors
-        initial_length = len(self.data.vendorlist)
-        cheapvendors = [self.data.vendorlist[i] for i in cheapvendoridx]
+        initial_length = len(self.data.vendorList)
+        cheapvendors = [self.data.vendorList[i] for i in cheapvendoridx]
         self.data.replacevendorlist(cheapvendors)
         #  self.data.__update()
-        finallength = len(self.data.vendorlist)
+        finallength = len(self.data.vendorList)
         removed = initial_length - finallength
         logging.info("Removed " + str(removed) + " vendors from the list")
         #print(cheapvendors)
