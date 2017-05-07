@@ -18,9 +18,9 @@ class ShoppingList():
     def __init__(self, solution):
         self.data = list()
         self.soln = solution
-        if not isinstance(solution.vendormap, VendorMap):
-            raise Exception("vendorMap does not exist")
-        #self.vendormap = vendormap
+        if not isinstance(solution.vendor_map, VendorMap):
+            raise Exception("vendor_map does not exist")
+        #self.vendor_map = vendor_map
 
     def additem(self, item):
         if isinstance(item, LegoElement):
@@ -48,21 +48,21 @@ class ShoppingList():
 
     def xmlforbricklink(self):
         """Generate the XML for a Bricklink wanted list."""
-        #global vendorMap
-        #TODO: access vendormap
+        #global vendor_map
+        #TODO: access vendor_map
         xml_string = ''
         if self.soln:
             vdict = self.soln.byvendordict()
             #TODO: Finish this routine
 
-            #print(self.vendormap)
+            #print(self.vendor_map)
             for vendorid, itemlist in list(vdict.items()):
                 vendorname = self.vendormap[vendorid]
                 print((vendorid, vendorname))
                 xml_string += "\n\n<INVENTORY>\n"
 
                 for element, qty, price in itemlist:
-                    elementid, color = LegoElement.splitelement(element)
+                    elementid, color = LegoElement.splitElement(element)
                     xml_string += '<ITEM>'
                     xml_string += ' <ITEMTYPE>P</ITEMTYPE>'
                     xml_string += ' <ITEMID>%s</ITEMID>' % elementid

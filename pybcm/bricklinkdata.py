@@ -20,7 +20,7 @@ class BricklinkData(UserDict):
                                 ... }
         where elementid is itemid|colorid
 
-        this class also works on the vendormap, which maps vendor ID to vendor name
+        this class also works on the vendor_map, which maps vendor ID to vendor name
 
     """
 
@@ -57,7 +57,7 @@ class BricklinkData(UserDict):
             itemid = wanted[elementid].itemid
             itemtypeid = wanted[elementid].itemtypeid
             itemcolorid = wanted[elementid].colorid
-            pricelist = self.webreader.readitemfromurl(itemtypeid, itemid, itemcolorid)
+            pricelist = self.webreader.read_item_from_url(itemtypeid, itemid, itemcolorid)
             if pricelist:
                 #  get the item page, parse it, and get back a list of (itemid<-this is vendorid,
                 #  vendorqty, vendorprice) tuples
@@ -82,7 +82,7 @@ class BricklinkData(UserDict):
 
             itemid = item.find('ItemID').text
             colorid = item.find('ColorID').text
-            elementid = LegoElement.joinelement(itemid, colorid)
+            elementid = LegoElement.joinElement(itemid, colorid)
             self[elementid] = []  #empty list
             logging.info("Loading element " + str(elementid))
 
@@ -95,7 +95,7 @@ class BricklinkData(UserDict):
                 assert isinstance(elementid, object)
                 self[elementid].append([vendorid, vendorqty, vendorprice])
                 vendorname = vendor.find('VendorName').text
-                self.vendormap.addvendor(Vendor(vendorid=vendorid, vendorname=vendorname))
+                self.vendormap.addVendor(Vendor(vendorid=vendorid, vendorname=vendorname))
 
     def summarize(self):
         """Return a summary string of the bricklink data."""
@@ -111,7 +111,7 @@ class BricklinkData(UserDict):
         #[itemID, storeID, quantity, price]
         xml_string = '<xml>\n'
         for elementid in list(self.keys()):
-            itemid, color = LegoElement.splitelement(elementid)
+            itemid, color = LegoElement.splitElement(elementid)
 
             xml_string += '<Item>\n'
             xml_string += ' <ItemID>{}</ItemID>\n'.format(itemid)
@@ -129,3 +129,7 @@ class BricklinkData(UserDict):
             xml_string += '</Item>\n'
         xml_string += '</xml>'
         return xml_string
+
+
+if __name__ == '__main__':
+    pass

@@ -13,7 +13,7 @@ class Solution():
         Attributes:
             data (list): element, vendor, qty, price tuples
             searchorder:
-            vendormap (VendorMap): points to the global vendormap
+            vendormap (VendorMap): points to the global vendor_map
             __needed is a running list of unfufilled quantity
             __filled is the quantity already filled
     """

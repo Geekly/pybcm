@@ -7,28 +7,31 @@ and shopping list functions.
 @author: khooks
 """
 import logging
-from bcm import BCMManager
-from bcmconfig import BCMConfig
-from wanted import WantedDict
-from bricklinkdata import BricklinkData
-import optimizer
-from shoppinglist import ShoppingList
-from vendors import VendorStats, Vendor
-# vendormap = VendorMap()
+
+from .bcmconfig import BCMConfig
+from .bcmdata import BCMManager
+from .bricklinkdata import BricklinkData
+from .vendorstats import VendorStats
+from .wanted import WantedDict
+
+
+# vendor_map = VendorMap()
 
 
 def main():
     # np.set_printoptions(threshold=np.nan)
     logging.basicConfig(level=logging.DEBUG)
 
-    config = BCMConfig()
+    config = BCMConfig('../config/bcm.ini')  # create the settings object and load the file
 
     wantedlistfilename = config.wantedfilename
+
     # reloadpricesfromweb = config.reloadpricesfromweb  # set this to true if you want to update prices from the web and rewrite pricefilename
+
     pricefilename = config.pricefilename
 
-    wanteddict = WantedDict()
     logging.info("Reading wanted list: " + wantedlistfilename)
+    wanteddict = WantedDict()
     wanteddict.read(wantedlistfilename)
     # print("want this many items: " , wanteddict.totalcount)
     
@@ -47,7 +50,7 @@ def main():
         bricklink.read(pricefilename)
         #f.close()
 
-    #vendormap = bricklink.vendormap
+    #vendor_map = bricklink.vendor_map
     bcm = BCMManager(bricklink, wanteddict)
 
     #bcm.prunevendorsbyavgprice()

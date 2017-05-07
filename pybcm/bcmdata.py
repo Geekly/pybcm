@@ -131,12 +131,12 @@ class BCMData():
         # resort the elementlist using these weights
         self.elementList = [y for (x, y) in sorted(zip(weights, self.elementList), reverse=True)]
 
-    def __vendorsort(self, sortby='uniqueitems'):
+    def __vendorsort(self, sortby='unique_items'):
         logging.info("Sorting Vendor List...")
 
-        if sortby == 'uniqueitems':
+        if sortby == 'unique_items':
             weights = self.__vs.itemspervendor
-        elif sortby == 'totalitems':
+        elif sortby == 'total_items':
             weights = self.__vs.totalvendor
         else:
             return  # nothing sorted
@@ -241,11 +241,11 @@ class BCMManager(object):
 
     def __init__(self, bricklink, wanteddict):
 
-        if not isinstance(bricklink.vendormap, VendorMap):
-            raise Exception("vendormap doesn't exist.")
+        if not isinstance(bricklink.vendor_map, VendorMap):
+            raise Exception("vendor_map doesn't exist.")
 
         self.bcmdict = self.__createbcmdict(bricklink)
-        #TODO: check dictionaries for validity prior to creating the BCMData object
+        # TODO: check dictionaries for validity prior to creating the BCMData object
         # self.data[elementid, vendorid] = (price, qty) #essentially a copy of the Bricklink data with a different lookup.
         # Don't change this once initialized
         self.data = BCMData(self.__createbcmdict(bricklink),
@@ -255,7 +255,7 @@ class BCMManager(object):
 
         self.initialized = False
 
-    #overload the default get function.  If the key combo doesn't exist, return a 0,0 pair
+    # overload the default get function.  If the key combo doesn't exist, return a 0,0 pair
     @staticmethod
     def __createwanteddict(bricklink, wanteddict):
         logging.info("Building Wanted Dictionary")
@@ -368,10 +368,10 @@ class BCMManager(object):
             vdict[vendor] = (num of stocked components, price factor)
         """
 
-    #TODO: make this work
+    # TODO: make this work
 
     def cullvendorsbyprice(self):
-        #NOT COMPLETE
+        # TODO: NOT COMPLETE
         cheapvendoridx = self.sortedvendoridx()
         #keep the n cheapest
         #make a new list containing only these vendors
@@ -385,7 +385,7 @@ class BCMManager(object):
         #print(cheapvendors)
 
     def sortedvendoridx(self):
-        #returns a masked array of the sorted vendor indices, masking the 0.0 values
+        # returns a masked array of the sorted vendor indices, masking the 0.0 values
         p = self.data.prices
         s = p.argsort(axis=1)  # sort array of vendor indices are now sorted by s
         static_indices = np.indices(p.shape)
@@ -398,15 +398,15 @@ class BCMManager(object):
 def addtolist(alist, value):
     """Add value to alist if it doesn't exist"""
     if value not in alist:
-        #string = "Adding value: " + str( value) + " to list " + str( alist)
-        #logging.(string)
+        # string = "Adding value: " + str( value) + " to list " + str( alist)
+        # logging.(string)
         alist.append(value)
     return True
 
-#compressed, sorted, masked array of vendor indices
+# compressed, sorted, masked array of vendor indices
 # def hasminquantity(self, elementid, vendorid ):
-#     assert vendorid in vendorMap, "Cannot determine qantity, vendor %r does not exist in vendorlist" % vendorid
-#     #assert vendorid in self.vendormap, "Cannot determine qantity, vendor %r does not exist in vendorlist" % vendorid
+#     assert vendorid in vendor_map, "Cannot determine qantity, vendor %r does not exist in vendorlist" % vendorid
+#     #assert vendorid in self.vendor_map, "Cannot determine qantity, vendor %r does not exist in vendorlist" % vendorid
 #
 #     if (elementid, vendorid) in self.BCMDICT:
 #         wantedquantity = int(self.WANTED[elementid])

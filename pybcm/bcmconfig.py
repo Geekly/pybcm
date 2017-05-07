@@ -21,12 +21,15 @@ class BCMConfig():
             _configfile (str): relative path of the config file
     """
 
-    def __init__(self):
+    def __init__(self, configFileName):
         #  _parser = SafeConfigParser()
-        self._configfile = '../config/bcm.ini'
+        self._configfile = configFileName    # '../config/bcm.ini'
         self._parser = RawConfigParser()
 
-        self._parser.read(self._configfile)
+        _dataset = self._parser.read(self._configfile)
+        if ( len(_dataset) <= 0 ):
+            raise(ValueError("Config file not found: " + self._configfile))
+
         self.username = self._parser.get('bricklink', 'username')
         self.password = self._parser.get('bricklink', 'password')
         self.wantedfilename = self._parser.get('filenames', 'wanted')
@@ -36,7 +39,7 @@ class BCMConfig():
 
 if __name__ == '__main__':
 
-    config = BCMConfig()
+    config = BCMConfig('../config/bcm.ini')
 
     print(config.pricefilename)
     print(config.reloadpricesfromweb)
