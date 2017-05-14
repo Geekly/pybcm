@@ -9,7 +9,7 @@ Created on Oct 23, 2012
 from collections import UserDict
 from lxml import etree
 from bs4 import BeautifulSoup as Soup
-from .legoutils import LegoElement
+from legoutils import LegoElement
 
 
 # from .legoutils import LegoElement
