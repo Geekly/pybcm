@@ -14,6 +14,7 @@ from xpath_usage import *
 from lxml import etree
 import logging
 
+
 class ElementReader(object):
     """ Base class for reading the information of a single Lego elementid
         
