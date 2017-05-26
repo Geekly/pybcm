@@ -4,8 +4,9 @@ Created on Oct 23, 2012
 @author: khooks
 """
 
+from collections import UserDict
 
-class LegoColor:
+class LegoColor(UserDict):
     """ Contains the color codes. """
 
     # anycolorID = [11, 1, 9, 10, 86, 85, 7, 5, 3, 6, 2, 8, 88]
@@ -171,14 +172,22 @@ class LegoColor:
         163: 'Glitter Trans-Neon Green',
         164: 'Trans-Light Orange',
         165: 'Neon Orange',
-        166: 'Neon Green',
-
-    }
-
-    @staticmethod
-    def isValidColor(colorid) -> bool:
-        return int(colorid) in LegoColor.colors.keys()
-        # return int(colorid) in LegoColor._colorset
+        166: 'Neon Green'}
+        
+    def __init__(self):
+        super(LegoColor, self).__init__(LegoColor.colors)
+            
+    def __missing__(self, key):
+        if isinstance(key, str):
+            raise KeyError(key)
+        return self[str(key)]
+    
+    def __contains__(self, key):
+        return str(key) in self.data
+    
+    def __setitem__(self, key, item):
+        self.data[str(key)] = item
+        # raise KeyError("Can't modify values")
 
 
 class LegoElement(object):
