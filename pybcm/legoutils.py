@@ -4,13 +4,9 @@ Created on Oct 23, 2012
 @author: khooks
 """
 
-from collections import UserDict
+# from collections import UserDict
 
-class LegoColor(UserDict):
-    """ Contains the color codes. """
-
-
-    colors = {
+legoColors = {
         1: 'White',
         2: 'Tan',
         3: 'Yellow',
@@ -169,29 +165,30 @@ class LegoColor(UserDict):
         163: 'Glitter Trans-Neon Green',
         164: 'Trans-Light Orange',
         165: 'Neon Orange',
-        166: 'Neon Green'}
-        
-    def __init__(self):
-        super(LegoColor, self).__init__(LegoColor.colors)
-            
-    def __missing__(self, key):
-        if isinstance(key, str):
-            raise KeyError(key)
-        return self[str(key)]
-    
-    def __contains__(self, key):
-        return str(key) in self.data
-    
-    def __setitem__(self, key, item):
-        self.data[str(key)] = item
-        # raise KeyError("Can't modify values")
+        166: 'Neon Green'
 
 }
 
+
+class LegoColor():
+    """ Dictionary of allowable color codes. """
+        
+    def __init__(self, colorid):
+        colorid = int(colorid)
+        if colorid in legoColors:
+            self.colorid = colorid
+            self.name = legoColors[colorid]
+        else:
+            raise KeyError("Color %s does not exist" % str(colorid))
+
+    def __repr__(self):
+        return "LegoColor<colorid:%s, name:%s>" % (self.colorid, self.name)
+
+# module global dict of legocolors
+
+
 class LegoElement(object):
     """ Represents a Lego element and its attributes"""
-
-    legoColor = LegoColor()
 
     @staticmethod
     def joinElement(itemid, colorid):
@@ -219,29 +216,26 @@ class LegoElement(object):
         """
 
         self.itemid = str(itemid)
-        self.colorid = int(colorid)
+        self._colorid = int(colorid)
+        if self._colorid in legoColors:
+            self.color = LegoColor(self._colorid)
+        else:
+            raise KeyError("Invalid Color ID: " + str(colorid))
+
         self.wantedqty = int(wantedqty)
         self.itemname = str(itemname)
         self.itemtypeid = str(itemtypeid)
         self.itemtypename = str(itemtypename)
 
-        self._elementid = LegoElement.joinElement(self.itemid, self.colorid)
-
-        # Check if colorid exists in LegoColor list
-        try:
-            if self.colorid in LEGOCOLORS:
-                pass
-            else:
-                raise ValueError("Invalid Color ID: " + str(colorid))
-
-        except ValueError as error:
-            print(error)
-
-        self.colorname = LEGOCOLORS[int(colorid)]
+        self._elementid = LegoElement.joinElement(self.itemid, self._colorid)
 
     @property
     def elementId(self):
         return self._elementid
+
+    @property
+    def colorName(self):
+        return self.color.name
 
     def __hash__(self):
         return hash(self.itemid) + hash(self.colorid)
@@ -264,7 +258,8 @@ if __name__ == "__main__":
     print(thsElement)
     print(thsElement.elementId)
     print(thsElement.itemid)
-    print(thsElement.colorid)
+    print(thsElement.color)
+    print(thsElement.colorName)
     print(thsElement.wantedqty)
 
  #   print(LegoElement.legoColor.isValidColor(300))
@@ -273,7 +268,7 @@ if __name__ == "__main__":
 
     print(ele2)
 
-    print(LEGOCOLORS[144])
+    print(legoColors[144])
 
     l = LegoElement('3527', '10000')
     l = LegoElement('3527', 44)
