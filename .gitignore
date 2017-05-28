@@ -50,3 +50,8 @@ _ReSharper*/
 [Tt]est[Rr]esult*
 *.pyc
 *.pyc
+etree_out.html
+etree_out.xml
+outfile.html
+other_tests/etree_out.html
+test/ignore/CurrentlyAvailable.html

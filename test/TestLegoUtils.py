@@ -6,8 +6,8 @@ class TestLegoUtils(unittest.TestCase):
 
     def testIsValidColor(self):
 
-        self.assertTrue(LegoColor.isValidColor(58))
-        self.assertFalse(LegoColor.isValidColor(230))
+        self.assertTrue(58 in LEGOCOLORS)
+        self.assertFalse(230 in LEGOCOLORS)
 
     def testJoinElement(self):
         A = "3456"

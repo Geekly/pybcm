@@ -10,9 +10,17 @@ import http.cookiejar
 from urllib import request, parse
 from urllib.error import HTTPError, URLError
 from vendors import Vendor, VendorMap
-from xpath_usage import *
+# from xpath_usage import *
 from lxml import etree
 import logging
+
+
+FILE_STORE_LINKS = '//tbody/tr/td/table[3]/tbody/tr[5]/td[3]/table[3]/tbody/tr/td/table/tbody/tr[td/a]'
+URL_STORE_LINKS = '//*[@id="id-main-legacy-table"]/tbody/tr/td/table[3]/tbody/tr[4]/td[3]/table[3]/tbody/tr/td/table/tbody/tr[2]'
+STORE_CHILD_LINK = './td/a/@href'
+STORE_NAME = './td/a/img/@alt'
+STORE_PRICE = './td[4]/text()'
+STORE_QTY = './td[2]/text()'
 
 
 class ElementReader(object):
@@ -30,6 +38,8 @@ class ElementReader(object):
         #returns prices[] =([itemid, vendorid, vendorqty, vendorprice)
     """
 
+    parser = etree.HTMLParser(remove_blank_text=True, remove_comments=True, encoding='utf-8')
+
     def __init__(self, vendormap_):
         """ Start up..."""
         self.__vendormap = vendormap_
@@ -42,21 +52,27 @@ class ElementReader(object):
     def vendor_map(self, vendormap_):
         self.__vendormap = vendormap_
 
+    def read_items_from_html(self, html_string, stores_xpath):
+        datatree = etree.HTML(html_string, ElementReader.parser)
+        itemprices = self.read_items_from_tree(datatree, stores_xpath)
+        return itemprices
+
     @staticmethod
-    def get_store_elements_from_tree(datatree):
+    def get_store_elements_from_tree(datatree, stores_xpath):
         """Extracts a list of store Elements (with url) and their price & quantity data from the datatree
                 datatree (lxml.etree):
         """
         # xpath definitions are stored in xpath_usage.py
-        store_rows = datatree.xpath(STORE_LINKS)
+
+        store_rows = datatree.xpath(stores_xpath)
         if store_rows:
             stores = store_rows  # find all the rows that contain links
         else:
             stores = None
         return stores
-
     #  TODO: Make this function static
-    def read_items_from_tree(self, datatree):
+
+    def read_items_from_tree(self, datatree, stores_xpath):
         """
         Read a single item from its Price Guide page
             Vendor Name
@@ -68,7 +84,7 @@ class ElementReader(object):
         """
         # global vendor_map
         prices = []
-        stores = self.get_store_elements_from_tree(datatree)  # all store tr's
+        stores = self.get_store_elements_from_tree(datatree, stores_xpath)  # all store tr's
         if stores:  # check if list is empty
             suLink = re.compile("sID=(\d+).*itemID=(\d+)")  # \&itemID=(\d+)
             suStore = re.compile("Store\:\s(.*)")
@@ -76,10 +92,10 @@ class ElementReader(object):
             for store in stores:
                 # create text strings from the store element
                 link_list = store.xpath(STORE_CHILD_LINK)
-                if (link_list):
+                if link_list:
                     td_link = store.xpath(STORE_CHILD_LINK)[0]
                 else:
-                    raise IndexError(td_link)
+                    raise IndexError(link_list)
 
                 storematch = re.search(suLink, td_link)
 
@@ -93,12 +109,13 @@ class ElementReader(object):
                     # TODO: we should check to see if retrived itemid are the same
 
                     store_name_match = re.search(suStore, td_name)
-                    store_name = store_name_match.group(1)
+                    # store_name = store_name_match.group(1)
                     price = float(re.search(suPrice, td_price).group(1))
                     quantity = int(td_qty)
 
                     if quantity > 0:  # don't bother adding the vendor if it doesn't have any quantity for this item
-                        self.__vendormap.addVendor(Vendor(store_id, store_name))
+                        self.vendor_map[store_id] = td_name
+                            # .addVendor(Vendor(store_id, store_name))
                         prices.append([store_id, quantity, price])
 
         return prices
@@ -114,17 +131,14 @@ class ElementFileReader(ElementReader):
         ElementReader.__init__(self, vendormap_)
 
     @staticmethod
-    def read_tree_from_file(filename):
-        parser = etree.HTMLParser(remove_blank_text=True, remove_comments=True, encoding='utf-8')
-        with io.open(filename, 'r') as f:
-            datatree = etree.HTML(f.read(), parser)
-        return datatree
+    def read_html_from_file(filename):
+        with io.open(filename, 'rt') as f:
+            html_string = f.read()
+        return html_string
 
-    # TODO: move to ElementReader
     def read_item_from_file(self, filename):
-        datatree = self.read_tree_from_file(filename)
-
-        itemprices = self.read_items_from_tree(datatree)
+        html_string = self.read_html_from_file(filename)
+        itemprices = self.read_items_from_html(html_string, FILE_STORE_LINKS)
         return itemprices
 
 
@@ -132,20 +146,17 @@ class ElementWebReader(ElementReader):
 
     logoff_url = 'href="https://www.bricklink.com/logoff.asp"'
 
-    def __init__(self, vendormap, login='', password=''):
+    def __init__(self, vendormap_, login='', password=''):
         """ Start up...
-        :param vendormap:
+        :param vendormap_:
         """
-        ElementReader.__init__(self, vendormap)
+        ElementReader.__init__(self, vendormap_)
 
         self._login = login
         self._password = password
-
-        # self.blbrowser = twillbrowser()
-        url = "https://www.bricklink.com/login.asp"
         self.blbrowser = SomeBrowser()
-        login_response = self.blbrowser.login(url, self._login, self._password)
-        self.loggedin = self.is_logged_in(login_response)
+        # login_response = self.blbrowser.login(url, self._login, self._password)
+        # self.loggedin = self.is_logged_in(login_response)
 
     def read_item_from_url(self, itemtypeID, itemID, itemColorID):
         # global vendor_map
@@ -154,28 +165,31 @@ class ElementWebReader(ElementReader):
         # we also need to extract real vendor names during this search
         # returns prices[] =([itemid, vendorid, vendorqty, vendorprice)
         # ElementReader.vendor_map = vendor_map
-        if not isinstance(self.vendor_map, VendorMap):
-            raise Exception("global vendor_map does not exist")
-        url = "http://www.bricklink.com/catalogPG.asp?itemType=" + itemtypeID + '&itemNo=' + itemID + '&itemSeq=1&colorID=' + itemColorID + '&v=P&priceGroup=Y&prDec=2'
+        # if not self.vendor_map == []:
+        #     raise Exception("global vendor_map does not exist")
+        url = "http://www.bricklink.com/catalogPG.asp?itemType=" + itemtypeID + '&itemNo=' + itemID + \
+              '&itemSeq=1&colorID=' + str(itemColorID) + '&v=P&priceGroup=Y&prDec=2'
+        url = "https://www.bricklink.com/catalogPG.asp?%s=%s&ColorID=%s" % (itemtypeID, itemID, itemColorID)
         logging.info("Reading item from %s" % url)
         # itemprices = []
         page_ = self.blbrowser.open(url)
-        parser = etree.HTMLParser(remove_blank_text=True, remove_comments=True, encoding='utf-8')
-        datatree = etree.HTML(page_, parser)
-        itemprices = self.read_items_from_tree(datatree)
+        itemprices = self.read_items_from_html(page_, URL_STORE_LINKS)
+        if len(itemprices) < 1:
+            raise ValueError("No items were returned from URL")
+
         return itemprices
 
-    def is_logged_in(self, page):
-        #TODO: verify this does what we hope it does
-        """Search the page for the log off URL to determine if currently logged in
-        
-        """
-        # logoff_url = 'href="https://www.bricklink.com/logoff.asp"'
-        logoff_url_xpath = LOGOFF_URL
-        parser = etree.HTMLParser(remove_blank_text=True, remove_comments=True, encoding='utf-8')
-        datatree = etree.HTML(page, parser)
-        r = datatree.xpath(logoff_url_xpath)
-        return
+    # def is_logged_in(self, page):
+    #     #TODO: verify this does what we hope it does
+    #     """Search the page for the log off URL to determine if currently logged in
+    #
+    #     """
+    #     # logoff_url = 'href="https://www.bricklink.com/logoff.asp"'
+    #     logoff_url_xpath = LOGOFF_URL
+    #     parser = etree.HTMLParser(remove_blank_text=True, remove_comments=True, encoding='utf-8')
+    #     datatree = etree.HTML(page, parser)
+    #     r = datatree.xpath(logoff_url_xpath)
+    #     return
 
 
 class SomeBrowser:

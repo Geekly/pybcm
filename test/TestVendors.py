@@ -11,25 +11,23 @@ class TestVendors(unittest.TestCase):
     def testVendorMethods(self):
         log = logging.getLogger("TestVendors.testVendorMethods")
         vendor = Vendor('441396', 'The Brick Diet')
-        # log.debug(vendor.xml)
-        # log.debug(vendor)
+        log.debug(vendor.xml)
+        log.debug(vendor)
+        log.debug(vendor.__repr__())
         self.assertEquals(vendor.xml, str(vendor))
 
     def testVendorMap(self):
         log = logging.getLogger("TestVendors.testVendorMap")
         vmap = VendorMap()
+        vmap.addVendor(Vendor('341396', 'The Brick Diet'))
+        vmap.addVendor(Vendor('443396', 'The Brick Town'))
+        vmap.addVendor(Vendor('543196', 'Bricks a lot for the memories'))
 
-        vendor1 = Vendor('441396', 'The Brick Diet')
+        vmap['441676'] = 'Bricks on the Wall'
+        vmap['425676'] = 'In the Brick of it'
 
-        self.assertTrue(vmap.addVendor(vendor1))
-        self.assertFalse(vmap.addVendor(vendor1))  # try to add a duplicate vendor
-
-        vmap.addVendor(Vendor('441676', 'Bricks on the Wall'))
-        vmap.addVendor(Vendor('425676', 'In the Brick of it'))
-
-        self.assertEquals(vmap.getNumVendors(), 3)
-        self.assertEquals(vmap.getVendorName('425676'), 'In the Brick of it')
-
+        self.assertEquals(len(vmap), 5)
+        self.assertEquals(vmap['425676'], 'In the Brick of it')
         self.assertEquals(vmap.xml, str(vmap))  # __str__ should call the xml property
 
         log.info(vmap)
