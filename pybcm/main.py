@@ -8,7 +8,7 @@ and shopping list functions.
 """
 import logging
 
-from .bcmconfig import BCMConfig
+from .config import BCMConfig
 from .bcmdata import BCMManager
 from .bricklinkdata import BricklinkData
 from .vendorstats import VendorStats

@@ -6,21 +6,61 @@ Created on Oct 26, 2012
 
 import re
 import io
-import http.cookiejar
-from urllib import request, parse
-from urllib.error import HTTPError, URLError
-from vendors import Vendor, VendorMap
+from uritemplate import URITemplate, expand
+from brickbrowser import BrickBrowser
+from vendors import VendorMap
+from bs4 import BeautifulSoup as Soup
+
 # from xpath_usage import *
 from lxml import etree
 import logging
+import log
 
+logger = log.setup_custom_logger('root')
+# Override logging level
+logger.setLevel(logging.DEBUG)
+logger.debug('Begin elementreader.py')
 
 FILE_STORE_LINKS = '//tbody/tr/td/table[3]/tbody/tr[5]/td[3]/table[3]/tbody/tr/td/table/tbody/tr[td/a]'
-URL_STORE_LINKS = '//*[@id="id-main-legacy-table"]/tbody/tr/td/table[3]/tbody/tr[4]/td[3]/table[3]/tbody/tr/td/table/tbody/tr[2]'
+URL_STORE_LINKS_XPATH = '//*[@id="id-main-legacy-table"]/tbody/tr/td/table[3]/tbody/tr[4]/td[3]/table[3]/tbody/tr/td/table/tbody/tr[position()>=2 and position()<last()-6]'
+# URL_STORE_LINKS_XPATH = "//*/table[2]/tbody/tr[5]/td[3]/table/tbody/tr/td/table/tbody/tr[count(td)>2][position()>=2]"
+# //*[@id="id-main-legacy-table"]/tbody/tr/td/table[3]/tbody/tr[4]/td[3]/table/tbody/tr/td/table/tbody/tr[2]
+# URL_STORE_LINKS_XPATH = ( '//tbody/tr/td/table[3]/tbody/tr[5]/td[3]/table[3]/tbody/tr/td/table/tbody/tr[count(td)=4][position()>=2]'
+# '|//tbody/tr/td/table[3]/tbody/tr[4]/td[3]/table[3]/tbody/tr/td/table/tbody/tr[count(td)=3][position()>=2]')
+# //tbody/tr/td/table[3]/tbody/tr[5]/td[3]/table[3]/tbody/tr/td/table/tbody/tr[position()>=2]
+# //tbody/tr/td/table[3]/tbody/tr[5]/td[3]/table[3]/tbody/tr/td/table/tbody/tr[count(td)>2][position()>=2]
+
+ALT_URL = '//*[@id="id-main-legacy-table"]/tbody/tr/td/table[3]/tbody/tr[5]/td[3]/table/tbody/tr/td/table'
 STORE_CHILD_LINK = './td/a/@href'
 STORE_NAME = './td/a/img/@alt'
 STORE_PRICE = './td[4]/text()'
 STORE_QTY = './td[2]/text()'
+
+
+class PriceURL:
+    # PriceURl implements an easily readible, funcational, and modifiable URL for retreiving prices
+
+    # Usage:
+    #    url_template = PriceURL()
+    #    uri = url_template.expand(item_type=itemtypeID, item_number=itemID, color_id=itemColorID)
+    #    'https://www.bricklink.com/catalogPG.asp?itemType = P & itemNo = 3004 & itemSeq = 1 & colorID = 8 & v = P & prDec = 2'
+
+    """url = ('https://www.bricklink.com/catalogPG.asp?'
+           'itemType = {item_type} &'
+           'itemNo = {item_number} & itemSeq = 1 &'
+           'colorID = {color_id} & v = P & prDec = 2')"""
+    url = ('https://www.bricklink.com/catalogPG.asp?'
+           '{item_type}={item_number} &'
+           'colorID = {color_id}'
+           )
+
+    def __init__(self):
+        self.raw_url = PriceURL.url.replace(" ", "")  # Spaces improved readability
+        self.url_template = URITemplate(self.raw_url)
+
+    def expand(self, itemtypeID, itemID, itemColorID):
+        self.url = self.url_template.expand(item_type=itemtypeID, item_number=itemID, color_id=itemColorID)
+        return self.url
 
 
 class ElementReader(object):
@@ -38,7 +78,7 @@ class ElementReader(object):
         #returns prices[] =([itemid, vendorid, vendorqty, vendorprice)
     """
 
-    parser = etree.HTMLParser(remove_blank_text=True, remove_comments=True, encoding='utf-8')
+    parser = etree.HTMLParser(remove_comments=True, encoding='utf-8')
 
     def __init__(self, vendormap_):
         """ Start up..."""
@@ -70,6 +110,7 @@ class ElementReader(object):
         else:
             stores = None
         return stores
+
     #  TODO: Make this function static
 
     def read_items_from_tree(self, datatree, stores_xpath):
@@ -115,7 +156,7 @@ class ElementReader(object):
 
                     if quantity > 0:  # don't bother adding the vendor if it doesn't have any quantity for this item
                         self.vendor_map[store_id] = td_name
-                            # .addVendor(Vendor(store_id, store_name))
+                        # .addVendor(Vendor(store_id, store_name))
                         prices.append([store_id, quantity, price])
 
         return prices
@@ -143,7 +184,6 @@ class ElementFileReader(ElementReader):
 
 
 class ElementWebReader(ElementReader):
-
     logoff_url = 'href="https://www.bricklink.com/logoff.asp"'
 
     def __init__(self, vendormap_, login='', password=''):
@@ -154,9 +194,17 @@ class ElementWebReader(ElementReader):
 
         self._login = login
         self._password = password
-        self.blbrowser = SomeBrowser()
+        self.blbrowser = BrickBrowser(self._login, self._password)
+        self.priceUrl = PriceURL()
         # login_response = self.blbrowser.login(url, self._login, self._password)
         # self.loggedin = self.is_logged_in(login_response)
+
+    def read_html_from_url(self, itemtypeID, itemID, itemColorID):
+        url = self.priceUrl.expand(itemtypeID, itemID, itemColorID)
+        logging.info("Reading item from %s" % url)
+        # itemprices = []
+        page_ = self.blbrowser.open(url)
+        return page_, url
 
     def read_item_from_url(self, itemtypeID, itemID, itemColorID):
         # global vendor_map
@@ -164,83 +212,37 @@ class ElementWebReader(ElementReader):
         # need to find and return itemID, storeID's, itemQty, itemPrice for each url
         # we also need to extract real vendor names during this search
         # returns prices[] =([itemid, vendorid, vendorqty, vendorprice)
-        # ElementReader.vendor_map = vendor_map
-        # if not self.vendor_map == []:
-        #     raise Exception("global vendor_map does not exist")
-        url = "http://www.bricklink.com/catalogPG.asp?itemType=" + itemtypeID + '&itemNo=' + itemID + \
-              '&itemSeq=1&colorID=' + str(itemColorID) + '&v=P&priceGroup=Y&prDec=2'
-        url = "https://www.bricklink.com/catalogPG.asp?%s=%s&ColorID=%s" % (itemtypeID, itemID, itemColorID)
-        logging.info("Reading item from %s" % url)
-        # itemprices = []
-        page_ = self.blbrowser.open(url)
-        itemprices = self.read_items_from_html(page_, URL_STORE_LINKS)
+
+        page_, url = self.read_html_from_url(itemtypeID, itemID, itemColorID)
+        itemprices = self.read_items_from_html(page_, URL_STORE_LINKS_XPATH)
         if len(itemprices) < 1:
             raise ValueError("No items were returned from URL")
 
         return itemprices
 
-    # def is_logged_in(self, page):
-    #     #TODO: verify this does what we hope it does
-    #     """Search the page for the log off URL to determine if currently logged in
-    #
-    #     """
-    #     # logoff_url = 'href="https://www.bricklink.com/logoff.asp"'
-    #     logoff_url_xpath = LOGOFF_URL
-    #     parser = etree.HTMLParser(remove_blank_text=True, remove_comments=True, encoding='utf-8')
-    #     datatree = etree.HTML(page, parser)
-    #     r = datatree.xpath(logoff_url_xpath)
-    #     return
+        # def is_logged_in(self, page):
+        #     #TODO: verify this does what we hope it does
+        #     """Search the page for the log off URL to determine if currently logged in
+        #
+        #     """
+        #     # logoff_url = 'href="https://www.bricklink.com/logoff.asp"'
+        #     logoff_url_xpath = LOGOFF_URL
+        #     parser = etree.HTMLParser(remove_blank_text=True, remove_comments=True, encoding='utf-8')
+        #     datatree = etree.HTML(page, parser)
+        #     r = datatree.xpath(logoff_url_xpath)
+        #     return
 
 
-class SomeBrowser:
-    def __init__(self):
+class ElementSpider(ElementReader):
+    def __init__(self, vendormap_):
+        """ Start up...
+        :param vendormap_:
+        """
+        ElementReader.__init__(self, vendormap_)
 
-        self.url = ''
-        self.response = ''
-        self.data = ''
-        self.cookies = http.cookiejar.CookieJar()
-        self.opener = request.build_opener(
-            request.HTTPRedirectHandler(),
-            request.HTTPSHandler(debuglevel=0),
-            request.HTTPCookieProcessor(self.cookies))
-
-    def open(self, url):
-        try:
-            self.url = url
-            req = request.Request(self.url)
-            response = self.opener.open(req)
-            # response = urllib.request.urlopen(req)
-            the_page = response.read()
-            logging.debug("Opening URL:" + url)
-            return the_page
-        except HTTPError as e:
-            logging.debug("Http Error: ", e.code, url)
-        except URLError as e:
-            logging.debug("URL Error:", e.reason, url)
-
-    def login(self, url, loginname, passwd):
-
-        try:
-            self.url = url
-            values = {
-                'a': 'a',
-                'logFrmFlag': 'Y',
-                'frmUserName': loginname,
-                'frmPassword': passwd}
-
-            data = parse.urlencode(values).encode('utf-8')
-            response = self.opener.open(url, data)
-            the_page = response.read().decode('utf-8')
-            return the_page
-        except HTTPError as e:
-            logging.debug("Http Error: ", e.code, url)
-        except URLError as e:
-            logging.debug("URL Error:", e.reason, url)
-
-            # def remove_accents(input_str):
-
-            # nkfd_form = unicodedata.normalize('NFKD', unicode(input_str))
-            # return u"".join([c for c in nkfd_form if not unicodedata.combining(c)])
+    def get_element(self, itemtypeID, itemID, itemColorID):
+        url = PriceURL().expand('P', '3005', '23')
+        pass
 
 
 if __name__ == '__main__':
@@ -248,7 +250,7 @@ if __name__ == '__main__':
     # prices = ElementFileReader(filename)
     # print prices.readAllItems()
 
-    from bcmconfig import BCMConfig
+    from config import BCMConfig
 
     logging.basicConfig(level=logging.DEBUG)
     logging.info('Started')
@@ -258,9 +260,7 @@ if __name__ == '__main__':
     config = BCMConfig('../config/bcm.ini')
     br = ElementWebReader(vendormap, config.username, config.password)
 
-    br.read_item_from_url('P', '3001', '80')
-    br.read_item_from_url('P', '3001', '80')
-    print(br.read_item_from_url('P', '3001', '80'))
+    page = br.read_item_from_url('P', '3005', '23')
 
     # bfr = ElementFileReader()
     # bfr.readItemFromFile("../BrickLink Price Guide - Part 3001 in Dark Green Color.htm")

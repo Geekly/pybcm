@@ -3,7 +3,7 @@ import io
 import unittest
 from pybcm.elementreader import ElementReader, ElementFileReader, ElementWebReader
 from pybcm.vendors import *
-from pybcm.bcmconfig import BCMConfig
+from pybcm.config import BCMConfig
 import os.path
 from lxml import etree
 from lxml.html.clean import Cleaner

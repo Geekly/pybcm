@@ -1,8 +1,8 @@
 import sys
 import io
-from pybcm.elementreader import ElementReader, ElementFileReader, ElementWebReader
+from pybcm.elementreader import ElementReader, ElementFileReader, ElementWebReader, PriceURL
 from pybcm.vendors import *
-from pybcm.bcmconfig import BCMConfig
+from pybcm.config import BCMConfig
 import pybcm.xpath_usage
 import os.path
 from lxml import etree
@@ -27,7 +27,7 @@ class ElementReaderIT():
         # cls._vendormap = VendorMap()
         pass
 
-    def _testElementReaderMethods(self):
+    def testElementReaderMethods(self):
         # vendormap_ = VendorMap()
         reader = ElementReader(VendorMap())
         self.assertNotEquals(reader, None)
@@ -41,9 +41,7 @@ class ElementReaderIT():
     #
     def testGetStoreElements(self):
         log_ = logging.getLogger("TestCleaner")
-
         self.assertTrue(os.path.isfile(self.element_filename))
-
         log_.info("Parsing item from file...")
         datatree = self.datatree # self.loadTree(self.element_filename)
 
@@ -72,6 +70,10 @@ if __name__ == '__main__':
     erit = ElementReaderIT()
     erit.setUpClass()
 
+    url_t = PriceURL()
+    url = url_t.expand('P', '3004', '1')
+    print("Price URL: %s" % url)
+
     file_vmap = VendorMap()
     efr = ElementFileReader(file_vmap)
 
@@ -82,42 +84,7 @@ if __name__ == '__main__':
 
     url_vmap = VendorMap()
     eur = ElementWebReader(url_vmap, config.username, config.password)
-    prices = eur.read_item_from_url('P', '3004', 86)
+    prices = eur.read_item_from_url('P', '3004', 1)
     log.debug(prices)
 
-
-    # @classmethod
-    # def loadTree(cls, element_filename):
-    #     log = logging.getLogger("TestElementReader.loadTree")
-    #     with io.open(element_filename, 'rt') as f:
-    #         file_text = f.read()
-    #         clean_text = cls.clean(file_text)
-    #         # soup = Soup(clean_text, 'lxml')
-    #         log.debug(str(soup))
-    #     with io.open('etree_out.html', 'w') as g:
-    #         g.write(str(soup))
-    #     parser = etree.HTMLParser(encoding='utf-8')  # remove_blank_text=True, remove_comments=True, encoding='utf-8')
-    #     root = etree.fromstring(clean_text, parser)
-    #     return root
-
-    # @classmethod
-    # def clean(cls, text):
-    #     """
-    #     :type text: cleaned html
-    #     """
-    #     log = logging.getLogger("TestElementReader.clean")
-    #
-    #     try:
-    #         cleaner_ = Cleaner(scripts=True, embedded=True, meta=True, style=True, comments=True)
-    #                           # remove_tags=['a', 'li', 'td'])
-    #         clean_text = cleaner_.clean_html(text)
-    #         clean_text = clean_text.replace('\n', '').replace('\t', '')
-    #         log.info("Removed " + (str(len(text) - len(clean_text))) + " characters removed.")
-    #         return clean_text
-    #
-    #     except Exception as e:
-    #         log.debug(e)
-    #         log.debug(sys.exc_info())
-    #         raise Exception('Error in clean_html')
-    #         return text
 
