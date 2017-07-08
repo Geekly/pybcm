@@ -6,16 +6,19 @@ Created on Oct 23, 2012
 #TODO: replace beautifulsoup with lxml
 #Converted the dictionary key from itemid, colorid to elementid, which is of the format 'itemid|colorid'
 
-from collections import UserDict
-from lxml import etree
-from bs4 import BeautifulSoup as Soup
-from legoutils import LegoElement
+import logging
 
+from bs4 import BeautifulSoup as Soup
+from collections import UserDict
+
+import log
+from legoutils import LegoElement
 
 # from .legoutils import LegoElement
 
 #from string import Template
 #from xml.etree import ElementTree as ET 
+logger = logging.getLogger(__name__)
 
 
 class WantedDict(UserDict):
@@ -52,14 +55,13 @@ class WantedDict(UserDict):
                 itemtypeid = itemNode.find('itemtypeid').string
                 itemtypename = itemNode.find('itemtypename').string
                 colorid = itemNode.find('colorid').string
-                colorname = itemNode.find('colorname').string
                 wantedqty = int(itemNode.find('qty').string)
                 self._totalcount += wantedqty
 
                 newElement = LegoElement(itemid, colorid, wantedqty=wantedqty, itemname=itemname, itemtypeid=itemtypeid,
-                                         itemtypename=itemtypename, colorname=colorname)
-
+                                         itemtypename=itemtypename)
                 self[newElement.elementId] = newElement
+
         except IOError as e:
             print(e)
 
@@ -83,6 +85,7 @@ class WantedDict(UserDict):
             return 0
 
 if __name__ == '__main__':
+    log.setup_custom_logger(__name__)
     wantedlistfilename = "../Sampledata/Remaining Falcon.bsx"
     wanteddict = WantedDict()
     wanteddict.read(wantedlistfilename)

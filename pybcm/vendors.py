@@ -5,8 +5,10 @@ Created on Oct 23, 2012
 """
 
 #  import numpy as np
-from collections import namedtuple
+import json
 import logging
+
+from collections import namedtuple
 
 VendorBase = namedtuple('VendorBase', 'vendor_id vendor_name')
 
@@ -31,7 +33,7 @@ class Vendor(VendorBase):
         return self._hash
 
     def __repr__(self):
-        return '%s:%s' % (self.vendor_id, self.vendor_name)
+        return self.json
 
     @property
     def xml(self):
@@ -43,6 +45,10 @@ class Vendor(VendorBase):
         xmlstring += "<VendorName>" + str(self.vendor_name) + "</VendorName>\n"
         xmlstring += "</Vendor>\n"
         return xmlstring
+
+    @property
+    def json(self):
+        return '{{ "{0}": "{1}" }}'.format(self.vendor_id, self.vendor_name)
 
     def __str__(self):
         return self.xml
@@ -140,6 +146,9 @@ class VendorMap(dict):
         xml_string += '</VendorMap>'
         return xml_string
 
+    @property
+    def json(self):
+        return json.dumps(self, sort_keys=True, indent=4)
 
 #test code goes here
 if __name__ == '__main__':

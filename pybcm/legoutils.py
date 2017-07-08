@@ -3,8 +3,13 @@ Created on Oct 23, 2012
 
 @author: khooks
 """
+import json
+
+from collections import namedtuple
 
 # from collections import UserDict
+
+PriceTuple = namedtuple('PriceTuple', 'elementid storeid storename price qty')
 
 legoColors = {
         1: 'White',
@@ -234,14 +239,22 @@ class LegoElement(object):
         return self._elementid
 
     @property
+    def colorid(self):
+        return self._colorid
+
+    @property
     def colorName(self):
         return self.color.name
+
+    @property
+    def json(self):
+        return json.dumps(self, sort_keys=True, indent=4)
 
     def __hash__(self):
         return hash(self.itemid) + hash(self.colorid)
 
     def __repr__(self):
-        return self._elementid
+        return self.json
 
 
 if __name__ == "__main__":

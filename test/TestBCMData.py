@@ -1,11 +1,12 @@
 import unittest
-import pybcm
+
+from pybcm.bcmdata import BCMData
 
 
 class TestBCMDataMethods(unittest.TestCase):
 
     def test_construct(self):
-        bcmData = pybcm.BCMData()
+        bcmData = BCMData()
 
         self.assertEqual('foo'.upper(), 'FOO')
 

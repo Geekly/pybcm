@@ -1,23 +1,24 @@
-import unittest
-from pybcm.vendors import *
 import logging
+import unittest
+
+from log import setup_custom_logger
+from pybcm.vendors import *
+
+logger = setup_custom_logger(__name__)
 
 
 class TestVendors(unittest.TestCase):
-
     def setUp(self):
-        logging.basicConfig(level=logging.DEBUG)
+        pass
 
     def testVendorMethods(self):
-        log = logging.getLogger("TestVendors.testVendorMethods")
+        logging.getLogger(''.join([__name__, ".testVendorMethods"]))
         vendor = Vendor('441396', 'The Brick Diet')
-        log.debug(vendor.xml)
-        log.debug(vendor)
-        log.debug(vendor.__repr__())
         self.assertEquals(vendor.xml, str(vendor))
+        logger.debug(vendor.json)
 
     def testVendorMap(self):
-        log = logging.getLogger("TestVendors.testVendorMap")
+        logging.getLogger(''.join([__name__, ".testVendorMap"]))
         vmap = VendorMap()
         vmap.addVendor(Vendor('341396', 'The Brick Diet'))
         vmap.addVendor(Vendor('443396', 'The Brick Town'))
@@ -30,4 +31,4 @@ class TestVendors(unittest.TestCase):
         self.assertEquals(vmap['425676'], 'In the Brick of it')
         self.assertEquals(vmap.xml, str(vmap))  # __str__ should call the xml property
 
-        log.info(vmap)
+        logger.info(vmap.json)

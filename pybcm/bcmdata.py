@@ -4,13 +4,15 @@ Created on Oct 30, 2012
 @author: khooks
 """
 
-from vendors import VendorStats, VendorMap
-import numpy as np
-import numpy.ma as ma
 #  from numpy import *
 import logging
-from operator import itemgetter
+
+import numpy as np
+import numpy.ma as ma
 from collections import defaultdict
+from operator import itemgetter
+
+from vendors import VendorMap
 
 
 class BCMData():

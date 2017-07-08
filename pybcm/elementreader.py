@@ -4,20 +4,22 @@ Created on Oct 26, 2012
 @author: khooks
 """
 
-import re
-import io
-import requests
-from lxml import html, etree
-from uritemplate import URITemplate, expand
-from vendors import VendorMap
-import utils
-from abc import ABCMeta, abstractmethod
-from collections import namedtuple
-from legoutils import LegoElement
 import logging
 
-logger = utils.setup_custom_logger('root')
-logger.debug('Begin elementreader.py')
+import io
+import re
+import requests
+from abc import ABCMeta
+from lxml import html
+from uritemplate import URITemplate
+
+import log
+from legoutils import LegoElement, PriceTuple
+from vendors import VendorMap
+
+logger = logging.getLogger(__name__)
+
+# logger.debug('Begin elementreader.py')
 
 
 class PriceURL:
@@ -59,7 +61,6 @@ STORE_NAME = './/a/img/@title'
 STORE_QTY = './td[2]/text()'
 STORE_PRICE = './td[3]/text()'
 
-StoreEntry = namedtuple('StoreEntry', 'elementid storeid storename price qty')
 
 class ElementReader(metaclass=ABCMeta):
     """ Base class for reading the information of a single Lego elementid
@@ -78,33 +79,34 @@ class ElementReader(metaclass=ABCMeta):
 
     def __init__(self, vendormap_):
         """ Start up..."""
-        self.__vendormap = vendormap_
-        self.tree = None
+        #logger.debug("ElementReader.__init__()")
+        self.vendormap = vendormap_
+        self._tree = None
         self._stores_element_list = list()
-        self.prices = list()
+        #self._prices = list()
 
     @property
-    def vendor_map(self):
-        return self.__vendormap
+    def vendormap(self):
+        return self._vendormap
 
-    @vendor_map.setter
-    def vendor_map(self, vendormap_):
-        self.__vendormap = vendormap_
+    @vendormap.setter
+    def vendormap(self, vendormap_):
+        self._vendormap = vendormap_
 
-    def build_price_list(self, element_id, store_elements_list):
+    def _build_price_list(self, element_id, store_elements_list):
         """
-        Read a single item from its Price Guide page
+        Read a single item from its Catalog page, returning a list of PriceTuples
             Vendor Name
             Vendor ID
             Vendor Price
             Vendor Qty
-            Parse the etree and return a price list
+            Parse the etree and return an element_id and list of PriceTuples
         """
-        self.prices = list()
+        _prices = list()
         # store_elements_list = tree.xpath(URL_STORE_LINKS_XPATH) #list of tr elements
-
+        # logger.info("Building price list for element %s" % element_id)
         if store_elements_list:  # check if list is empty
-            suLink = re.compile("sID=(\d+).*itemID=(\d+)")  # \&itemID=(\d+)
+            suLink = re.compile("sID=(\d+).*(?:itemID|bindID)=(\d+)")  # \&itemID=(\d+)
             suStore = re.compile("Store:\s(.*)")
             suPrice = re.compile("\$(\d*.\d*)")  # says that the \~ is redundant
             for store in store_elements_list:
@@ -127,13 +129,13 @@ class ElementReader(metaclass=ABCMeta):
                     quantity = int(e_qty)
 
                     if quantity > 0:  # don't bother adding the vendor if it doesn't have any quantity for this item
-                        self.vendor_map[store_id] = store_name
-                        self.prices.append(StoreEntry(element_id, store_id, store_name, price, quantity))
+                        self.vendormap[store_id] = store_name
+                        _prices.append(PriceTuple(element_id, store_id, store_name, price, quantity))
                 else:
                     raise ValueError('Cannot match a store URL')
         else:
             raise ValueError('List of store elements is empty')
-        return self.prices
+        return element_id, _prices
 
 
 class ElementFileReader(ElementReader):
@@ -143,7 +145,7 @@ class ElementFileReader(ElementReader):
     """
 
     def __init__(self, vendormap_):
-        ElementReader.__init__(self, vendormap_)
+        super().__init__(vendormap_)
 
     @classmethod
     def read_store_list(cls, filename):
@@ -160,20 +162,23 @@ class ElementWebReader(ElementReader):
         """ Start up...
         :param vendormap_:
         """
-        ElementReader.__init__(self, vendormap_)
+        #logger.debug("ElementWebReader.__init__()")
+        logger.debug("ElementWebReader vendormap id: %s" % id(vendormap_))
+        super().__init__(vendormap_)
 
-    def get_price_list(self, itemtypeID, itemID, itemColorID):
-        element_store_list, element_id = self.read_store_list(itemtypeID, itemID, itemColorID)
-        _prices = self.build_price_list(element_id, element_store_list)
-        return _prices, element_id
+    def web_price_list(self, itemtypeID, itemID, itemColorID):
+        element_id, element_store_list = self._read_store_list(itemtypeID, itemID, itemColorID)
+        element_id, price_list = self._build_price_list(element_id, element_store_list)
+        return element_id, price_list
 
-    def read_store_list(self, itemtypeID, itemID, itemColorID):
-        """Returns a list of elements each containing store and price info
+    @classmethod
+    def _read_store_list(cls, itemtypeID, itemID, itemColorID):
+        """Returns a list of Elements each containing store and price info
         """
 
         element_id = LegoElement.joinElement(itemID, itemColorID)
         url = PriceURL().expand(itemtypeID, itemID, itemColorID)
-
+        logger.info("Gathering data at %s" % url)
         with requests.Session() as s:
             s.headers = USER_AGENT_DICT
             # if the head isn't requested prior to the page request, the images will be missing
@@ -181,17 +186,15 @@ class ElementWebReader(ElementReader):
             r = s.get(url=url, headers=dict(USER_AGENT_DICT))
             tree = html.fromstring(r.content)
 
-        self._stores_element_list = tree.xpath(URL_STORE_LINKS_XPATH)
-        return self._stores_element_list, element_id
+        element_list = tree.xpath(URL_STORE_LINKS_XPATH)
+        return element_id, element_list
 
 
 if __name__ == '__main__':
     # filename = "../BrickLink Price Guide - Part 3070b in Black Color.htm"
     # prices = ElementFileReader(filename)
     # print prices.readAllItems()
-
-    from config import BCMConfig
-    import logging
+    logger = log.setup_custom_logger(__name__)
 
     logger.debug('Started')
 
@@ -199,9 +202,9 @@ if __name__ == '__main__':
 
     br = ElementWebReader(vendormap)
 
-    prices, elementid = br.get_price_list('P', '3005', '23')
+    elementid, prices = br.web_price_list('P', '3005', '23')
 
     for p in prices:
-        print(p)
+        print(p.elementid)
 
     print(vendormap.__repr__())

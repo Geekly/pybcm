@@ -1,10 +1,10 @@
-from pybcm import *
-import unittest
-from pybcm.wanted import *
 import logging
+import unittest
+
+from pybcm.wanted import *
 
 
-class TestWantedMethods(unittest.TestCase):
+class TestWanted(unittest.TestCase):
 
     _wantedDict = WantedDict()
 

@@ -7,9 +7,7 @@ def setup_custom_logger(name):
         logger = utils.setup_custom_logger('Nameoflogger')
     :param name: string, name of logger
     :return: None
-
     """
-
     formatter = logging.Formatter(fmt='%(asctime)s - %(levelname)s - %(module)s - %(message)s')
 
     handler = logging.StreamHandler()
