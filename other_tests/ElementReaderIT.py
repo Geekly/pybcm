@@ -15,8 +15,6 @@ vmap = VendorMap()
 url = PriceURL().expand('P', '3005', '23')
 logger.info(url)
 
-#cookies = http.cookiejar.CookieJar
-
 with requests.Session() as s:
     s.headers = USER_AGENT_DICT
     h = s.head(url=url, headers=dict(USER_AGENT_DICT)) # do it for the cookies

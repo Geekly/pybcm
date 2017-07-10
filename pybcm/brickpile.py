@@ -4,16 +4,25 @@ Created on Oct 23, 2012
 @author: khooks
 """
 import logging
-
-from collections import UserDict
+import numpy as np
+import pandas as pd
 from pandas import DataFrame
+import pprint
 
 import log
 from elementreader import ElementWebReader
 from legoutils import LegoElement
 from vendors import VendorMap
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger('root')
+
+
+def dataframe_from_pricelist(element_id, price_list):
+    _data = {(d.storeid, param): d.__getattribute__(param) for d in price_list for param in ['price', 'qty']}
+    _index = [element_id]
+    _df = DataFrame(_data, index=_index)
+    return _df
+
 
 class BrickPile:
     """Stores bricklink wanted and price information.
@@ -31,10 +40,9 @@ class BrickPile:
 
     def __init__(self):
 
-        UserDict.__init__(self)
         self.df = DataFrame()
-        #self.data = dict()  # self.data[elementid] = list of vendors with prices
         self.vendormap = VendorMap()
+        self.wanted = dict()
         self.bricklink_initialized = False
         self.vendor_initialized = False
         #self.averageprices = dict()
@@ -53,30 +61,49 @@ class BrickPile:
         assert self.bricklink_initialized, "bricklink not initialized, cannot convert to string"
         return self.xmlvendordata()
 
+    def add_pricelist(self, elementid, pricelist):
+        # pricelist : array of PriceTuple's
+        # There could be multiple price/qty entries per vendor, but these need to be pruned
+        # to a single Pricetuple per vendor
+        logging.debug("Adding pricelist to df")
+        if pricelist:
+            # remove duplicate vendor columns from pricelist
+            _df = dataframe_from_pricelist(elementid, pricelist)
+            # print(_df)
+            self.merge_frame(_df)
+        else:
+            raise ValueError("No Price Information found for %s" % elementid)
+        return
+
+    def merge_frame(self, df_):
+        if not self.df.empty:
+            #logger.debug("self.df, id(self.df)", self.df, id(self.df))
+            #logger.debug("df_", pprint.pformat(df_.__repr__()))
+            try:
+                self.df = pd.concat([df_, self.df])
+            except AssertionError:
+                logger.info("Assertion error in concat")
+        else:
+            self.df = df_.copy()
+        return
+
     def readpricesfromweb(self, wanted):
         """Build a dictionary of price info from the Bricklink website
             Attributes:
                 wanted(WantedDict): wanted[elementid] = LegoElement
         """
+        self.wanted = wanted
         numitems = len(wanted)
         logging.info("Loading " + str(numitems) + " items from the web")
         #self.data = dict() # a dictionary with keys itemid, and color.  each entry contains a list of lists
-        for elementid in list(wanted.keys()):  # TODO: elementid is not the correct key
-            #grab the needed variables for constructing the URL
+        for elementid in list(wanted.keys()):
+            # added wanted item to dataframe
             logging.info("Loading element " + str(elementid))
             itemid = wanted[elementid].itemid
             itemtypeid = wanted[elementid].itemtypeid
             itemcolorid = wanted[elementid].colorid
-            pricelist = self.webreader.web_price_list(itemtypeid, itemid, itemcolorid)
-            if pricelist:
-                logging.debug("Adding pricelist to df")
-                #  get the item page, parse it, and get back a list of (itemid<-this is vendorid,
-                #  vendorqty, vendorprice) tuples
-                #  add a row to the data frame
-                #  add a row to the Dataframe for the given element based on array of PriceTuples
-                # self[elementid] = pricelist
-            else:
-                logging.error("No Price Information found for %s" % elementid)
+            _elementid, pricelist = self.webreader.web_price_list(itemtypeid, itemid, itemcolorid)
+            self.add_pricelist(_elementid, pricelist)
 
         self.bricklink_initialized = True
 

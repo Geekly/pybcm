@@ -3,21 +3,14 @@ Created on Oct 23, 2012
 
 @author: khooks
 """
-#TODO: replace beautifulsoup with lxml
-#Converted the dictionary key from itemid, colorid to elementid, which is of the format 'itemid|colorid'
 
 import logging
-
 from bs4 import BeautifulSoup as Soup
 from collections import UserDict
-
 import log
 from legoutils import LegoElement
 
-# from .legoutils import LegoElement
 
-#from string import Template
-#from xml.etree import ElementTree as ET 
 logger = logging.getLogger(__name__)
 
 

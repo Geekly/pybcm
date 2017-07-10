@@ -93,6 +93,7 @@ class ElementReader(metaclass=ABCMeta):
     def vendormap(self, vendormap_):
         self._vendormap = vendormap_
 
+    #TODO: create a price dict first to prevent elementid/storeid duplicates, but return a list
     def _build_price_list(self, element_id, store_elements_list):
         """
         Read a single item from its Catalog page, returning a list of PriceTuples
@@ -102,9 +103,9 @@ class ElementReader(metaclass=ABCMeta):
             Vendor Qty
             Parse the etree and return an element_id and list of PriceTuples
         """
-        _prices = list()
+        _prices = dict()
         # store_elements_list = tree.xpath(URL_STORE_LINKS_XPATH) #list of tr elements
-        # logger.info("Building price list for element %s" % element_id)
+        print("Building price list for element %s" % element_id)
         if store_elements_list:  # check if list is empty
             suLink = re.compile("sID=(\d+).*(?:itemID|bindID)=(\d+)")  # \&itemID=(\d+)
             suStore = re.compile("Store:\s(.*)")
@@ -130,12 +131,19 @@ class ElementReader(metaclass=ABCMeta):
 
                     if quantity > 0:  # don't bother adding the vendor if it doesn't have any quantity for this item
                         self.vendormap[store_id] = store_name
-                        _prices.append(PriceTuple(element_id, store_id, store_name, price, quantity))
+                        # check if there are already price/qty entries for this element
+                        item_key = (element_id, store_id)
+                        if item_key in _prices:
+                            # TODO: handle this better by choosing the "best" entry to keep instead of just the first
+                            logger.debug("Duplicate store entry found: %s" % (item_key,))
+                        else:
+                            _prices[(element_id, store_id)] = PriceTuple(element_id, store_id, store_name, price, quantity)
                 else:
                     raise ValueError('Cannot match a store URL')
         else:
             raise ValueError('List of store elements is empty')
-        return element_id, _prices
+        # convert dict to list and return it
+        return element_id, _prices.values()
 
 
 class ElementFileReader(ElementReader):
@@ -175,7 +183,7 @@ class ElementWebReader(ElementReader):
     def _read_store_list(cls, itemtypeID, itemID, itemColorID):
         """Returns a list of Elements each containing store and price info
         """
-
+        logger.debug("Reading element %s, %s, %s from web" % (itemtypeID, itemID, itemColorID))
         element_id = LegoElement.joinElement(itemID, itemColorID)
         url = PriceURL().expand(itemtypeID, itemID, itemColorID)
         logger.info("Gathering data at %s" % url)
