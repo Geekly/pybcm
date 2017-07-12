@@ -40,7 +40,5 @@ class TestLegoUtils(unittest.TestCase):
 
     def testLegoElement(self):
         element1 = LegoElement(4321, 86)
-        print(element1)
-        print(element1.color)
-        print(element1.colorName)
+        print(element1.json)
 

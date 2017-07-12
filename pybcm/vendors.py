@@ -84,55 +84,55 @@ class VendorMap(dict):
             data(dict): dict[vendor.id] = Vendor
     """
 
-    def __init__(self, *args, **kwargs):
-        self._log = logging.getLogger("Vendor.py")
-        self.update(*args, **kwargs)
-
-    def __getitem__(self, key):
-        val = dict.__getitem__(self, key)
-        # self._log.debug("GET %s" % key)
-        return val
-
-    def __setitem__(self, key, val):
-        # duplicate keys can't be added, so don't
-        if key in self:
-            self._log.debug(ValueError("Vendor %s already exists" % key))
-        else:
-            self._log.debug("Adding %s:%s" % (key, val))
-            dict.__setitem__(self, key, val)
-
-    def __repr__(self):
-        dictrepr = dict.__repr__(self)
-        return '%s(%s)' % (type(self).__name__, dictrepr)
-
-    def __str__(self):
-        """ Return an XML formatted vendor map. """
-        return self.xml
-
-    def __missing__(self, key):
-        self._log.debug("missing %s" % key)
-        raise ValueError("Vendor does not exist")
-
-    def update(self, *args, **kwargs):
-        self._log.debug("update %s %s" % (args, kwargs))
-        for k, v in dict(*args, **kwargs).items():
-            self[k] = v
-
-    def addVendor(self, vendor):
-        #     """Add a vendor to the vendor map.
-        #         If the vendor id is not present yet, add it.
-        #
-        #         Args:
-        #             vendor (Vendor): the Vendor object to be added
-        #         Returns:
-        #             false if the vendor id is already present, true otherwise
-        #     """
-        if vendor in self.keys():
-            return False
-        else:
-            # self._log.debug("Adding vendor: %r" % vendor)
-            self[vendor.vendor_id] = vendor.vendor_name  # assign the whole vendor object in case we add to it later
-            return True
+    # def __init__(self, *args, **kwargs):
+    #     self._log = logging.getLogger("Vendor.py")
+    #     self.update(*args, **kwargs)
+    #
+    # def __getitem__(self, key):
+    #     val = dict.__getitem__(self, key)
+    #     # self._log.debug("GET %s" % key)
+    #     return val
+    #
+    # def __setitem__(self, key, val):
+    #     # duplicate keys can't be added, so don't
+    #     if key in self:
+    #         self._log.debug(ValueError("Vendor %s already exists" % key))
+    #     else:
+    #         self._log.debug("Adding %s:%s" % (key, val))
+    #         dict.__setitem__(self, key, val)
+    #
+    # def __repr__(self):
+    #     dictrepr = dict.__repr__(self)
+    #     return '%s(%s)' % (type(self).__name__, dictrepr)
+    #
+    # def __str__(self):
+    #     """ Return an XML formatted vendor map. """
+    #     return self.xml
+    #
+    # def __missing__(self, key):
+    #     self._log.debug("missing %s" % key)
+    #     raise ValueError("Vendor does not exist")
+    #
+    # def update(self, *args, **kwargs):
+    #     self._log.debug("update %s %s" % (args, kwargs))
+    #     for k, v in dict(*args, **kwargs).items():
+    #         self[k] = v
+    #
+    # def addVendor(self, vendor):
+    #     #     """Add a vendor to the vendor map.
+    #     #         If the vendor id is not present yet, add it.
+    #     #
+    #     #         Args:
+    #     #             vendor (Vendor): the Vendor object to be added
+    #     #         Returns:
+    #     #             false if the vendor id is already present, true otherwise
+    #     #     """
+    #     if vendor in self.keys():
+    #         return False
+    #     else:
+    #         # self._log.debug("Adding vendor: %r" % vendor)
+    #         self[vendor.vendor_id] = vendor.vendor_name  # assign the whole vendor object in case we add to it later
+    #         return True
 
     @property
     def xml(self):
