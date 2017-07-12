@@ -8,50 +8,50 @@ Created on Oct 23, 2012
 import json
 import logging
 
-from collections import namedtuple
+from collections import namedtuple, UserDict
 
-VendorBase = namedtuple('VendorBase', 'vendor_id vendor_name')
+# VendorBase = namedtuple('VendorBase', 'vendor_id vendor_name')
 
 
-class Vendor(VendorBase):
-    """Vendor represented by id and name and can be output to XML.
-        Args:
-            vendorid (str):  Bricklink id of the vendor
-            vendorname (str):  Name of the vendor store
-        Attributes:
-            vendorid (str):  Bricklink id of the vendor
-            vendorname (str):  Name of the vendor store
-    """
-
-    def __new__(cls, vendor_id, vendor_name):
-        self = super(Vendor, cls).__new__(cls, vendor_id, vendor_name)
-        self._hash = hash(self.vendor_id) + hash(self.vendor_name)
-        self._log = logging.getLogger("Vendor.py")
-        return self
-
-    def __hash__(self):
-        return self._hash
-
-    def __repr__(self):
-        return self.json
-
-    @property
-    def xml(self):
-        """Return an XML string of the Vendor."""
-
-        xmlstring = ''
-        xmlstring += "<Vendor>\n"
-        xmlstring += "<VendorID>" + str(self.vendor_id) + "</VendorID>\n"
-        xmlstring += "<VendorName>" + str(self.vendor_name) + "</VendorName>\n"
-        xmlstring += "</Vendor>\n"
-        return xmlstring
-
-    @property
-    def json(self):
-        return '{{ "{0}": "{1}" }}'.format(self.vendor_id, self.vendor_name)
-
-    def __str__(self):
-        return self.xml
+# class Vendor(VendorBase):
+#     """Vendor represented by id and name and can be output to XML.
+#         Args:
+#             vendorid (str):  Bricklink id of the vendor
+#             vendorname (str):  Name of the vendor store
+#         Attributes:
+#             vendorid (str):  Bricklink id of the vendor
+#             vendorname (str):  Name of the vendor store
+#     """
+#
+#     def __new__(cls, vendor_id, vendor_name):
+#         self = super(Vendor, cls).__new__(cls, vendor_id, vendor_name)
+#         self._hash = hash(self.vendor_id) + hash(self.vendor_name)
+#         self._log = logging.getLogger("Vendor.py")
+#         return self
+#
+#     def __hash__(self):
+#         return self._hash
+#
+#     def __repr__(self):
+#         return self.json
+#
+#     @property
+#     def xml(self):
+#         """Return an XML string of the Vendor."""
+#
+#         xmlstring = ''
+#         xmlstring += "<Vendor>\n"
+#         xmlstring += "<VendorID>" + str(self.vendor_id) + "</VendorID>\n"
+#         xmlstring += "<VendorName>" + str(self.vendor_name) + "</VendorName>\n"
+#         xmlstring += "</Vendor>\n"
+#         return xmlstring
+#
+#     @property
+#     def json(self):
+#         return '{{ "{0}": "{1}" }}'.format(self.vendor_id, self.vendor_name)
+#
+#     def __str__(self):
+#         return self.xml
 
 # TODO: Make this work
 #not sure this works                           
@@ -84,9 +84,8 @@ class VendorMap(dict):
             data(dict): dict[vendor.id] = Vendor
     """
 
-    # def __init__(self, *args, **kwargs):
-    #     self._log = logging.getLogger("Vendor.py")
-    #     self.update(*args, **kwargs)
+    #def __init__(self, *args, **kwargs):
+    #    self.update(*args, **kwargs)
     #
     # def __getitem__(self, key):
     #     val = dict.__getitem__(self, key)
@@ -153,6 +152,10 @@ class VendorMap(dict):
 #test code goes here
 if __name__ == '__main__':
     vendormap_ = VendorMap()
+    vendormap_['123456'] = "Stew's brick town"
+    vendormap_['334567'] = "Bricks be bricks"
+    vendormap_['367777'] = "Damn bricks!"
+    print(vendormap_)
     pass
     
     

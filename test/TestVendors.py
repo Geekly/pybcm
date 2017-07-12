@@ -12,12 +12,6 @@ class TestVendors(unittest.TestCase):
     def setUp(self):
         pass
 
-    def testVendorMethods(self):
-        logging.getLogger(''.join([__name__, ".testVendorMethods"]))
-        vendor = Vendor('441396', 'The Brick Diet')
-        self.assertEquals(vendor.xml, str(vendor))
-        logger.debug(vendor.json)
-
     def testVendorMap(self):
         logging.getLogger(''.join([__name__, ".testVendorMap"]))
         vmap = VendorMap()

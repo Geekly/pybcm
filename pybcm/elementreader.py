@@ -14,7 +14,7 @@ from lxml import html
 from uritemplate import URITemplate
 
 import log
-from legoutils import LegoElement, PriceTuple
+from legoutils import WantedElement, PriceTuple
 from vendors import VendorMap
 
 logger = logging.getLogger(__name__)
@@ -184,7 +184,7 @@ class ElementWebReader(ElementReader):
         """Returns a list of Elements each containing store and price info
         """
         logger.debug("Reading element %s, %s, %s from web" % (itemtypeID, itemID, itemColorID))
-        element_id = LegoElement.joinElement(itemID, itemColorID)
+        element_id = WantedElement.joinElement(itemID, itemColorID)
         url = PriceURL().expand(itemtypeID, itemID, itemColorID)
         logger.info("Gathering data at %s" % url)
         with requests.Session() as s:

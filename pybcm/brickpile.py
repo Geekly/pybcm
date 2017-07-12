@@ -11,7 +11,7 @@ import pickle
 
 import log
 from elementreader import ElementWebReader
-from legoutils import LegoElement
+from legoutils import WantedElement
 from vendors import VendorMap
 
 logger = logging.getLogger('root')
@@ -122,7 +122,7 @@ class BrickPile:
     def readpricesfromweb(self, wanted_dict):
         """Build a dictionary of price info from the Bricklink website
             Attributes:
-                wanted_dict(WantedDict): wanted[elementid] = LegoElement
+                wanted_dict(WantedDict): wanted[elementid] = WantedElement
         """
         self.wanted = wanted_dict
         numitems = len(wanted_dict)
@@ -179,7 +179,7 @@ class BrickPile:
     #     #[itemID, storeID, quantity, price]
     #     xml_string = '<xml>\n'
     #     for elementid in list(self.keys()):
-    #         itemid, color = LegoElement.splitElement(elementid)
+    #         itemid, color = WantedElement.splitElement(elementid)
     #
     #         xml_string += '<Item>\n'
     #         xml_string += ' <ItemID>{}</ItemID>\n'.format(itemid)

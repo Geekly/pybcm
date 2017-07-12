@@ -45,4 +45,4 @@ print(price_df.mean(axis=1))
 s = pd.Series(wanted)
 print(s)
 
-w = { wanted[element]:qty }
+# w = { wanted[element]:qty }
