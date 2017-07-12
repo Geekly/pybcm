@@ -189,10 +189,7 @@ class LegoColor():
     def __repr__(self):
         return "LegoColor<colorid:%s, name:%s>" % (self.colorid, self.name)
 
-# module global dict of legocolors
-
-
-class LegoElement(object):
+class WantedElement(namedtuple('ElementBase', 'itemid colorid wantedqty itemname itemtypeid itemtypename elementid')):
     """ Represents a Lego element and its attributes"""
 
     @staticmethod
@@ -207,55 +204,19 @@ class LegoElement(object):
         """
         return elementid.split("|")
 
-    def __init__(self, itemid, colorid, wantedqty=0, itemname=None, itemtypeid='P', itemtypename='Part'):
-        """ A typical lego element
-
-        :param itemid: Bricklink Item ID
-        :param colorid: Lego Color ID
-        :param wantedqty: Quantity from the wanted list
-        :param itemname: Human Readable Item Name
-        :param itemtypeid: Lego Type ID
-        :param itemtypename: Human Readable Type Name
-        :param colorname: Human Readable Type Name
-        
-        """
-
-        self.itemid = str(itemid)
-        self._colorid = int(colorid)
-        if self._colorid in legoColors:
-            self.color = LegoColor(self._colorid)
-        else:
-            raise KeyError("Invalid Color ID: " + str(colorid))
-
-        self.wantedqty = int(wantedqty)
-        self.itemname = str(itemname)
-        self.itemtypeid = str(itemtypeid)
-        self.itemtypename = str(itemtypename)
-
-        self._elementid = LegoElement.joinElement(self.itemid, self._colorid)
-
-    @property
-    def elementId(self):
-        return self._elementid
-
-    @property
-    def colorid(self):
-        return self._colorid
-
-    @property
-    def colorName(self):
-        return self.color.name
+    def __new__(cls, itemid, colorid, wantedqty=0, itemname=None, itemtypeid='P', itemtypename='Part', elementid=None):
+        elementid = WantedElement.joinElement(itemid, colorid)
+        return super().__new__(cls, itemid, colorid, wantedqty, itemname, itemtypeid, itemtypename, elementid)
 
     @property
     def json(self):
-        return json.dumps(self, sort_keys=True, indent=4)
+        return json.dumps(self._asdict(), sort_keys=True, indent=4)
 
     def __hash__(self):
         return hash(self.itemid) + hash(self.colorid)
 
     def __repr__(self):
         return self.json
-
 
 if __name__ == "__main__":
 
@@ -274,14 +235,3 @@ if __name__ == "__main__":
     print(thsElement.color)
     print(thsElement.colorName)
     print(thsElement.wantedqty)
-
- #   print(LegoElement.legoColor.isValidColor(300))
-
-    ele2 = LegoElement('6234', '9', 25)
-
-    print(ele2)
-
-    print(legoColors[144])
-
-    l = LegoElement('3527', '10000')
-    l = LegoElement('3527', 44)
