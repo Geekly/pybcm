@@ -10,6 +10,7 @@ from lxml.html.clean import Cleaner
 from bs4 import BeautifulSoup as Soup
 import logging
 
+logger = logging.getLogger('pybcm.test.TestElementReader')
 
 class TestElementReader(unittest.TestCase):
 
@@ -47,9 +48,9 @@ class TestElementReader(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
+        # logger = logging.getLogger('pybcm.test.TestElementReader')
         logging.basicConfig(level=logging.DEBUG)
-        log = logging.getLogger("TestElementReader")
-        log.debug("Test in TestElementREader.setUpClass")
+        logger.debug("Test in TestElementREader.setUpClass")
         cls._config = BCMConfig('config/bcm.ini')
         pass
 
@@ -72,9 +73,7 @@ class TestElementReader(unittest.TestCase):
         element_filename = "Sampledata/BrickLink Price Guide - Part 3004 in Light Bluish Gray Color.htm"
         self.assertTrue(os.path.isfile(element_filename))
 
-        tree = self._reader.read_tree_from_file(element_filename)
-        item = self._reader.read_items_from_tree(tree)
-        storeelements = self._reader.get_store_elements_from_tree(tree)
-
+        store_list = self._reader.read_store_list(element_filename)
+        logger.debug(store_list)
 
 

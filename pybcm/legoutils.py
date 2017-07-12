@@ -218,7 +218,7 @@ class WantedElement(namedtuple('ElementBase', 'itemid colorid wantedqty itemname
     def __new__(cls, itemid, colorid, wantedqty=0, itemname=None, itemtypeid='P', itemtypename='Part', elementid=None):
         if int(colorid) in legoColors:
             elementid = WantedElement.joinElement(itemid, colorid)
-            return super().__new__(cls, int(itemid), int(colorid), int(wantedqty), itemname, itemtypeid, itemtypename, elementid)
+            return super().__new__(cls, str(itemid), int(colorid), int(wantedqty), itemname, itemtypeid, itemtypename, elementid)
         else:
             raise KeyError("Color number not found")
         return None
