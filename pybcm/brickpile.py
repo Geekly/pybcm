@@ -35,10 +35,10 @@ import pickle
 
 import log
 from elementreader import ElementWebReader
-from legoutils import LegoElement
+from legoutils import WantedElement
 from vendors import VendorMap
 
-logger = logging.getLogger('root')
+logger = logging.getLogger('pybcm.brickpile')
 
 
 def dataframe_from_pricelist(element_id, price_list):
@@ -82,16 +82,16 @@ class BrickPile:
         75c08|86   0.00   0.00   0.00  
 
     """
-    #TODO: change data format to a pandas table
+
+    # TODO: change data format to a pandas table
 
     def __init__(self):
 
-        self.df = DataFrame()                   # price data
+        self.df = DataFrame()  # price data
         self.vendormap = VendorMap()
         self._wanted_dict = None
         self._bricklink_initialized = False
         self._vendor_initialized = False
-        #self.averageprices = dict()
         logger.debug("BrickPile vendormap id: %s" % id(self.vendormap))
         self.webreader = ElementWebReader(self.vendormap)
 
@@ -133,8 +133,8 @@ class BrickPile:
 
     def merge_frame(self, df_):
         if not self.df.empty:
-            #logger.debug("self.df, id(self.df)", self.df, id(self.df))
-            #logger.debug("df_", pprint.pformat(df_.__repr__()))
+            # logger.debug("self.df, id(self.df)", self.df, id(self.df))
+            # logger.debug("df_", pprint.pformat(df_.__repr__()))
             try:
                 self.df = pd.concat([df_, self.df])
             except AssertionError:
@@ -146,7 +146,7 @@ class BrickPile:
     def readpricesfromweb(self, wanted_dict):
         """Build a dictionary of price info from the Bricklink website
             Attributes:
-                wanted_dict(WantedDict): wanted[elementid] = LegoElement
+                wanted_dict(WantedDict): wanted[elementid] = WantedElement
         """
         self.wanted = wanted_dict
         numitems = len(wanted_dict)
@@ -162,6 +162,11 @@ class BrickPile:
 
         self._bricklink_initialized = True
         # convert NaN's to zeros
+
+    # TODO: Initialize from a file as well
+    def read_prices_from_file(self, filename):
+        # needs to be defined
+        raise NotImplementedError
 
     def price_to_pickle(self, filename):
         with open(filename, 'wb') as f:
@@ -188,39 +193,19 @@ class BrickPile:
     def qty_frame(self):
         return self.df.xs('qty', level=1, axis=1)
 
-    def summarize(self):
+    @property
+    def avg_prices(self):
+        return np.average(self.price_frame, axis=1)
+
+    def summary(self):
         """Return a summary string of the bricklink data."""
         assert self._bricklink_initialized == True, "bricklink not initialized, cannot report dataquality"
-
-        print("Price list includes:")
         items, vendors = self.df.shape
-        print("Total Elements: %s " % items)
-        print("Total Vendors: %s" % vendors)
-
-    # def xmlvendordata(self):
-    #     """Return an XML string of the bricklink vendor price & qty data."""
-    #     assert self.bricklink_initialized == True, "bricklink not initialized, cannot convert to XML"
-    #     #[itemID, storeID, quantity, price]
-    #     xml_string = '<xml>\n'
-    #     for elementid in list(self.keys()):
-    #         itemid, color = LegoElement.splitElement(elementid)
-    #
-    #         xml_string += '<Item>\n'
-    #         xml_string += ' <ItemID>{}</ItemID>\n'.format(itemid)
-    #         xml_string += ' <ColorID>{}</ColorID>\n'.format(color)
-    #         for stockentry in self.data[elementid]:
-    #             vendorid = stockentry[0]
-    #             vendor = self.vendormap[vendorid]
-    #             xml_string += '  <Vendor>\n'
-    #             xml_string += '   <VendorID>{}</VendorID>\n'.format(stockentry[0])
-    #             xml_string += '   <VendorName>{}</VendorName>\n'.format(vendor.name)
-    #             xml_string += '   <VendorQty>{}</VendorQty>\n'.format(stockentry[1])
-    #             xml_string += '   <VendorPrice>{}</VendorPrice>\n'.format(stockentry[2])
-    #             xml_string += '  </Vendor>\n'
-    #
-    #         xml_string += '</Item>\n'
-    #     xml_string += '</xml>'
-    #     return xml_string
+        s = ''.join(["Price list includes:\n",
+                     "Total Elements: %s\n" % items,
+                     "Total Vendors: %s\n" % vendors]
+                    )
+        return s
 
 
 if __name__ == '__main__':

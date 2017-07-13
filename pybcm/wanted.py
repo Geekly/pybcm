@@ -34,8 +34,7 @@ import logging
 from bs4 import BeautifulSoup as Soup
 from collections import UserDict
 import log
-from legoutils import LegoElement
-
+from legoutils import legoColors, WantedElement
 
 logger = logging.getLogger(__name__)
 
@@ -57,7 +56,7 @@ class WantedDict(UserDict):
             # d = self.data[elementid]
             # print self[element]
             returnstring += str(
-                self[tElement].elementId + ", " + str(self[tElement].wantedqty) + "\n")
+                self[tElement].elementid + ", " + str(self[tElement].wantedqty) + "\n")
 
         return returnstring
 
@@ -77,9 +76,10 @@ class WantedDict(UserDict):
                 wantedqty = int(itemNode.find('qty').string)
                 self._totalcount += wantedqty
 
-                newElement = LegoElement(itemid, colorid, wantedqty=wantedqty, itemname=itemname, itemtypeid=itemtypeid,
-                                         itemtypename=itemtypename)
-                self[newElement.elementId] = newElement
+                newElement = WantedElement(itemid, colorid, wantedqty=wantedqty, itemname=itemname,
+                                           itemtypeid=itemtypeid,
+                                           itemtypename=itemtypename)
+                self[newElement.elementid] = newElement
 
         except IOError as e:
             print(e)
@@ -102,6 +102,7 @@ class WantedDict(UserDict):
             return self[elementid].wantedqty
         else:
             return 0
+
 
 if __name__ == '__main__':
     log.setup_custom_logger(__name__)

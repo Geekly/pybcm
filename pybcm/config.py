@@ -48,17 +48,17 @@ class BCMConfig():
     def __init__(self, configFileName):
         #  _parser = SafeConfigParser()
         self._configfile = configFileName    # '../config/bcm.ini'
-        self._parser = RawConfigParser()
+        self.__parser = RawConfigParser()
 
-        _dataset = self._parser.read(self._configfile)
+        _dataset = self.__parser.read(self._configfile)
         if ( len(_dataset) <= 0 ):
             raise(ValueError("Config file not found: " + self._configfile))
 
-        self.username = self._parser.get('bricklink', 'username')
-        self.password = self._parser.get('bricklink', 'password')
-        self.wantedfilename = self._parser.get('filenames', 'wanted')
-        self.pricefilename = self._parser.get('filenames', 'prices')
-        self.reloadpricesfromweb = self._parser.getboolean('options', 'reloadpricesfromweb')
+        self.username = self.__parser.get('bricklink', 'username')
+        self.password = self.__parser.get('bricklink', 'password')
+        self.wantedfilename = self.__parser.get('filenames', 'wanted')
+        self.pricefilename = self.__parser.get('filenames', 'prices')
+        self.reloadpricesfromweb = self.__parser.getboolean('options', 'reloadpricesfromweb')
 
 
 if __name__ == '__main__':
@@ -67,6 +67,6 @@ if __name__ == '__main__':
 
     print(config.pricefilename)
     print(config.reloadpricesfromweb)
-    print(config._parser.items('filenames'))
-    print(config._parser.items('options'))
-    print(config._parser.items('bricklink'))
+    print(config.__parser.items('filenames'))
+    print(config.__parser.items('options'))
+    print(config.__parser.items('bricklink'))
