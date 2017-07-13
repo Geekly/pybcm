@@ -25,24 +25,26 @@ pricefile = 'price.pickle'
 # bp.price_to_pickle(pricefile)
 
 bp.price_from_pickle(pricefile)
+print(bp.summary())
 
 mason = Mason(bp)
 #df = mason._price
 
 df = bp.df
 
-#logger.info(df.xs('price', level=1, axis=1))
-print(df.xs('price', level=1, axis=1))
-print('nothin')
+# logger.info(df.xs('price', level=1, axis=1))
+# print(df.xs('price', level=1, axis=1))
 
 price_df = bp.price_frame
 qty_df =  bp.qty_frame
-print(price_df)
-print(qty_df)
+# print(price_df)
+# print(qty_df)
 
 print(price_df.mean(axis=1))
 
 s = pd.Series(wanted)
 print(s)
+
+print(bp.avg_prices)
 
 # w = { wanted[element]:qty }
