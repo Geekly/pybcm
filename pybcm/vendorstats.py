@@ -25,7 +25,15 @@
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
-from pybcm.bcmdata import bcmdata
+"""
+
+Grade and compare vendors based on part prices
+
+1. Gather prices from the price guides for both new and used parts
+
+
+"""
+
 
 # TODO: refactor, add to seperate file, and add to unit tests
 class VendorStats():

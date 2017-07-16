@@ -36,7 +36,7 @@ class Mason:
     def __init__(self, brickpile):
         # required data
         # TODO: change to reference individual price and qty dataframes
-        #self._prices = brickpile.df
+        self.__prices = brickpile.df
         self.__price_df = brickpile.price_frame
         self.__qty_df = brickpile.qty_frame
         self.__wanted = brickpile.wanted
@@ -51,7 +51,7 @@ class Mason:
 
         # solution data
         # solution data is a table of elements vs. vendors with qty only as the value
-        self.solution = pd.DataFrame(columns=self._price.columns, index=self._price.index, data=None)
+        self.solution = pd.DataFrame(columns=self.__price_df.columns, index=self.__price_df.index, data=None)
 
     #TODO: calculate the part cost of a solution
 

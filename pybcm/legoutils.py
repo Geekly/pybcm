@@ -34,7 +34,9 @@ from collections import namedtuple, UserDict
 # from collections import UserDict
 logging.getLogger('pybcm.legoutils')
 
-PriceTuple = namedtuple('PriceTuple', 'elementid storeid storename price qty')
+Condition = namedtuple('Condition', 'USED NEW')(NEW=1, USED=2)
+
+PriceTuple = namedtuple('PriceTuple', 'elementid storeid storename price qty condition')
 
 legoColors = {
         1: 'White',

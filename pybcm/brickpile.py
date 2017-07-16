@@ -26,25 +26,35 @@
 
 """
 Manage the store inventory data in a pandas dataframe
+
+
+
 """
+
+# TODO: add prices of used parts to the system
+# TODO: add ability to limit vendor search area
+
 import logging
+import pickle
+
 import numpy as np
 import pandas as pd
 from pandas import DataFrame
-import pickle
 
 import log
-from elementreader import ElementWebReader
-from legoutils import WantedElement
+from elementreader import ElementWebReader, NEW, USED
 from vendors import VendorMap
 
 logger = logging.getLogger('pybcm.brickpile')
 
 
-def dataframe_from_pricelist(element_id, price_list):
-    _data = {(d.storeid, param): d.__getattribute__(param) for d in price_list for param in ['price', 'qty']}
-    _index = pd.Index([element_id], name='elementid')
-    _df = DataFrame(_data, index=_index)
+def dataframe_from_pricelist(price_list):
+    _data = [ p._asdict() for p in price_list]
+
+    columns = ['elementid', 'condition', 'storeid', 'price', 'qty']
+    _df = pd.DataFrame(_data, columns=columns)
+    _df.set_index(['elementid', 'condition', 'storeid'], inplace=True)
+
     return _df
 
 
@@ -52,11 +62,12 @@ class BrickPile:
     """Processes a wanted list and build a datafram from it.
     The price information is stored in a pandas dataframe of the following format
     
-                    store1			store2
-                    price   qty		price	 qty
+                        store1			store2
+                n/u     price   qty		price	qty
     ______________________________________________
-    '1754|34'		0.01	3		27		 2.8
-    '3004|20'		0.3		2.8		20		 2   
+    '1754|34'	new 	0.04	3		27      2.8
+                used    0.03    4       15      5          
+    '3004|20'	new	    0.3		2.8		20		2   
 
     Indexing examples
      
@@ -122,7 +133,7 @@ class BrickPile:
         logging.debug("Adding pricelist to df")
         if pricelist:
             # remove duplicate vendor columns from pricelist
-            _df = dataframe_from_pricelist(elementid, pricelist)
+            _df = dataframe_from_pricelist(pricelist)
             # print(_df)
             self.merge_frame(_df)
         else:
@@ -143,7 +154,7 @@ class BrickPile:
             self.df = df_.copy()
         return
 
-    def readpricesfromweb(self, wanted_dict):
+    def readpricesfromweb(self, wanted_dict, price_options=NEW | USED):
         """Build a dictionary of price info from the Bricklink website
             Attributes:
                 wanted_dict(WantedDict): wanted[elementid] = WantedElement
@@ -157,7 +168,7 @@ class BrickPile:
             itemid = wanted_dict[elementid].itemid
             itemtypeid = wanted_dict[elementid].itemtypeid
             itemcolorid = wanted_dict[elementid].colorid
-            _elementid, pricelist = self.webreader.web_price_list(itemtypeid, itemid, itemcolorid)
+            _elementid, pricelist = self.webreader.web_price_list(itemtypeid, itemid, itemcolorid, price_options)
             self.add_pricelist(elementid, pricelist)
 
         self._bricklink_initialized = True
@@ -187,21 +198,23 @@ class BrickPile:
 
     @property
     def price_frame(self):
-        return self.df.xs('price', level=1, axis=1)
+        # TODO: fix this
+        return self.df['price']
 
     @property
     def qty_frame(self):
-        return self.df.xs('qty', level=1, axis=1)
+        # TODO: fix this
+        return self.df['qty']
 
     @property
     def avg_prices(self):
-        return np.average(self.price_frame, axis=1)
+        return self.price_frame.mean(level=['elementid', 'condition'])
 
     def summary(self):
         """Return a summary string of the bricklink data."""
         assert self._bricklink_initialized == True, "bricklink not initialized, cannot report dataquality"
         items, vendors = self.df.shape
-        s = ''.join(["Price list includes:\n",
+        s = ''.join(["Price list includes:\n"
                      "Total Elements: %s\n" % items,
                      "Total Vendors: %s\n" % vendors]
                     )

@@ -38,10 +38,11 @@ from lxml import html
 from uritemplate import URITemplate
 
 import log
-from legoutils import WantedElement, PriceTuple
+from legoutils import WantedElement, PriceTuple, Condition
 from vendors import VendorMap
 
 logger = logging.getLogger(__name__)
+
 
 # logger.debug('Begin elementreader.py')
 
@@ -77,13 +78,22 @@ USER_AGENT_DICT = {
         ('Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko)'
          'Chrome/50.0.2661.102 Safari/537.36')}
 
-#FILE_STORE_LINKS = '//tbody/tr/td/table[3]/tbody/tr[5]/td[3]/table[3]/tbody/tr/td/table/tbody/tr[td/a]'
-URL_STORE_LINKS_XPATH = "(//td[contains(.,'Currently')])[2]/table[3]//tr[position()>=2 and position()<last()-6]"
+# FILE_STORE_LINKS = '//tbody/tr/td/table[3]/tbody/tr[5]/td[3]/table[3]/tbody/tr/td/table/tbody/tr[td/a]'
+
+URL_NEW_LINKS_XPATH = "(//td[contains(.,'Currently')])[2]/table[3]//tr[position()>=2 and position()<last()-6]"
+URL_USED_LINKS_XPATH = "(//td[contains(.,'Currently')])[4]/table[3]//tr[position()>=2 and position()<last()-6]"
 
 STORE_CHILD_LINK = './/a/@href'
 STORE_NAME = './/a/img/@title'
 STORE_QTY = './td[2]/text()'
 STORE_PRICE = './td[3]/text()'
+
+# Part status codes
+NEW = Condition.NEW
+USED = Condition.USED
+
+
+
 
 
 class ElementReader(metaclass=ABCMeta):
@@ -101,13 +111,18 @@ class ElementReader(metaclass=ABCMeta):
         #returns prices[] =([itemid, vendorid, vendorqty, vendorprice])
     """
 
+    # regex matches
+    suLink = re.compile("sID=(\d+).*(?:itemID|bindID)=(\d+)")
+    suStore = re.compile("Store:\s(.*)")
+    suPrice = re.compile("\$(\d*.\d*)")
+
     def __init__(self, vendormap_):
         """ Start up..."""
-        #logger.debug("ElementReader.__init__()")
+        # logger.debug("ElementReader.__init__()")
         self.vendormap = vendormap_
         self._tree = None
         self._stores_element_list = list()
-        #self._prices = list()
+        # self._prices = list()
 
     @property
     def vendormap(self):
@@ -117,57 +132,70 @@ class ElementReader(metaclass=ABCMeta):
     def vendormap(self, vendormap_):
         self._vendormap = vendormap_
 
-    #TODO: create a price dict first to prevent elementid/storeid duplicates, but return a list
-    def _build_price_list(self, element_id, store_elements_list):
+    # TODO: create a price dict first to prevent elementid/storeid duplicates, but return a list
+    def _build_price_list(self, element_id, store_elements_lists):
         """
-        Read a single item from its Catalog page, returning a list of PriceTuples
-            Vendor Name
-            Vendor ID
-            Vendor Price
-            Vendor Qty
-            Parse the etree and return an element_id and list of PriceTuples
+        
+        store_elements_lists is a tuple of (NEW, USED) prices
+        
+        Parse the etree and return an element_id and list of PriceTuples
+        
+        Returns:
+            list of Pricetuples 
+        
         """
-        _prices = dict()
+        _prices = []
         # store_elements_list = tree.xpath(URL_STORE_LINKS_XPATH) #list of tr elements
-        print("Building price list for element %s" % element_id)
-        if store_elements_list:  # check if list is empty
-            suLink = re.compile("sID=(\d+).*(?:itemID|bindID)=(\d+)")  # \&itemID=(\d+)
-            suStore = re.compile("Store:\s(.*)")
-            suPrice = re.compile("\$(\d*.\d*)")  # says that the \~ is redundant
-            for store in store_elements_list:
-                # create text strings from the store element
-                e_store_url = ''.join(store.xpath(STORE_CHILD_LINK))
-                if not e_store_url:
-                    raise IndexError(e_store_url)
+        print("Building price list for element: %s" % element_id)
+        # TODO: convert to an array earlier for performance
+        new_list = store_elements_lists[0]
+        used_list = store_elements_lists[1]
 
-                storematch = re.search(suLink, e_store_url)
+        for idx, condition_store_list in enumerate(store_elements_lists):
+            condition = [NEW, USED][idx]
+            if condition_store_list:  # check if list is empty
+                # suLink = re.compile("sID=(\d+).*(?:itemID|bindID)=(\d+)")  # \&itemID=(\d+)
+                # suStore = re.compile("Store:\s(.*)")
+                # suPrice = re.compile("\$(\d*.\d*)")  # says that the \~ is redundant
+                for store in condition_store_list:
+                    # look for NEW elements
+                    # look for USED elements
+                    # create text strings from the store element
+                    e_store_url = ''.join(store.xpath(STORE_CHILD_LINK))
+                    if not e_store_url:
+                        raise IndexError(e_store_url)
 
-                if storematch:
-                    store_id, item_id = storematch.groups()
-                    e_store_name = ''.join(store.xpath(STORE_NAME))
-                    e_price = ''.join(store.xpath(STORE_PRICE))
-                    e_qty = ''.join(store.xpath(STORE_QTY))
+                    storematch = re.search(self.suLink, e_store_url)
 
-                    store_name_match = re.search(suStore, e_store_name)
-                    store_name = store_name_match.group(1)
-                    price = float(re.search(suPrice, e_price).group(1))
-                    quantity = int(e_qty)
+                    if storematch:
+                        store_id, item_id = storematch.groups()
+                        e_store_name = ''.join(store.xpath(STORE_NAME))
+                        e_price = ''.join(store.xpath(STORE_PRICE))
+                        e_qty = ''.join(store.xpath(STORE_QTY))
 
-                    if quantity > 0:  # don't bother adding the vendor if it doesn't have any quantity for this item
-                        self.vendormap[store_id] = store_name
-                        # check if there are already price/qty entries for this element
-                        item_key = (element_id, store_id)
-                        if item_key in _prices:
-                            # TODO: handle this better by choosing the "best" entry to keep instead of just the first
-                            logger.debug("Duplicate store entry found: %s" % (item_key,))
-                        else:
-                            _prices[(element_id, store_id)] = PriceTuple(element_id, store_id, store_name, price, quantity)
-                else:
-                    raise ValueError('Cannot match a store URL')
-        else:
-            raise ValueError('List of store elements is empty')
-        # convert dict to list and return it
-        return element_id, _prices.values()
+                        store_name_match = re.search(self.suStore, e_store_name)
+                        store_name = store_name_match.group(1)
+                        price = float(re.search(self.suPrice, e_price).group(1))
+                        quantity = int(e_qty)
+
+                        if quantity > 0:  # don't bother adding the vendor if it doesn't have any quantity for this item
+                            self.vendormap[store_id] = store_name
+                            # check if there are already price/qty entries for this element
+                            item_key = (element_id, store_id)
+                            if item_key in _prices:
+                                # TODO: handle this better by choosing the "best" entry to keep instead of just the first
+                                logger.debug("Duplicate store entry found: %s" % (item_key,))
+                            else:
+                                # TODO: add condition as an arguement
+                                _prices.append( PriceTuple(element_id, store_id, store_name, price,
+                                                                             quantity, condition))
+                    else:
+                        raise ValueError('Cannot match a store URL')
+            else:
+                raise ValueError('List of store elements is empty')
+                # convert dict to list and return it
+
+        return _prices
 
 
 class ElementFileReader(ElementReader):
@@ -184,7 +212,7 @@ class ElementFileReader(ElementReader):
         with io.open(filename, 'rt') as f:
             html_string = f.read()
         tree = html.fromstring(html_string)
-        element_stores = tree.xpath(URL_STORE_LINKS_XPATH)
+        element_stores = tree.xpath(URL_NEW_LINKS_XPATH)
         element_id = None
         return element_stores, element_id
 
@@ -194,18 +222,18 @@ class ElementWebReader(ElementReader):
         """ Start up...
         :param vendormap_:
         """
-        #logger.debug("ElementWebReader.__init__()")
+        # logger.debug("ElementWebReader.__init__()")
         logger.debug("ElementWebReader vendormap id: %s" % id(vendormap_))
         super().__init__(vendormap_)
 
-    def web_price_list(self, itemtypeID, itemID, itemColorID):
-        element_id, element_store_list = self._read_store_list(itemtypeID, itemID, itemColorID)
-        element_id, price_list = self._build_price_list(element_id, element_store_list)
+    def web_price_list(self, itemtypeID, itemID, itemColorID, options=NEW | USED):
+        element_id, element_store_lists = self._read_store_list(itemtypeID, itemID, itemColorID, options)
+        price_list = self._build_price_list(element_id, element_store_lists)
         return element_id, price_list
 
     @classmethod
-    def _read_store_list(cls, itemtypeID, itemID, itemColorID):
-        """Returns a list of Elements each containing store and price info
+    def _read_store_list(cls, itemtypeID, itemID, itemColorID, options):
+        """Returns a tuple (NEW, USED) of store element lists each containing store and price info
         """
         logger.debug("Reading element %s, %s, %s from web" % (itemtypeID, itemID, itemColorID))
         element_id = WantedElement.joinElement(itemID, itemColorID)
@@ -218,8 +246,16 @@ class ElementWebReader(ElementReader):
             r = s.get(url=url, headers=dict(USER_AGENT_DICT))
             tree = html.fromstring(r.content)
 
-        element_list = tree.xpath(URL_STORE_LINKS_XPATH)
-        return element_id, element_list
+        new_list, used_list = None, None
+
+        if NEW & options:
+            new_list = tree.xpath(URL_NEW_LINKS_XPATH)
+        if USED & options:
+            used_list = tree.xpath(URL_USED_LINKS_XPATH)
+
+        store_elements_lists = (new_list, used_list)
+
+        return element_id, store_elements_lists
 
 
 if __name__ == '__main__':
