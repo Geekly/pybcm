@@ -206,7 +206,7 @@ class BrickPile:
 
     @property
     def avg_prices(self):
-        return self.price_frame.mean(level=['elementid', 'condition'])
+        return self.price_frame.mean(level=['elementid', 'condition'])[['price']]
 
     @property
     def element_totals(self):
