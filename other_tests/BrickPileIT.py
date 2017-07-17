@@ -18,7 +18,7 @@ wanted = WantedDict()
 wanted.read(config.wantedfilename)
 #
 bp = BrickPile()
-bp.wanted = wanted
+bp._wanted_dict = wanted
 logger.info("Reading prices from pickle")
 #bp.readpricesfromweb(wanted, Condition.NEW|Condition.USED)
 
@@ -43,9 +43,8 @@ qty_df =  bp.qty_frame
 # print(qty_df)
 
 # print(price_df.mean(axis=1))
-
-s = pd.Series(wanted)
-print(s)
+print("\n\n************ Element totals ************")
+print(bp.element_totals)
 
 print(bp.avg_prices)
 

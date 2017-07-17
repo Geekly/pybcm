@@ -91,3 +91,5 @@ print("\naverage prices:\n %s" % p.mean(level=['elementid', 'condition']))
 print("fd\n")
 pp.pprint(fd)
 pass
+
+element_names = p.index

@@ -103,6 +103,14 @@ class WantedDict(UserDict):
         else:
             return 0
 
+    @property
+    def element_list(self):
+        return list(set([e for e in self]))
+
+    @property
+    def simple_dict(self):
+        return { e.elementid:e.wantedqty for e in self.values() }
+
 
 if __name__ == '__main__':
     log.setup_custom_logger(__name__)
@@ -112,3 +120,5 @@ if __name__ == '__main__':
     print(wanteddict.data)
     print(wanteddict)
     # print(wanteddict.get_wanted_qty('3009|6'))
+    print(wanteddict.element_set)
+    print(wanteddict.simple_dict)

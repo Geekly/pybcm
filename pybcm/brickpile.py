@@ -108,11 +108,9 @@ class BrickPile:
 
     @property
     def wanted(self):
-        return self._wanted_dict
-
-    @wanted.setter
-    def wanted(self, wanted_dict):
-        self._wanted_dict = wanted_dict
+        # simplified wanted dict
+        w = self._wanted_dict
+        return w
 
     @property
     def vendormap(self):
@@ -209,6 +207,18 @@ class BrickPile:
     @property
     def avg_prices(self):
         return self.price_frame.mean(level=['elementid', 'condition'])
+
+    @property
+    def element_totals(self):
+        # multiple avg prices by wanted qty
+        m = pd.DataFrame(self.price_frame.mean(level=['elementid', 'condition']))          # average prices as dataframe
+        #TODO: need index column to be named 'elementid'
+        want = self._wanted_dict.simple_dict
+        w = pd.DataFrame(want, index=['wantedqty']).T  # wanted list
+        w.index.name = 'elementid'
+        q = pd.concat([m,w], axis=1)
+        return q
+        # extract keys for wanted dict (element names)
 
     def summary(self):
         """Return a summary string of the bricklink data."""
