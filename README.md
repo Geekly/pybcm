@@ -1,3 +1,11 @@
+
+Work on this project took a long hiatus and in the meantime, BL added some great functionality to order filling, including some
+optimization of the "cart". There are still some things that can be done to improve it, so this project is pivoting to cover some of those gaps.
+
+1. Help with part substitutions - does BL always choose the cheaper option? Add the ability to also compare alternate colors.
+2. Help with vendor ranking - look at prices to determine which vendors are "cheap" and which are "to be avoided"
+3. Re-balance orders from a pre-selection of vendors
+___
 Bricklink Cart Manager
 ======================
 
@@ -38,4 +46,5 @@ run main.py
 *Required Modules*
 
 - Numpy
-- BeautifulSoup
+- Pandas
+- lxml
