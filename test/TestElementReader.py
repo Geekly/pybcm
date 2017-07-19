@@ -1,14 +1,13 @@
-import sys
-import io
-import unittest
-from pybcm.elementreader import ElementReader, ElementFileReader, ElementWebReader
-from pybcm.vendors import *
-from pybcm.config import BCMConfig
-import os.path
-from lxml import etree
-from lxml.html.clean import Cleaner
-from bs4 import BeautifulSoup as Soup
 import logging
+import os.path
+import sys
+import unittest
+
+from lxml.html.clean import Cleaner
+
+from pybcm.config import BCMConfig
+from pybcm.elementreader import ElementReader, ElementFileReader
+from pybcm.vendors import *
 
 logger = logging.getLogger('pybcm.test.TestElementReader')
 

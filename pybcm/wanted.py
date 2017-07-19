@@ -31,10 +31,12 @@ Created on Oct 23, 2012
 """
 
 import logging
-from bs4 import BeautifulSoup as Soup
 from collections import UserDict
+
+from bs4 import BeautifulSoup as Soup
+
 import log
-from legoutils import legoColors, WantedElement
+from legoutils import WantedElement
 
 logger = logging.getLogger(__name__)
 

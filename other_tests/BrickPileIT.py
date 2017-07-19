@@ -1,15 +1,10 @@
-import logging
 import log
 from brickpile import BrickPile
-from mason import Mason
 from config import BCMConfig
 from wanted import WantedDict
-from legoutils import Condition
-import pandas as pd
-import numpy as np
 
 # get a wanted list
-logger = log.setup_custom_logger('pybcm.test.brickpile')
+logger = log.setup_custom_logger('pybcm')
 #
 config = BCMConfig('../config/bcm.ini')  # create the settings object and load the file
 #
@@ -43,9 +38,17 @@ qty_df =  bp.qty_frame
 # print(qty_df)
 
 # print(price_df.mean(axis=1))
-print("\n\n************ Element totals ************")
-print(bp.element_totals)
 
-print(bp.avg_prices)
+print(bp.price_frame)
+
+print(bp.qty_frame)
+
+print(bp.wanted_frame)
+
+print("\n\n************ Element weights ************")
+print(bp.weighted_price)
+
+print(bp.price_quantiles())
+
 
 # w = { wanted[element]:qty }

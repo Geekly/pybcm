@@ -1,7 +1,6 @@
 import logging
 import unittest
 
-from log import setup_custom_logger
 from pybcm.vendors import *
 
 #logger = setup_custom_logger(__name__)

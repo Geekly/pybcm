@@ -29,7 +29,8 @@ Miscellaneous helpers and constants for the package
 """
 import json
 import logging
-from collections import namedtuple, UserDict
+
+from collections import namedtuple
 
 # from collections import UserDict
 logging.getLogger('pybcm.legoutils')

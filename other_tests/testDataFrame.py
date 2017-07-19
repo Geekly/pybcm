@@ -1,10 +1,12 @@
-import pandas as pd
-import numpy as np
-from pandas import DataFrame
 import logging
-from legoutils import PriceTuple, Condition
-from brickpile import BrickPile
 import pprint
+
+import numpy as np
+import pandas as pd
+from pandas import DataFrame
+
+from brickpile import BrickPile
+from legoutils import PriceTuple, Condition
 
 logger = logging.getLogger('pybcm.test.testDataFrame')
 pp = pprint.PrettyPrinter(indent=4)

@@ -37,7 +37,6 @@ Manage the store inventory data in a pandas dataframe
 import logging
 import pickle
 
-import numpy as np
 import pandas as pd
 from pandas import DataFrame
 
@@ -54,6 +53,11 @@ def dataframe_from_pricelist(price_list):
     columns = ['elementid', 'condition', 'storeid', 'price', 'qty']
     _df = pd.DataFrame(_data, columns=columns)
     _df.set_index(['elementid', 'condition', 'storeid'], inplace=True)
+
+    # remove duplicates
+    logger.debug("Length of dataframe before duplicates removed: %s " % len(_df))
+    _df = _df[~_df.index.duplicated(keep='first')]
+    logger.debug("Length of dataframe after duplicates removed: %s " % len(_df))
 
     return _df
 
@@ -186,6 +190,10 @@ class BrickPile:
 
         df_ = pd.read_pickle(filename)
         if self.df is not None:
+
+            logger.debug("Length of dataframe before duplicates removed: %s " % len(df_))
+            df_ = df_[~df_.index.duplicated(keep='first')]
+            logger.debug("Length of dataframe after duplicates removed: %s " % len(df_))
             self.df = df_
             self._bricklink_initialized = True
             return True
@@ -196,28 +204,46 @@ class BrickPile:
 
     @property
     def price_frame(self):
-        # TODO: fix this
-        return self.df['price']
+        return self.df[['price']]
 
     @property
     def qty_frame(self):
-        # TODO: fix this
-        return self.df['qty']
+        return self.df[['qty']]
 
     @property
-    def avg_prices(self):
-        return self.price_frame.mean(level=['elementid', 'condition'])[['price']]
-
-    @property
-    def element_totals(self):
-        # multiple avg prices by wanted qty
-        m = pd.DataFrame(self.price_frame.mean(level=['elementid', 'condition']))          # average prices as dataframe
-        #TODO: need index column to be named 'elementid'
-        want = self._wanted_dict.simple_dict
-        w = pd.DataFrame(want, index=['wantedqty']).T  # wanted list
+    def wanted_frame(self):
+        w = pd.DataFrame(self._wanted_dict.simple_dict, index=['wantedqty']).T
         w.index.name = 'elementid'
-        q = pd.concat([m,w], axis=1)
+        return w
+
+    @property
+    def avg_price(self):
+        p = self.price_frame.mean(level=['elementid', 'condition'])[['price']]
+        p.columns = ['avg_price']
+        return p
+
+    @property
+    def weighted_price(self):
+        price = self.avg_price
+        r = price.join(self.wanted_frame)
+        r['e_total'] = r['avg_price'] * r['wantedqty']
+        return r
+
+    def price_quantiles(self, quantiles=[0.25, 0.5, 0.75]):
+        p = self.df['price'].unstack()
+        q = p.quantile(quantiles, axis=1, interpolation='nearest').T
         return q
+
+    # @property
+    # def element_totals(self):
+    #     # multiple avg prices by wanted qty
+    #     m = pd.DataFrame(self.price_frame.mean(level=['elementid', 'condition']))          # average prices as dataframe
+    #     #TODO: need index column to be named 'elementid'
+    #     want = self._wanted_dict.simple_dict
+    #     w = pd.DataFrame(want, index=['wantedqty']).T  # wanted list
+    #     w.index.name = 'elementid'
+    #     q = pd.concat([m,w], axis=1)
+    #     return q
         # extract keys for wanted dict (element names)
 
     def summary(self):

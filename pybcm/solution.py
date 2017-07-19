@@ -29,8 +29,8 @@ Created on May 17, 2013
 
 @author: khooks
 """
-from collections import defaultdict
 import copy
+from collections import defaultdict
 
 
 class Solution():

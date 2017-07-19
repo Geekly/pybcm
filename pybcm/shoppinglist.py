@@ -30,8 +30,8 @@ Created on Oct 26, 2012
 @author: khooks
 """
 from legoutils import LegoElement
-from vendors import VendorMap
 from solution import *
+from vendors import VendorMap
 
 
 class ShoppingList():
