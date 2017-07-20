@@ -2,25 +2,35 @@ import log
 from brickpile import BrickPile
 from config import BCMConfig
 from wanted import WantedDict
+from legoutils import Condition
 
 # get a wanted list
 logger = log.setup_custom_logger('pybcm')
 #
 config = BCMConfig('../config/bcm.ini')  # create the settings object and load the file
 #
+
+update_cache = True
+
 logger.info("Loading wanted dict")
-wanted = WantedDict()
-wanted.read(config.wantedfilename)
+wanted = WantedDict(WantedDict.wantedTypes.BL)
+bl_list = '../Sampledata/10030 Star Destroyer.xml'
+wanted.read(bl_list)
 #
 bp = BrickPile()
-bp._wanted_dict = wanted
-logger.info("Reading prices from pickle")
-#bp.readpricesfromweb(wanted, Condition.NEW|Condition.USED)
+
 
 pricefile = 'price.pickle'
-#bp.price_to_pickle(pricefile)
+if update_cache:
+    logger.info("Reading prices from web")
+    bp.readpricesfromweb(wanted, Condition.NEW|Condition.USED)
+    bp.price_to_pickle(pricefile)
 
-bp.price_from_pickle(pricefile)
+else:
+    logger.info("Reading prices from pickle")
+    bp._wanted_dict = wanted
+    bp.price_from_pickle(pricefile)
+
 print(bp.summary())
 
 logger.info(bp.df)

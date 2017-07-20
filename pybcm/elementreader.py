@@ -41,7 +41,7 @@ import log
 from legoutils import WantedElement, PriceTuple, Condition
 from vendors import VendorMap
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger('pybcm.elementreader')
 
 
 # logger.debug('Begin elementreader.py')
@@ -262,9 +262,9 @@ if __name__ == '__main__':
     # filename = "../BrickLink Price Guide - Part 3070b in Black Color.htm"
     # prices = ElementFileReader(filename)
     # print prices.readAllItems()
-    logger = log.setup_custom_logger(__name__)
+    logger = log.setup_custom_logger('pybcm.elementreader')
 
-    logger.debug('Started')
+    logger.debug('Started elementreader.py')
 
     vendormap = VendorMap()
 

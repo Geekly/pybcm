@@ -161,7 +161,7 @@ class BrickPile:
             Attributes:
                 wanted_dict(WantedDict): wanted[elementid] = WantedElement
         """
-        self.wanted = wanted_dict
+        self._wanted_dict = wanted_dict
         numitems = len(wanted_dict)
         logging.info("Loading " + str(numitems) + " items from the web")
         for elementid in list(wanted_dict.keys()):

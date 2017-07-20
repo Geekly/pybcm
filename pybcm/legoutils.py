@@ -198,7 +198,8 @@ legoColors = {
         163: 'Glitter Trans-Neon Green',
         164: 'Trans-Light Orange',
         165: 'Neon Orange',
-        166: 'Neon Green'
+        166: 'Neon Green',
+        999: None
 
     }
 

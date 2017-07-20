@@ -40,7 +40,7 @@ from wanted import WantedDict
 
 
 # vendor_map = VendorMap()
-
+# TODO: add arguement parsing
 
 def main():
 
