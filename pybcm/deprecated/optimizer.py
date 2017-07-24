@@ -30,7 +30,7 @@ Created on May 16, 2013
 @author: khooks
 """
 
-from solution import Solution, SolutionSet
+from deprecated.solution import Solution, SolutionSet
 from vendors import VendorStats
 
 

@@ -29,8 +29,8 @@ Created on Oct 26, 2012
 
 @author: khooks
 """
+from deprecated.solution import *
 from legoutils import LegoElement
-from solution import *
 from vendors import VendorMap
 
 

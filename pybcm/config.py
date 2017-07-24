@@ -27,8 +27,13 @@
 """
 Manage the module configuration settings
 """
-
+import logging
 from configparser import RawConfigParser
+
+import log
+
+logger = logging.getLogger('pybcm.config')
+
 
 class BCMConfig():
     """ Reads configuration information from bcm.ini.
@@ -51,22 +56,30 @@ class BCMConfig():
         self.__parser = RawConfigParser()
 
         _dataset = self.__parser.read(self._configfile)
-        if ( len(_dataset) <= 0 ):
+        if len(_dataset) <= 0:
             raise(ValueError("Config file not found: " + self._configfile))
 
         self.username = self.__parser.get('bricklink', 'username')
         self.password = self.__parser.get('bricklink', 'password')
+        self.consumer_key = self.__parser.get('bricklink', 'consumer_key')
+        self.consumer_secret = self.__parser.get('bricklink', 'consumer_secret')
+        self.token_key = self.__parser.get('bricklink', 'token_key')
+        self.token_secret = self.__parser.get('bricklink', 'token_secret')
+
         self.wantedfilename = self.__parser.get('filenames', 'wanted')
         self.pricefilename = self.__parser.get('filenames', 'prices')
+
         self.reloadpricesfromweb = self.__parser.getboolean('options', 'reloadpricesfromweb')
 
 
-if __name__ == '__main__':
 
+if __name__ == '__main__':
+    log.setup_custom_logger('pybcm.config')
     config = BCMConfig('../config/bcm.ini')
 
     print(config.pricefilename)
     print(config.reloadpricesfromweb)
-    print(config.__parser.items('filenames'))
-    print(config.__parser.items('options'))
-    print(config.__parser.items('bricklink'))
+    print(config.oauth_token)
+
+
+

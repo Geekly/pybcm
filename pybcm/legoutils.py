@@ -38,6 +38,7 @@ logging.getLogger('pybcm.legoutils')
 Condition = namedtuple('Condition', 'USED NEW')(NEW=1, USED=2)
 
 PriceTuple = namedtuple('PriceTuple', 'elementid storeid storename price qty condition')
+# GuideTuple = namedtuple('PriceTuple', 'itemid color avg_price qty condition')
 
 legoColors = {
         1: 'White',

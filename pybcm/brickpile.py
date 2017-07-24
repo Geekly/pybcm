@@ -42,6 +42,7 @@ from pandas import DataFrame
 
 import log
 from elementreader import ElementWebReader, NEW, USED
+from rest import RestClient
 from vendors import VendorMap
 
 logger = logging.getLogger('pybcm.brickpile')
@@ -109,6 +110,7 @@ class BrickPile:
         self._vendor_initialized = False
         logger.debug("BrickPile vendormap id: %s" % id(self.vendormap))
         self.webreader = ElementWebReader(self.vendormap)
+        self.rest_client = RestClient()
 
     @property
     def wanted(self):
@@ -155,6 +157,24 @@ class BrickPile:
         else:
             self.df = df_.copy()
         return
+
+    def readstatsfromrest(self, wanted_dict, price_options=NEW|USED):
+        numitems = len(wanted_dict)
+        logging.info("Loading " + str(numitems) + " items from the web")
+        for elementid in list(wanted_dict.keys()):
+            # added wanted item to dataframe
+            logging.info("Loading element " + str(elementid))
+            itemid = wanted_dict[elementid].itemid
+            itemtype = wanted_dict[elementid].itemtypeid
+            colorid = wanted_dict[elementid].colorid
+
+            pricelist = self.rest_client.get_part_price(itemid, itemtype, colorid)
+            element_id = WantedElement.joinElement(itemid, colorid)
+            _prices.append(PriceTuple(element_id, store_id, store_name, price,
+                                      quantity, condition))
+            self.add_pricelist(elementid, pricelist)
+        pass
+
 
     def readpricesfromweb(self, wanted_dict, price_options=NEW | USED):
         """Build a dictionary of price info from the Bricklink website
