@@ -57,12 +57,24 @@ class Trowel:
         """
         # TODO: Account for subsititutions and find the cheapest of substitutions
         est_cost = 0.0
+        # get a list of items from the first item in matches
+        # TODO: get all of the items in matches (alternates)
+        need_items = [ match['entries'][0] for match in inv]
+        # create a set of itemid|color elements to compare to existing prices
+        need_elements = {( item['item']['no'], str(item['color_id'])) for item in need_items }
+        # get the list of exisiting elements from the db
+
         for match in inv:  # iterate over list of matches
 
             #TODO: Check if price already exists in DB and is not older than a particular date before reloading it
+
+            # make a set of itemid, color tuples that are already in the db
+            # get prices for the negative set
+            # retrieve_set = wanted_set - db_set
             item = match['entries'][0]
             itemid = item['item']['no']
             color = item['color_id']
+            element = '|'.join([itemid, color])
             qty = int(item['quantity'])
             prices = self.get_part_prices(itemid, color)
             if prices:
@@ -97,12 +109,12 @@ class Trowel:
 
 
 if __name__ == "__main__":
-    log.setup_custom_logger('pybcm')
+    logger = log.setup_custom_logger('pybcm')
 
     from pprint import pprint
 
     tr = Trowel()
-    inv = tr.get_set_inv('76023-1')
+    inv = tr.get_set_inv('10030-1')
     pprint(tr.price_inv(inv))
 
     # price out a set by collecting avg prices from wanted list

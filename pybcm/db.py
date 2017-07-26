@@ -26,6 +26,7 @@
 
 import logging
 import sqlite3
+import time
 
 import log
 
@@ -70,8 +71,9 @@ def serialize_part_prices(aprices):
                 'unit_quantity': 10,
                 'total_quantity': 1000 } """
     dbname = 'part_prices'
-    columns = ', '.join(aprices.keys())
-    placeholders = ':' + ', :'.join(aprices.keys())
+    columns = ', '.join([*aprices.keys(), 'age'])
+    placeholders = ':' + ', :'.join([*aprices.keys(), 'age'])
+    aprices['age'] = time.time()
     query = 'INSERT OR REPLACE INTO %s (%s) VALUES (%s)' % (dbname, columns, placeholders)
     with conn:
         result = conn.execute(query, aprices)
