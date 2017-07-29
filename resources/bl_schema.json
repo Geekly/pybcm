@@ -1,0 +1,43 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "PriceGuide",
+  "description": "Bricklink Price Guide",
+  "type": "object",
+  "properties": {
+    "item": {
+      "type": "object",
+      "properties": {
+        "no": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "new_or_used":{
+        "type": "string"
+      },
+      "currency_code": {
+        "type": "string"
+      },
+      "min_price":{
+        "type":"number"
+      },
+      "avg_price":{
+        "type":"number"
+      },
+      "max_price":{
+        "type":"number"
+      },
+      "unit_quantity":{
+        "type":"number"
+      },
+      "total_quantity":{
+        "type":"number"
+      },
+      "price_detail":{
+
+      }
+    }
+  }
+}

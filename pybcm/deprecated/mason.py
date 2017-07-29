@@ -24,50 +24,40 @@
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-'''Object representations of the BrickLink result data types'''
+"""
+    Mason manages the solution and results of the optimization
 
-import logging
-from collections import UserDict
-from pprint import pprint
+"""
+import pandas as pd
 
-from rest import RestClient
-
-logger = logging.getLogger('pybcm.resource')
-
-class ItemResult(UserDict):
-    pass
+from blrest import RestClient
 
 
-class SuperSetResult(UserDict):
-    pass
+class Mason:
+
+    def __init__(self, brickpile):
+        # required data
+        # TODO: change to reference individual price and qty dataframes
+        self.__prices = brickpile.df
+        self.__price_df = brickpile.price_frame
+        self.__qty_df = brickpile.qty_frame
+        self.__wanted = brickpile.wanted
+        self.__vendormap = brickpile.vendormap
+        self.rest_client = RestClient()
+
+        # working data
+        self.shipping_cost = 3.00
+        #self._simple_wanted = {e: self._wanted.get_wanted_qty(e) for e in self._wanted }
+        #self.current_stock = dict.fromkeys(self._wanted.keys(), 0)
+        #self.remaining = None
+        #self.stock = DataFrame() # includes original wanted qty, current stock, amt remaining to buy
+
+        # solution data
+        # solution data is a table of elements vs. vendors with qty only as the value
+        self.solution = pd.DataFrame(columns=self.__price_df.columns, index=self.__price_df.index, data=None)
 
 
-class SubSet(UserDict):
-    pass
 
+    #TODO: calculate the part cost of a solution
 
-
-class PriceGuide(UserDict):
-
-    def __init__(self, no=None, itemtype=None, color=None, **kwargs):
-        super().__init__(self, **kwargs)
-        self.data['item'] = {
-            'no': no,
-            'type': itemtype
-        }
-        self.data['color'] = color
-
-
-    def load(self, itemid, itemtypeid, colorid):
-        rc = RestClient()
-        color, pg = rc.get_part_price(itemid, itemtypeid, colorid)
-        self.data = dict(pg)
-        return color, pg
-
-
-pg = PriceGuide()
-color, guide = pg.load('3004', 'PART', '86')
-pprint(guide)
-pprint(color)
-
-pass
+    #TODO: calculate the total cost of a solution

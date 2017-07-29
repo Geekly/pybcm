@@ -81,6 +81,63 @@ def serialize_part_prices(aprices):
     return result
 
 
+def prune_pull_list(pull_list):
+    """
+        select the records from the pull_list that don't already exist in the db. These
+        are the ones to download from the website.
+
+        pull_list = [('6587', '10', 'N'),
+                    ('3700', '7', 'U'),...]
+
+        CREATE TEMPORARY TABLE pair (itemid_ INTEGER, color_ INTEGER, new_or_used_ INTEGER);
+        INSERT INTO pair (itemid_, color_, new_or_used_) VALUES ('6587', '9', 'N');
+        INSERT INTO pair (itemid_, color_, new_or_used_) VALUES ('2356', '1', 'U');
+
+        SELECT pair.*
+        from pair
+        left join price_guide
+        ON pair.itemid_ = price_guide.itemid
+        AND pair.color_ = price_guide.color
+        AND pair.new_or_used_ = price_guide.new_or_used
+        where price_guide.color is NULL
+        OR price_guide.itemid is null
+        or price_guide.new_or_used is null;
+
+    """
+    with sqlite3.connect('../database/pybcm.db') as conn:
+        cur = conn.cursor()
+        cur.execute('''drop table pair''')
+        cur.execute('''create table if not exists pair 
+                     (_itemid text, _color text, _new_or_used text)''')
+        cur.executemany('insert into pair values (?, ?, ?)', pull_list)
+
+        # find items not present in the db
+        query = "SELECT pair.* FROM pair LEFT JOIN part_prices " \
+                "ON pair._itemid=part_prices.itemid " \
+                "AND pair._color=part_prices.color " \
+                "AND pair._new_or_used=part_prices.new_or_used " \
+                "WHERE part_prices.itemid is NULL " \
+                "OR part_prices.color is NULL " \
+                "OR part_prices.new_or_used is NULL "
+        logger.info(query)
+        to_pull = cur.execute(query).fetchall()
+
+        # select all of the prices that already exist
+        query = "SELECT part_prices.* " \
+                "FROM part_prices " \
+                "INNER JOIN pair " \
+                "ON pair._itemid = part_prices.itemid " \
+                "AND pair._color = part_prices.color " \
+                "AND pair._new_or_used = part_prices.new_or_used "
+
+        existing_prices = cur.execute(query).fetchall()
+
+        # return price info for items that are present
+
+    return to_pull, existing_prices
+        # create a temporary db
+
+
 if __name__=='__main__':
     log.setup_custom_logger('pybcm')
 

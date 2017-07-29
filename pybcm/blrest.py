@@ -37,9 +37,14 @@ from config import BCMConfig
 logger = logging.getLogger('pybcm.rest')
 
 
-class RestClient():
+class RestClient:
+    """Rest Client for Bricklink website"""
 
     BASE_URL = 'https://api.bricklink.com/api/store/v1/'
+    ITEM_TYPES = ('MINIFIG', 'PART', 'SET', 'BOOK', 'GEAR', 'CATALOG', 'INSTRUCTION', 'UNSORTED_LOT', 'ORIGINAL_BOX')
+    GUIDE_TYPES = ('sold', 'stock')
+    REGIONS = ('asia', 'africa', 'north_america', 'south_america', 'middle_east', 'europe', 'eu', 'oceania')
+    VATS = ('N', 'Y', 'O')
 
     def __init__(self, config=BCMConfig('../config/bcm.ini')):
 
@@ -49,6 +54,16 @@ class RestClient():
         __token_secret = config.token_secret
 
         self.auth = OAuth1(__consumer_key, __consumer_secret, __token_key, __token_secret)
+
+    def __validate(self, itemtype=None, color=None, guidetype=None):
+
+        if itemtype is not None and itemtype not in self.ITEM_TYPES:
+            raise ValueError("Item Type {} is not valid".format(itemtype))
+        if guidetype is not None and guidetype not in self.GUIDE_TYPES:
+            raise ValueError("Guide type {} is not valid".format(guidetype))
+        if color is not None and color not in []:
+            # TODO: make some color validation that doesn't require calling the Known Colors api
+            pass
 
     def get(self, url):
         return requests.get(url, auth=self.auth)
@@ -60,6 +75,7 @@ class RestClient():
         """
         /items/{type}/{no}
         """
+        self.__validate(itemtype=itemtypeid)
         url = self.__item_url_template.expand(type=itemtypeid, no=itemid)
         logger.debug("Getting Item from: {}".format(url))
         return self.get(url).json()['data']
@@ -71,6 +87,7 @@ class RestClient():
         """
         /items/{type}/{no}
         """
+        self.__validate(itemtype=itemtypeid)
         url = self.__item_image_url_template.expand(type=itemtypeid, no=itemid)
         logger.debug("Getting Known Colors from: {}".format(url))
         return self.get(url).json()['data']
@@ -85,6 +102,7 @@ class RestClient():
         """
         /items/{type}/{no}/subsets
         """
+        self.__validate(itemtype=itemtypeid)
         url = self.__subsets_url_template.expand(type=itemtypeid, no=itemid)
         logger.debug("Getting Known Colors from: {}".format(url))
         return self.get(url).json()['data']
@@ -94,11 +112,12 @@ class RestClient():
 
     def get_price_guide(self, itemid, itemtypeid, colorid, new_or_used='U', guide_type='sold'):
 
+        self.__validate(itemtype=itemtypeid, guidetype=guide_type)
         endpoint = self.__price_guide_url_template.expand(type=itemtypeid, no=itemid)
         params = {
-            'color': colorid,
-            'guide_type': guide_type,
-            'new_or_used': new_or_used,
+            'color': str(colorid),
+            'guide_type': str(guide_type),
+            'new_or_used': str(new_or_used),
             # 'country_code': 'US',
             'region': 'north_america',
             # 'currency_code':,
@@ -113,6 +132,11 @@ class RestClient():
         except KeyError:
             logger.info("Data not found for itemid {}".format(itemid))
             data = None
+        return colorid, data
+
+    def get_part_price_guide(self, itemid, colorid, new_or_used):
+        self.__validate(color=colorid)
+        colorid, data = self.get_price_guide(itemid, 'PART', colorid, new_or_used=new_or_used )
         return colorid, data
 
     __known_colors_url = ''.join([BASE_URL, 'items/{type}/{no}/colors'])

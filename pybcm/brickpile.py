@@ -41,8 +41,8 @@ import pandas as pd
 from pandas import DataFrame
 
 import log
+from blrest import RestClient
 from elementreader import ElementWebReader, NEW, USED
-from rest import RestClient
 from vendors import VendorMap
 
 logger = logging.getLogger('pybcm.brickpile')
@@ -158,7 +158,7 @@ class BrickPile:
             self.df = df_.copy()
         return
 
-    def readstatsfromrest(self, wanted_dict, price_options=NEW|USED):
+    def read_stats_from_rest(self, wanted_dict, price_options=NEW|USED):
         numitems = len(wanted_dict)
         logging.info("Loading " + str(numitems) + " items from the web")
         for elementid in list(wanted_dict.keys()):

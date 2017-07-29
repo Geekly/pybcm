@@ -1,5 +1,3 @@
-from pprint import pprint
-
 from db import *
 
 logger = log.setup_custom_logger('pybcm')
@@ -51,52 +49,10 @@ need_set = {('10247', '86', 'U'), ('10247', '85', 'N'), ('10247', '85', 'U'), ('
 need_list = list(need_set)
 print(need_list)
 
-# This works in sqlite console but not here
-# SELECT * from part_prices where (itemid, color) in (('6587', '10'));
-# This doesn't select the pairs
-# select * from (select itemid, color from part_prices where color in ('10', '9', '11')) where itemid in ('6587', '4589');
-
-def prune_list(needed_list):
-    """
-        select the records from the needed_list that don't already exist in the db
-    
-        need_list = [('6587', '10', 'N'),
-                    ('3700', '7', 'U'),...]
-                    
-        CREATE TEMPORARY TABLE pair (itemid_ INTEGER, color_ INTEGER, new_or_used_ INTEGER);
-        INSERT INTO pair (itemid_, color_, new_or_used_) VALUES ('6587', '9', 'N');
-        INSERT INTO pair (itemid_, color_, new_or_used_) VALUES ('2356', '1', 'U');
-
-        SELECT pair.*
-        from pair
-        left join price_guide
-        ON pair.itemid_ = price_guide.itemid
-        AND pair.color_ = price_guide.color
-        AND pair.new_or_used_ = price_guide.new_or_used
-        where price_guide.color is NULL
-        OR price_guide.itemid is null
-        or price_guide.new_or_used is null;
-
-    """
-    with sqlite3.connect('../database/pybcm.db') as conn:
-        cur = conn.cursor()
-        cur.execute('''drop table pair''')
-        cur.execute('''create table if not exists pair 
-                     (_itemid text, _color text, _new_or_used text)''')
-        cur.executemany('insert into pair values (?, ?, ?)', need_list)
-        query = "SELECT pair.* FROM pair LEFT JOIN part_prices " \
-                "ON pair._itemid=part_prices.itemid " \
-                "AND pair._color=part_prices.color " \
-                "AND pair._new_or_used=part_prices.new_or_used " \
-                "WHERE part_prices.itemid is NULL " \
-                "OR part_prices.color is NULL " \
-                "OR part_prices.new_or_used is NULL "
-        pprint(query)
-        result = cur.execute(query).fetchall()
-        return result
-    # create a temporary db
-
-short_list = prune_list(need_list)
+short_list, existing = prune_pull_list(need_list)
+print(short_list)
+print(existing)
+#get_part_price_guide(self, itemid, colorid, new_or_used)
 
 #result = cur.execute("select * from (select itemid, color from part_prices where color in ('10', '9', '11')) where itemid in ('6587', '4589')")
 """

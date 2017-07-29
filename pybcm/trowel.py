@@ -28,14 +28,15 @@
     Manage bricklink data using the rest api
 
 """
+from blrest import RestClient
 from db import *
-from rest import RestClient
 
 logger = logging.getLogger('pybcm.trowel')
 
 
 class Trowel:
-    def __init__(self):
+    def __init__(self, config):
+        self.config = config
         self.rc = RestClient()
 
     # create a wanted list from a set
@@ -49,7 +50,7 @@ class Trowel:
         return prices
 
     def price_inv(self, inv):
-        """ get estimated price for a given inventory """
+        """ get estimated price for a given Rest inventory """
         """inv is a list of {'match_no': 0, 'entries': [{'item': {'no': '2540',
                                               'name': 'Plate, Modified 1 x 2 with Handle on Side - Free Ends',
                                               'type': 'PART', 'category_id': 27}, 'color_id': 11, 'quantity': 2,
@@ -58,14 +59,27 @@ class Trowel:
         # TODO: Account for subsititutions and find the cheapest of substitutions
         est_cost = 0.0
         # get a list of items from the first item in matches
-        # TODO: get all of the items in matches (alternates)
-        need_items = [ match['entries'][0] for match in inv]
+        # TODO: get all of the items in matches (alternates) as tuples
+
         # create a set of itemid|color elements to compare to existing prices
-        need_elements = {( item['item']['no'], str(item['color_id'])) for item in need_items }
+
+        #{'item': {'no': '3020', 'name': 'Plate 2 x 4', 'type': 'PART', 'category_id': 26}, 'color_id': 11,
+        # 'quantity': 2, 'extra_quantity': 0, 'is_alternate': False, 'is_counterpart': False}
+        # extract list of (itemid, color, new_or_used) tuples from need_elements
+
+        def needed_items(inv):
+            # returns list(itemid, color, new_or_used) tuples without new_or_used
+            items_only = [(item['item']['no'], item['color_id']) for item in [match['entries'][0] for match in inv]]
+            # double the list with both 'N' and 'U'
+            __need_list = [(*item, new_used) for item in items_only for new_used in ['N', 'U']]
+            return __need_list
+
+        needed = needed_items(inv)
+        pull_list, known_prices = prune_pull_list(needed)
         # get the list of exisiting elements from the db
+        for item in pull_list:  # iterate over list of matches
 
-        for match in inv:  # iterate over list of matches
-
+            # create a pull list of
             #TODO: Check if price already exists in DB and is not older than a particular date before reloading it
 
             # make a set of itemid, color tuples that are already in the db
