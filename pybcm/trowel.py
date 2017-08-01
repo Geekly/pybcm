@@ -28,8 +28,12 @@
     Manage bricklink data using the rest api
 
 """
+import pandas as pd
+from pandas import HDFStore
+
 from blrest import RestClient
 from db import *
+from pandas_wrapper import PandasClient
 
 logger = logging.getLogger('pybcm.trowel')
 
@@ -38,88 +42,89 @@ class Trowel:
     def __init__(self, config):
         self.config = config
         self.rc = RestClient()
+        self.pc = PandasClient()
+        self.store = HDFStore("../data/pybcm.hd5")
 
     # create a wanted list from a set
     def get_set_inv(self, lego_set_id):
         inv = self.rc.get_subsets(lego_set_id, 'SET')
         return inv
 
-    def get_part_prices(self, itemid, color):
-        pg = self.rc.get_price_guide(itemid, 'PART', color, 'N', guide_type='sold')
-        color, prices = pg
-        return prices
+    def get_part_prices_df(self, itemid, color):
+        pg = self.pc.get_price_guide_df(itemid, 'PART', color, 'N', guide_type='sold')
+        return pg
 
     def price_inv(self, inv):
-        """ get estimated price for a given Rest inventory """
-        """inv is a list of {'match_no': 0, 'entries': [{'item': {'no': '2540',
+        """ build a dataframe for the passed Rest inventory
+
+            inv is a list of {'match_no': 0, 'entries': [{'item': {'no': '2540',
                                               'name': 'Plate, Modified 1 x 2 with Handle on Side - Free Ends',
                                               'type': 'PART', 'category_id': 27}, 'color_id': 11, 'quantity': 2,
                                      'extra_quantity': 0, 'is_alternate': False, 'is_counterpart': False}]}
         """
         # TODO: Account for subsititutions and find the cheapest of substitutions
-        est_cost = 0.0
-        # get a list of items from the first item in matches
-        # TODO: get all of the items in matches (alternates) as tuples
 
-        # create a set of itemid|color elements to compare to existing prices
+        price_df = pd.DataFrame()
 
-        #{'item': {'no': '3020', 'name': 'Plate 2 x 4', 'type': 'PART', 'category_id': 26}, 'color_id': 11,
+        # {'item': {'no': '3020', 'name': 'Plate 2 x 4', 'type': 'PART', 'category_id': 26}, 'color_id': 11,
         # 'quantity': 2, 'extra_quantity': 0, 'is_alternate': False, 'is_counterpart': False}
         # extract list of (itemid, color, new_or_used) tuples from need_elements
 
-        def needed_items(inv):
+        def needed_items(__inv):
             # returns list(itemid, color, new_or_used) tuples without new_or_used
-            items_only = [(item['item']['no'], item['color_id']) for item in [match['entries'][0] for match in inv]]
+            __need_list = [(__item['item']['no'], str(__item['color_id']), __item['quantity']) for __item \
+                           in [match['entries'][0] for match in __inv]]
             # double the list with both 'N' and 'U'
-            __need_list = [(*item, new_used) for item in items_only for new_used in ['N', 'U']]
+            # __need_list = [(*item, new_or_used) for item in items_only for new_or_used in ['N', 'U']]
             return __need_list
 
         needed = needed_items(inv)
-        pull_list, known_prices = prune_pull_list(needed)
-        # get the list of exisiting elements from the db
+
+        # load existing prices from the db and download the rest
+
+        pull_list, known_prices = self.prune_pull_list(needed)
+        # download the list of items in pull_list and build the pandas dataframe
         for item in pull_list:  # iterate over list of matches
 
             # create a pull list of
-            #TODO: Check if price already exists in DB and is not older than a particular date before reloading it
+            # TODO: Check if price already exists in DB and is not older than a particular date before reloading it
 
-            # make a set of itemid, color tuples that are already in the db
-            # get prices for the negative set
-            # retrieve_set = wanted_set - db_set
-            item = match['entries'][0]
-            itemid = item['item']['no']
-            color = item['color_id']
-            element = '|'.join([itemid, color])
-            qty = int(item['quantity'])
-            prices = self.get_part_prices(itemid, color)
-            if prices:
-
-                avg_price, min_price, max_price, qty_avg_price = \
-                    (
-                        float(prices['avg_price']), \
-                        float(prices['min_price']), \
-                        float(prices['max_price']), \
-                        float(prices['qty_avg_price'])
-                    )
-                aprices = {}
-                aprices['avg_price'], aprices['min_price'], aprices['max_price'], aprices['qty_avg_price'] = \
-                    avg_price, min_price, max_price, qty_avg_price
-                aprices['itemid'] = itemid
-                aprices['color'] = color
-                aprices['new_or_used'] = prices['new_or_used']
-                aprices['unit_quantity'] = prices['unit_quantity']
-                aprices['total_quantity'] = prices['total_quantity']
-
-                with conn:
-                    result = serialize_part_prices(aprices)
-
+            itemid, color, wanted_qty = item
+            # get the dataframe of the price summary
+            prices = self.get_part_prices_df(itemid, color)
+            if prices is not None:
+                prices['wanted_qty'] = item[2]
+                # wanted_avg = prices['wanted_qty'] * prices['avg_price']
+                price_df = price_df.append(prices)
+                pass
             else:
-                avg_price, min_price, max_price, qty_avg_price = (0, 0, 0, 0)
+                raise ValueError
+            logger.debug(
+                "Item: {}, Color: {}, Qty: {}, Avg Price: {}".format(itemid, color, wanted_qty, prices['avg_price'][0]))
 
-            est_cost += avg_price * qty
-            logger.debug("Item:{}, Color:{}, Qty:{}, Avg Price:{}".format(itemid, color, qty, avg_price))
-            logger.debug("Price of {} up to ${:0.2f}".format(itemid, est_cost))
+        # add the new prices to the save
+        # combine all of the prices and return them
 
+        return price_df
+
+    @staticmethod
+    def estimate_inv_cost(p):
+        est_cost = dict({"N": 0.0, "U": 0.0})
+        p['wanted_avg'] = p['wanted_qty']*p['avg_price']
+        est_cost['N'] = p[p['new_or_used'] == 'N']['wanted_avg'].sum()
+        est_cost['U'] = p[p['new_or_used'] == 'U']['wanted_avg'].sum()
         return est_cost
+
+    def prune_pull_list(self, needed):
+        # TODO: implement some culling by comparing against what's already serialized or in memory
+        needed_set = set([(a, b) for a, b, _ in needed])
+        existing_prices = self.store['prices']
+        existing_set = set(map(tuple, existing_prices[['item', 'color']].values))
+        pull_set = needed_set - existing_set
+        known_prices_df = existing_prices.reset_index()
+        known_prices_df = known_prices_df.set_index(['item', 'color'])
+        known_prices_df = known_prices_df[ known_prices_df.index.isin(needed_set)]
+        return list(pull_set), known_prices_df
 
 
 if __name__ == "__main__":

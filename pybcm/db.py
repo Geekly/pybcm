@@ -32,7 +32,7 @@ import log
 
 logger = logging.getLogger('pybcm.db')
 
-conn = sqlite3.connect('../database/pybcm.db')
+conn = sqlite3.connect('../data/pybcm.db')
 
 
 def serialize_set(aset):
@@ -104,7 +104,7 @@ def prune_pull_list(pull_list):
         or price_guide.new_or_used is null;
 
     """
-    with sqlite3.connect('../database/pybcm.db') as conn:
+    with sqlite3.connect('../data/pybcm.db') as conn:
         cur = conn.cursor()
         cur.execute('''drop table pair''')
         cur.execute('''create table if not exists pair 

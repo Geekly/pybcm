@@ -50,7 +50,7 @@ class PandasClient:
     def get_subsets(self, itemid, itemtypeid):
         raise NotImplemented
 
-    def get_price_guide(self, itemid, colorid, itemtypeid, new_or_used='U', guide_type='sold'):
+    def get_price_guide_df(self, itemid, itemtypeid, colorid, new_or_used='U', guide_type='sold'):
         """
         :param itemid:
         :param itemtypeid:
@@ -65,7 +65,7 @@ class PandasClient:
 
         Create two tables - a single row for the data summary and a second table for the
         price detail
-        get_price_guide returns a dictionary of the following format:
+        get_price_guide_df returns a dictionary of the following format:
 
         typ = {
             "item": {
@@ -101,34 +101,39 @@ class PandasClient:
         }
 
         """
-        color, pg_json = self.rc.get_price_guide(itemid, colorid, itemtypeid, new_or_used, guide_type)
-        pg = self.make_pandas_from_json(pg_json, color)
+        pg_new = self.rc.get_price_guide(itemid, itemtypeid, colorid, 'N', guide_type)
+        pg_used = self.rc.get_price_guide(itemid, itemtypeid, colorid, 'U', guide_type)
+        pg_json = (pg_new, pg_used)
+        pg = self.make_pandas_from_json(pg_json, colorid)
         return pg
 
-    def get_part_price_guide(self, itemid, colorid, new_or_used='U'):
-        pg = self.get_price_guide(itemid, 'PART', colorid, new_or_used)
+    def get_part_price_guide_df(self, itemid, colorid, new_or_used='U'):
+        pg = self.get_price_guide_df(itemid, 'PART', colorid, new_or_used)
         return pg
 
     def get_known_colors(self, itemid, itemtypeid):
         raise NotImplemented
 
-    def make_pandas_from_json(self, json_dict, color):
+    def make_pandas_from_json(self, dict_tuple, color):
         item_fields = ['no', 'color', 'type']
-
+        numeric_fields = ['avg_price', 'max_price', 'min_price', 'qty_avg_price', 'total_quantity', 'unit_quantity']
         summary_pull_fields = ['new_or_used', 'avg_price', 'max_price', 'min_price',
-                          'qty_avg_price', 'total_quantity', 'unit_quantity', 'currency_code']
+                               'qty_avg_price', 'total_quantity', 'unit_quantity', 'currency_code']
         all_summary_fields = ['item', 'color'] + summary_pull_fields
         stock_detail_fields = ['quantity', 'unit_price', 'shipping_available']
         sold_detail_fields = ['quantity', 'unit_price', 'seller_country_code', 'buyer_country_code', 'date_ordered']
         common_detail_fields = list(set(stock_detail_fields) & set(sold_detail_fields))
-        summary = {'item': json_dict['item']['no'],
+        summary_common = {'item': dict_tuple[0]['item']['no'],
                    'color': color}
-        summary_dict = {key: json_dict[key] for key in summary_pull_fields}
-        summary.update(summary_dict)
-        summary_series = pd.Series(summary, index=all_summary_fields)
-
+        summary_new = {key: dict_tuple[0][key] for key in summary_pull_fields}
+        summary_new.update({**summary_common, **summary_new, 'new_or_used': 'N'})
+        summary_used = {key: dict_tuple[1][key] for key in summary_pull_fields}
+        summary_used.update({**summary_common, **summary_used, 'new_or_used': 'U'})
+        summary = [summary_new, summary_used]
+        summary_df = pd.DataFrame(summary, columns=all_summary_fields)
+        summary_df[numeric_fields] = summary_df[numeric_fields].apply(pd.to_numeric)
 
         # make the price details dataframe
         # TODO: for now, ignoring sold and stock and just using the common fields
 
-        return summary_series
+        return summary_df

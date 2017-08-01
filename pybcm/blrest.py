@@ -66,7 +66,8 @@ class RestClient:
             pass
 
     def get(self, url):
-        return requests.get(url, auth=self.auth)
+        response = requests.get(url, auth=self.auth)
+        return response
 
     __item_url = ''.join([BASE_URL, 'items/{type}/{no}'])
     __item_url_template = URITemplate(__item_url)
@@ -132,12 +133,12 @@ class RestClient:
         except KeyError:
             logger.info("Data not found for itemid {}".format(itemid))
             data = None
-        return colorid, data
+        return data
 
     def get_part_price_guide(self, itemid, colorid, new_or_used):
         self.__validate(color=colorid)
-        colorid, data = self.get_price_guide(itemid, 'PART', colorid, new_or_used=new_or_used )
-        return colorid, data
+        data = self.get_price_guide(itemid, 'PART', colorid, new_or_used=new_or_used )
+        return data
 
     __known_colors_url = ''.join([BASE_URL, 'items/{type}/{no}/colors'])
     __known_colors_url_template = URITemplate(__known_colors_url)

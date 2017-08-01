@@ -2,7 +2,7 @@ from db import *
 
 logger = log.setup_custom_logger('pybcm')
 
-#conn = sqlite3.connect('../database/pybcm.db')
+#conn = sqlite3.connect('../data/pybcm.db')
 #cur = conn.cursor()
 
 #
@@ -52,7 +52,7 @@ print(need_list)
 short_list, existing = prune_pull_list(need_list)
 print(short_list)
 print(existing)
-#get_part_price_guide(self, itemid, colorid, new_or_used)
+#get_part_price_guide_df(self, itemid, colorid, new_or_used)
 
 #result = cur.execute("select * from (select itemid, color from part_prices where color in ('10', '9', '11')) where itemid in ('6587', '4589')")
 """

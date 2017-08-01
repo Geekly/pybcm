@@ -15,7 +15,9 @@ tr = Trowel(config)
 theset = '3219-1'
 inv = tr.get_set_inv(theset)
 pprint(tr.get_set_inv(theset))
-cost = tr.price_inv(inv)
-pprint(cost)
+prices = tr.price_inv(inv)
+
+print("test")
+# calculate the average prices
 
 # w = { wanted[element]:qty }
