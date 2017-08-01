@@ -33,6 +33,8 @@ import pandas as pd
 from blrest import RestClient
 from config import BCMConfig
 
+# TODO: Should this be a class?
+
 logger = logging.getLogger('pybcm.pandas_wrapper')
 
 

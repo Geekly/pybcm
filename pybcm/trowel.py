@@ -38,6 +38,55 @@ from pandas_wrapper import PandasClient
 logger = logging.getLogger('pybcm.trowel')
 
 
+# Dataframe helper functions
+
+def tuplelist_as_df(needed):
+    """ Converts a list of (itemid, color, qty) tuple values to a dataframe"""
+    df = pd.DataFrame(needed, columns=['item', 'color', 'qty'])
+    df = df.set_index(['item', 'color'])
+    return df
+
+
+def df_not_in_prices_df(dfa, prices_df):
+    """ Returns the elements of DataFrame dfa that are NOT in DataFrame dfb
+        DataFrames have index = ['item', 'color']
+    """
+    common_i = dfa.index.isin(prices_df.index)
+    return dfa[~common_i]
+
+
+def prices_in_df(prices_df, dfb):
+    """ Returns the rows of DataFrame dfa that are in DataFrame dfb
+        DataFrames have index = ['item', 'color']
+    """
+    common_i = prices_df.index.isin(dfb.index)
+    return prices_df[common_i]
+
+
+def df_to_tuplelist(df):
+    """Converts the rows of DataFrame df to a list of tuples"""
+    return list(map(tuple, df.reset_index().values))
+
+
+def want_list_from_rest_inv(inv_):
+    # returns list(itemid, color, new_or_used) tuples without new_or_used
+    __need_list = [(__item['item']['no'], str(__item['color_id']), __item['quantity']) for __item \
+                   in [match['entries'][0] for match in inv_]]
+    # double the list with both 'N' and 'U'
+    # __need_list = [(*item, new_or_used) for item in items_only for new_or_used in ['N', 'U']]
+    return __need_list
+
+
+def merge_prices_with_want(want_tuplelist, prices_df):
+    prices_df = prices_df.reset_index()
+    want_df = pd.DataFrame(want_tuplelist, columns=['item', 'color', 'wanted_qty'])
+    full_df = pd.merge(want_df, prices_df)
+    full_df = full_df.set_index(['item', 'color', 'new_or_used'])
+    return full_df
+
+
+
+
 class Trowel:
     def __init__(self, config):
         self.config = config
@@ -54,7 +103,7 @@ class Trowel:
         pg = self.pc.get_price_guide_df(itemid, 'PART', color, 'N', guide_type='sold')
         return pg
 
-    def price_inv(self, inv):
+    def get_prices(self, inv):
         """ build a dataframe for the passed Rest inventory
 
             inv is a list of {'match_no': 0, 'entries': [{'item': {'no': '2540',
@@ -70,19 +119,11 @@ class Trowel:
         # 'quantity': 2, 'extra_quantity': 0, 'is_alternate': False, 'is_counterpart': False}
         # extract list of (itemid, color, new_or_used) tuples from need_elements
 
-        def needed_items(__inv):
-            # returns list(itemid, color, new_or_used) tuples without new_or_used
-            __need_list = [(__item['item']['no'], str(__item['color_id']), __item['quantity']) for __item \
-                           in [match['entries'][0] for match in __inv]]
-            # double the list with both 'N' and 'U'
-            # __need_list = [(*item, new_or_used) for item in items_only for new_or_used in ['N', 'U']]
-            return __need_list
-
-        needed = needed_items(inv)
+        needed = want_list_from_rest_inv(inv)
 
         # load existing prices from the db and download the rest
 
-        pull_list, known_prices = self.prune_pull_list(needed)
+        pull_list, price_df = self.prune_pull_list(needed)
         # download the list of items in pull_list and build the pandas dataframe
         for item in pull_list:  # iterate over list of matches
 
@@ -105,26 +146,32 @@ class Trowel:
         # add the new prices to the save
         # combine all of the prices and return them
 
+        # merge the wanted list before returning
+        price_df = merge_prices_with_want(needed, price_df)
         return price_df
 
-    @staticmethod
-    def estimate_inv_cost(p):
+    @classmethod
+    def estimate_inv_cost(cls, prices):
         est_cost = dict({"N": 0.0, "U": 0.0})
-        p['wanted_avg'] = p['wanted_qty']*p['avg_price']
+        p = prices.reset_index()
+        p['wanted_avg'] = p['wanted_qty'] * p['avg_price']
         est_cost['N'] = p[p['new_or_used'] == 'N']['wanted_avg'].sum()
         est_cost['U'] = p[p['new_or_used'] == 'U']['wanted_avg'].sum()
         return est_cost
 
+
     def prune_pull_list(self, needed):
         # TODO: implement some culling by comparing against what's already serialized or in memory
-        needed_set = set([(a, b) for a, b, _ in needed])
-        existing_prices = self.store['prices']
-        existing_set = set(map(tuple, existing_prices[['item', 'color']].values))
-        pull_set = needed_set - existing_set
-        known_prices_df = existing_prices.reset_index()
-        known_prices_df = known_prices_df.set_index(['item', 'color'])
-        known_prices_df = known_prices_df[ known_prices_df.index.isin(needed_set)]
-        return list(pull_set), known_prices_df
+
+        all_prices_df = self.store['prices'].set_index(['item', 'color'])
+        needed_df = tuplelist_as_df(needed)
+
+        pull_df = df_not_in_prices_df(needed_df, all_prices_df)
+        pull_list = df_to_tuplelist(pull_df)
+        already_known_prices_df = prices_in_df(all_prices_df, needed_df)
+
+        return pull_list, already_known_prices_df
+
 
 
 if __name__ == "__main__":
@@ -134,7 +181,7 @@ if __name__ == "__main__":
 
     tr = Trowel()
     inv = tr.get_set_inv('10030-1')
-    pprint(tr.price_inv(inv))
+    pprint(tr.get_prices(inv))
 
     # price out a set by collecting avg prices from wanted list
 
