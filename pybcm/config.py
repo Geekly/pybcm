@@ -28,11 +28,10 @@
 Manage the module configuration settings
 """
 import logging
+import log
 from configparser import RawConfigParser
 
-import log
-
-logger = logging.getLogger('pybcm.config')
+logger = logging.getLogger('pybcm')
 
 
 class BCMConfig():
@@ -79,7 +78,7 @@ if __name__ == '__main__':
 
     print(config.pricefilename)
     print(config.reloadpricesfromweb)
-    print(config.oauth_token)
+
 
 
 

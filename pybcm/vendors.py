@@ -32,40 +32,39 @@ Created on Oct 23, 2012
 
 #  import numpy as np
 import json
+from collections import UserDict
 
 
-class VendorMap(dict):
+class VendorMap(UserDict):
     """ Map of Bricklink vendor id to Vendor object as extracted from the Bricklink item page
         Because the VendorMap is intimately link to Vendor, it's bundled together
 
         Attributes:
             data(dict): dict[vendor.id] = Vendor
     """
-
-    def __setitem__(self, key, value):
-        key = str(key)
-        dict.__setitem__(self, key, value)
-
-    def __getitem__(self, key):
-        key = str(key)
-        val = dict.__getitem__(self, key)
-        return val
+    # def __init__(self, *args, **kwargs):
+    #    super.__init__(args, kwargs)
+    # def __setitem__(self, key, value):
+    #     key = str(key)
+    #     dict.__setitem__(self, key, value)
+    #
+    # def __getitem__(self, key):
+    #     key = str(key)
+    #     val = dict.__getitem__(self, key)
+    #     return val
 
     @property
     def xml(self):
         """Return an XML string of the VendorMap."""
-
-        vendorkeys = list(self.keys())
-        xml_string = '<VendorMap>'
-        for vendorid in vendorkeys:
-            vendor = Vendor(vendorid, self[vendorid])
-            xml_string += vendor.xml
-        xml_string += '</VendorMap>'
+        xml_string = '<VendorMap>\n'
+        for vendorid, name in self.data.items():
+            xml_string += "<Vendor>\n<Id>{}</Id>\n<Name>{}</Name>\n</Vendor>\n".format(vendorid, name)
+        xml_string += '</VendorMap>\n'
         return xml_string
 
     @property
     def json(self):
-        return json.dumps(self, sort_keys=True, indent=4)
+        return json.dumps(self.data, sort_keys=True, indent=4)
 
 
 

@@ -8,5 +8,8 @@ reloadpricesfromweb = True
 [bricklink]
 username = USERNAME
 password = PASSWORD
-auth_consumer_key=XXXXXXXXXXXXXXX
-oauth_token=XXXXXXXXXXXXX
+
+consumer_key=42C7240
+consumer_secret=C53242
+token_key=C71128
+token_secret=8496F

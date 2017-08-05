@@ -30,7 +30,7 @@ import logging
 from collections import UserDict
 from pprint import pprint
 
-from blrest import RestClient
+from bc_rest import RestClient
 
 logger = logging.getLogger('pybcm.resource')
 

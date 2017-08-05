@@ -1,8 +1,8 @@
 import log
-from brickpile import BrickPile
 from config import BCMConfig
-from wanted import WantedDict
+from deprecated.brickpile import BrickPile
 from legoutils import Condition
+from wanted import WantedDict
 
 # get a wanted list
 logger = log.setup_custom_logger('pybcm')

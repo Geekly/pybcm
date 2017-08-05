@@ -25,24 +25,25 @@
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 """
-    Manage bricklink data using the rest api
+    Manage bricklink data through the pandas wrapper api
 
 """
+import logging
+import log
 import pandas as pd
 from pandas import HDFStore
+from bc_rest import RestClient
+# from db import *
+from blrest_wrapper import rest_wrapper
 
-from blrest import RestClient
-from db import *
-from pandas_wrapper import PandasClient
-
-logger = logging.getLogger('pybcm.trowel')
+logger = logging.getLogger(__name__)
 
 
 # Dataframe helper functions
 
 def tuplelist_as_df(needed):
     """ Converts a list of (itemid, color, qty) tuple values to a dataframe"""
-    df = pd.DataFrame(needed, columns=['item', 'color', 'qty'])
+    df = pd.DataFrame(needed, columns=['item', 'color', 'itemtype', 'qty'])
     df = df.set_index(['item', 'color'])
     return df
 
@@ -51,7 +52,8 @@ def df_not_in_prices_df(dfa, prices_df):
     """ Returns the elements of DataFrame dfa that are NOT in DataFrame dfb
         DataFrames have index = ['item', 'color']
     """
-    common_i = dfa.index.isin(prices_df.index)
+
+    common_i = dfa.index.isin(prices_df.reset_index().set_index(['item', 'color']).index)
     return dfa[~common_i]
 
 
@@ -59,7 +61,7 @@ def prices_in_df(prices_df, dfb):
     """ Returns the rows of DataFrame dfa that are in DataFrame dfb
         DataFrames have index = ['item', 'color']
     """
-    common_i = prices_df.index.isin(dfb.index)
+    common_i = prices_df.reset_index().set_index(['item', 'color']).index.isin(dfb.index)
     return prices_df[common_i]
 
 
@@ -70,7 +72,11 @@ def df_to_tuplelist(df):
 
 def want_list_from_rest_inv(inv_):
     # returns list(itemid, color, new_or_used) tuples without new_or_used
-    __need_list = [(__item['item']['no'], str(__item['color_id']), __item['quantity']) for __item \
+    __need_list = [(__item['item']['no'],           # itemid
+                    str(__item['color_id']),        # color
+                    __item['item']['type'],         # itemtype
+                    __item['quantity'])             # wantedqty
+                   for __item
                    in [match['entries'][0] for match in inv_]]
     # double the list with both 'N' and 'U'
     # __need_list = [(*item, new_or_used) for item in items_only for new_or_used in ['N', 'U']]
@@ -79,31 +85,38 @@ def want_list_from_rest_inv(inv_):
 
 def merge_prices_with_want(want_tuplelist, prices_df):
     prices_df = prices_df.reset_index()
-    want_df = pd.DataFrame(want_tuplelist, columns=['item', 'color', 'wanted_qty'])
+    want_df = pd.DataFrame(want_tuplelist, columns=['item', 'color', 'itemtype', 'wanted_qty'])
     full_df = pd.merge(want_df, prices_df)
-    full_df = full_df.set_index(['item', 'color', 'new_or_used'])
+    full_df = full_df.set_index(PRICE_INDEX)
     return full_df
 
-
+PRICE_INDEX = ['item', 'color', 'new_or_used']
 
 
 class Trowel:
+
+    """ interacts with the HDFStore, and clients """
+
     def __init__(self, config):
         self.config = config
         self.rc = RestClient()
-        self.pc = PandasClient()
+        self.pc = rest_wrapper()
+        pd.set_option('io.hdf.default_format', 'table')
         self.store = HDFStore("../data/pybcm.hd5")
+
+    def summary(self):
+        raise NotImplemented
 
     # create a wanted list from a set
     def get_set_inv(self, lego_set_id):
         inv = self.rc.get_subsets(lego_set_id, 'SET')
         return inv
 
-    def get_part_prices_df(self, itemid, color):
-        pg = self.pc.get_price_guide_df(itemid, 'PART', color, 'N', guide_type='sold')
+    def get_item_prices_df(self, itemid, itemtypeid, color):
+        pg = self.pc.get_price_guide_df(itemid, itemtypeid, color, 'N', guide_type='sold')
         return pg
 
-    def get_prices(self, inv):
+    def get_inv_prices(self, inv):
         """ build a dataframe for the passed Rest inventory
 
             inv is a list of {'match_no': 0, 'entries': [{'item': {'no': '2540',
@@ -130,11 +143,11 @@ class Trowel:
             # create a pull list of
             # TODO: Check if price already exists in DB and is not older than a particular date before reloading it
 
-            itemid, color, wanted_qty = item
+            itemid, color, itemtypeid, wanted_qty = item
             # get the dataframe of the price summary
-            prices = self.get_part_prices_df(itemid, color)
+            prices = self.get_item_prices_df(itemid, itemtypeid, color)
             if prices is not None:
-                prices['wanted_qty'] = item[2]
+                prices['wanted_qty'] = item[3]
                 # wanted_avg = prices['wanted_qty'] * prices['avg_price']
                 price_df = price_df.append(prices)
                 pass
@@ -150,6 +163,18 @@ class Trowel:
         price_df = merge_prices_with_want(needed, price_df)
         return price_df
 
+    def add_prices_to_store(self, prices):
+        with self.store as store:
+            store.open()
+            orig_rows = store.prices.shape[0]
+            merged = store.prices.append(prices.reset_index())
+            merged = merged.set_index(PRICE_INDEX)
+            merged = merged[~merged.index.duplicated(keep='last')]
+            merged = merged.reset_index()
+            new_rows = merged.shape[0]
+            store.prices = merged
+            logger.info("Added {} rows to store.prices".format(new_rows - orig_rows))
+
     @classmethod
     def estimate_inv_cost(cls, prices):
         est_cost = dict({"N": 0.0, "U": 0.0})
@@ -159,18 +184,17 @@ class Trowel:
         est_cost['U'] = p[p['new_or_used'] == 'U']['wanted_avg'].sum()
         return est_cost
 
-
     def prune_pull_list(self, needed):
-        # TODO: implement some culling by comparing against what's already serialized or in memory
+        with self.store as store:
+            store.open()
+            all_prices_df = store['prices'].set_index(PRICE_INDEX)
+            needed_df = tuplelist_as_df(needed)
 
-        all_prices_df = self.store['prices'].set_index(['item', 'color'])
-        needed_df = tuplelist_as_df(needed)
+            pull_df = df_not_in_prices_df(needed_df, all_prices_df)
+            pull_list = df_to_tuplelist(pull_df)
+            already_known_prices_df = prices_in_df(all_prices_df, needed_df)
 
-        pull_df = df_not_in_prices_df(needed_df, all_prices_df)
-        pull_list = df_to_tuplelist(pull_df)
-        already_known_prices_df = prices_in_df(all_prices_df, needed_df)
-
-        return pull_list, already_known_prices_df
+            return pull_list, already_known_prices_df
 
 
 
@@ -181,7 +205,7 @@ if __name__ == "__main__":
 
     tr = Trowel()
     inv = tr.get_set_inv('10030-1')
-    pprint(tr.get_prices(inv))
+    pprint(tr.get_inv_prices(inv))
 
     # price out a set by collecting avg prices from wanted list
 

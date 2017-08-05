@@ -145,6 +145,6 @@ if __name__=='__main__':
              'description': 'Super Brickabrack',
              'est_price': 250.00 }
 
-    cur.execute("insert into people values (?, ?)", (who, age))
+    #cur.execute("insert into people values (?, ?)", (who, age))
 
 

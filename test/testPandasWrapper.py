@@ -1,12 +1,12 @@
 import unittest
 
-from pybcm.pandas_wrapper import PandasClient
+from pybcm.blrest_wrapper import rest_wrapper
 
 
 class MyTestCase(unittest.TestCase):
 
     def setUp(self):
-        self.pc = PandasClient('../config/bcm.ini')
+        self.pc = rest_wrapper('../config/bcm.ini')
         pass
 
     def test_something(self):

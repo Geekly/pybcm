@@ -1,5 +1,7 @@
 # git ignore file
 
+ignore
+
 bcm.ini
 
 *.pyc

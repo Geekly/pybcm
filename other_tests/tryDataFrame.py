@@ -5,7 +5,7 @@ import numpy as np
 import pandas as pd
 from pandas import DataFrame
 
-from brickpile import BrickPile
+from deprecated.brickpile import BrickPile
 from legoutils import PriceTuple, Condition
 
 logger = logging.getLogger('pybcm.test.testDataFrame')

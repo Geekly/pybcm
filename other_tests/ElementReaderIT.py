@@ -2,7 +2,7 @@ import requests
 from lxml import html, etree
 
 import log
-from pybcm.elementreader import PriceURL, URL_STORE_LINKS_XPATH
+from deprecated.elementreader import PriceURL, URL_STORE_LINKS_XPATH
 from pybcm.vendors import *
 
 logger = log.setup_custom_logger(__name__)
