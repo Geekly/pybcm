@@ -31,7 +31,7 @@ import requests
 from requests_oauthlib import OAuth1
 from uritemplate import URITemplate
 
-import log
+# import log
 from config import BCMConfig
 from const import *
 

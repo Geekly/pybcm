@@ -95,3 +95,9 @@ pp.pprint(fd)
 pass
 
 element_names = p.index
+
+store = pd.HDFStore('./test.hd5')
+store.append('prices', df1.reset_index())
+store.close()
+
+print(store.prices)

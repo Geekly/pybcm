@@ -1,10 +1,9 @@
 import pytest
 
 import log
-from const import *
 from pybcm.bc_rest import RestClient, build_uri_template
 
-logger = log.setup_custom_logger(__name__)
+logger = log.setup_custom_logger("test.pybcm.{}".format(__name__))
 
 
 @pytest.fixture(scope="module")
@@ -34,7 +33,7 @@ def test_get_price_guide(rc):
 
 
 def test_get_subsets(rc):
-    subsets = rc.get_subsets('30300-1', 'SET')
+    subsets = rc.get_subsets('10808-1', 'SET')
     logger.debug("Gathering subsets {}".format(subsets))
 
 

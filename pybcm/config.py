@@ -28,10 +28,10 @@
 Manage the module configuration settings
 """
 import logging
-import log
+#import log
 from configparser import RawConfigParser
 
-logger = logging.getLogger('pybcm')
+logger = logging.getLogger(__name__)
 
 
 class BCMConfig():

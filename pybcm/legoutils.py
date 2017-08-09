@@ -29,11 +29,10 @@ Miscellaneous helpers and constants for the package
 """
 import json
 import logging
-
 from collections import namedtuple
 
 # from collections import UserDict
-logging.getLogger('pybcm.legoutils')
+
 
 Condition = namedtuple('Condition', 'USED NEW')(NEW=1, USED=2)
 
@@ -243,9 +242,11 @@ if __name__ == "__main__":
     testitemid = '35146'
     testcolorid = '88'
     testwanted = 123
-
+    logger = logging.getLogger("test")
+    logging.basicConfig(level=logging.DEBUG)
+    logger.setLevel(logging.INFO)
     elementId = WantedElement.joinElement(testitemid, testcolorid)
-    print(elementId)
+    logger.info(elementId)
     print(WantedElement.splitElement(elementId))
 
     thisElement = WantedElement(testitemid, testcolorid, wantedqty=testwanted)
