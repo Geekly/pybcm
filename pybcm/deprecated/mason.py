@@ -30,7 +30,7 @@
 """
 import pandas as pd
 
-from bc_rest import RestClient
+from rest import RestClient
 
 
 class Mason:

@@ -41,7 +41,7 @@ import pandas as pd
 from pandas import DataFrame
 
 import log
-from bc_rest import RestClient
+from rest import RestClient
 from deprecated.elementreader import ElementWebReader, NEW, USED
 from vendors import VendorMap
 

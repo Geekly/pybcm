@@ -31,9 +31,10 @@ import requests
 from requests_oauthlib import OAuth1
 from uritemplate import URITemplate
 
-# import log
+import log
 from config import BCMConfig
 from const import *
+from legoutils import legoColors
 
 logger = logging.getLogger(__name__)
 
@@ -62,8 +63,8 @@ class RestClient:
             raise ValueError("Item Type {} is not valid".format(itemtype))
         if guidetype is not None and guidetype not in GUIDE_TYPES:
             raise ValueError("Guide type {} is not valid".format(guidetype))
-        if color is not None and color not in []:
-            # TODO: make some color validation that doesn't require calling the Known Colors api
+        if color is not None and int(color) not in legoColors:
+            raise ValueError("Color {} is not valid".format(color))
             pass
 
     def get(self, url):
@@ -79,12 +80,12 @@ class RestClient:
         logger.info("Getting Item from: {}".format(url))
         return self.get(url).json()['data']
 
-    def get_item_image(self, itemid, itemtypeid, color):
+    def get_item_image(self, itemid, itemtypeid, colorid):
         """
         /items/{type}/{no}
         """
-        self.__validate(itemtype=itemtypeid)
-        url = build_uri_template('item_image').expand(type=itemtypeid, no=itemid, color_id=color)
+        self.__validate(itemtype=itemtypeid, color=colorid)
+        url = build_uri_template('item_image').expand(type=itemtypeid, no=itemid, color_id=colorid)
         logger.info("Getting image from: {}".format(url))
         return self.get(url).json()['data']
 

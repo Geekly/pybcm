@@ -1,7 +1,7 @@
 import pytest
 
 import log
-from pybcm.bc_rest import RestClient, build_uri_template
+from pybcm.rest import RestClient, build_uri_template
 
 logger = log.setup_custom_logger("test.pybcm.{}".format(__name__))
 
@@ -51,3 +51,4 @@ def test_build_uri_template():
     assert url == 'https://api.bricklink.com/api/store/v1/items/PART/3004'
     logger.info(template)
     logger.info(url)
+

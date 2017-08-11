@@ -17,7 +17,7 @@ def trowel():
 
 @pytest.fixture(scope="session")
 def store():
-    _store = pd.HDFStore("../data/test.hd5")
+    _store = pd.HDFStore("./resources/test.hd5")
     return _store
 
 @pytest.fixture(scope="session")
@@ -27,3 +27,31 @@ def price_df():
 
 def test_a_thing(store):
     print(store.prices)
+
+
+def test_summary():
+    pass
+
+
+def test_get_set_inv():
+    pass
+
+
+def test_get_item_prices_df():
+    pass
+
+
+def test_get_inv_prices():
+    pass
+
+
+def test_add_prices_to_store():
+    pass
+
+
+def test_estimate_inv_cost():
+    pass
+
+
+def test_prune_pull_list():
+    pass

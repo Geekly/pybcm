@@ -1,6 +1,6 @@
 from pprint import pprint
 
-from blrest_wrapper import rest_wrapper
+from dataframe import rest_wrapper
 
 pc = rest_wrapper('../config/bcm.ini')
 

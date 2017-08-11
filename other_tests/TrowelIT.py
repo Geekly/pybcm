@@ -16,13 +16,14 @@ def estimate_set_prices(set_name=None):
     tr.add_prices_to_store(prices)
     cost = tr.estimate_inv_cost(prices)
     logger.info("Estimated cost of set {} is {}".format(theset, cost))
+    tr.add_prices_to_store(prices)
 
 theset = '3219-1'
 # estimate_set_prices(theset)
-# inv = tr.get_set_inv(theset)
+inv = tr.get_set_inv(theset)
 # #pprint(tr.get_set_inv(theset))
-# prices = tr.get_inv_prices(inv)
-# #tr.add_prices_to_store(prices)
+prices = tr.get_inv_prices(inv)
+tr.add_prices_to_store(prices)
 #
 # #cost = tr.estimate_inv_cost(prices)
 # logger.info("Estimated cost of set {} is {}".format(theset, cost))

@@ -29,7 +29,7 @@
 
 """
 import log
-from bc_dataframe import *
+from dataframe import *
 
 
 #logging.basicConfig(level=logging.DEBUG)
@@ -45,7 +45,7 @@ class Trowel:
         self.rc = RestClient()
         self.pc = rest_wrapper()
         pd.set_option('io.hdf.default_format', 'table')
-        self.store = pd.HDFStore("../data/pybcm.hd5")
+        self.store = pd.HDFStore("../resources/data/pybcm.hd5")
 
     def summary(self):
         raise NotImplemented
@@ -132,7 +132,7 @@ class Trowel:
         with self.store as store:
             store.open()
             if 'prices' in store:
-                all_prices_df = store['prices'].set_index(PRICEGUIDE_INDEX)
+                all_prices_df = store['prices'] #.set_index(PRICEGUIDE_INDEX)
                 needed_df = tuplelist_as_df(needed)
                 pull_df = dfa_not_in_dfb(needed_df, all_prices_df)
                 pull_list = df_to_tuplelist(pull_df)

@@ -1,0 +1,65 @@
+
+{
+  "item": {
+    "no": "3006",
+    "type": "PART"
+  },
+  "new_or_used": "N",
+  "currency_code": "USD",
+  "min_price": "0.0525",
+  "max_price": "3.4290",
+  "avg_price": "0.5332",
+  "qty_avg_price": "0.3653",
+  "unit_quantity": 978,
+  "total_quantity": 14810,
+  "price_detail": [
+    {
+      "quantity": 1,
+      "unit_price": "0.6384",
+      "seller_country_code": "US",
+      "buyer_country_code": "US",
+      "date_ordered": "2017-02-16T23:58:22.797Z",
+      "qunatity": 1
+    },
+    {
+      "quantity": 1,
+      "unit_price": "0.5925",
+      "seller_country_code": "US",
+      "buyer_country_code": "US",
+      "date_ordered": "2017-02-18T05:42:10.397Z",
+      "qunatity": 1
+    }
+  ]
+},
+{
+  "item": {
+    "no": "3006",
+    "type": "PART"
+  },
+  "new_or_used": "U",
+  "currency_code": "USD",
+  "min_price": "0.0525",
+  "max_price": "3.4290",
+  "avg_price": "0.5332",
+  "qty_avg_price": "0.3653",
+  "unit_quantity": 978,
+  "total_quantity": 14810,
+  "price_detail": [
+    {
+      "quantity": 1,
+      "unit_price": "0.6384",
+      "seller_country_code": "US",
+      "buyer_country_code": "US",
+      "date_ordered": "2017-02-16T23:58:22.797Z",
+      "qunatity": 1
+    },
+    {
+      "quantity": 1,
+      "unit_price": "0.5925",
+      "seller_country_code": "US",
+      "buyer_country_code": "US",
+      "date_ordered": "2017-02-18T05:42:10.397Z",
+      "qunatity": 1
+    }
+  ]
+}

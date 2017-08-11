@@ -19,9 +19,5 @@ def testProperties(wantedDict):
     assert wantedDict.total_items == 36
 
 
-def testFirst(wantedDict):
-    assert True is True
-
-
 def testGetQty(wantedDict):
     assert wantedDict.get_wanted_qty('3004|2') == 5
