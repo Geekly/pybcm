@@ -27,9 +27,10 @@
 import logging
 
 import pandas as pd
+from pandas import DataFrame
 
-from rest import RestClient
 from config import BCMConfig
+from rest import RestClient
 
 logger = logging.getLogger("pybcm.{}".format(__name__))
 
@@ -40,40 +41,17 @@ PRICEGUIDE_COLUMNS = ['avg_price', 'max_price', 'min_price', 'qty_avg_price',
                       'total_quantity', 'unit_quantity', 'currency_code']
 
 
-class BcmDataFrame(pd.DataFrame):
-    """
-    A pandas composition class that know how to fill itself from the rest api
-    and is friendly with tuples and other dataframes
-
-    The dataframe is maintained as flat, but can return a indexed copy(reference?) of itself
-
-    """
-    def __init__(self, data):
-
-        if data.size:
-            self.df = pd.DataFrame(data)
-        else:
-            self.df = None
-
-    def not_in_dfb(self):
-        pass
-
-    def in_dfb(self):
-        pass
-
-class PriceDataFrame(BcmDataFrame):
-
-    def __init__(self, data):
-        super(PriceDataFrame, self).__init__(data)
-        self.df.columns = PRICEGUIDE_INDEX + PRICEGUIDE_COLUMNS
+PriceDataFrame = DataFrame
+WantedDataFrame = DataFrame
 
 
-class WantedDataFrame(BcmDataFrame):
+def add2df(function):
+    def wrapper():
+        setattr(DataFrame, function.__name__, function)
 
-    def __init__(self, data):
-        super(WantedDataFrame, self).__init__(data)
+    return wrapper
 
-
+@add2df
 def remove_duplicates_by_index(dfa):
     # remove duplicates and sort
     dfa = dfa[~dfa.index.duplicated()]
@@ -81,10 +59,16 @@ def remove_duplicates_by_index(dfa):
     return dfa
 
 
+def indexed_df(dfa, idx=['item', 'color']):
+    dfa = dfa.set_index(idx)
+    a = remove_duplicates_by_index(dfa)
+    return a
+
+
 def tuplelist_as_df(needed, idx=['item', 'color']):
     """ Converts a list of (itemid, color, qty) tuple values to a dataframe"""
     df = pd.DataFrame(needed, columns=['item', 'color', 'itemtype', 'qty'])
-    df = df.set_index(idx)
+    # df = df.set_index(idx)
     return df
 
 
@@ -92,8 +76,8 @@ def dfa_not_in_dfb(dfa, dfb, idx=['item', 'color']):
     """ Returns the rows of DataFrame dfa that are NOT in DataFrame dfb
         based on the index idx. dfa and dfb should be flat dataframes
     """
-    a = dfa.set_index(idx)
-    b = dfb.set_index(idx)
+    a = indexed_df(dfa, idx)
+    b = indexed_df(dfb, idx)
     common_i = a.index.isin(b.index)
     a = a[~common_i]
     return a.reset_index()
@@ -103,10 +87,11 @@ def dfa_in_dfb(dfa, dfb, idx=['item', 'color']):
     """ Returns the rows of DataFrame dfa that are in DataFrame dfb
         based on index idx
     """
-    dfb = remove_duplicates_by_index(dfb) # doesn't change dfb externally
-    #prices_df = remove_duplicates_by_index(prices_df)
-    common_i = dfa.reset_index().set_index(idx).index.isin(dfb.index)
-    return dfa[common_i]
+    a = indexed_df(dfa, idx)
+    b = indexed_df(dfb, idx)
+    common_i = a.index.isin(b.index)
+    a = a[common_i]
+    return a.reset_index()
 
 
 def df_to_tuplelist(df):
@@ -152,7 +137,7 @@ class rest_wrapper:
     def get_subsets(self, itemid, itemtypeid):
         raise NotImplemented
 
-    def get_priceguide_df(self, itemid, itemtypeid, colorid, guide_type='sold'):
+    def get_priceguide_summary_df(self, itemid, itemtypeid, colorid, guide_type='sold'):
         """
         :param itemid:
         :param itemtypeid:
@@ -160,7 +145,7 @@ class rest_wrapper:
         :param guide_type:
         :return:
 
-        get_priceguide_df returns a dictionary of the following format:
+        get_priceguide_summary_df returns a dictionary of the following format:
 
         typ = {
             "item": {
@@ -201,12 +186,19 @@ class rest_wrapper:
         if pg_new is None or pg_used is None:
             raise ValueError("Problem retrieiving {}: {}".format(itemid, colorid))
         pg_json = (pg_new, pg_used)
-        pg = make_priceguide_pandas_from_json(pg_json, colorid)
-        return pg
+        df = priceguide_summary_from_json(pg_json, colorid)
+        return df
 
-    def get_part_price_guide_df(self, itemid, colorid):
-        pg = self.get_priceguide_df(itemid, 'PART', colorid)
-        return pg
+    def get_part_priceguide_summary_df(self, itemid, colorid):
+        df = self.get_priceguide_summary_df(itemid, 'PART', colorid)
+        return df
+
+    def get_part_priceguide_details_df(self, itemid, colorid, new_or_used='U'):
+        pg = self.rc.get_price_guide(itemid, 'PART', colorid, new_or_used, guide_type='stock')
+        if pg is None:
+            raise ValueError("Problem retrieiving price details for {}: {}".format(itemid, colorid))
+        df = priceguide_details_from_json(pg, colorid)
+        return df
 
     def get_known_colors(self, itemid, itemtypeid):
         colors = self.rc.get_known_colors(itemid, itemtypeid)
@@ -214,7 +206,7 @@ class rest_wrapper:
         return df
 
 
-def make_priceguide_pandas_from_json(dict_tuple, color, sold_or_stock='sold'):
+def priceguide_summary_from_json(dict_tuple, color, sold_or_stock='sold'):
     """ Build a DataFrame of the priceguide for a single part(item + color). Color is
         required since color is not contained in the priceguide information
         dict_tuple = ({new_prices}, {used_prices}) where {_prices} look like:
@@ -267,13 +259,19 @@ def make_priceguide_pandas_from_json(dict_tuple, color, sold_or_stock='sold'):
     for item in summary:
         item.update({**common_values})
 
-    summary_df = pd.DataFrame( summary, columns=df_columns)
+    summary_df = pd.DataFrame(summary, columns=df_columns)
     summary_df[numeric_fields] = summary_df[numeric_fields].apply(pd.to_numeric)
 
     # TODO: for now, ignoring sold and stock and just using the common fields
 
     return summary_df
 
+
+def priceguide_details_from_json(price_dict, colorid):
+    detail = price_dict['price_detail']
+    df = pd.DataFrame(detail)
+    df = df.drop('qunatity', axis=1)
+    return df
 
 if __name__ == 'main':
     pass
