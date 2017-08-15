@@ -27,7 +27,6 @@
 import logging
 
 import pandas as pd
-from pandas import DataFrame
 
 from config import BCMConfig
 from rest import RestClient
@@ -41,86 +40,84 @@ PRICEGUIDE_COLUMNS = ['avg_price', 'max_price', 'min_price', 'qty_avg_price',
                       'total_quantity', 'unit_quantity', 'currency_code']
 
 
-PriceDataFrame = DataFrame
-WantedDataFrame = DataFrame
-
-
-def add2df(function):
-    def wrapper():
-        setattr(DataFrame, function.__name__, function)
-
+def toBcmData(func):
+    def wrapper(*args, **kwargs):
+        result = func(*args, **kwargs)
+        return BcmData(result)
     return wrapper
 
-@add2df
-def remove_duplicates_by_index(dfa):
-    # remove duplicates and sort
-    dfa = dfa[~dfa.index.duplicated()]
-    dfa = dfa.sort_index()
-    return dfa
 
+class BcmData(object):
 
-def indexed_df(dfa, idx=['item', 'color']):
-    dfa = dfa.set_index(idx)
-    a = remove_duplicates_by_index(dfa)
-    return a
+    def __init__(self, data, **kwargs):
 
+        pd_kwargs = ['index', 'columns', 'dtype', 'copy']
+        pd_dict = dict((k, kwargs[k]) for k in pd_kwargs if k in kwargs)
+        self._df = pd.DataFrame(data, **pd_dict)
 
-def tuplelist_as_df(needed, idx=['item', 'color']):
-    """ Converts a list of (itemid, color, qty) tuple values to a dataframe"""
-    df = pd.DataFrame(needed, columns=['item', 'color', 'itemtype', 'qty'])
-    # df = df.set_index(idx)
-    return df
+    @property
+    def df(self):
+        return self._df
 
+    def __getitem__(self, item):
+        logger.debug("Calling __getitem__() on {}".format(item))
+        result = self.df.__getitem__(item)
+        if isinstance(result, type(self.df)):
+            result = BcmData(result)
+        return result
 
-def dfa_not_in_dfb(dfa, dfb, idx=['item', 'color']):
-    """ Returns the rows of DataFrame dfa that are NOT in DataFrame dfb
-        based on the index idx. dfa and dfb should be flat dataframes
-    """
-    a = indexed_df(dfa, idx)
-    b = indexed_df(dfb, idx)
-    common_i = a.index.isin(b.index)
-    a = a[~common_i]
-    return a.reset_index()
+    def __getattr__(self, attr):
+        logger.debug("Calling __getattr__() on {}".format(attr))
+        result = getattr(self.df, attr)
+        if callable(result):
+            result = toBcmData(result)
+        return result
 
+    def __repr__(self):
+        return repr(self.df)
 
-def dfa_in_dfb(dfa, dfb, idx=['item', 'color']):
-    """ Returns the rows of DataFrame dfa that are in DataFrame dfb
-        based on index idx
-    """
-    a = indexed_df(dfa, idx)
-    b = indexed_df(dfb, idx)
-    common_i = a.index.isin(b.index)
-    a = a[common_i]
-    return a.reset_index()
+    def remove_duplicates_by_index(self):
+        # remove duplicates and sort
+        dfa = self[~self.index.duplicated()]
+        dfa = dfa.sort_index()
+        return dfa
 
+    def indexed_df(self, idx=['item', 'color']):
+        dfa = self.set_index(idx)
+        a = dfa.remove_duplicates_by_index()
+        return a
 
-def df_to_tuplelist(df):
-    """Converts the rows of DataFrame df to a list of tuples"""
-    return list(map(tuple, df.reset_index().values))
+    def to_tuplelist(self):
+        """Converts the rows of DataFrame df to a list of tuples"""
+        return list(map(tuple, self.reset_index().values))
 
+    def not_in_dfb(self, dfb, idx=['item', 'color']):
+        """ Returns the rows of DataFrame dfa that are NOT in DataFrame dfb
+            based on the index idx. dfa and dfb should be flat dataframes
+        """
+        a = self.indexed_df(idx)
+        b = dfb.indexed_df(idx)
+        common_i = a.index.isin(b.index)
+        a = a[~common_i]
+        return a.reset_index()
 
-def want_list_from_rest_inv(inv_):
-    # returns list(itemid, color, new_or_used) tuples without new_or_used
-    __need_list = [(__item['item']['no'],           # itemid
-                    str(__item['color_id']),        # color
-                    __item['item']['type'],         # itemtype
-                    __item['quantity'])             # wantedqty
-                   for __item
-                   in [match['entries'][0] for match in inv_]]
-    # double the list with both 'N' and 'U'
-    # __need_list = [(*item, new_or_used) for item in items_only for new_or_used in ['N', 'U']]
-    return __need_list
-
-
-def merge_prices_with_want(want_tuplelist, prices_df):
-    prices_df = prices_df.reset_index()
-    want_df = pd.DataFrame(want_tuplelist, columns=['item', 'color', 'itemtype', 'wanted_qty'])
-    full_df = pd.merge(want_df, prices_df)
-    full_df = full_df.set_index(PRICEGUIDE_INDEX)
-    return full_df
-
+    def in_dfb(self, dfb, idx=['item', 'color']):
+        """ Returns the rows of DataFrame dfa that are in DataFrame dfb
+            based on index idx
+        """
+        a = self.indexed_df(idx)
+        b = self.indexed_df(idx)
+        common_i = a.index.isin(b.index)
+        a = a[common_i]
+        return a.reset_index()
 
 """Wrapper for the Rest client that provides results in pandas format"""
+
+
+def bcm_from_tuplelist(needed):
+    """ Converts a list of (itemid, color, qty) tuple values to a dataframe"""
+    df = BcmData(needed, columns=['item', 'color', 'itemtype', 'qty'])
+    return df
 
 
 class rest_wrapper:
@@ -206,6 +203,27 @@ class rest_wrapper:
         return df
 
 
+def want_list_from_rest_inv(inv_):
+    # returns list(itemid, color, new_or_used) tuples without new_or_used
+    __need_list = [(__item['item']['no'],           # itemid
+                    str(__item['color_id']),        # color
+                    __item['item']['type'],         # itemtype
+                    __item['quantity'])             # wantedqty
+                   for __item
+                   in [match['entries'][0] for match in inv_]]
+    # double the list with both 'N' and 'U'
+    # __need_list = [(*item, new_or_used) for item in items_only for new_or_used in ['N', 'U']]
+    return __need_list
+
+
+def merge_prices_with_want(want_tuplelist, prices_df):
+    prices_df = prices_df.reset_index()
+    want_df = pd.DataFrame(want_tuplelist, columns=['item', 'color', 'itemtype', 'wanted_qty'])
+    full_df = pd.merge(want_df, prices_df)
+    full_df = full_df.set_index(PRICEGUIDE_INDEX)
+    return full_df
+
+
 def priceguide_summary_from_json(dict_tuple, color, sold_or_stock='sold'):
     """ Build a DataFrame of the priceguide for a single part(item + color). Color is
         required since color is not contained in the priceguide information
@@ -273,6 +291,18 @@ def priceguide_details_from_json(price_dict, colorid):
     df = df.drop('qunatity', axis=1)
     return df
 
-if __name__ == 'main':
-    pass
+if __name__ == '__main__':
+
+
+    print('why not this work')
+
+    d = {'one': [1., 2., 3., 4.],
+         'two': [4., 3., 2., 1.]}
+
+    bc = BcmData(d, columns=['one', 'two'])
+
+    print(bc.df)
+
+
+
 

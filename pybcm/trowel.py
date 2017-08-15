@@ -57,7 +57,7 @@ class Trowel:
         return inv
 
     def get_item_prices_df(self, itemid, itemtypeid, color):
-        pg = self.pc.get_priceguide_df(itemid, itemtypeid, color, guide_type='sold')
+        pg = self.pc.get_priceguide_summary_df(itemid, itemtypeid, color, guide_type='sold')
         return pg
 
     def get_inv_prices(self, inv=None):

@@ -28,11 +28,11 @@ import logging
 import sqlite3
 import time
 
-#import log
+import log
 
 logger = logging.getLogger(__name__)
 
-conn = sqlite3.connect('../data/pybcm.db')
+conn = sqlite3.connect('../resources/data/pybcm.db')
 
 
 def serialize_set(aset):

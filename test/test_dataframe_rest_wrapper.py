@@ -1,7 +1,7 @@
 import pytest
 
 from config import BCMConfig
-from dataframe import rest_wrapper, make_pandas_from_json, make_priceguide_pandas_from_json
+from dataframe import rest_wrapper
 
 
 @pytest.fixture(scope="module")
@@ -92,30 +92,31 @@ def test_get_subsets(rw):
 
 
 def test_get_priceguide_df(rw):
-    df = rw.get_priceguide_df('3006', 'PART', '10', guide_type='sold')
-    assert set(('item', 'color')).issubset(set(df.columns))
-    assert df.shape[0] == 2
-    print(df.head())
+    df1 = rw.get_priceguide_summary_df('3008', 'PART', '10', guide_type='sold')
+    df2 = rw.get_priceguide_summary_df('3008', 'PART', '10', guide_type='stock')
+
+    assert {'item', 'color'}.issubset(set(df1.columns))
+    assert {'item', 'color'}.issubset(set(df2.columns))
+
+    assert df1.shape[0] == 2
+    assert df2.shape[0] == 2
+
+    print(df1.head())
+    print(df2.head())
 
 
 def test_get_part_price_guide_df(rw):
-    df = rw.get_part_price_guide_df('3006', '10')
+    df = rw.get_part_priceguide_summary_df('3008', '10')
     assert set(('item', 'color')).issubset(set(df.columns))
     assert df.shape[0] == 2
 
 
 def test_get_known_colors(rw):
-    colors_df = rw.get_known_colors('3006', 'PART')
+    colors_df = rw.get_known_colors('3008', 'PART')
     assert colors_df.index.name == 'color_id'
     print(colors_df.head())
 
 
-def test_make_pandas_from_json(price_tuple):
-    df = make_pandas_from_json(price_tuple, '10')
-    print(df.head())
-
-
-def test_make_priceguide_pandas_from_json(price_tuple):
-    df = make_priceguide_pandas_from_json(price_tuple, '10')
-    print(df.head())
-
+def test_get_part_priceguide_details(rw):
+    df = rw.get_part_priceguide_details_df('3008', '34', new_or_used='U')
+    print(df)
