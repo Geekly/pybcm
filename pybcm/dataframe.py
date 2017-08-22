@@ -31,6 +31,8 @@ import pandas as pd
 from config import BCMConfig
 from rest import RestClient
 
+#from metadframe import MetaDataFrame
+
 logger = logging.getLogger("pybcm.{}".format(__name__))
 
 WANTED_INDEX = ['item', 'color']
@@ -56,33 +58,97 @@ class BcmData(object):
         self._df = pd.DataFrame(data, **pd_dict)
 
     @property
-    def df(self):
-        return self._df
+    def _constructor(self):
+        return BcmData
 
     def __getitem__(self, item):
         logger.debug("Calling __getitem__() on {}".format(item))
-        result = self.df.__getitem__(item)
+        result = self._df.__getitem__(item)
         if isinstance(result, type(self.df)):
             result = BcmData(result)
         return result
 
+    def __setitem__(self, key, value):
+        self._df.__setitem__(key, value)
+
+    def __dir__(self):
+        return self._df.__dir__()
+
     def __getattr__(self, attr):
         logger.debug("Calling __getattr__() on {}".format(attr))
-        result = getattr(self.df, attr)
+        # if attr is '_df':
+        #     return self._df
+        # else:
+        result = getattr(self._df, attr)
         if callable(result):
             result = toBcmData(result)
-        return result
+            return result
 
     def __repr__(self):
-        return repr(self.df)
+        return repr(self._df)
 
-    def remove_duplicates_by_index(self):
-        # remove duplicates and sort
-        dfa = self[~self.index.duplicated()]
-        dfa = dfa.sort_index()
-        return dfa
+    @property
+    def data(self):
+        """ Accesses self._df.  RETURNS COPY SO USER DOESNT OVERWRITE IN PLACE"""
+        return self._df.copy(deep=True)
 
-    def indexed_df(self, idx=['item', 'color']):
+    @property
+    def index(self):
+        return self._df.index
+
+    # To avoid accidentally setting index ie ts.index()
+    @index.setter
+    def index(self, index):
+        self._df.index = index
+
+    ## Fancy indexing
+    #_ix = None
+    #_iloc = None
+    #_loc = None
+
+    # @property
+    # def ix(self, *args, **kwargs):
+    #     ''' Pandas Indexing.  Note, this has been modified to ensure that series returns (eg ix[3])
+    #     still maintain attributes.  To remove this behavior, replace the following:
+    #
+    #     self._ix = _MetaIXIndexer(self, _IXIndexer(self) ) --> self._ix=_IXIndexer(self)
+    #
+    #     The above works because slicing preserved attributes because the _IXIndexer is a python object
+    #     subclass.'''
+    #     if self._ix is None:
+    #         try:
+    #             self._ix = _IXIndexer(self)
+    #         # New versions of _IXIndexer require "name" attribute.
+    #         except TypeError as TE:
+    #             self._ix = _IXIndexer(self, 'ix')
+    #     return self._ix
+    #
+    # @property
+    # def iloc(self, *args, **kwargs):
+    #     """ See pandas.Index.iloc; preserves metadata"""
+    #     if self._iloc is None:
+    #         try:
+    #             self._iloc = _iLocIndexer(self)
+    #         # New versions of _IXIndexer require "name" attribute.
+    #         except TypeError as TE:
+    #             self._iloc = _iLocIndexer(self, 'iloc')
+    #     return self._iloc
+    #
+    # @property
+    # def loc(self, *args, **kwargs):
+    #     """See pandas.Index.loc; preserves metadata"""
+    #     if self._loc is None:
+    #         try:
+    #             self._loc = _LocIndexer(self)
+    #         # New versions of _IXIndexer require "name" attribute.
+    #         except TypeError as TE:
+    #             self._loc = _LocIndexer(self, 'loc')
+    #     return self._loc
+
+        # @logclass(public_lvl='debug', log_name=__name__, skip=['_transfer'])
+    def indexed_df(self, idx=None):
+        if idx is None:
+            idx = ['item', 'color']
         dfa = self.set_index(idx)
         a = dfa.remove_duplicates_by_index()
         return a
@@ -91,25 +157,37 @@ class BcmData(object):
         """Converts the rows of DataFrame df to a list of tuples"""
         return list(map(tuple, self.reset_index().values))
 
-    def not_in_dfb(self, dfb, idx=['item', 'color']):
+    def not_in_dfb(self, dfb, idx=None):
         """ Returns the rows of DataFrame dfa that are NOT in DataFrame dfb
             based on the index idx. dfa and dfb should be flat dataframes
         """
+        if idx is None:
+            idx = ['item', 'color']
         a = self.indexed_df(idx)
         b = dfb.indexed_df(idx)
         common_i = a.index.isin(b.index)
         a = a[~common_i]
         return a.reset_index()
 
-    def in_dfb(self, dfb, idx=['item', 'color']):
+    def in_dfb(self, dfb, idx=None):
         """ Returns the rows of DataFrame dfa that are in DataFrame dfb
             based on index idx
         """
+        if idx is None:
+            idx = ['item', 'color']
         a = self.indexed_df(idx)
-        b = self.indexed_df(idx)
+        b = dfb.indexed_df(idx)
         common_i = a.index.isin(b.index)
         a = a[common_i]
         return a.reset_index()
+
+def remove_duplicates_by_index(self):
+        # remove duplicates and sort
+        dfa = self[~self.index.duplicated()]
+        dfa = dfa.sort_index()
+        return dfa
+
+
 
 """Wrapper for the Rest client that provides results in pandas format"""
 
@@ -294,14 +372,13 @@ def priceguide_details_from_json(price_dict, colorid):
 if __name__ == '__main__':
 
 
-    print('why not this work')
-
     d = {'one': [1., 2., 3., 4.],
          'two': [4., 3., 2., 1.]}
 
     bc = BcmData(d, columns=['one', 'two'])
+    bc.loc['one']
 
-    print(bc.df)
+    print(bc._df)
 
 
 
