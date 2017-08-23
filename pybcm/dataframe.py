@@ -42,145 +42,57 @@ PRICEGUIDE_COLUMNS = ['avg_price', 'max_price', 'min_price', 'qty_avg_price',
                       'total_quantity', 'unit_quantity', 'currency_code']
 
 
-def toBcmData(func):
-    def wrapper(*args, **kwargs):
-        result = func(*args, **kwargs)
-        return BcmData(result)
-    return wrapper
+def monkeypatch_method(cls):
+    def decorator(func):
+        setattr(cls, func.__name__, func)
+        return func
+    return decorator
 
 
-class BcmData(object):
+@monkeypatch_method(pd.DataFrame)
+def indexed_df(self, idx=None):
+    if idx is None:
+        idx = ['item', 'color']
+    dfa = self.set_index(idx)
+    a = dfa.remove_duplicates_by_index()
+    return a
 
-    def __init__(self, data, **kwargs):
 
-        pd_kwargs = ['index', 'columns', 'dtype', 'copy']
-        pd_dict = dict((k, kwargs[k]) for k in pd_kwargs if k in kwargs)
-        self._df = pd.DataFrame(data, **pd_dict)
+@monkeypatch_method(pd.DataFrame)
+def to_tuplelist(self):
+    """Converts the rows of DataFrame df to a list of tuples"""
+    return list(map(tuple, self.reset_index().values))
 
-    @property
-    def _constructor(self):
-        return BcmData
 
-    def __getitem__(self, item):
-        logger.debug("Calling __getitem__() on {}".format(item))
-        result = self._df.__getitem__(item)
-        if isinstance(result, type(self.df)):
-            result = BcmData(result)
-        return result
+@monkeypatch_method(pd.DataFrame)
+def not_in_dfb(self, dfb, idx=None):
+    """ Returns the rows of DataFrame dfa that are NOT in DataFrame dfb
+        based on the index idx. dfa and dfb should be flat dataframes
+    """
+    if idx is None:
+        idx = ['item', 'color']
+    a = self.indexed_df(idx)
+    b = dfb.indexed_df(idx)
+    common_i = a.index.isin(b.index)
+    a = a[~common_i]
+    return a.reset_index()
 
-    def __setitem__(self, key, value):
-        self._df.__setitem__(key, value)
 
-    def __dir__(self):
-        return self._df.__dir__()
+@monkeypatch_method(pd.DataFrame)
+def in_dfb(self, dfb, idx=None):
+    """ Returns the rows of DataFrame dfa that are in DataFrame dfb
+        based on index idx
+    """
+    if idx is None:
+        idx = ['item', 'color']
+    a = self.indexed_df(idx)
+    b = dfb.indexed_df(idx)
+    common_i = a.index.isin(b.index)
+    a = a[common_i]
+    return a.reset_index()
 
-    def __getattr__(self, attr):
-        logger.debug("Calling __getattr__() on {}".format(attr))
-        # if attr is '_df':
-        #     return self._df
-        # else:
-        result = getattr(self._df, attr)
-        if callable(result):
-            result = toBcmData(result)
-            return result
 
-    def __repr__(self):
-        return repr(self._df)
-
-    @property
-    def data(self):
-        """ Accesses self._df.  RETURNS COPY SO USER DOESNT OVERWRITE IN PLACE"""
-        return self._df.copy(deep=True)
-
-    @property
-    def index(self):
-        return self._df.index
-
-    # To avoid accidentally setting index ie ts.index()
-    @index.setter
-    def index(self, index):
-        self._df.index = index
-
-    ## Fancy indexing
-    #_ix = None
-    #_iloc = None
-    #_loc = None
-
-    # @property
-    # def ix(self, *args, **kwargs):
-    #     ''' Pandas Indexing.  Note, this has been modified to ensure that series returns (eg ix[3])
-    #     still maintain attributes.  To remove this behavior, replace the following:
-    #
-    #     self._ix = _MetaIXIndexer(self, _IXIndexer(self) ) --> self._ix=_IXIndexer(self)
-    #
-    #     The above works because slicing preserved attributes because the _IXIndexer is a python object
-    #     subclass.'''
-    #     if self._ix is None:
-    #         try:
-    #             self._ix = _IXIndexer(self)
-    #         # New versions of _IXIndexer require "name" attribute.
-    #         except TypeError as TE:
-    #             self._ix = _IXIndexer(self, 'ix')
-    #     return self._ix
-    #
-    # @property
-    # def iloc(self, *args, **kwargs):
-    #     """ See pandas.Index.iloc; preserves metadata"""
-    #     if self._iloc is None:
-    #         try:
-    #             self._iloc = _iLocIndexer(self)
-    #         # New versions of _IXIndexer require "name" attribute.
-    #         except TypeError as TE:
-    #             self._iloc = _iLocIndexer(self, 'iloc')
-    #     return self._iloc
-    #
-    # @property
-    # def loc(self, *args, **kwargs):
-    #     """See pandas.Index.loc; preserves metadata"""
-    #     if self._loc is None:
-    #         try:
-    #             self._loc = _LocIndexer(self)
-    #         # New versions of _IXIndexer require "name" attribute.
-    #         except TypeError as TE:
-    #             self._loc = _LocIndexer(self, 'loc')
-    #     return self._loc
-
-        # @logclass(public_lvl='debug', log_name=__name__, skip=['_transfer'])
-    def indexed_df(self, idx=None):
-        if idx is None:
-            idx = ['item', 'color']
-        dfa = self.set_index(idx)
-        a = dfa.remove_duplicates_by_index()
-        return a
-
-    def to_tuplelist(self):
-        """Converts the rows of DataFrame df to a list of tuples"""
-        return list(map(tuple, self.reset_index().values))
-
-    def not_in_dfb(self, dfb, idx=None):
-        """ Returns the rows of DataFrame dfa that are NOT in DataFrame dfb
-            based on the index idx. dfa and dfb should be flat dataframes
-        """
-        if idx is None:
-            idx = ['item', 'color']
-        a = self.indexed_df(idx)
-        b = dfb.indexed_df(idx)
-        common_i = a.index.isin(b.index)
-        a = a[~common_i]
-        return a.reset_index()
-
-    def in_dfb(self, dfb, idx=None):
-        """ Returns the rows of DataFrame dfa that are in DataFrame dfb
-            based on index idx
-        """
-        if idx is None:
-            idx = ['item', 'color']
-        a = self.indexed_df(idx)
-        b = dfb.indexed_df(idx)
-        common_i = a.index.isin(b.index)
-        a = a[common_i]
-        return a.reset_index()
-
+@monkeypatch_method(pd.DataFrame)
 def remove_duplicates_by_index(self):
         # remove duplicates and sort
         dfa = self[~self.index.duplicated()]
@@ -188,13 +100,12 @@ def remove_duplicates_by_index(self):
         return dfa
 
 
-
 """Wrapper for the Rest client that provides results in pandas format"""
 
 
 def bcm_from_tuplelist(needed):
     """ Converts a list of (itemid, color, qty) tuple values to a dataframe"""
-    df = BcmData(needed, columns=['item', 'color', 'itemtype', 'qty'])
+    df = pd.DataFrame(needed, columns=['item', 'color', 'itemtype', 'qty'])
     return df
 
 
@@ -375,10 +286,10 @@ if __name__ == '__main__':
     d = {'one': [1., 2., 3., 4.],
          'two': [4., 3., 2., 1.]}
 
-    bc = BcmData(d, columns=['one', 'two'])
-    bc.loc['one']
+    bc = pd.DataFrame(d, columns=['one', 'two'])
+    bc['one']
 
-    print(bc._df)
+    print(bc)
 
 
 
