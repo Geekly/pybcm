@@ -34,15 +34,14 @@ Manage the store inventory data in a pandas dataframe
 # TODO: add prices of used parts to the system
 # TODO: add ability to limit vendor search area
 
-import logging
 import pickle
 
-import pandas as pd
 from pandas import DataFrame
 
 import log
-from rest import RestClient
 from deprecated.elementreader import ElementWebReader, NEW, USED
+from pybcm.dataframe import *
+from rest import RestClient
 from vendors import VendorMap
 
 logger = logging.getLogger('pybcm.brickpile')

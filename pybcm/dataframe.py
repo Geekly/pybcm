@@ -27,11 +27,10 @@
 import logging
 
 import pandas as pd
+from pandas.testing import assert_frame_equal
 
-from config import BCMConfig
-from rest import RestClient
-
-#from metadframe import MetaDataFrame
+# from config import BCMConfig
+# from rest import RestClient
 
 logger = logging.getLogger("pybcm.{}".format(__name__))
 
@@ -61,7 +60,10 @@ def indexed_df(self, idx=None):
 @monkeypatch_method(pd.DataFrame)
 def to_tuplelist(self):
     """Converts the rows of DataFrame df to a list of tuples"""
-    return list(map(tuple, self.reset_index().values))
+    df = self.reset_index()
+    df = df.drop('index', axis=1)
+    values = df.values
+    return list(map(tuple, values))
 
 
 @monkeypatch_method(pd.DataFrame)
@@ -109,89 +111,6 @@ def bcm_from_tuplelist(needed):
     return df
 
 
-class rest_wrapper:
-    def __init__(self, config=BCMConfig('../config/bcm.ini')):
-        self.rc = RestClient()
-        self.config = config
-
-    def get_item(self, itemid, itemtypeid):
-        raise NotImplemented
-
-    def get_supersets(self, itemid):
-        raise NotImplemented
-
-    def get_subsets(self, itemid, itemtypeid):
-        raise NotImplemented
-
-    def get_priceguide_summary_df(self, itemid, itemtypeid, colorid, guide_type='sold'):
-        """
-        :param itemid:
-        :param itemtypeid:
-        :param colorid:
-        :param guide_type:
-        :return:
-
-        get_priceguide_summary_df returns a dictionary of the following format:
-
-        typ = {
-            "item": {
-                "no": "7644-1",
-                "type": "SET"
-            },
-            "new_or_used": "N",
-            "currency_code": "USD",
-            "min_price": "96.0440",
-            "max_price": "695.9884",
-            "avg_price": "162.3401",
-            "qty_avg_price": "155.3686",
-            "unit_quantity": 298,
-            "total_quantity": 359,
-            "price_detail": [
-
-            ]
-        }
-        For sale ('stock'):
-        {
-            "quantity":2,
-            "qunatity":2,
-            "unit_price":"96.0440",
-            "shipping_available":true
-        }
-        Previously sold ('sold'):
-        {
-            "quantity":1,
-            "unit_price":"98.2618",
-            "seller_country_code":"CZ",
-            "buyer_country_code":"HK",
-            "date_ordered":"2013-12-30T14:59:01.850Z"
-        }
-
-        """
-        pg_new = self.rc.get_price_guide(itemid, itemtypeid, colorid, 'N', guide_type)
-        pg_used = self.rc.get_price_guide(itemid, itemtypeid, colorid, 'U', guide_type)
-        if pg_new is None or pg_used is None:
-            raise ValueError("Problem retrieiving {}: {}".format(itemid, colorid))
-        pg_json = (pg_new, pg_used)
-        df = priceguide_summary_from_json(pg_json, colorid)
-        return df
-
-    def get_part_priceguide_summary_df(self, itemid, colorid):
-        df = self.get_priceguide_summary_df(itemid, 'PART', colorid)
-        return df
-
-    def get_part_priceguide_details_df(self, itemid, colorid, new_or_used='U'):
-        pg = self.rc.get_price_guide(itemid, 'PART', colorid, new_or_used, guide_type='stock')
-        if pg is None:
-            raise ValueError("Problem retrieiving price details for {}: {}".format(itemid, colorid))
-        df = priceguide_details_from_json(pg, colorid)
-        return df
-
-    def get_known_colors(self, itemid, itemtypeid):
-        colors = self.rc.get_known_colors(itemid, itemtypeid)
-        df = pd.DataFrame.from_dict(colors, orient="columns").set_index(['color_id'])
-        return df
-
-
 def want_list_from_rest_inv(inv_):
     # returns list(itemid, color, new_or_used) tuples without new_or_used
     __need_list = [(__item['item']['no'],           # itemid
@@ -206,79 +125,19 @@ def want_list_from_rest_inv(inv_):
 
 
 def merge_prices_with_want(want_tuplelist, prices_df):
-    prices_df = prices_df.reset_index()
+    prices_df = prices_df.reset_index(drop=True)
     want_df = pd.DataFrame(want_tuplelist, columns=['item', 'color', 'itemtype', 'wanted_qty'])
     full_df = pd.merge(want_df, prices_df)
     full_df = full_df.set_index(PRICEGUIDE_INDEX)
     return full_df
 
 
-def priceguide_summary_from_json(dict_tuple, color, sold_or_stock='sold'):
-    """ Build a DataFrame of the priceguide for a single part(item + color). Color is
-        required since color is not contained in the priceguide information
-        dict_tuple = ({new_prices}, {used_prices}) where {_prices} look like:
-
-        {
-          "item": {
-            "no": "3006",
-            "type": "PART"
-          },
-          "new_or_used": "N",
-          "currency_code": "USD",
-          "min_price": "0.0525",
-          "max_price": "3.4290",
-          "avg_price": "0.5332",
-          "qty_avg_price": "0.3653",
-          "unit_quantity": 978,
-          "total_quantity": 14810,
-          "price_detail": [
-            {
-              "quantity": 1,
-              "unit_price": "0.6384",
-              "seller_country_code": "US",
-              "buyer_country_code": "US",
-              "date_ordered": "2017-02-16T23:58:22.797Z",
-              "qunatity": 1
-            },
-            {
-              "quantity": 1,
-              "unit_price": "0.5925",
-              "seller_country_code": "US",
-              "buyer_country_code": "US",
-              "date_ordered": "2017-02-18T05:42:10.397Z",
-              "qunatity": 1
-            }
-          ]
-        }
-    """
-    # top_fields = ['item', 'new_or_used', 'avg_price', 'max_price', 'min_price',
-    #              'qty_avg_price', 'total_quantity', 'unit_quantity', 'currency_code', 'price_detail']
-
-    numeric_fields = ['avg_price', 'max_price', 'min_price', 'qty_avg_price', 'total_quantity', 'unit_quantity']
-    summary_pull_fields = ['new_or_used', 'currency_code'] + numeric_fields
-
-    df_columns = ['item', 'color'] + summary_pull_fields
-
-    common_values = {'item': dict_tuple[0]['item']['no'],
-                     'color': color}
-
-    summary = [{key: dict_tuple[idx][key] for key in summary_pull_fields} for idx in (0, 1)]
-    for item in summary:
-        item.update({**common_values})
-
-    summary_df = pd.DataFrame(summary, columns=df_columns)
-    summary_df[numeric_fields] = summary_df[numeric_fields].apply(pd.to_numeric)
-
-    # TODO: for now, ignoring sold and stock and just using the common fields
-
-    return summary_df
-
-
-def priceguide_details_from_json(price_dict, colorid):
-    detail = price_dict['price_detail']
-    df = pd.DataFrame(detail)
-    df = df.drop('qunatity', axis=1)
-    return df
+def assert_frame_not_equal(df1, df2, **kwargs):
+    try:
+        assert_frame_equal(df1, df2, **kwargs)
+        raise AssertionError('DataFrames are equal.')
+    except AssertionError:
+        pass
 
 if __name__ == '__main__':
 

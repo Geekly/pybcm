@@ -28,7 +28,7 @@
     Mason manages the solution and results of the optimization
 
 """
-import pandas as pd
+# from pybcm.dataframe import *
 
 from rest import RestClient
 

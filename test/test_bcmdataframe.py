@@ -105,7 +105,6 @@ def test_df_not_in_dfb(dfa, dfb):
     not_in_it = dfa.not_in_dfb(dfb, idx=['item', 'color'])
     a = not_in_it
     b = dfa.iloc[[0, 1]]
-    print(not_in_it, dfa.iloc[[0, 1]])
     np.testing.assert_array_equal(a.values, b.values)
 
 
@@ -113,8 +112,6 @@ def test_df_in_dfb(dfa, dfb):
     in_it = dfa.in_dfb(dfb, idx=['item', 'color'])
     a = in_it
     b = dfa.iloc[[2, 3]]
-    print(a)
-    print(b)
     np.testing.assert_array_equal(a.values, b.values)
 
 

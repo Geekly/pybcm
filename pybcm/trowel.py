@@ -28,17 +28,19 @@
     Manage bricklink data through the pandas wrapper api
 
 """
+import const
 import log
 from dataframe import *
+from rest import RestClient
+from rest_wrapper import rest_wrapper
 
-
-#logging.basicConfig(level=logging.DEBUG)
+# logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger("pybcm.{}".format(__name__))
 
 
 class Trowel:
 
-    """ interacts with the HDFStore, and clients """
+    """ interacts with the HDFStore, and clients to build and operate on datasets """
 
     def __init__(self, config):
         self.config = config
@@ -53,6 +55,7 @@ class Trowel:
     #TODO: call the rest wrapper instead
     # create a wanted list from a set
     def get_set_inv(self, lego_set_id):
+        """Retrieve a JSON-formatted inventory from the string formatted lego_set_id"""
         inv = self.rc.get_subsets(lego_set_id, 'SET')
         return inv
 
@@ -60,13 +63,18 @@ class Trowel:
         pg = self.pc.get_priceguide_summary_df(itemid, itemtypeid, color, guide_type='sold')
         return pg
 
-    def get_inv_prices(self, inv=None):
+    def get_inv_prices_df(self, inv):
         """ build a dataframe for the passed Rest inventory
 
-            inv is a list of {'match_no': 0, 'entries': [{'item': {'no': '2540',
+        :param inv:    A list of JSON-formatted items like {'match_no': 0, 'entries': [{'item': {'no': '2540',
                                               'name': 'Plate, Modified 1 x 2 with Handle on Side - Free Ends',
                                               'type': 'PART', 'category_id': 27}, 'color_id': 11, 'quantity': 2,
                                      'extra_quantity': 0, 'is_alternate': False, 'is_counterpart': False}]}
+
+        :return price_df:  A data frame of the prices where:
+                        index = ['item', 'color', 'new_or_used'] and
+                        columns = ['itemtype', 'wanted_qty', 'currency_code', 'avg_price', 'max_price',
+                                    'min_price', 'qty_avg_price', 'total_quantity', 'unit_quantity']
         """
         # TODO: Account for subsititutions and find the cheapest of substitutions
 
@@ -76,7 +84,7 @@ class Trowel:
 
         pull_list, price_df = self.prune_pull_list(needed)
         # download the list of items in pull_list and build the pandas dataframe
-        for item in pull_list:  # iterate over list of matches
+        for item in pull_list:  # iterate over list of match tuples
 
             # create a pull list of
             # TODO: Check if price already exists in DB and is not older than a particular date before reloading it
@@ -103,45 +111,65 @@ class Trowel:
         return price_df
 
     def add_prices_to_store(self, prices):
-        if ~prices.empty:
-            prices = prices.reset_index(drop=True).drop('wanted_qty', axis=1)  # flatten prices df and drop the wantedqty
+        """
+        Add prices to the HDFStore based no the columns of const.HDF_PRICE_COLUMNS and ignoring the rest.
+        :param prices: Price summary DataFrame of multiple parts
+        :return added: Number of rows added to the storage
+        """
+        if not isinstance(prices, pd.DataFrame):
+            raise TypeError("DataFrame required")
+        added = 0
+        if not prices.empty:
+            price_df = prices.reset_index().drop('wanted_qty', axis=1)  # flatten prices df and drop the wantedqty
+
             with self.store as store:
                 store.open()
-                if 'prices' not in store:
-                    store.prices = pd.DataFrame()
-                num_orig_rows = store.prices.shape[0]
-                merged = store.prices.append(prices)
-                merged = merged.set_index(PRICEGUIDE_INDEX)
-                merged = merged[~merged.index.duplicated(keep='last')]
-                merged = merged.reset_index(drop=True)
-                num_new_rows = merged.shape[0]
-                self.store.append('prices', merged)
-                store.flush()
-                logger.info("Added {} rows to store.prices".format(num_new_rows - num_orig_rows))
+                if '/prices' not in store.keys():
+                    store.put('prices', price_df, format='table', data_columns=True)
+                else:
+                    num_orig_rows = store.prices.shape[0]
+                    store.append('prices', price_df, data_columns=list(const.HDF_PRICE_COLUMNS))
+                    store_df = store.prices
+                    merged = store_df.set_index(PRICEGUIDE_INDEX)
+                    merged = merged[~merged.index.duplicated(keep='last')]
+                    merged = merged.reset_index()
+                    num_new_rows = merged.shape[0]
+                    store['prices'] = merged
+                    store.flush()
+                    added = num_new_rows - num_orig_rows
+                    logger.info("Added {} rows to store.prices".format(added))
+        return added
 
     @classmethod
     def estimate_inv_cost(cls, prices):
         est_cost = dict({"N": 0.0, "U": 0.0})
-        p = prices.reset_index(drop=True)
+        p = prices.reset_index()
         p['wanted_avg'] = p['wanted_qty'] * p['avg_price']
         est_cost['N'] = p[p['new_or_used'] == 'N']['wanted_avg'].sum()
         est_cost['U'] = p[p['new_or_used'] == 'U']['wanted_avg'].sum()
         return est_cost
 
+    #TODO: write a test for this method
     def prune_pull_list(self, needed):
+        """Return a tuple list in the same format as the pull list
+            [(item1, color1, itemtypdid1, wanted_qty),...]
+        """
+        if isinstance(needed, pd.DataFrame):
+            raise TypeError("needed should be a list of tuples")
         with self.store as store:
             store.open()
-            if 'prices' in store:
+            if '/prices' in store.keys():
                 all_prices_df = store['prices'] #.set_index(PRICEGUIDE_INDEX)
-                needed_df = tuplelist_as_df(needed)
-                pull_df = dfa_not_in_dfb(needed_df, all_prices_df)
-                pull_list = df_to_tuplelist(pull_df)
-                already_known_prices_df = dfa_in_dfb(all_prices_df, needed_df)
+                needed_df = bcm_from_tuplelist(needed)
+                pull_df = needed_df.not_in_dfb(all_prices_df)
+                pull_list = pull_df.to_tuplelist() # build the wanted list as tuples
+                already_known_prices_df = all_prices_df.in_dfb(needed_df)
             else:
                 pull_list = needed
                 already_known_prices_df = pd.DataFrame()
-            return pull_list, already_known_prices_df
-            store.close()
+        #store.close()
+        return pull_list, already_known_prices_df
+
 
 if __name__ == "__main__":
     logger = log.setup_custom_logger("pybcm")
@@ -150,7 +178,7 @@ if __name__ == "__main__":
 
     tr = Trowel('../config/bcm.ini')
     inv = tr.get_set_inv('10030-1')
-    pprint(tr.get_inv_prices(inv))
+    pprint(tr.get_inv_prices_df(inv))
 
     # price out a set by collecting avg prices from wanted list
 

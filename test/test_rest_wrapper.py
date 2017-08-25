@@ -1,7 +1,8 @@
 import pytest
 
 from config import BCMConfig
-from dataframe import rest_wrapper
+from dataframe import *
+from rest_wrapper import rest_wrapper, details_df_from_json, summary_df_from_json
 
 
 @pytest.fixture(scope="module")
@@ -101,6 +102,8 @@ def test_get_priceguide_df(rw):
     assert df1.shape[0] == 2
     assert df2.shape[0] == 2
 
+    assert_frame_not_equal(df1, df2, check_like=True)
+
     print(df1.head())
     print(df2.head())
 
@@ -119,4 +122,17 @@ def test_get_known_colors(rw):
 
 def test_get_part_priceguide_details(rw):
     df = rw.get_part_priceguide_details_df('3008', '34', new_or_used='U')
-    print(df)
+    print(df.head())
+
+
+#TODO Add sold_or_stock test
+def test_priceguide_summary_from_json(price_tuple):
+    s1 = summary_df_from_json(price_tuple, '11')
+    print(s1)
+
+
+def test_priceguide_details_from_json(price_tuple):
+    d1 = details_df_from_json(price_tuple[0])
+    d2 = details_df_from_json(price_tuple[1])
+    print(d1.append(d2)['unit_price'])
+
