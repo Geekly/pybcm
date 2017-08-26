@@ -124,12 +124,7 @@ def want_list_from_rest_inv(inv_):
     return __need_list
 
 
-def merge_prices_with_want(want_tuplelist, prices_df):
-    prices_df = prices_df.reset_index(drop=True)
-    want_df = pd.DataFrame(want_tuplelist, columns=['item', 'color', 'itemtype', 'wanted_qty'])
-    full_df = pd.merge(want_df, prices_df)
-    full_df = full_df.set_index(PRICEGUIDE_INDEX)
-    return full_df
+
 
 
 def assert_frame_not_equal(df1, df2, **kwargs):

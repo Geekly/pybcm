@@ -47,6 +47,7 @@ class Trowel:
         self.rc = RestClient()
         self.pc = rest_wrapper()
         pd.set_option('io.hdf.default_format', 'table')
+        self.prices_key = 'prices'
         self.store = pd.HDFStore("../resources/data/pybcm.hd5")
 
     def summary(self):
@@ -61,6 +62,13 @@ class Trowel:
 
     def get_item_prices_df(self, itemid, itemtypeid, color):
         pg = self.pc.get_priceguide_summary_df(itemid, itemtypeid, color, guide_type='sold')
+        # whenever new data is pulled, add it to the store
+        logger.debug("Adding {} to store".format(pg))
+        with self.store as store:
+            store.open()
+            store.append(self.prices_key, pg, data_columns=True,   # const.HDF_PRICE_COLUMNS
+                         min_itemsize={'item': 16, 'color': 5, 'new_or_used': 5, 'itemtype': 8, 'currency_code': 6})
+
         return pg
 
     def get_inv_prices_df(self, inv):
@@ -83,9 +91,11 @@ class Trowel:
         # load existing prices from the db and download the rest
 
         pull_list, price_df = self.prune_pull_list(needed)
+        adding = len(pull_list)
+        logger.info("Pulling data for {:.0f} new items".format(adding))
         # download the list of items in pull_list and build the pandas dataframe
-        for item in pull_list:  # iterate over list of match tuples
-
+        for index, item in enumerate(pull_list):  # iterate over list of match tuples
+            logger.info("Pulling item {:.0f} of {:.0f}".format(index+1, len(pull_list)))
             # create a pull list of
             # TODO: Check if price already exists in DB and is not older than a particular date before reloading it
 
@@ -106,8 +116,8 @@ class Trowel:
         # add the new prices to the save
         # combine all of the prices and return them
 
-        # merge the wanted list before returning
-        price_df = merge_prices_with_want(needed, price_df)
+        # add wanted_qty to the price_df
+        price_df = self.merge_prices_with_want(needed, price_df) # not getting correct pricing
         return price_df
 
     def add_prices_to_store(self, prices):
@@ -116,6 +126,8 @@ class Trowel:
         :param prices: Price summary DataFrame of multiple parts
         :return added: Number of rows added to the storage
         """
+        raise NotImplemented # don't use this anymore
+
         if not isinstance(prices, pd.DataFrame):
             raise TypeError("DataFrame required")
         added = 0
@@ -154,6 +166,7 @@ class Trowel:
         """Return a tuple list in the same format as the pull list
             [(item1, color1, itemtypdid1, wanted_qty),...]
         """
+        logger.info("Pruning needed list of {} items".format(len(needed)))
         if isinstance(needed, pd.DataFrame):
             raise TypeError("needed should be a list of tuples")
         with self.store as store:
@@ -163,12 +176,24 @@ class Trowel:
                 needed_df = bcm_from_tuplelist(needed)
                 pull_df = needed_df.not_in_dfb(all_prices_df)
                 pull_list = pull_df.to_tuplelist() # build the wanted list as tuples
+                logger.info("Pruned pull list contains {} elements".format(len(pull_list)))
                 already_known_prices_df = all_prices_df.in_dfb(needed_df)
             else:
                 pull_list = needed
                 already_known_prices_df = pd.DataFrame()
         #store.close()
         return pull_list, already_known_prices_df
+
+
+    def merge_prices_with_want(self, want_tuplelist, prices_df):
+        # add the wanted_qty column to the price_df table
+        prices_df = prices_df.reset_index(drop=True)
+        want_df = pd.DataFrame(want_tuplelist, columns=['item', 'color', 'itemtype', 'wanted_qty'])
+        full_df = pd.merge(want_df, prices_df, on=['item', 'color', 'itemtype'])
+        full_df = full_df.set_index(PRICEGUIDE_INDEX)
+        if 'wanted_qty' not in full_df.columns:
+            raise KeyError("Prices missing wanted_qty")
+        return full_df
 
 
 if __name__ == "__main__":
