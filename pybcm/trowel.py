@@ -55,6 +55,17 @@ class Trowel:
 
     #TODO: call the rest wrapper instead
     # create a wanted list from a set
+    def price_sets(self, set_list):
+        """
+        Get prices for a list of sets, by set name
+        :param set_list: ex. ['10182-1', '10185-1', '10190-1'
+        :return prices: dictionary of prices with set names as keys
+        """
+        prices = dict()
+        for _set in set_list:
+            prices[_set] = self.estimate_set_prices(_set)
+        return prices
+
     def get_set_inv(self, lego_set_id):
         """Retrieve a JSON-formatted inventory from the string formatted lego_set_id"""
         inv = self.rc.get_subsets(lego_set_id, 'SET')

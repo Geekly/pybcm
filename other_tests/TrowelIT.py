@@ -33,4 +33,6 @@ tr = Trowel(config)
 
 # estimate_set_prices('3219-1')
 # estimate_set_prices('75146-16')
-tr.estimate_set_prices('4597-1')
+#tr.estimate_set_prices('10182-1')
+#tr.estimate_set_prices('10185-1')
+print(tr.price_sets(['10182-1', '10185-1', '10190-1', '10197-1', '10246-1', '10251-1', '10255-1']))
