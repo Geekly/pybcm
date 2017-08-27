@@ -39,14 +39,6 @@ class rest_wrapper:
         self.rc = RestClient()
         self.config = config
 
-    def get_item(self, itemid, itemtypeid):
-        raise NotImplemented
-
-    def get_supersets(self, itemid):
-        raise NotImplemented
-
-    def get_subsets(self, itemid, itemtypeid):
-        raise NotImplemented
 
     #TODO: add option to get price details
     def get_priceguide_summary_df(self, itemid, itemtypeid, colorid, guide_type='sold', details=False):

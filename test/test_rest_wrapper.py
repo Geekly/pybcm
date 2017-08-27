@@ -80,18 +80,6 @@ def price_tuple():
     return _price_tuple
 
 
-def test_get_item(rw):
-    pass
-
-
-def test_get_supersets(rw):
-    pass
-
-
-def test_get_subsets(rw):
-    pass
-
-
 def test_get_priceguide_df(rw):
     df1 = rw.get_priceguide_summary_df('3008', 'PART', '10', guide_type='sold')
     df2 = rw.get_priceguide_summary_df('3008', 'PART', '10', guide_type='stock')

@@ -40,12 +40,12 @@ logger = logging.getLogger("pybcm.{}".format(__name__))
 
 class Trowel:
 
-    """ interacts with the HDFStore, and clients to build and operate on datasets """
+    """ interacts with the HDFStore and clients to build and operate on datasets """
 
     def __init__(self, config):
         self.config = config
         self.rc = RestClient()
-        self.pc = rest_wrapper()
+        self.rw = rest_wrapper()
         pd.set_option('io.hdf.default_format', 'table')
         self.prices_key = 'prices'
         self.store = pd.HDFStore("../resources/data/pybcm.hd5")
@@ -60,8 +60,16 @@ class Trowel:
         inv = self.rc.get_subsets(lego_set_id, 'SET')
         return inv
 
-    def get_item_prices_df(self, itemid, itemtypeid, color):
-        pg = self.pc.get_priceguide_summary_df(itemid, itemtypeid, color, guide_type='sold')
+    def get_item_prices_df(self, itemid, itemtypeid, color, guide_type='sold'):
+        """
+        Retrieve a priceguide DataFrame from the rest_wrapper and add it to the store.
+        :param itemid:
+        :param itemtypeid:
+        :param color:
+        :param guide_type: 'sold' or 'stock'
+        :return Price guide DataFrame:
+        """
+        pg = self.rw.get_priceguide_summary_df(itemid, itemtypeid, color, guide_type=guide_type)
         # whenever new data is pulled, add it to the store
         logger.debug("Adding {} to store".format(pg))
         with self.store as store:
@@ -104,7 +112,8 @@ class Trowel:
             # TODO use the PriceDataFrame here
             prices = self.get_item_prices_df(itemid, itemtypeid, color)
             if prices is not None:
-                prices['wanted_qty'] = item[3]
+                # don't add wanted_qty here since existing prices from the store won't know it
+                #prices['wanted_qty'] = item[3]
                 # wanted_avg = prices['wanted_qty'] * prices['avg_price']
                 #TODO: use a PriceDataFrame here
                 price_df = price_df.append(prices)
@@ -122,7 +131,7 @@ class Trowel:
 
     def add_prices_to_store(self, prices):
         """
-        Add prices to the HDFStore based no the columns of const.HDF_PRICE_COLUMNS and ignoring the rest.
+        Add prices to the HDFStore based on the columns of const.HDF_PRICE_COLUMNS and ignoring the rest.
         :param prices: Price summary DataFrame of multiple parts
         :return added: Number of rows added to the storage
         """
@@ -154,6 +163,11 @@ class Trowel:
 
     @classmethod
     def estimate_inv_cost(cls, prices):
+        """
+        Calculate estimated prices based on New and Used price catalogs
+        :param prices:
+        :return dictionary of costs:
+        """
         est_cost = dict({"N": 0.0, "U": 0.0})
         p = prices.reset_index()
         p['wanted_avg'] = p['wanted_qty'] * p['avg_price']
@@ -162,9 +176,12 @@ class Trowel:
         return est_cost
 
     #TODO: write a test for this method
+    #TODO: add ability to date check
     def prune_pull_list(self, needed):
-        """Return a tuple list in the same format as the pull list
-            [(item1, color1, itemtypdid1, wanted_qty),...]
+        """Compare needed to prices already contained in the Store.
+        :param needed: original pull list of needed items typles as [(item1, color1, itemtypdid1, wanted_qty),...]
+        :return pull_list: Updated list of tuples to be pulled [(item1, color1, itemtypdid1, wanted_qty),...]
+        :return already_known_prices_df: price DataFrame containing prices already persisted in the store
         """
         logger.info("Pruning needed list of {} items".format(len(needed)))
         if isinstance(needed, pd.DataFrame):
@@ -184,9 +201,26 @@ class Trowel:
         #store.close()
         return pull_list, already_known_prices_df
 
+    def estimate_set_prices(self, set_name):
+        """
+        Estimate prices for the given set_name by reading prices and performing the summary calculations
+        :param set_name:
+        :return cost: Dictionary of estimated cost
+        """
+        inv = self.get_set_inv(set_name)
+        prices = self.get_inv_prices_df(inv)
+        # tr.add_prices_to_store(prices)
+        cost = self.estimate_inv_cost(prices)
+        logger.info("Estimated cost of set {} is {}".format(set_name, cost))
+        return cost
 
     def merge_prices_with_want(self, want_tuplelist, prices_df):
-        # add the wanted_qty column to the price_df table
+        """
+        Add wanted_qty from want_tuplelist to the prices DataFrame
+        :param want_tuplelist: ('item', 'color', 'itemtype', 'wanted_qty')
+        :param prices_df: Typcal prices DataFrame
+        :return prices DataFrame with new 'wanted_qty' column:
+        """
         prices_df = prices_df.reset_index(drop=True)
         want_df = pd.DataFrame(want_tuplelist, columns=['item', 'color', 'itemtype', 'wanted_qty'])
         full_df = pd.merge(want_df, prices_df, on=['item', 'color', 'itemtype'])

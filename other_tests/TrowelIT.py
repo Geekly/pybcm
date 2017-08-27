@@ -9,13 +9,12 @@ config = BCMConfig('../config/bcm.ini')  # create the settings object and load t
 
 tr = Trowel(config)
 
-
-def estimate_set_prices(set_name=None):
-    inv = tr.get_set_inv(set_name)
-    prices = tr.get_inv_prices_df(inv)
-    #tr.add_prices_to_store(prices)
-    cost = tr.estimate_inv_cost(prices)
-    logger.info("Estimated cost of set {} is {}".format(set_name, cost))
+# def estimate_set_prices(set_name=None):
+#     inv = tr.get_set_inv(set_name)
+#     prices = tr.get_inv_prices_df(inv)
+#     #tr.add_prices_to_store(prices)
+#     cost = tr.estimate_inv_cost(prices)
+#     logger.info("Estimated cost of set {} is {}".format(set_name, cost))
 
 # theset = '3219-1'
 # estimate_set_prices(theset)
@@ -34,4 +33,4 @@ def estimate_set_prices(set_name=None):
 
 # estimate_set_prices('3219-1')
 # estimate_set_prices('75146-16')
-estimate_set_prices('75083-1')
+tr.estimate_set_prices('4597-1')
