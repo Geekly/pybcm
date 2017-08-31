@@ -1,6 +1,5 @@
 import pytest
 
-import log
 from pybcm.wanted import *
 
 logger = log.setup_custom_logger(__name__)
@@ -9,7 +8,7 @@ logger = log.setup_custom_logger(__name__)
 @pytest.fixture(scope="module")
 def wantedDict():
     wanted = WantedDict()
-    _wantedlistfilename = "../Sampledata/Remaining Falcon.bsx"
+    _wantedlistfilename = "../resources/Sampledata/Remaining Falcon.bsx"
     wanted.read(_wantedlistfilename)
     return wanted
 

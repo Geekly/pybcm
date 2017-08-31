@@ -1,3 +1,4 @@
+import numpy as np
 import pandas as pd
 import pytest
 
@@ -22,22 +23,34 @@ def trowel():
 
 @pytest.fixture(scope="session")
 def price_df():
-    df = pd.DataFrame({'item': [1, 1, 2, 2], 'color': ['A', 'B', 'A', 'C'], 'value': [1.2, 1, 2, 4]})
+    df = pd.DataFrame([['3008', '11', 'N', 1.25, .25, 5],
+                       ['3008', '11', 'U', .99, .75, 5],
+                       ['3008', '10', 'N', .74, .35, 13],
+                       ['3008', '10', 'U', .55, .24, 13],
+                       ['3008', '86', 'N', .45, .22, 7],
+                       ['3008', '87', 'U', .33, .3, 4]],
+                      columns=['item', 'color', 'new_or_used', 'avg_price', 'min_price', 'wanted_qty'])
     return df
 
 
+# def test_add_prices_to_store_stuff(trowel, test_store):
+#     trowel.store = test_store
+#     p = test_store.prices
+#     p.drop(p.index, inplace=True)
+#     adding = test_store.prices.df_btm
+#     trowel.add_prices_to_store(adding)
+#     print(test_store.prices)
 
-def test_a_thing(test_store):
-    print(test_store.prices)
+
+def test_best_prices(trowel, price_df):
+    result = (trowel.best_prices(price_df)).sort_values(by=['item', 'color', 'new_or_used'])
+    expected_result = price_df.iloc[[3, 1, 4, 5]]
+    np.testing.assert_array_equal(result.values, expected_result.values)
 
 
-def test_add_prices_to_store_stuff(trowel, test_store):
-    trowel.store = test_store
-    p = test_store.prices
-    p.drop(p.index, inplace=True)
-    adding = test_store.prices.df_btm
-    trowel.add_prices_to_store(adding)
-    print(test_store.prices)
+def test_estimate_inv_cost(trowel, price_df):
+    best = trowel.best_prices(price_df)
+    print(best)
 
 
 def test_summary():

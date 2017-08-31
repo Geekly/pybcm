@@ -96,11 +96,16 @@ def in_dfb(self, dfb, idx=None):
 
 @monkeypatch_method(pd.DataFrame)
 def remove_duplicates_by_index(self):
-        # remove duplicates and sort
-        dfa = self[~self.index.duplicated()]
-        dfa = dfa.sort_index()
-        return dfa
+    # remove duplicates and sort
+    dfa = self[~self.index.duplicated()]
+    dfa = dfa.sort_index()
+    return dfa
 
+
+@monkeypatch_method(pd.DataFrame)
+def unique_indices_by_levels(self, levels=[0, 1]):
+    idx = [self.index.get_level_values(i).values for i in levels]
+    return set(zip(*idx))
 
 """Wrapper for the Rest client that provides results in pandas format"""
 
@@ -124,15 +129,13 @@ def want_list_from_rest_inv(inv_):
     return __need_list
 
 
-
-
-
 def assert_frame_not_equal(df1, df2, **kwargs):
     try:
         assert_frame_equal(df1, df2, **kwargs)
         raise AssertionError('DataFrames are equal.')
     except AssertionError:
         pass
+
 
 if __name__ == '__main__':
 

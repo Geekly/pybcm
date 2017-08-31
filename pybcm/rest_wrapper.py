@@ -102,7 +102,8 @@ class rest_wrapper:
         pg = self.rc.get_price_guide(itemid, 'PART', colorid, new_or_used, guide_type='stock')
         if pg is None:
             raise ValueError("Problem retrieiving price details for {}: {}".format(itemid, colorid))
-        df = details_df_from_json(pg, colorid)
+        pg['item']['color'] = colorid
+        df = details_df_from_json(pg)
         return df
 
     def get_known_colors(self, itemid, itemtypeid):

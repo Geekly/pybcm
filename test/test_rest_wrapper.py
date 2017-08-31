@@ -98,7 +98,7 @@ def test_get_priceguide_df(rw):
 
 def test_get_part_price_guide_df(rw):
     df = rw.get_part_priceguide_summary_df('3008', '10')
-    assert set(('item', 'color')).issubset(set(df.columns))
+    assert {'item', 'color'}.issubset(set(df.columns))
     assert df.shape[0] == 2
 
 

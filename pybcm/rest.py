@@ -117,7 +117,7 @@ class RestClient:
         """
         self.__validate(itemtype=itemtypeid)
         url = build_uri_template('subsets').expand(type=itemtypeid, no=itemid)
-        logger.info("Getting Known Colors from: {}".format(url))
+        #logger.info("Getting Known Colors from: {}".format(url))
         return self.get(url).json()['data']
 
     def get_price_guide(self, itemid, itemtypeid, colorid, new_or_used='U', guide_type='sold'):

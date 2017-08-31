@@ -115,12 +115,17 @@ def test_df_in_dfb(dfa, dfb):
     np.testing.assert_array_equal(a.values, b.values)
 
 
-# def test_want_list_from_rest_inv(inv):
-#     assert True
+def test_unique_two_level_indices(df):
+    df.unique_indices_by_levels(levels=[0, 1])
+    assert False
 
 
-# def test_merge_prices_with_want(price_df, want_list):
-#     assert True
+def test_want_list_from_rest_inv(df):
+    assert False
+
+
+def test_merge_prices_with_want(price_df, want_list):
+    assert False
 
 
 def test_fixtures(dfa, dfb, dfa_indexed, dfb_indexed):

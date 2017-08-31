@@ -28,7 +28,6 @@
     Manage bricklink data through the pandas wrapper api
 
 """
-import const
 import log
 from dataframe import *
 from rest import RestClient
@@ -63,7 +62,7 @@ class Trowel:
         """
         prices = dict()
         for _set in set_list:
-            prices[_set] = self.estimate_set_prices(_set)
+            prices[_set] = self.set_summary(_set)
         return prices
 
     def get_set_inv(self, lego_set_id):
@@ -106,7 +105,6 @@ class Trowel:
         # TODO: Account for subsititutions and find the cheapest of substitutions
 
         needed = want_list_from_rest_inv(inv)
-
         # load existing prices from the db and download the rest
 
         pull_list, price_df = self.prune_pull_list(needed)
@@ -115,18 +113,9 @@ class Trowel:
         # download the list of items in pull_list and build the pandas dataframe
         for index, item in enumerate(pull_list):  # iterate over list of match tuples
             logger.info("Pulling item {:.0f} of {:.0f}".format(index+1, len(pull_list)))
-            # create a pull list of
-            # TODO: Check if price already exists in DB and is not older than a particular date before reloading it
-
             itemid, color, itemtypeid, wanted_qty = item
-            # get the dataframe of the price summary
-            # TODO use the PriceDataFrame here
             prices = self.get_item_prices_df(itemid, itemtypeid, color)
             if prices is not None:
-                # don't add wanted_qty here since existing prices from the store won't know it
-                #prices['wanted_qty'] = item[3]
-                # wanted_avg = prices['wanted_qty'] * prices['avg_price']
-                #TODO: use a PriceDataFrame here
                 price_df = price_df.append(prices)
             else:
                 logger.info("No items to pull")
@@ -137,54 +126,81 @@ class Trowel:
         # combine all of the prices and return them
 
         # add wanted_qty to the price_df
-        price_df = self.merge_prices_with_want(needed, price_df) # not getting correct pricing
+        price_df = self.add_wanted_column(needed, price_df)
         return price_df
 
-    def add_prices_to_store(self, prices):
-        """
-        Add prices to the HDFStore based on the columns of const.HDF_PRICE_COLUMNS and ignoring the rest.
-        :param prices: Price summary DataFrame of multiple parts
-        :return added: Number of rows added to the storage
-        """
-        raise NotImplemented # don't use this anymore
+    # def add_prices_to_store(self, prices):
+    #     """
+    #     Add prices to the HDFStore based on the columns of const.HDF_PRICE_COLUMNS and ignoring the rest.
+    #     :param prices: Price summary DataFrame of multiple parts
+    #     :return added: Number of rows added to the storage
+    #     """
+    #     raise NotImplemented # don't use this anymore
+    #
+    #     if not isinstance(prices, pd.DataFrame):
+    #         raise TypeError("DataFrame required")
+    #     added = 0
+    #     if not prices.empty:
+    #         price_df = prices.reset_index().drop('wanted_qty', axis=1)  # flatten prices df and drop the wantedqty
+    #
+    #         with self.store as store:
+    #             store.open()
+    #             if '/prices' not in store.keys():
+    #                 store.put('prices', price_df, format='table', data_columns=True)
+    #             else:
+    #                 num_orig_rows = store.prices.shape[0]
+    #                 store.append('prices', price_df, data_columns=list(const.HDF_PRICE_COLUMNS))
+    #                 store_df = store.prices
+    #                 merged = store_df.set_index(PRICEGUIDE_INDEX)
+    #                 merged = merged[~merged.index.duplicated(keep='last')]
+    #                 merged = merged.reset_index()
+    #                 num_new_rows = merged.shape[0]
+    #                 store['prices'] = merged
+    #                 store.flush()
+    #                 added = num_new_rows - num_orig_rows
+    #                 logger.info("Added {} rows to store.prices".format(added))
+    #     return added
 
-        if not isinstance(prices, pd.DataFrame):
-            raise TypeError("DataFrame required")
-        added = 0
-        if not prices.empty:
-            price_df = prices.reset_index().drop('wanted_qty', axis=1)  # flatten prices df and drop the wantedqty
-
-            with self.store as store:
-                store.open()
-                if '/prices' not in store.keys():
-                    store.put('prices', price_df, format='table', data_columns=True)
-                else:
-                    num_orig_rows = store.prices.shape[0]
-                    store.append('prices', price_df, data_columns=list(const.HDF_PRICE_COLUMNS))
-                    store_df = store.prices
-                    merged = store_df.set_index(PRICEGUIDE_INDEX)
-                    merged = merged[~merged.index.duplicated(keep='last')]
-                    merged = merged.reset_index()
-                    num_new_rows = merged.shape[0]
-                    store['prices'] = merged
-                    store.flush()
-                    added = num_new_rows - num_orig_rows
-                    logger.info("Added {} rows to store.prices".format(added))
-        return added
+    @classmethod
+    def best_prices(cls, price_df):
+        """
+        Find the best price among 'N' or 'U' for a given item and return the corresponding
+        price dataframe
+        :param price_df:
+        :return best_price_df:
+        """
+        df = price_df.reset_index().set_index(['item', 'color', 'new_or_used'])
+        df = df.sort_index() # most efficient indexing if sorted
+        # find the set of unique indexes for the first two index levels
+        two_level_idx = set(zip(df.index.get_level_values(0), df.index.get_level_values(1)))
+        # loop over rows with the same index at level 0 and 1 finding the min 'avg_price'
+        best_idx = [(*idx, df.loc[idx]['avg_price'].idxmin()) for idx in two_level_idx]
+        best_price_df = df.loc[best_idx]
+        return best_price_df.reset_index()
 
     @classmethod
     def estimate_inv_cost(cls, prices):
         """
-        Calculate estimated prices based on New and Used price catalogs
+        Calculate estimated prices based on the lowest prices between New and Used price catalogs
         :param prices:
         :return dictionary of costs:
         """
-        est_cost = dict({"N": 0.0, "U": 0.0})
+        est_cost = dict({"best": 0.0, "N": 0.0, "U": 0.0})
+        b = cls.best_prices(prices)
         p = prices.reset_index()
+
         p['wanted_avg'] = p['wanted_qty'] * p['avg_price']
+        est_cost['best'] = (b['wanted_qty']*b['avg_price']).sum()
         est_cost['N'] = p[p['new_or_used'] == 'N']['wanted_avg'].sum()
         est_cost['U'] = p[p['new_or_used'] == 'U']['wanted_avg'].sum()
+        #logger.debug("")
         return est_cost
+
+
+
+    @classmethod
+    def unique_indices(cls, df):
+        return list(zip(df.index.get_level_values(0), df.index.get_level_values(1)))
 
     #TODO: write a test for this method
     #TODO: add ability to date check
@@ -212,20 +228,25 @@ class Trowel:
         #store.close()
         return pull_list, already_known_prices_df
 
-    def estimate_set_prices(self, set_name):
+    def set_summary(self, set_name):
         """
         Estimate prices for the given set_name by reading prices and performing the summary calculations
         :param set_name:
-        :return cost: Dictionary of estimated cost
+        :return item: Dictionary of item with of estimated cost under 'cost' key
         """
-        inv = self.get_set_inv(set_name)
-        prices = self.get_inv_prices_df(inv)
-        # tr.add_prices_to_store(prices)
+        item = self.rc.get_item(set_name, 'SET')
+        cost = self.summarize_set_cost(set_name)
+        item['cost'] = cost
+        return item
+
+    def summarize_set_cost(self, set_name):
+        _inv = self.get_set_inv(set_name)
+        prices = self.get_inv_prices_df(_inv)
         cost = self.estimate_inv_cost(prices)
         logger.info("Estimated cost of set {} is {}".format(set_name, cost))
         return cost
 
-    def merge_prices_with_want(self, want_tuplelist, prices_df):
+    def add_wanted_column(self, want_tuplelist, prices_df):
         """
         Add wanted_qty from want_tuplelist to the prices DataFrame
         :param want_tuplelist: ('item', 'color', 'itemtype', 'wanted_qty')
