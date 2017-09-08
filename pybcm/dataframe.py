@@ -51,7 +51,7 @@ def monkeypatch_method(cls):
 @monkeypatch_method(pd.DataFrame)
 def indexed_df(self, idx=None):
     if idx is None:
-        idx = ['item', 'color']
+        idx = ['item', 'color', 'new_or_used']
     dfa = self.set_index(idx)
     a = dfa.remove_duplicates_by_index()
     return a
@@ -86,7 +86,7 @@ def in_dfb(self, dfb, idx=None):
         based on index idx
     """
     if idx is None:
-        idx = ['item', 'color']
+        idx = ['item', 'color', 'new_or_used']
     a = self.indexed_df(idx)
     b = dfb.indexed_df(idx)
     common_i = a.index.isin(b.index)
