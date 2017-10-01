@@ -1,15 +1,17 @@
 import pytest
 
 from config import BCMConfig
+from const import PRICEGUIDE_COLUMNS
 from dataframe import *
-from rest_wrapper import rest_wrapper, details_df_from_json, summary_df_from_json
+from rest_wrapper import RestWrapper, details_df_from_json, summary_df_from_json
 
 
 @pytest.fixture(scope="module")
 def rw():
     config = BCMConfig('../config/bcm.ini')
-    _rw = rest_wrapper(config)
+    _rw = RestWrapper(config)
     return _rw
+
 
 @pytest.fixture(scope="module")
 def price_tuple():
@@ -80,7 +82,7 @@ def price_tuple():
     return _price_tuple
 
 
-def test_get_priceguide_df(rw):
+def test_get_priceguide_summary_df(rw):
     df1 = rw.get_priceguide_summary_df('3008', 'PART', '10', guide_type='sold')
     df2 = rw.get_priceguide_summary_df('3008', 'PART', '10', guide_type='stock')
 
@@ -96,31 +98,40 @@ def test_get_priceguide_df(rw):
     print(df2.head())
 
 
-def test_get_part_price_guide_df(rw):
+def test_get_part_price_guide_summary_df(rw):
     df = rw.get_part_priceguide_summary_df('3008', '10')
     assert {'item', 'color'}.issubset(set(df.columns))
+    assert set(PRICEGUIDE_COLUMNS).issubset(set(df.columns))
     assert df.shape[0] == 2
+    print(df.head())
+
+
+def test_get_part_priceguide_details(rw):
+    df = rw.get_part_priceguide_details_df('3008', '34', new_or_used='U', guide_type='stock')
+    assert {'quantity', 'shipping_available', 'unit_price'}.issubset(set(df.columns))
+    print(df.head(3))
+    df = rw.get_part_priceguide_details_df('3008', '34', new_or_used='U', guide_type='sold')
+    assert {'buyer_country_code', 'date_ordered', 'quantity', 'seller_country_code', 'unit_price'}.issubset(set(df.columns))
+    print(df.head(3))
 
 
 def test_get_known_colors(rw):
     colors_df = rw.get_known_colors('3008', 'PART')
     assert colors_df.index.name == 'color_id'
+    assert 'quantity' in colors_df.columns
     print(colors_df.head())
 
 
-def test_get_part_priceguide_details(rw):
-    df = rw.get_part_priceguide_details_df('3008', '34', new_or_used='U')
-    print(df.head())
-
-
-#TODO Add sold_or_stock test
 def test_priceguide_summary_from_json(price_tuple):
-    s1 = summary_df_from_json(price_tuple, '11')
+    s1 = summary_df_from_json(price_tuple, '11', sold_or_stock='sold')
+    s2 = summary_df_from_json(price_tuple, '12', sold_or_stock='stock')
     print(s1)
+    print(s2)
 
 
 def test_priceguide_details_from_json(price_tuple):
-    d1 = details_df_from_json(price_tuple[0])
+    d1 = details_df_from_json(price_tuple[0]) # called for a single 'N' or 'U'
     d2 = details_df_from_json(price_tuple[1])
-    print(d1.append(d2)['unit_price'])
+    print(d1.append(d2))
+
 
