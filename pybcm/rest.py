@@ -31,12 +31,15 @@ import requests
 from requests_oauthlib import OAuth1
 from uritemplate import URITemplate
 
-import log
-from config import BCMConfig
-from const import *
-from legoutils import legoColors
+import pybcm.log
+from pybcm.const import *
+from pybcm.legoutils import legoColors
 
 logger = logging.getLogger("pybcm.{}".format(__name__))
+
+
+class RestException(Exception):
+    pass
 
 
 def build_uri_template(url_key):
@@ -51,7 +54,8 @@ def build_uri_template(url_key):
 class RestClient:
     """Rest Client for Bricklink website"""
 
-    def __init__(self, config=BCMConfig('../config/bcm.ini')):
+    def __init__(self, config):
+    #def __init__(self, config):
         __consumer_key = config.consumer_key
         __consumer_secret = config.consumer_secret
         __token_key = config.token_key
@@ -77,8 +81,29 @@ class RestClient:
         :param url: URL to retrieve
         :return response: The response
         """
-        response = requests.get(url, auth=self.auth)
+        # todo: do some error checking here
+        try:
+            response = requests.get(url, auth=self.auth)
+            rest_code = response.json()['meta']['code']
+            if rest_code not in [200, 201, 204]:
+                raise RestException(f"REST API Error: {rest_code}. {response.content}")
+        except RestException as e:
+            logger.error(e)
+            return None
         return response
+
+    def get_data(self, url):
+        """
+        Get data from rest response @ url
+        :param url:
+        :return:
+        """
+        data = None
+        resp = self.get(url)
+        if resp:
+            data = self.get(url).json()['data']
+        return data
+
 
     def get_item(self, itemid, itemtypeid):
         """
@@ -88,7 +113,10 @@ class RestClient:
         self.__validate(itemtype=itemtypeid)
         url = build_uri_template('item').expand(type=itemtypeid, no=itemid)
         logger.info("Getting Item from: {}".format(url))
-        return self.get(url).json()['data']
+
+        data = self.get_data(url)
+        return data
+
 
     def get_item_image(self, itemid, itemtypeid, colorid):
         """
@@ -98,7 +126,8 @@ class RestClient:
         self.__validate(itemtype=itemtypeid, color=colorid)
         url = build_uri_template('item_image').expand(type=itemtypeid, no=itemid, color_id=colorid)
         logger.info("Getting image from: {}".format(url))
-        return self.get(url).json()['data']
+        data = self.get_data(url)
+        return data
 
     def get_supersets(self, itemid, itemtypeid):
         """
@@ -108,17 +137,22 @@ class RestClient:
         self.__validate(itemtype=itemtypeid)
         url = build_uri_template('supersets').expand(type=itemtypeid, no=itemid)
         logger.info("Getting supersets from: {}".format(url))
-        return self.get(url).json()['data']
+        data = self.get_data(url)
+        return data
+
 
     def get_subsets(self, itemid, itemtypeid):
         """
+        This is used to get a set inventory
         /items/{type}/{no}/subsets
         (see Bricklink API)
         """
         self.__validate(itemtype=itemtypeid)
         url = build_uri_template('subsets').expand(type=itemtypeid, no=itemid)
         #logger.info("Getting Known Colors from: {}".format(url))
-        return self.get(url).json()['data']
+        # return self.get(url).json()['data']
+        data = self.get_data(url)
+        return data
 
     def get_price_guide(self, itemid, itemtypeid, colorid, new_or_used='U', guide_type='sold'):
         """
@@ -167,6 +201,8 @@ class RestClient:
 
     def get_known_colors(self, itemid, itemtypeid):
         """
+        http://apidev.bricklink.com/redmine/projects/bricklink-api/wiki/CatalogMethod#Get-Known-Colors
+
         Get the list of known colors for a given item
         /items/{type}/{no}/colors
         :param itemid:
@@ -175,10 +211,10 @@ class RestClient:
         """
         url = build_uri_template('known_colors').expand(type=itemtypeid, no=itemid)
         logger.debug("Getting Known Colors from: {}".format(url))
-        data = self.get(url).json()['data']
+        data = self.get_data(url)
         return data
 
 
 if __name__ == "__main__":
-    logger = log.setup_custom_logger('pybcm')
+    logger = pybcm.log.setup_custom_logger('pybcm')
     pass

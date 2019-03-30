@@ -25,13 +25,15 @@
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 """
-    Manage bricklink data through the pandas wrapper api
+    Manage bricklink data through the pandas wrapper api. This is a high level user interface for gathering and
+    operating on price lists and inventories.
 
 """
 import log
+from brick_info import BrickInfo
 from dataframe import *
 from rest import RestClient
-from rest_wrapper import rest_wrapper
+from rest_wrapper import RestWrapper
 
 # logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger("pybcm.{}".format(__name__))
@@ -39,12 +41,13 @@ logger = logging.getLogger("pybcm.{}".format(__name__))
 
 class Trowel:
 
-    """ interacts with the HDFStore and clients to build and operate on datasets """
+    """ interacts with the HDFStore and rest clients to build and operate on datasets """
 
     def __init__(self, config):
         self.config = config
-        self.rc = RestClient()
-        self.rw = rest_wrapper()
+        self.rc = RestClient()  #TODO: really shouldn't have to manage both a RestClient and a RestWrapper at this level
+        self.rw = RestWrapper()
+        self.bp = BrickInfo(self.rc, self.rw)
         pd.set_option('io.hdf.default_format', 'table')
         self.prices_key = 'prices'
         self.store = pd.HDFStore("../resources/data/pybcm.hd5")
@@ -72,21 +75,24 @@ class Trowel:
 
     def get_item_prices_df(self, itemid, itemtypeid, color, guide_type='sold'):
         """
-        Retrieve a priceguide DataFrame from the rest_wrapper and add it to the store.
+        Retrieve a priceguide DataFrame from the RestWrapper and add it to the store.
         :param itemid:
         :param itemtypeid:
         :param color:
         :param guide_type: 'sold' or 'stock'
         :return Price guide DataFrame:
         """
-        pg = self.rw.get_priceguide_summary_df(itemid, itemtypeid, color, guide_type=guide_type)
+        pg = self.bp.get_item_prices_df(itemid, itemtypeid, color, guide_type=guide_type)
         # whenever new data is pulled, add it to the store
         logger.debug("Adding {} to store".format(pg))
         with self.store as store:
             store.open()
             store.append(self.prices_key, pg, data_columns=True,   # const.HDF_PRICE_COLUMNS
                          min_itemsize={'item': 16, 'color': 5, 'new_or_used': 5, 'itemtype': 8, 'currency_code': 6})
+        return pg
 
+    def get_item_prices_from_details_df(self, itemid, itemtypeid, color, guide_type='sold'):
+        pg = None
         return pg
 
     def get_inv_prices_df(self, inv):
@@ -107,7 +113,7 @@ class Trowel:
         needed = want_list_from_rest_inv(inv)
         # load existing prices from the db and download the rest
 
-        pull_list, price_df = self.prune_pull_list(needed)
+        pull_list, price_df = self.remove_known_from_pull_list(needed)
         adding = len(pull_list)
         logger.info("Pulling data for {:.0f} new items".format(adding))
         # download the list of items in pull_list and build the pandas dataframe
@@ -197,14 +203,13 @@ class Trowel:
         return est_cost
 
 
-
     @classmethod
-    def unique_indices(cls, df):
+    def first_two_level_index_pairs(cls, df):
         return list(zip(df.index.get_level_values(0), df.index.get_level_values(1)))
 
     #TODO: write a test for this method
     #TODO: add ability to date check
-    def prune_pull_list(self, needed):
+    def remove_known_from_pull_list(self, needed):
         """Compare needed to prices already contained in the Store.
         :param needed: original pull list of needed items typles as [(item1, color1, itemtypdid1, wanted_qty),...]
         :return pull_list: Updated list of tuples to be pulled [(item1, color1, itemtypdid1, wanted_qty),...]
@@ -217,16 +222,21 @@ class Trowel:
             store.open()
             if '/prices' in store.keys():
                 all_prices_df = store['prices'] #.set_index(PRICEGUIDE_INDEX)
-                needed_df = bcm_from_tuplelist(needed)
-                pull_df = needed_df.not_in_dfb(all_prices_df)
-                pull_list = pull_df.to_tuplelist() # build the wanted list as tuples
-                logger.info("Pruned pull list contains {} elements".format(len(pull_list)))
+                needed_df = wanted_df_from_tuplelist(needed)
+                pull_list = self.pull_list_from_known_and_needed(all_prices_df, needed_df)
                 already_known_prices_df = all_prices_df.in_dfb(needed_df)
             else:
                 pull_list = needed
                 already_known_prices_df = pd.DataFrame()
         #store.close()
         return pull_list, already_known_prices_df
+
+    @classmethod
+    def pull_list_from_known_and_needed(cls, all_prices_df, needed_df):
+        pull_df = needed_df.not_in_dfb(all_prices_df)
+        pull_list = pull_df.to_tuplelist()  # build the wanted list as tuples
+        logger.info("Pruned pull list contains {} elements".format(len(pull_list)))
+        return pull_list
 
     def set_summary(self, set_name):
         """

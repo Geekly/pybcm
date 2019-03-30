@@ -25,22 +25,21 @@
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
-import const
-from config import BCMConfig
+import pybcm.const as const
 from pybcm.dataframe import *  # get monkey-patched version of DataFrame
-from rest import RestClient
+from pybcm.rest import RestClient
 
 
-class rest_wrapper:
-    """Provies a DataFrame wrapper for the RestClient class. Most methods return
-        DataFrames based on the Rest responses
+class RestWrapper:
+    """Provides a DataFrame wrapper for the RestClient class. Most methods return
+        DataFrames based on the Rest responses. Many of them rely on the results from
+        the RestClient's get_price_guide results.
      """
-    def __init__(self, config=BCMConfig('../config/bcm.ini')):
-        self.rc = RestClient()
+    def __init__(self, config):
+
         self.config = config
+        self.rc = RestClient(config)
 
-
-    #TODO: add option to get price details
     def get_priceguide_summary_df(self, itemid, itemtypeid, colorid, guide_type='sold', details=False):
         """
         :param itemid: Item id
@@ -91,29 +90,31 @@ class rest_wrapper:
         if pg_new is None or pg_used is None:
             raise ValueError("Problem retrieiving {}: {}".format(itemid, colorid))
         pg_json = (pg_new, pg_used)
-        price_df = summary_df_from_json(pg_json, colorid)
+        price_df = _summary_df_from_json(pg_json, colorid)
         return price_df
 
     def get_part_priceguide_summary_df(self, itemid, colorid):
+        """Shortcuts the get_priceguide_summary_df with default PART values"""
         df = self.get_priceguide_summary_df(itemid, 'PART', colorid)
         return df
 
-    def get_part_priceguide_details_df(self, itemid, colorid, new_or_used='U'):
-        pg = self.rc.get_price_guide(itemid, 'PART', colorid, new_or_used, guide_type='stock')
+    def get_part_priceguide_details_df(self, itemid, colorid, new_or_used='U', guide_type='stock'):
+        pg = self.rc.get_price_guide(itemid, 'PART', colorid, new_or_used, guide_type)
         if pg is None:
             raise ValueError("Problem retrieiving price details for {}: {}".format(itemid, colorid))
         pg['item']['color'] = colorid
-        df = details_df_from_json(pg)
+        df = _details_df_from_json(pg)
         return df
 
     def get_known_colors(self, itemid, itemtypeid):
+        """Get the available colors for a given item"""
         colors = self.rc.get_known_colors(itemid, itemtypeid)
         df = pd.DataFrame.from_dict(colors, orient="columns").set_index(['color_id'])
         return df
 
 
 #TODO: this function needs to be reworked
-def summary_df_from_json(dict_tuple, color, sold_or_stock='sold'):
+def _summary_df_from_json(dict_tuple, color, sold_or_stock='sold'):
     """
     Build a DataFrame of the priceguide for a single part(item + color). Color is
     required since color is not contained in the priceguide information
@@ -152,13 +153,13 @@ def summary_df_from_json(dict_tuple, color, sold_or_stock='sold'):
       ]
     }
     :param color: Color isn't contained in the JSON results, so we track it as well
+    :param sold_or_stock: Flag whether the prices are sold or stock prices
     :return summary_df:
     """
-    # top_fields = ['item', 'new_or_used', 'avg_price', 'max_price', 'min_price',
-    #              'qty_avg_price', 'total_quantity', 'unit_quantity', 'currency_code', 'price_detail']
 
     # define table fields
     common_fields = ['item', 'itemtype', 'color']
+    #common_fields = const.
     numeric_fields = ['avg_price', 'max_price', 'min_price', 'qty_avg_price', 'total_quantity', 'unit_quantity']
     summary_pull_fields = ['new_or_used', 'currency_code'] + numeric_fields
     df_columns = common_fields + summary_pull_fields
@@ -177,13 +178,12 @@ def summary_df_from_json(dict_tuple, color, sold_or_stock='sold'):
 
     summary_df = pd.DataFrame(summary, columns=df_columns)
     summary_df[numeric_fields] = summary_df[numeric_fields].apply(pd.to_numeric)
-
-    # TODO: for now, ignoring sold and stock and just using the common fields
+    summary_df['sold_or_stock'] = sold_or_stock
 
     return summary_df
 
 
-def details_df_from_json(price_dict):
+def _details_df_from_json(price_dict):
     """
     Returns a DataFrame containing the price_details of a single catalog Item.
     :param price_dict: One Item entry of the JSON data

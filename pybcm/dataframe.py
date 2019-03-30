@@ -29,8 +29,8 @@ import logging
 import pandas as pd
 from pandas.testing import assert_frame_equal
 
-# from config import BCMConfig
-# from rest import RestClient
+# pandas.DataFrame has functionality added to it via monkeypatching. pandas.DataFrame should not be imported directly
+# in the codebase. Import pybcm.dataframe instead.
 
 logger = logging.getLogger("pybcm.{}".format(__name__))
 
@@ -107,10 +107,8 @@ def unique_indices_by_levels(self, levels=[0, 1]):
     idx = [self.index.get_level_values(i).values for i in levels]
     return set(zip(*idx))
 
-"""Wrapper for the Rest client that provides results in pandas format"""
-
-
-def bcm_from_tuplelist(needed):
+"""BCM dataframe helper functions"""
+def wanted_df_from_tuplelist(needed):
     """ Converts a list of (itemid, color, qty) tuple values to a dataframe"""
     df = pd.DataFrame(needed, columns=['item', 'color', 'itemtype', 'qty'])
     return df
@@ -130,6 +128,7 @@ def want_list_from_rest_inv(inv_):
 
 
 def assert_frame_not_equal(df1, df2, **kwargs):
+    # assert_frame_equal exists, but we need the ability to assert that frames are not equal
     try:
         assert_frame_equal(df1, df2, **kwargs)
         raise AssertionError('DataFrames are equal.')

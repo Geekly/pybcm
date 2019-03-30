@@ -29,6 +29,7 @@ ITEM_TYPES = ('MINIFIG', 'PART', 'SET', 'BOOK', 'GEAR', 'CATALOG', 'INSTRUCTION'
 GUIDE_TYPES = ('sold', 'stock')
 REGIONS = ('asia', 'africa', 'north_america', 'south_america', 'middle_east', 'europe', 'eu', 'oceania')
 VATS = ('N', 'Y', 'O')
+COMMON_FIELDS = ['item', 'itemtype', 'color']
 PRICEGUIDE_COLUMNS = ('item', 'color', 'new_or_used', 'itemtype', 'avg_price', 'max_price', 'min_price', 'qty_avg_price',
                       'total_quantity', 'unit_quantity', 'currency_code')
 HDF_PRICE_COLUMNS = PRICEGUIDE_COLUMNS

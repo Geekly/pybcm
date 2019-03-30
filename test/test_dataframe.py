@@ -5,10 +5,11 @@ from pandas import HDFStore
 import log
 from pybcm.dataframe import *
 
-#from pybcm.dataframe import bcm_from_tuplelist, PRICEGUIDE_INDEX
+#from pybcm.dataframe import wanted_df_from_tuplelist, PRICEGUIDE_INDEX
 
 logger = log.setup_custom_logger("test.pybcm.{}".format(__name__))
 
+"""Fixtures"""
 
 @pytest.fixture(scope="module")
 def simple_df():
@@ -68,37 +69,18 @@ def dfb_indexed(dfb):
     _dfb = dfb.set_index(['item', 'color'])
     return _dfb
 
-#
-# @pytest.fixture(scope="function")
-# def pdf(price_df):
-#     _pdf = PriceDataFrame()
-#     _pdf.df = price_df.set_index(['item', 'color'])
-#     return _pdf
+"""Tests"""
 
 
-def test_tuple_as_df():
-    test_tuple = [('4003', '86', 'PART', 42), ('4003', '10', 'PART', 12)]
-    df = bcm_from_tuplelist(test_tuple)
-    assert isinstance(df, pd.DataFrame)
-    return df
+# TODO: implement this
+def test_indexed_df(simple_df):
+    logger.debug(simple_df)
+    assert False
 
 
-def test_remove_duplicates_by_index(indexed_pg_df):
-    assert isinstance(indexed_pg_df, pd.DataFrame)
-    A = indexed_pg_df
-    B = A.remove_duplicates_by_index()
-    assert isinstance(B, pd.DataFrame)
-    assert not A.shape == B.shape
-    print(B)
-
-
-# def test_remove_duplicates_from_PriceGuideDf(pdf):
-#     assert isinstance(pdf, PriceDataFrame)
-#     A = pdf.df
-#     B = remove_duplicates_by_index(A)
-#     assert isinstance(B, pd.DataFrame)
-#     assert not A.shape == B.shape
-#     print(B)
+# TODO: implement this
+def test_to_tuplelist(dfa):
+    assert False
 
 
 def test_df_not_in_dfb(dfa, dfb):
@@ -115,17 +97,35 @@ def test_df_in_dfb(dfa, dfb):
     np.testing.assert_array_equal(a.values, b.values)
 
 
-def test_unique_two_level_indices(df):
+def test_remove_duplicates_by_index(indexed_pg_df):
+    assert isinstance(indexed_pg_df, pd.DataFrame)
+    A = indexed_pg_df
+    B = A.remove_duplicates_by_index()
+    assert isinstance(B, pd.DataFrame)
+    assert not A.shape == B.shape
+    print(B)
+
+
+def test_unique_indices_by_levels(df):
     df.unique_indices_by_levels(levels=[0, 1])
     assert False
 
 
+def test_wanted_df_from_tuplelist():
+    test_tuple = [('4003', '86', 'PART', 42), ('4003', '10', 'PART', 12)]
+    df = wanted_df_from_tuplelist(test_tuple)
+    assert isinstance(df, pd.DataFrame)
+    return df
+
+
+#TODO: implement this
 def test_want_list_from_rest_inv(df):
+    df.want_list_from_rest_inv(inv_)
     assert False
 
 
-def test_merge_prices_with_want(price_df, want_list):
-    assert False
+# def test_merge_prices_with_want(price_df, want_list):
+#     assert False
 
 
 def test_fixtures(dfa, dfb, dfa_indexed, dfb_indexed):

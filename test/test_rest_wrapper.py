@@ -3,7 +3,7 @@ import pytest
 from config import BCMConfig
 from const import PRICEGUIDE_COLUMNS
 from dataframe import *
-from rest_wrapper import RestWrapper, details_df_from_json, summary_df_from_json
+from rest_wrapper import RestWrapper, _details_df_from_json, _summary_df_from_json
 
 
 @pytest.fixture(scope="module")
@@ -109,10 +109,10 @@ def test_get_part_price_guide_summary_df(rw):
 def test_get_part_priceguide_details(rw):
     df = rw.get_part_priceguide_details_df('3008', '34', new_or_used='U', guide_type='stock')
     assert {'quantity', 'shipping_available', 'unit_price'}.issubset(set(df.columns))
-    print(df.head(3))
+    print(df.head(5))
     df = rw.get_part_priceguide_details_df('3008', '34', new_or_used='U', guide_type='sold')
     assert {'buyer_country_code', 'date_ordered', 'quantity', 'seller_country_code', 'unit_price'}.issubset(set(df.columns))
-    print(df.head(3))
+    print(df.head(5))
 
 
 def test_get_known_colors(rw):
@@ -122,16 +122,16 @@ def test_get_known_colors(rw):
     print(colors_df.head())
 
 
-def test_priceguide_summary_from_json(price_tuple):
-    s1 = summary_df_from_json(price_tuple, '11', sold_or_stock='sold')
-    s2 = summary_df_from_json(price_tuple, '12', sold_or_stock='stock')
+def test_priceguide_summary_df_from_json(price_tuple):
+    s1 = _summary_df_from_json(price_tuple, '11', sold_or_stock='sold')
+    s2 = _summary_df_from_json(price_tuple, '12', sold_or_stock='stock')
     print(s1)
     print(s2)
 
 
-def test_priceguide_details_from_json(price_tuple):
-    d1 = details_df_from_json(price_tuple[0]) # called for a single 'N' or 'U'
-    d2 = details_df_from_json(price_tuple[1])
+def test_priceguide_details_df_from_json(price_tuple):
+    d1 = _details_df_from_json(price_tuple[0]) # called for a single 'N' or 'U'
+    d2 = _details_df_from_json(price_tuple[1])
     print(d1.append(d2))
 
 

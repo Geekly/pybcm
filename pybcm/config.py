@@ -28,13 +28,14 @@
 Manage the module configuration settings
 """
 import logging
-#import log
+import os
+# import pybcm.log
 from configparser import RawConfigParser
 
 logger = logging.getLogger(__name__)
 
 
-class BCMConfig():
+class BCMConfig:
     """ Reads configuration information from bcm.ini.
 
         Args:
@@ -51,8 +52,10 @@ class BCMConfig():
 
     def __init__(self, configFileName):
         #  _parser = SafeConfigParser()
-        self._configfile = configFileName    # '../config/bcm.ini'
+        print(f"Initializing {__class__} {configFileName}")
+        #self._configfile = configFileName    # '../config/bcm.ini'
         self.__parser = RawConfigParser()
+        self._configfile = os.path.abspath(configFileName)
 
         _dataset = self.__parser.read(self._configfile)
         if len(_dataset) <= 0:
@@ -70,6 +73,8 @@ class BCMConfig():
 
         self.reloadpricesfromweb = self.__parser.getboolean('options', 'reloadpricesfromweb')
 
+    def __str__(self):
+        return vars(self).items()
 
 
 if __name__ == '__main__':

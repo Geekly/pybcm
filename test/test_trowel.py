@@ -1,10 +1,16 @@
 import numpy as np
-import pandas as pd
+# import pandas as pd
 import pytest
 
+import log
+# from pybcm.dataframe import *
 from pybcm.config import BCMConfig
 from pybcm.trowel import Trowel
 
+#TODO: many of these methods still need to be completed
+
+
+logger = log.setup_custom_logger("test.pybcm.{}".format(__name__))
 
 @pytest.fixture(scope="module")
 def config():
@@ -57,11 +63,15 @@ def test_summary():
     pass
 
 
-def test_get_set_inv():
+def test_get_set_inv(trowel):
+    inv = trowel.get_set_inv('10808 - 1')
+    logger.info(inv)
     pass
 
 
-def test_get_item_prices_df():
+def test_get_item_prices_df(trowel):
+    pg = trowel.get_item_prices_df('3008', 'PART', '11', guide_type='sold')
+    print(pg)
     pass
 
 

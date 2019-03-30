@@ -1,6 +1,7 @@
 import pytest
 
 import log
+from pybcm.config import BCMConfig
 from pybcm.rest import RestClient, build_uri_template
 
 logger = log.setup_custom_logger("test.pybcm.{}".format(__name__))
@@ -8,7 +9,7 @@ logger = log.setup_custom_logger("test.pybcm.{}".format(__name__))
 
 @pytest.fixture(scope="module")
 def rc():
-    _rc = RestClient()
+    _rc = RestClient(config=BCMConfig(r'../config/bcm.ini'))
     return _rc
 
 
