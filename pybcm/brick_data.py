@@ -1,4 +1,4 @@
-# Copyright (c) 2012-2017, Keith Hooks
+# Copyright (c) 2012-2019, Keith Hooks
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -23,33 +23,88 @@
 # THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-
+from typing import Tuple, Dict
 
 import pybcm.const as const
-from pybcm.dataframe import *  # get monkey-patched version of DataFrame
+from deprecated.dataframe import *  # get monkey-patched version of DataFrame
+from pybcm.config import BCMConfig
+from pybcm.const import ItemType, GuideType, NewUsed
+from pybcm.legoutils import legoColors
 from pybcm.rest import RestClient
 
 
-class RestWrapper:
+class Brick:
+    """ Provides validation for a lego element """
+    def __init__(self, itemid, itemtype, color):
+        self.itemid = itemid
+        self.itemtype = itemtype
+        self.color = color
+
+    @property
+    def itemid(self):
+        return self._itemid
+
+    @itemid.setter
+    def itemid(self, value):
+        """set and validate itemid"""
+        # todo: do a format check. Should be a string with letters and numbers only
+        if value:
+            self._itemid = value
+        else:
+           raise ValueError(f"Item ID <{value}> is invalid")
+
+    @property
+    def itemtype(self):
+        return self._itemtype
+
+    @itemtype.setter
+    def itemtype(self, value):
+        if value and value in ItemType:
+            self._itemtype = value
+        else:
+            raise ValueError(f"Item Type <{value}> is invalid.")
+
+    @property
+    def color(self):
+        return self._color
+
+    @color.setter
+    def color(self, value):
+        value = int(value)
+        if value and value in legoColors:
+            self._color = value
+        else:
+            raise ValueError(f"Color id <{value}> is invalid.")
+
+
+class BrickData:
     """Provides a DataFrame wrapper for the RestClient class. Most methods return
         DataFrames based on the Rest responses. Many of them rely on the results from
         the RestClient's get_price_guide results.
      """
-    def __init__(self, config):
+    def __init__(self, config: BCMConfig):
 
         self.config = config
         self.rc = RestClient(config)
 
-    def get_priceguide_summary_df(self, itemid, itemtypeid, colorid, guide_type='sold', details=False):
+        self._color_df = None
+        self.load_colors_from_bl()  # load colors into self._category_df
+        self._category_df = None
+        self.load_categories_from_bl()  # load categories into self._category_df
+
+    def get_brick_price_summary(self, brick, new_used='N', guide_type=GuideType.sold):
+        return self.get_price_summary(brick.itemid, brick.itemtype, brick.color,
+                                      new_used=new_used, guide_type=guide_type)
+
+    def get_price_summary(self, itemid, itemtypeid, colorid, new_used=NewUsed.N, guide_type=GuideType.sold):
         """
         :param itemid: Item id
         :param itemtypeid: Item type
         :param colorid: Color
         :param guide_type: 'sold' or 'stock'
-        :param details: boolean whether to collect price details as well
         :return price_df: DataFrame of the price summary for a specific item (not detailed prices)
 
-        get_priceguide_summary_df returns a dictionary of the following format:
+        get_price_summary returns a dictionary of the following format:
 
         typ = {
             "item": {
@@ -93,13 +148,13 @@ class RestWrapper:
         price_df = _summary_df_from_json(pg_json, colorid)
         return price_df
 
-    def get_part_priceguide_summary_df(self, itemid, colorid):
-        """Shortcuts the get_priceguide_summary_df with default PART values"""
-        df = self.get_priceguide_summary_df(itemid, 'PART', colorid)
+    def get_part_price_summary(self, itemid, colorid):
+        """Shortcuts the get_price_summary with default PART values"""
+        df = self.get_price_summary(itemid, ItemType.PART, colorid)
         return df
 
-    def get_part_priceguide_details_df(self, itemid, colorid, new_or_used='U', guide_type='stock'):
-        pg = self.rc.get_price_guide(itemid, 'PART', colorid, new_or_used, guide_type)
+    def get_part_price_details(self, itemid, colorid, new_or_used=NewUsed.N, guide_type=GuideType.stock):
+        pg = self.rc.get_price_guide(itemid, ItemType.PART, colorid, new_or_used, guide_type)
         if pg is None:
             raise ValueError("Problem retrieiving price details for {}: {}".format(itemid, colorid))
         pg['item']['color'] = colorid
@@ -109,15 +164,32 @@ class RestWrapper:
     def get_known_colors(self, itemid, itemtypeid):
         """Get the available colors for a given item"""
         colors = self.rc.get_known_colors(itemid, itemtypeid)
-        df = pd.DataFrame.from_dict(colors, orient="columns").set_index(['color_id'])
+        df = pd.DataFrame.from_dict(colors, orient="columns")
+        df['color_name'] = df['color_id'].apply(lambda x: legoColors[x])
+        df = df.set_index(['color_id'])
         return df
 
+    def get_all_colors(self):
+        color_dict = self.rc.get_all_colors()
+        df = pd.DataFrame(color_dict)
+        return df
 
-#TODO: this function needs to be reworked
-def _summary_df_from_json(dict_tuple, color, sold_or_stock='sold'):
+    def load_colors_from_bl(self):
+        self._color_df = self.get_all_colors()
+
+    def get_categories(self):
+        cat_dict = self.rc.get_category_list()
+        df = pd.DataFrame(cat_dict)
+        return df
+
+    def load_categories_from_bl(self):
+        self._category_df = self.get_categories()
+
+
+def _summary_df_from_json(dict_tuple: Tuple[Dict, Dict], color: int, sold_or_stock=GuideType.sold) -> pd.DataFrame:
     """
-    Build a DataFrame of the priceguide for a single part(item + color). Color is
-    required since color is not contained in the priceguide information
+    Build a DataFrame of the priceguide for a single part(item + color). Color is added
+    since color is not contained in the priceguide information
     :param dict_tuple: = a tuple of ({new_prices}, {used_prices}) where {X_prices} look like:
 
     {
@@ -157,14 +229,14 @@ def _summary_df_from_json(dict_tuple, color, sold_or_stock='sold'):
     :return summary_df:
     """
 
-    # define table fields
+    # define column names for the DataFrame
     common_fields = ['item', 'itemtype', 'color']
-    #common_fields = const.
-    numeric_fields = ['avg_price', 'max_price', 'min_price', 'qty_avg_price', 'total_quantity', 'unit_quantity']
-    summary_pull_fields = ['new_or_used', 'currency_code'] + numeric_fields
+    numeric_fields = ['avg_price', 'max_price', 'min_price', 'qty_avg_price', 'unit_quantity', 'total_quantity']
+    string_fields = ['new_or_used', 'currency_code']
+    summary_pull_fields = string_fields + numeric_fields
     df_columns = common_fields + summary_pull_fields
 
-    if not set(df_columns) == set(const.PRICEGUIDE_COLUMNS):
+    if not set(df_columns) == set(const.PRICEGUIDE_COLUMNS): # compare the columns above with those defined in const.
         raise ValueError("Wrong column names: {}".format(df_columns))
 
     common_values = {'item': dict_tuple[0]['item']['no'],
@@ -192,4 +264,5 @@ def _details_df_from_json(price_dict):
     details = price_dict['price_detail']
     details_df = pd.DataFrame(details)
     details_df = details_df.drop('qunatity', axis=1)
+    details_df['unit_price'] = details_df['unit_price'].astype(float)
     return details_df

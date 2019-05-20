@@ -3,7 +3,7 @@ import pytest
 from pandas import HDFStore
 
 import log
-from pybcm.dataframe import *
+from deprecated.dataframe import *
 
 #from pybcm.dataframe import wanted_df_from_tuplelist, PRICEGUIDE_INDEX
 

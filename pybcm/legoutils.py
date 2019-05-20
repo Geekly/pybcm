@@ -31,6 +31,8 @@ import json
 import logging
 from collections import namedtuple
 
+import pandas as pd
+
 # from collections import UserDict
 
 
@@ -203,6 +205,34 @@ legoColors = {
 
     }
 
+class Color:
+
+    def __init__(self, colorid):
+        self.validcolors = legoColors.copy()
+        self.id = colorid
+
+    @property
+    def id(self):
+        return self._colorid
+
+    @id.setter
+    def id(self, value):
+        value = int(value)
+        if self.id_is_valid(value):
+            self._colorid = value
+            self.colorname = self.validcolors[value]
+        else:
+            raise ValueError(f"Color ID <{value}> is invalid.")
+
+    def id_is_valid(self, colorid):
+        return int(colorid) in self.validcolors
+
+    def __repr__(self):
+        return f"Color ID:{self.id}, Color Name: {self.colorname}"
+
+    def __str__(self):
+        return self.colorname
+
 
 class WantedElement(namedtuple('ElementBase', 'itemid colorid wantedqty itemname itemtypeid itemtypename elementid')):
     """ Represents a Lego element and its attributes"""
@@ -236,6 +266,20 @@ class WantedElement(namedtuple('ElementBase', 'itemid colorid wantedqty itemname
 
     def __repr__(self):
         return self.json
+
+
+def read_partslist_csv(csv: str)->pd.DataFrame:
+    """Read the Partslist format CSV file from Stud.io"""
+    try:
+        pdf = pd.read_csv(csv, sep='\t', header=0, engine='python', na_values='', skipfooter=3,
+                          dtype={'BLItemNo': str, 'BLColorId': int, 'LDrawColorId': int, 'Qty': int})
+        pdf = pdf.fillna({'BLColorId': '', 'Qty': 0})
+        pdf = pdf.rename(mapper={'BLItemNo': 'ItemId', 'BLColorId': 'Color'}, axis=1)
+        pdf = pdf.drop(columns=['ElementId', 'LdrawId', 'LDrawColorId'])
+        return pdf
+    except FileNotFoundError:
+        return None
+
 
 if __name__ == "__main__":
 

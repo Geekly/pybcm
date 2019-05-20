@@ -30,10 +30,9 @@
 
 """
 import log
-from brick_info import BrickInfo
-from dataframe import *
-from rest import RestClient
-from rest_wrapper import RestWrapper
+from brick_data import BrickData
+from deprecated.brick_info import BrickInfo
+from deprecated.dataframe import *
 
 # logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger("pybcm.{}".format(__name__))
@@ -45,8 +44,8 @@ class Trowel:
 
     def __init__(self, config):
         self.config = config
-        self.rc = RestClient()  #TODO: really shouldn't have to manage both a RestClient and a RestWrapper at this level
-        self.rw = RestWrapper()
+        #self.rc = RestClient()  #TODO: really shouldn't have to manage both a RestClient and a BrickData at this level
+        self.rw = BrickData()
         self.bp = BrickInfo(self.rc, self.rw)
         pd.set_option('io.hdf.default_format', 'table')
         self.prices_key = 'prices'
@@ -75,7 +74,7 @@ class Trowel:
 
     def get_item_prices_df(self, itemid, itemtypeid, color, guide_type='sold'):
         """
-        Retrieve a priceguide DataFrame from the RestWrapper and add it to the store.
+        Retrieve a priceguide DataFrame from the BrickData and add it to the store.
         :param itemid:
         :param itemtypeid:
         :param color:

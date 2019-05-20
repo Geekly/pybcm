@@ -1,16 +1,21 @@
 import pytest
 
+from brick_data import Brick, BrickData, _details_df_from_json, _summary_df_from_json
 from config import BCMConfig
 from const import PRICEGUIDE_COLUMNS
-from dataframe import *
-from rest_wrapper import RestWrapper, _details_df_from_json, _summary_df_from_json
+from deprecated.dataframe import *
 
 
 @pytest.fixture(scope="module")
 def rw():
     config = BCMConfig('../config/bcm.ini')
-    _rw = RestWrapper(config)
+    _rw = BrickData(config)
     return _rw
+
+@pytest.fixture(scope="module")
+def brick():
+    _brick = Brick('3008', 'PART', '10')
+    return _brick
 
 
 @pytest.fixture(scope="module")
@@ -83,8 +88,8 @@ def price_tuple():
 
 
 def test_get_priceguide_summary_df(rw):
-    df1 = rw.get_priceguide_summary_df('3008', 'PART', '10', guide_type='sold')
-    df2 = rw.get_priceguide_summary_df('3008', 'PART', '10', guide_type='stock')
+    df1 = rw.get_price_summary('3008', 'PART', '10', guide_type='sold')
+    df2 = rw.get_price_summary('3008', 'PART', '10', guide_type='stock')
 
     assert {'item', 'color'}.issubset(set(df1.columns))
     assert {'item', 'color'}.issubset(set(df2.columns))
@@ -99,7 +104,7 @@ def test_get_priceguide_summary_df(rw):
 
 
 def test_get_part_price_guide_summary_df(rw):
-    df = rw.get_part_priceguide_summary_df('3008', '10')
+    df = rw.get_part_price_summary('3008', '10')
     assert {'item', 'color'}.issubset(set(df.columns))
     assert set(PRICEGUIDE_COLUMNS).issubset(set(df.columns))
     assert df.shape[0] == 2
@@ -107,11 +112,12 @@ def test_get_part_price_guide_summary_df(rw):
 
 
 def test_get_part_priceguide_details(rw):
-    df = rw.get_part_priceguide_details_df('3008', '34', new_or_used='U', guide_type='stock')
+    df = rw.get_part_price_details('3008', '34', new_or_used='U', guide_type='stock')
     assert {'quantity', 'shipping_available', 'unit_price'}.issubset(set(df.columns))
     print(df.head(5))
-    df = rw.get_part_priceguide_details_df('3008', '34', new_or_used='U', guide_type='sold')
-    assert {'buyer_country_code', 'date_ordered', 'quantity', 'seller_country_code', 'unit_price'}.issubset(set(df.columns))
+    df = rw.get_part_price_details('3008', '34', new_or_used='U', guide_type='sold')
+    assert {'buyer_country_code', 'date_ordered', 'quantity', 'seller_country_code', 'unit_price'}.issubset(
+        set(df.columns))
     print(df.head(5))
 
 
@@ -130,8 +136,14 @@ def test_priceguide_summary_df_from_json(price_tuple):
 
 
 def test_priceguide_details_df_from_json(price_tuple):
-    d1 = _details_df_from_json(price_tuple[0]) # called for a single 'N' or 'U'
+    d1 = _details_df_from_json(price_tuple[0])  # called for a single 'N' or 'U'
     d2 = _details_df_from_json(price_tuple[1])
     print(d1.append(d2))
 
+def test_get_brick_price_summary(rw, brick):
+    d1 = rw.get_brick_price_summary(brick)
+    print(d1)
 
+def test_get_all_colors(rw):
+    d1 = rw.get_all_colors()
+    print(d1)

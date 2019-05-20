@@ -13,6 +13,18 @@ def rc():
     return _rc
 
 
+def test_get(rc):
+    url = r'https://api.bricklink.com/api/store/v1/items/PART/3004'
+    resp = rc.get(url)
+    logger.info(resp)
+
+
+def test_get_data(rc):
+    url = r'https://api.bricklink.com/api/store/v1/items/PART/3004'
+    data = rc.get_data(url)
+    logger.info(data)
+
+
 def test_get_item(rc):
     item = rc.get_item('3006', 'PART')
     logger.debug("Get part {}".format(item))
@@ -38,6 +50,10 @@ def test_get_subsets(rc):
     logger.debug("Gathering subsets {}".format(subsets))
 
 
+def test_get_supersets(rc):
+    pass
+
+
 def test_get_part_price_guide(rc):
     itemid, colorid, new_or_used = '3004', '86', 'N'
     guide = rc.get_part_price_guide(itemid, colorid, new_or_used)
@@ -45,7 +61,7 @@ def test_get_part_price_guide(rc):
 
 
 def test_build_uri_template():
-    key = 'item'
+    key = 'get_item'
     template = build_uri_template(key)
     assert template.uri == 'https://api.bricklink.com/api/store/v1/items/{type}/{no}'
     url = template.expand(type='PART', no='3004')
@@ -53,3 +69,12 @@ def test_build_uri_template():
     logger.info(template)
     logger.info(url)
 
+
+def test_get_color_list(rc):
+    color_list = rc.get_all_colors()
+    logger.info(color_list)
+
+
+def test_get_category_list(rc):
+    cat_list = rc.get_category_list()
+    logger.info(cat_list)
