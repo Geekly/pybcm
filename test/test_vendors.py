@@ -1,8 +1,8 @@
 #import logging
 
-import log
 import pytest
 
+from deprecated import log
 from pybcm.vendors import VendorMap
 
 logger = log.setup_custom_logger(__name__)

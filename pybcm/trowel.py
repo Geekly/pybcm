@@ -1,4 +1,4 @@
-# Copyright (c) 2012-2017, Keith Hooks
+# Copyright (c) 2012-2019, Keith Hooks
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -29,13 +29,15 @@
     operating on price lists and inventories.
 
 """
-import log
+import logging
+from typing import List
+
+import pandas as pd
+
 from brick_data import BrickData
-from deprecated.brick_info import BrickInfo
-from deprecated.dataframe import *
 
 # logging.basicConfig(level=logging.DEBUG)
-logger = logging.getLogger("pybcm.{}".format(__name__))
+logger = logging.getLogger(f"pybcm.{__name__}")
 
 
 class Trowel:
@@ -45,18 +47,18 @@ class Trowel:
     def __init__(self, config):
         self.config = config
         #self.rc = RestClient()  #TODO: really shouldn't have to manage both a RestClient and a BrickData at this level
-        self.rw = BrickData()
-        self.bp = BrickInfo(self.rc, self.rw)
-        pd.set_option('io.hdf.default_format', 'table')
+        self.bd = BrickData(config)
+        # self.bp = BrickInfo(self.rc, self.bd)
+        # pd.set_option('io.hdf.default_format', 'table')
         self.prices_key = 'prices'
-        self.store = pd.HDFStore("../resources/data/pybcm.hd5")
+        # self._store = pd.HDFStore("../resources/data/pybcm.hd5")
 
     def summary(self):
         raise NotImplemented
 
     #TODO: call the rest wrapper instead
     # create a wanted list from a set
-    def price_sets(self, set_list):
+    def price_sets(self, set_list: List[str]):
         """
         Get prices for a list of sets, by set name
         :param set_list: ex. ['10182-1', '10185-1', '10190-1'
@@ -84,7 +86,7 @@ class Trowel:
         pg = self.bp.get_item_prices_df(itemid, itemtypeid, color, guide_type=guide_type)
         # whenever new data is pulled, add it to the store
         logger.debug("Adding {} to store".format(pg))
-        with self.store as store:
+        with self._store as store:
             store.open()
             store.append(self.prices_key, pg, data_columns=True,   # const.HDF_PRICE_COLUMNS
                          min_itemsize={'item': 16, 'color': 5, 'new_or_used': 5, 'itemtype': 8, 'currency_code': 6})
@@ -217,7 +219,7 @@ class Trowel:
         logger.info("Pruning needed list of {} items".format(len(needed)))
         if isinstance(needed, pd.DataFrame):
             raise TypeError("needed should be a list of tuples")
-        with self.store as store:
+        with self._store as store:
             store.open()
             if '/prices' in store.keys():
                 all_prices_df = store['prices'] #.set_index(PRICEGUIDE_INDEX)

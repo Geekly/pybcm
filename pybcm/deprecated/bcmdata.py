@@ -257,7 +257,7 @@ class BCMManager(object):
 
         self.initialized = False
 
-    # overload the default get function.  If the key combo doesn't exist, return a 0,0 pair
+    # overload the default _get function.  If the key combo doesn't exist, return a 0,0 pair
     @staticmethod
     def __createwanteddict(bricklink, wanteddict):
         logging.info("Building Wanted Dictionary")

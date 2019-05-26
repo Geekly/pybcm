@@ -24,7 +24,7 @@
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-# from pybcm.dataframe import *  # get monkey-patched version of DataFrame
+# from pybcm.dataframe import *  # _get monkey-patched version of DataFrame
 
 
 

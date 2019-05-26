@@ -26,7 +26,7 @@
 
 from collections import namedtuple
 
-__all__ = ['ItemType', 'GuideType', 'Region', 'Vats', 'PRICEGUIDE_COLUMNS']
+__all__ = ['ItemType', 'GuideType', 'Region', 'Vats', 'NewUsed', 'PRICEGUIDE_COLUMNS']
 
 ITEM_TYPES = ['MINIFIG', 'PART', 'SET', 'BOOK', 'GEAR', 'CATALOG', 'INSTRUCTION', 'UNSORTED_LOT', 'ORIGINAL_BOX']
 ItemTuple = namedtuple('item_tuple', ITEM_TYPES)
@@ -50,8 +50,8 @@ NewUsed = NewUsedTuple._make(NEWUSED)
 
 
 # define priceguide fields as sets to be used for comparison as order doesn't matter
-COMMON_FIELDS = {'item', 'itemtype', 'color'}
-PRICEGUIDE_COLUMNS = {'item', 'color', 'new_or_used', 'itemtype', 'avg_price', 'max_price', 'min_price', 'qty_avg_price',
+COMMON_FIELDS = {'item_id', 'itemtype', 'color_id'}
+PRICEGUIDE_COLUMNS = {'item_id', 'color_id', 'new_or_used', 'itemtype', 'avg_price', 'max_price', 'min_price', 'qty_avg_price',
                       'total_quantity', 'unit_quantity', 'currency_code'}
 HDF_PRICE_COLUMNS = PRICEGUIDE_COLUMNS
 

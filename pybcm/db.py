@@ -28,7 +28,7 @@ import logging
 import sqlite3
 import time
 
-import log
+from deprecated import log
 
 logger = logging.getLogger(__name__)
 

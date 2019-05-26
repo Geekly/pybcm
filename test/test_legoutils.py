@@ -1,6 +1,7 @@
 import pytest
 
-from pybcm.legoutils import Color, read_partslist_csv
+from PartsList import read_partslist_csv
+from pybcm.legoutils import Color
 
 
 def test_Color():

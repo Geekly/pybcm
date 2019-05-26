@@ -83,7 +83,7 @@ class Optimizer():
         weights, vendors = list(zip(*sortedtuples)) #unzip the sorted tuples
         initialsearchorder = list(vendors) #convert to a list
         # while still need elements
-        # get a vendor search order
+        # _get a vendor search order
         # could truncate the vendor list here if we wanted to
         #firstsearchorder = firstsearchorder[:6] #limit how deep to swap vendors.  8 or higher will blow it up on the Shift search
 

@@ -2,7 +2,7 @@ import numpy as np
 # import pandas as pd
 import pytest
 
-import log
+from deprecated import log
 # from pybcm.dataframe import *
 from pybcm.config import BCMConfig
 from pybcm.trowel import Trowel

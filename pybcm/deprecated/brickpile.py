@@ -38,9 +38,9 @@ import pickle
 
 from pandas import DataFrame
 
-import log
+from deprecated import log
+from deprecated.dataframe import *
 from deprecated.elementreader import ElementWebReader, NEW, USED
-from pybcm.dataframe import *
 from rest import RestClient
 from vendors import VendorMap
 

@@ -31,8 +31,6 @@ import json
 import logging
 from collections import namedtuple
 
-import pandas as pd
-
 # from collections import UserDict
 
 
@@ -42,6 +40,7 @@ PriceTuple = namedtuple('PriceTuple', 'elementid storeid storename price qty con
 # GuideTuple = namedtuple('PriceTuple', 'itemid color avg_price qty condition')
 
 legoColors = {
+        0: 'NA',
         1: 'White',
         2: 'Tan',
         3: 'Yellow',
@@ -266,19 +265,6 @@ class WantedElement(namedtuple('ElementBase', 'itemid colorid wantedqty itemname
 
     def __repr__(self):
         return self.json
-
-
-def read_partslist_csv(csv: str)->pd.DataFrame:
-    """Read the Partslist format CSV file from Stud.io"""
-    try:
-        pdf = pd.read_csv(csv, sep='\t', header=0, engine='python', na_values='', skipfooter=3,
-                          dtype={'BLItemNo': str, 'BLColorId': int, 'LDrawColorId': int, 'Qty': int})
-        pdf = pdf.fillna({'BLColorId': '', 'Qty': 0})
-        pdf = pdf.rename(mapper={'BLItemNo': 'ItemId', 'BLColorId': 'Color'}, axis=1)
-        pdf = pdf.drop(columns=['ElementId', 'LdrawId', 'LDrawColorId'])
-        return pdf
-    except FileNotFoundError:
-        return None
 
 
 if __name__ == "__main__":

@@ -28,8 +28,9 @@
     Get prices for individual PARTS
 
 """
-import log
-from dataframe import *
+from deprecated import log
+from deprecated.dataframe import *
+from pybcm.brick_data import BrickData
 
 # logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger("pybcm.{}".format(__name__))
@@ -39,8 +40,8 @@ class BrickInfo:
 
     """ Retrieves information about individual parts """
 
-    def __init__(self, rc, rw):
-        self.rc = rc
+    def __init__(self, rw: BrickData):
+        #self.rc = rc
         self.rw = rw
         #pd.set_option('io.hdf.default_format', 'table')
         #self.prices_key = 'prices'
@@ -49,21 +50,22 @@ class BrickInfo:
 
     def get_item_summary_prices_df(self, itemid, itemtypeid, color, guide_type='sold'):
         """
-        Retrieve a priceguide DataFrame from the RestWrapper
+        Retrieve a priceguide DataFrame from the BrickData
         :param itemid:
         :param itemtypeid:
         :param color:
         :param guide_type: 'sold' or 'stock'
         :return Price guide DataFrame:
         """
-        pg = self.rw.get_priceguide_summary_df(itemid, itemtypeid, color, guide_type=guide_type)
+        pg = self.rw.get_price_summary(itemid, itemtypeid, color, guide_type=guide_type)
         # do some stuff to this data before returning it
-
         return pg
 
     def get_item_detail_prices_df(self, itemid, itemtypeid, color, guide_type='sold'):
-        self.rw
+        pg = self.rw.get_part_price_details(itemid, itemtypeid, color, guide_type)
         return pg
+
+
 
 
 if __name__ == "__main__":

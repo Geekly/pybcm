@@ -34,8 +34,8 @@ and shopping list functions.
 """
 
 from config import BCMConfig
+from deprecated.log import setup_custom_logger
 from deprecated.vendorstats import VendorStats
-from log import setup_custom_logger
 from wanted import WantedDict
 
 

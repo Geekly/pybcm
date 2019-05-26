@@ -1,11 +1,16 @@
+import logging
+
 import pytest
 
-import log
+from const import GuideType, NewUsed
 from pybcm.config import BCMConfig
 from pybcm.rest import RestClient, build_uri_template
 
-logger = log.setup_custom_logger("test.pybcm.{}".format(__name__))
-
+logging.basicConfig(level=logging.DEBUG)
+logger = logging.getLogger(__name__)
+logging.getLogger('oauthlib.oauth1').setLevel(logging.WARNING)
+logging.getLogger('requests_oauthlib').setLevel(logging.WARNING)
+logging.getLogger('urllib3').setLevel(logging.WARNING)
 
 @pytest.fixture(scope="module")
 def rc():
@@ -15,19 +20,20 @@ def rc():
 
 def test_get(rc):
     url = r'https://api.bricklink.com/api/store/v1/items/PART/3004'
-    resp = rc.get(url)
+    resp = rc._get(url)
     logger.info(resp)
 
 
 def test_get_data(rc):
     url = r'https://api.bricklink.com/api/store/v1/items/PART/3004'
-    data = rc.get_data(url)
+    data = rc._get_data(url)
     logger.info(data)
 
 
 def test_get_item(rc):
     item = rc.get_item('3006', 'PART')
-    logger.debug("Get part {}".format(item))
+    item = rc.get_item('3006', 'PART')
+    logger.info("Get part {}".format(item))
 
 
 def test_get_image(rc):
@@ -37,17 +43,26 @@ def test_get_image(rc):
 
 def test_get_known_colors(rc):
     colors = rc.get_known_colors('3006', 'PART')
-    logger.debug("Get colors for part {}: {}".format('3006', colors))
+    logger.info("Get colors for part {}: {}".format('3006', colors))
 
 
 def test_get_price_guide(rc):
-    price_guide = rc.get_price_guide('3004', 'PART', '86')
-    logger.debug("Get price guide: {}".format(price_guide))
+    price_guide = rc.get_price_guide('3006', 'PART', '10', new_or_used=NewUsed.N, guide_type=GuideType.sold)
+    # check if New and Sold:
+    assert 'date_ordered' in price_guide['price_detail'][0]
+    assert price_guide['new_or_used'] == 'N'
+
+    # check if Used and Stock
+    price_guide = rc.get_price_guide('3006', 'PART', '10', new_or_used=NewUsed.U, guide_type=GuideType.stock)
+    assert 'shipping_available' in price_guide['price_detail'][0]
+    assert price_guide['new_or_used'] == 'U'
+
+    logger.info("Get price guide: {}".format(price_guide))
 
 
 def test_get_subsets(rc):
     subsets = rc.get_subsets('10808-1', 'SET')
-    logger.debug("Gathering subsets {}".format(subsets))
+    logger.info("Gathering subsets {}".format(subsets))
 
 
 def test_get_supersets(rc):
@@ -57,7 +72,7 @@ def test_get_supersets(rc):
 def test_get_part_price_guide(rc):
     itemid, colorid, new_or_used = '3004', '86', 'N'
     guide = rc.get_part_price_guide(itemid, colorid, new_or_used)
-    logger.debug("Gathering price guide: {}".format(guide))
+    logger.info("Gathering price guide: {}".format(guide))
 
 
 def test_build_uri_template():

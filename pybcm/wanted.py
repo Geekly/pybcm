@@ -35,7 +35,7 @@ from collections import UserDict, namedtuple
 
 from bs4 import BeautifulSoup as Soup
 
-import log
+from deprecated import log
 from legoutils import WantedElement
 
 logger = logging.getLogger('pybcm.wanted')
@@ -129,13 +129,11 @@ class WantedDict(UserDict):
         except IOError as e:
             print(e)
 
-    # TODO:Convert unique_items to read-only property
     @property
     def unique_items(self):
         """Return the total number of unique items in the Wanted List"""
         return len(self)
 
-    # TODO:Convert total_items to read-only property
     @property
     def total_items(self):
         """Return the total number of parts in the Wanted List"""

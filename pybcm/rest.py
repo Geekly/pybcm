@@ -25,15 +25,15 @@
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 import logging
+import shelve
 from urllib.parse import urlencode
 
 import requests
 from requests_oauthlib import OAuth1
 from uritemplate import URITemplate
 
-import pybcm.log
 from pybcm.config import BCMConfig
-from pybcm.const import ItemType, GuideType, Vats, Region
+from pybcm.const import ItemType, GuideType, Vats, Region, NewUsed
 from pybcm.legoutils import legoColors
 
 logger = logging.getLogger(__name__)
@@ -73,6 +73,33 @@ def build_uri_template(url_key: str) -> URITemplate:
     return _template
 
 
+def memoize_rc(func):
+    """Used for wrapping functions in the RestClient class that take the arguments
+        itemid, itemtypeid, colorid, new_or_used, guide_type, vat, region
+    """
+    shelf_file = '/Users/Keith/Projects/pybcm_proj/resources/rccache'
+
+    def wrapper(*args, **kwargs):
+
+        key = '_'.join([func.__name__, *args[1:], *kwargs.values()])
+
+        with shelve.open(shelf_file) as shelf:
+            if key in shelf:
+                # if key in shelf and it's not too old
+                logger.debug(f"Retrieving <{func.__name__}, {args}, {kwargs}> from Shelf")
+                data = shelf[key]
+                return data
+
+            else:
+                # call the function and cache
+                logger.debug(f"Caching <{func.__name__}, {args}, {kwargs}> to Shelf")
+                data = func(*args, **kwargs)
+                shelf[key] = data
+                return data
+
+    return wrapper
+
+
 class RestClient:
     """Rest Client for Bricklink website"""
 
@@ -85,35 +112,50 @@ class RestClient:
         self.auth = OAuth1(self.__consumer_key, self.__consumer_secret, self.__token_key, self.__token_secret)
 
     @staticmethod
-    def __validate(itemid: str = None, itemtype: str = None, color: int = None, vat: str = None, region: str = None,
-                   new_or_used: str = None, guidetype: str = None):
+    def __validate(itemid: str = None,
+                   itemtype: str = None,
+                   color: int = None,
+                   vat: str = None,
+                   region: str = None,
+                   new_or_used: str = None,
+                   guide_type: str = None)->bool:
         """
         Validate some of the identities used in the Bricklink REST api. Items are optional
         passing on the ones to validate. Errors are raised on invalid.
         """
-        # todo: add validation for itemid
-        if new_or_used is not None and new_or_used not in ['N', 'U']:
+        # todo: add better validation for itemid
+        if itemid is None:
+            raise ValueError(f"Item Id is not valid.")
+
+        if new_or_used is not None and new_or_used not in NewUsed:
             raise ValueError(f"New or Used {new_or_used} is not valid")
+
         if color is not None and int(color) not in legoColors:
-            raise ValueError(f"Color {color} is not valid")
+            raise ValueError(f"Color {color} is not a valid color")
+
         if itemtype is not None and itemtype not in ItemType:
             raise ValueError(f"Item Type {itemtype} is not valid")
-        if guidetype is not None and guidetype not in GuideType:
-            raise ValueError(f"Guide type {guidetype} is not valid")
+
+        if guide_type is not None and guide_type not in GuideType:
+            raise ValueError(f"Guide type {guide_type} is not valid")
+
         if vat is not None and vat not in Vats:
             raise ValueError(f"Vat type {vat} is not valid")
+
         if region is not None and region not in Region:
             raise ValueError(f"Region {region} is not valid")
+
         return True
 
-    def get(self, url: str) -> requests.Response:
-        """Create request and get it for the passed url
+    def _get(self, url: str) -> requests.Response:
+        """Create request and _get it for the passed url
         :param url: URL to retrieve
         :return response: The response
         """
         # todo: do some error checking here
         if url.startswith(API_PATH['base']):
             try:
+                # logger.debug(f"RestClient._get(): {url}") # log in calling function
                 response = requests.get(url, auth=self.auth)
                 rest_code = response.json()['meta']['code']
                 if rest_code not in [200, 201, 204]:
@@ -125,18 +167,19 @@ class RestClient:
         else:
             raise ValueError(f"URL is invalid: {url}")
 
-    def get_data(self, url: str)->dict:
+    def _get_data(self, url: str)->dict:
         """
         Get data from rest response @ url
         :param url:
         :return:
         """
         data = None
-        resp = self.get(url)
+        resp = self._get(url)
         if resp:
             data = resp.json()['data']
         return data
 
+    @memoize_rc
     def get_item(self, itemid: str, itemtypeid: str):
         """
         /items/{type}/{no}
@@ -146,7 +189,7 @@ class RestClient:
         url = build_uri_template('get_item').expand(type=itemtypeid, no=itemid)
         logger.info("Getting Item from: {}".format(url))
 
-        data = self.get_data(url)
+        data = self._get_data(url)
         return data
 
     def get_item_image(self, itemid: str, itemtypeid: str, colorid: int):
@@ -157,7 +200,7 @@ class RestClient:
         self.__validate(itemid=itemid, itemtype=itemtypeid, color=colorid)
         url = build_uri_template('get_item_image').expand(type=itemtypeid, no=itemid, color_id=colorid)
         logger.info("Getting image from: {}".format(url))
-        data = self.get_data(url)
+        data = self._get_data(url)
         return data
 
     def get_supersets(self, itemid: str, itemtypeid: str)->dict:
@@ -167,50 +210,54 @@ class RestClient:
         """
         self.__validate(itemid=itemid, itemtype=itemtypeid)
         url = build_uri_template('get_supersets').expand(type=itemtypeid, no=itemid)
-        logger.info("Getting supersets from: {}".format(url))
-        data = self.get_data(url)
+        logger.info("Getting supersets: {}".format(url))
+        data = self._get_data(url)
         return data
 
-    def get_subsets(self, itemid: str, itemtypeid: str)->dict:
+    @memoize_rc
+    def get_subsets(self, itemid: str, itemtypeid: str)->list:
         """
-        This is used to get a set inventory
+        This is used to _get a set inventory
         /items/{type}/{no}/subsets
         (see Bricklink API)
         """
         self.__validate(itemid=itemid, itemtype=itemtypeid)
         url = build_uri_template('get_subsets').expand(type=itemtypeid, no=itemid)
-        #logger.info("Getting Known Colors from: {}".format(url))
-        data = self.get_data(url)
+        logger.info("Getting subsets: {}".format(url))
+        data = self._get_data(url)
         return data
 
-    def get_price_guide(self, itemid: str, itemtypeid: str, colorid: int, new_or_used: str='U', guide_type: str='sold',
-                        vat: str='N')->dict:
+    @memoize_rc
+    def get_price_guide(self, itemid: str, itemtypeid: str, colorid: str, new_or_used: str=NewUsed.N,
+                        guide_type: str=GuideType.sold, vat: str='N', region: str=Region.north_america)->dict:
         """
         /items/{type}/{no}/price
         :param itemid:
         :param itemtypeid:
         :param colorid:
-        :param new_or_used: 'N' or 'U'
-        :param guide_type: 'sold' or 'stock
+        :param new_or_used: 'N' or 'U' from NewUsed
+        :param guide_type: 'sold' or 'stock from Guidetype
         :param vat: 'Y' or 'N'
+        :param region: region type from Region
         :return data: JSON formatted price data (see Bricklink API)
         """
-        self.__validate(itemid=itemid, itemtype=itemtypeid, color=colorid, new_or_used=new_or_used, guidetype=guide_type)
+
+        self.__validate(itemid=itemid, itemtype=itemtypeid, color=colorid, new_or_used=new_or_used, guide_type=guide_type)
         endpoint = build_uri_template('get_priceguide').expand(type=itemtypeid, no=itemid)
         params = {
             'color': str(colorid),
-            'guide_type': str(guide_type),
-            'new_or_used': str(new_or_used),
+            'guide_type': guide_type,
+            'new_or_used': new_or_used,
             # 'country_code': 'US',
-            'region': 'north_america',
-            # 'currency_code':,
+            'region': region,
+            # 'currency_code':,s
             'vat': vat
         }
         args = urlencode(params)
         url = '?'.join([endpoint, args])
-        logger.info("Getting Price Guide from: {}".format(url))
+        logger.debug("Get Price Guide: {}".format(url))
         try:
-            response = self.get(url)
+            response = self._get(url)
             data = response.json()['data']
         except KeyError:
             logger.info("Data not found for itemid {}".format(itemid))
@@ -242,24 +289,24 @@ class RestClient:
         """
         self.__validate(itemid=itemid, itemtype=itemtypeid)
         url = build_uri_template('get_known_colors').expand(type=itemtypeid, no=itemid)
-        logger.debug("Getting Known Colors from: {}".format(url))
-        data = self.get_data(url)
+        logger.info(f"Getting Known Colors: {url}")
+        data = self._get_data(url)
         return data
 
     def get_all_colors(self)->dict:
 
         url = build_uri_template('get_all_colors').expand()
-        logger.debug("Getting complete list of colors")
-        data = self.get(url)
+        logger.debug(f"Getting complete list of colors: {url}")
+        data = self._get(url)
         return data.json()['data']
 
     def get_category_list(self)->dict:
         url = build_uri_template('get_category_list').expand()
-        logger.debug("Getting list of categories")
-        data = self.get(url)
+        logger.debug(f"Getting list of categories: {url}")
+        data = self._get(url)
         return data.json()['data']
 
 
 if __name__ == "__main__":
-    logger = pybcm.log.setup_custom_logger('pybcm')
+    logging.basicConfig(logging.INFO)
     pass

@@ -37,7 +37,7 @@ import requests
 from lxml import html
 from uritemplate import URITemplate
 
-import log
+from deprecated import log
 from legoutils import WantedElement, PriceTuple, Condition
 from vendors import VendorMap
 
@@ -201,7 +201,7 @@ class ElementReader(metaclass=ABCMeta):
 class ElementFileReader(ElementReader):
     """ A Bricklink 'File' is a single html page in file format which represents a single part.
     It's mainly for testing purposes. The element can't be specific, since there's only information
-    about a single element in the file. We take what we get.
+    about a single element in the file. We take what we _get.
     """
 
     def __init__(self, vendormap_):
