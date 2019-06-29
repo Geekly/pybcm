@@ -1,11 +1,10 @@
 import logging
-from pprint import pprint
 
-import log
 from config import BCMConfig
+from deprecated import log
 from trowel import Trowel
 
-# get a wanted list
+# _get a wanted list
 logger = log.setup_custom_logger("pybcm")
 logger.setLevel(logging.INFO)
 logging.getLogger("pybcm.trowel").setLevel(logging.WARNING)

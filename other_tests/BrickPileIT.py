@@ -1,10 +1,10 @@
-import log
 from config import BCMConfig
+from deprecated import log
 from deprecated.brickpile import BrickPile
 from legoutils import Condition
 from wanted import WantedDict
 
-# get a wanted list
+# _get a wanted list
 logger = log.setup_custom_logger('pybcm')
 #
 config = BCMConfig('../config/bcm.ini')  # create the settings object and load the file

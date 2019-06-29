@@ -11,7 +11,7 @@ from datetime import timedelta
 
 import pandas as pd
 
-expire = timedelta(days=15)
+expire = timedelta(days=1)
 
 def memoize_pg(function):
 

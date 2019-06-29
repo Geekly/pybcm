@@ -1,7 +1,8 @@
 import pytest
 from pandas.testing import assert_frame_equal
 
-from brick_data import Brick, BrickData
+from brick_classes import Brick
+from brick_data import BrickData
 from config import BCMConfig
 from const import PRICEGUIDE_COLUMNS, NewUsed
 

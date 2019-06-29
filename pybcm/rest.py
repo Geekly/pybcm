@@ -23,7 +23,7 @@
 # THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-
+import datetime
 import logging
 import shelve
 from urllib.parse import urlencode
@@ -73,28 +73,39 @@ def build_uri_template(url_key: str) -> URITemplate:
     return _template
 
 
+expire = datetime.timedelta(days=1)
+
 def memoize_rc(func):
-    """Used for wrapping functions in the RestClient class that take the arguments
-        itemid, itemtypeid, colorid, new_or_used, guide_type, vat, region
+    """Used for caching objects returned in the RestClient class that take the arguments
+
     """
     shelf_file = '/Users/Keith/Projects/pybcm_proj/resources/rccache'
 
     def wrapper(*args, **kwargs):
 
         key = '_'.join([func.__name__, *args[1:], *kwargs.values()])
+        today = datetime.date.today()
 
         with shelve.open(shelf_file) as shelf:
             if key in shelf:
                 # if key in shelf and it's not too old
                 logger.debug(f"Retrieving <{func.__name__}, {args}, {kwargs}> from Shelf")
-                data = shelf[key]
-                return data
+                entry = shelf[key]
+                cachedate = entry['cachedate']
+                if today - cachedate < expire:
+                # cached data has not expired
+                    data = entry['data']
+                    return data
 
             else:
                 # call the function and cache
                 logger.debug(f"Caching <{func.__name__}, {args}, {kwargs}> to Shelf")
                 data = func(*args, **kwargs)
-                shelf[key] = data
+                entry = {
+                            'cachedate': datetime.date.today(),
+                            'data': data
+                        }
+                shelf[key] = entry
                 return data
 
     return wrapper

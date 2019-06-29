@@ -37,51 +37,6 @@ from pybcm.rest import RestClient
 logger = logging.getLogger(__name__)
 
 
-class Brick:
-    """ Provides validation for a lego element """
-
-    def __init__(self, itemid, itemtype, color):
-        self.itemid = itemid
-        self.itemtype = itemtype
-        self.color = color
-
-    @property
-    def itemid(self):
-        return self._itemid
-
-    @itemid.setter
-    def itemid(self, value):
-        """set and validate itemid"""
-        # todo: do a format check. Should be a string with letters and numbers only
-        if value:
-            self._itemid = value
-        else:
-            raise ValueError(f"Item ID <{value}> is invalid")
-
-    @property
-    def itemtype(self):
-        return self._itemtype
-
-    @itemtype.setter
-    def itemtype(self, value):
-        if value and value in ItemType:
-            self._itemtype = value
-        else:
-            raise ValueError(f"Item Type <{value}> is invalid.")
-
-    @property
-    def color(self):
-        return self._color
-
-    @color.setter
-    def color(self, value):
-        value = int(value)
-        if value and value in legoColors:
-            self._color = value
-        else:
-            raise ValueError(f"Color id <{value}> is invalid.")
-
-
 class BrickData:
     """Provides a DataFrame wrapper for the RestClient class. Most methods return
         DataFrames based on the Rest responses. Many of them rely on the results from
@@ -161,6 +116,10 @@ class BrickData:
         }
 
         """
+        itemid = str(itemid)
+        itemtypeid = str(itemtypeid)
+        colorid = str(colorid)
+
         if not set(new_or_used).issubset(NewUsed):  # each item in new_or_used must appear in NewUsed
             raise ValueError(f"Invalid value for new_or_used: {new_or_used}")
 
@@ -231,7 +190,11 @@ class BrickData:
     @staticmethod
     def validate_json_set(json_inv):
         # todo: write this function
-        return True
+        if json_inv:
+            return True
+        else:
+            return False
+
 
     @staticmethod
     def _json_inv_to_dict_list(inv: List[dict]) -> List[dict]:
@@ -256,12 +219,12 @@ class BrickData:
         for price_item in inv:
             d = dict()
             e = price_item['entries'][0]  # could be multiple matches, but use the first one.
-            d['item_id'] = e['item']['no']
-            d['color_id'] = e['color_id']
+            d['item_id'] = str(e['item']['no'])
+            d['color_id'] = str(e['color_id'])
             d['name'] = e['item']['name']
             d['itemtype'] = e['item']['type']
-            d['category_id'] = e['item']['category_id']
-            d['quantity'] = e['quantity']
+            d['category_id'] = str(e['item']['category_id'])
+            d['quantity'] = int(e['quantity'])
             flat_inv.append(d)
 
         return flat_inv

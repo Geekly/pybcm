@@ -1,7 +1,7 @@
 import requests
 from lxml import html, etree
 
-import log
+from deprecated import log
 from deprecated.elementreader import PriceURL, URL_STORE_LINKS_XPATH
 from pybcm.vendors import *
 
