@@ -31,6 +31,7 @@ from urllib.parse import urlencode
 import requests
 from requests_oauthlib import OAuth1
 from uritemplate import URITemplate
+from pathlib import Path
 
 from pybcm.config import BCMConfig
 from pybcm.const import ItemType, GuideType, Vats, Region, NewUsed
@@ -75,18 +76,21 @@ def build_uri_template(url_key: str) -> URITemplate:
 
 expire = datetime.timedelta(days=1)
 
+SHELF_FILE = Path(__file__).parent.parent / Path('resources/rccache.dat')
+
 def memoize_rc(func):
     """Used for caching objects returned in the RestClient class that take the arguments
 
     """
-    shelf_file = '/Users/Keith/Projects/pybcm_proj/resources/rccache'
+    # shelf_file = '../resources/rccache'
+    logger.debug(f"Opening shelf file: {SHELF_FILE}")
 
     def wrapper(*args, **kwargs):
 
         key = '_'.join([func.__name__, *args[1:], *kwargs.values()])
         today = datetime.date.today()
 
-        with shelve.open(shelf_file) as shelf:
+        with shelve.open(str(SHELF_FILE)) as shelf:
             if key in shelf:
                 # if key in shelf and it's not too old
                 logger.debug(f"Retrieving <{func.__name__}, {args}, {kwargs}> from Shelf")
@@ -125,7 +129,7 @@ class RestClient:
     @staticmethod
     def __validate(itemid: str = None,
                    itemtype: str = None,
-                   color: int = None,
+                   color: str = None, # it's an integer as a string
                    vat: str = None,
                    region: str = None,
                    new_or_used: str = None,
@@ -191,7 +195,7 @@ class RestClient:
         return data
 
     @memoize_rc
-    def get_item(self, itemid: str, itemtypeid: str):
+    def get_item(self, itemid: str, itemtypeid: str)->dict:
         """
         /items/{type}/{no}
         (see Bricklink API)
@@ -203,7 +207,7 @@ class RestClient:
         data = self._get_data(url)
         return data
 
-    def get_item_image(self, itemid: str, itemtypeid: str, colorid: int):
+    def get_item_image(self, itemid: str, itemtypeid: str, colorid: str)->dict:
         """
         /items/{type}/{no}
         (see Bricklink API)
@@ -226,7 +230,7 @@ class RestClient:
         return data
 
     @memoize_rc
-    def get_subsets(self, itemid: str, itemtypeid: str)->list:
+    def get_subsets(self, itemid: str, itemtypeid: str)->dict:
         """
         This is used to _get a set inventory
         /items/{type}/{no}/subsets
@@ -275,6 +279,7 @@ class RestClient:
             data = None
         return data
 
+    @memoize_rc
     def get_part_price_guide(self, itemid: str, colorid: int, new_or_used: str)->dict:
         """
         Get the price guide from the catalog
@@ -288,6 +293,7 @@ class RestClient:
         data = self.get_price_guide(itemid, ItemType.PART, colorid, new_or_used=new_or_used)
         return data
 
+    @memoize_rc
     def get_known_colors(self, itemid: str, itemtypeid: str)->dict:
         """
         http://apidev.bricklink.com/redmine/projects/bricklink-api/wiki/CatalogMethod#Get-Known-Colors
@@ -304,6 +310,7 @@ class RestClient:
         data = self._get_data(url)
         return data
 
+    @memoize_rc
     def get_all_colors(self)->dict:
 
         url = build_uri_template('get_all_colors').expand()
@@ -311,6 +318,7 @@ class RestClient:
         data = self._get(url)
         return data.json()['data']
 
+    @memoize_rc
     def get_category_list(self)->dict:
         url = build_uri_template('get_category_list').expand()
         logger.debug(f"Getting list of categories: {url}")
@@ -319,5 +327,5 @@ class RestClient:
 
 
 if __name__ == "__main__":
-    logging.basicConfig(logging.INFO)
+    logging.basicConfig(level=logging.DEBUG)
     pass

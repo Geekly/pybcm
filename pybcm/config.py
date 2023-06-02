@@ -57,28 +57,47 @@ class BCMConfig:
         self.__parser = RawConfigParser()
         self._configfile = os.path.abspath(configFileName)
 
-        _dataset = self.__parser.read(self._configfile)
-        if len(_dataset) <= 0:
+        self.__parser.read(self._configfile)
+        if len(self.__parser.sections()) == 0:
             raise(ValueError("Config file not found: " + self._configfile))
+        else:
+            if self.__parser.has_section('bricklink'):
+                self.username = self.__parser.get('bricklink', 'username')
+                self.password = self.__parser.get('bricklink', 'password')
+                self.consumer_key = self.__parser.get('bricklink', 'consumer_key')
+                self.consumer_secret = self.__parser.get('bricklink', 'consumer_secret')
+                self.token_key = self.__parser.get('bricklink', 'token_key')
+                self.token_secret = self.__parser.get('bricklink', 'token_secret')
+            else:
+                raise(ValueError("Bricklink section must be configured."))
 
-        self.username = self.__parser.get('bricklink', 'username')
-        self.password = self.__parser.get('bricklink', 'password')
-        self.consumer_key = self.__parser.get('bricklink', 'consumer_key')
-        self.consumer_secret = self.__parser.get('bricklink', 'consumer_secret')
-        self.token_key = self.__parser.get('bricklink', 'token_key')
-        self.token_secret = self.__parser.get('bricklink', 'token_secret')
+        #TODO: handle when these sections/values are missing
+            if self.__parser.has_section('filenames'):
+                self.wantedfilename = self.__parser.get('filenames', 'wanted', fallback=None)
+                self.pricefilename = self.__parser.get('filenames', 'prices', fallback=None)
+            else:
+                self.wantedfilename = None
+                self.pricefilename = "../default_prices.xml"
 
-        self.wantedfilename = self.__parser.get('filenames', 'wanted')
-        self.pricefilename = self.__parser.get('filenames', 'prices')
 
-        self.reloadpricesfromweb = self.__parser.getboolean('options', 'reloadpricesfromweb')
+            if self.__parser.has_section('options'):
+                self.reloadpricesfromweb = self.__parser.getboolean('options', 'reloadpricesfromweb', fallback=True)
+            else:
+                self.reloadpricesfromweb = True
 
     def __str__(self):
-        return vars(self).items()
+        return f"Configured: {__class__} {self._configfile}"
+
+    def __repr__(self):
+        class_name = self.__class__.__name__
+        attributes = vars(self)
+        attribute_str = ', '.join(f'{key}={value}' for key, value in attributes.items())
+        return f'{class_name}({attribute_str})'
+
 
 
 if __name__ == '__main__':
-    log.setup_custom_logger('pybcm.config')
+    #log.setup_custom_logger('pybcm.config')
     config = BCMConfig('../config/bcm.ini')
 
     print(config.pricefilename)

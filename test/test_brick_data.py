@@ -1,10 +1,10 @@
 import pytest
 from pandas.testing import assert_frame_equal
 
-from brick_classes import Brick
-from brick_data import BrickData
-from config import BCMConfig
-from const import PRICEGUIDE_COLUMNS, NewUsed
+from pybcm.brick_classes import BrickPart
+from pybcm.brick_data import BrickData
+from pybcm.config import BCMConfig
+from pybcm.const import PRICEGUIDE_COLUMNS, NewUsed
 
 
 def assert_frame_not_equal(df1, df2, **kwargs):
@@ -25,7 +25,7 @@ def bd():
 
 @pytest.fixture(scope="module")
 def brick():
-    _brick = Brick('3008', 'PART', '10')
+    _brick = BrickPart('3008', '10')
     return _brick
 
 

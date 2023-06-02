@@ -2,7 +2,7 @@ import logging
 
 import pytest
 
-from const import GuideType, NewUsed
+from pybcm.const import GuideType, NewUsed
 from pybcm.config import BCMConfig
 from pybcm.rest import RestClient, build_uri_template
 
@@ -10,7 +10,8 @@ logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 logging.getLogger('oauthlib.oauth1').setLevel(logging.WARNING)
 logging.getLogger('requests_oauthlib').setLevel(logging.WARNING)
-logging.getLogger('urllib3').setLevel(logging.WARNING)
+#logging.getLogger('urllib3').setLevel(logging.WARNING)
+
 
 @pytest.fixture(scope="module")
 def rc():

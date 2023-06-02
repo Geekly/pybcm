@@ -8,6 +8,42 @@ from pybcm.const import ItemType, GuideType, NewUsed
 
 logger = logging.getLogger(__name__)
 
+
+def get_price_summaries(bd: BrickData, inv_df: pd.DataFrame, new_or_used=NewUsed.N, guide_type=GuideType.stock):
+    """
+    Get a dataframe of prices for the entire set
+    :param bd:
+    :param inv_df:
+    :param new_or_used:
+    :param guide_type:
+    :return:
+    """
+    PARTSONLY = True
+
+    # get price summaries for each part
+    price_df = pd.DataFrame()
+    for index, item in inv_df.iterrows():
+        if item['itemtype'] == ItemType.PART:
+            logger.debug(f"Getting {item['item_id'], item['color_id']}")
+            line_item = bd.get_part_price_summary(str(item['item_id']), str(item['color_id']),
+                                                 new_or_used=new_or_used,
+                                                 guide_type=guide_type)
+            # price_df = price_df.append(lineitem)
+            price_df = pd.concat([price_df, line_item], axis=0)
+
+    return price_df
+
+
+def add_price_to_inv_df(inv_df: pd.DataFrame, price_df: pd.DataFrame)->pd.DataFrame:
+
+    # for each row in inventory, _get price summary and add itadd prices
+    expanded_df = inv_df.reset_index().merge(price_df, on=['item_id', 'color_id']).set_index('element_id')
+    expanded_df['min_avg_price'] = expanded_df[['avg_price', 'qty_avg_price']].min(axis=1)
+    expanded_df['total_part_cost'] = expanded_df['quantity'] * expanded_df['min_avg_price']
+    expanded_df['item_weight'] = expanded_df['total_part_cost']/expanded_df['total_part_cost'].sum()
+    return expanded_df
+
+
 def eval_set_price(bd: BrickData, itemid: str, new_or_used: str, guide_type: str)->pd.DataFrame:
     """
     :param bd:
@@ -27,39 +63,6 @@ def eval_set_price(bd: BrickData, itemid: str, new_or_used: str, guide_type: str
     inv = add_price_to_inv_df(inv, prices)
 
     return inv
-
-
-def get_price_summaries(bd: BrickData, inv_df: pd.DataFrame, new_or_used=NewUsed.N, guide_type=GuideType.stock):
-    """
-    Get a dataframe of prices for the entire set
-    :param bd:
-    :param inv_df:
-    :param new_or_used:
-    :param guide_type:
-    :return:
-    """
-    PARTSONLY = True
-
-    # get price summaries for each part
-    price_df = pd.DataFrame()
-    for index, item in inv_df.iterrows():
-        if item['itemtype'] == ItemType.PART:
-            logger.debug(f"Getting {item['item_id'], item['color_id']}")
-            lineitem = bd.get_part_price_summary(str(item['item_id']), str(item['color_id']),
-                                                 new_or_used=new_or_used,
-                                                 guide_type=guide_type)
-            price_df = price_df.append(lineitem)
-
-    return price_df
-
-
-def add_price_to_inv_df(inv_df: pd.DataFrame, price_df: pd.DataFrame)->pd.DataFrame:
-
-    # for each row in inventory, _get price summary and add itadd prices
-    expanded_df = inv_df.reset_index().merge(price_df, on=['item_id', 'color_id']).set_index('element_id')
-    expanded_df['min_avg_price'] = expanded_df[['avg_price', 'qty_avg_price']].min(axis=1)
-    expanded_df['total_part_cost'] = expanded_df['quantity'] * expanded_df['min_avg_price']
-    return expanded_df
 
 
 def filter_lowest_prices(price_df: pd.DataFrame, min_quantity: int=10, quantile: float=0.1)->pd.DataFrame:

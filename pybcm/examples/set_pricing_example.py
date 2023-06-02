@@ -11,10 +11,10 @@ logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 logging.getLogger('requests_oauthlib').setLevel(logging.WARNING)
 logging.getLogger('oauthlib').setLevel(logging.WARNING)
-logging.getLogger('urllib3').setLevel(logging.WARNING)
+#logging.getLogger('urllib3').setLevel(logging.WARNING)
 
 config = BCMConfig('../../config/bcm.ini')  # create the settings object and load the file
-
+print(config)
 bd = BrickData(config)
 
 inv = bd.get_set_inventory('9492-1')[0:3]
@@ -26,10 +26,12 @@ for index, row in inv.iterrows():
         lineitem = bd.get_part_price_summary(row['item_id'], row['color_id'],
                                              new_or_used=[NewUsed.N, NewUsed.U],
                                              guide_type=GuideType.sold)
-        price_summary = price_summary.append(lineitem)
+        # price_summary = price_summary.append(lineitem)
+        price_summary = pd.concat([price_summary, lineitem], axis=0)
         lineitem = bd.get_part_price_summary(row['item_id'], row['color_id'],
                                              guide_type=GuideType.stock)
-        price_summary = price_summary.append(lineitem)
+        # price_summary = price_summary.append(lineitem)
+        price_summary = pd.concat([price_summary, lineitem], axis=0)
 
 
 print(price_summary)

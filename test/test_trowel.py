@@ -2,30 +2,36 @@ import numpy as np
 # import pandas as pd
 import pytest
 
-from deprecated import log
+# from deprecated import log
+import logging
 # from pybcm.dataframe import *
 from pybcm.config import BCMConfig
 from pybcm.trowel import Trowel
 
-#TODO: many of these methods still need to be completed
+# TODO: many of these methods still need to be completed
+
+logger = logging.getLogger(__name__)
 
 
-logger = log.setup_custom_logger("test.pybcm.{}".format(__name__))
+# logger = log.setup_custom_logger("test.pybcm.{}".format(__name__))
 
 @pytest.fixture(scope="module")
 def config():
     _config = BCMConfig('../config/bcm.ini')  # create the settings object and load the file
     return _config
 
+
 @pytest.fixture(scope="session")
 def test_store():
     _store = pd.HDFStore("./resources/test.hd5")
     return _store
 
+
 @pytest.fixture(scope="module")
 def trowel():
     _trowel = Trowel(config)
     return _trowel
+
 
 @pytest.fixture(scope="session")
 def price_df():

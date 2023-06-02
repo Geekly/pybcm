@@ -34,7 +34,7 @@ from typing import List
 
 import pandas as pd
 
-from brick_data import BrickData
+from pybcm.brick_data import BrickData
 
 # logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(f"pybcm.{__name__}")

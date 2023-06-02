@@ -1,6 +1,6 @@
 import pytest
 
-from PartsList import read_partslist_csv
+from pybcm.parts_list import PartsList
 from pybcm.legoutils import Color
 
 
@@ -28,6 +28,6 @@ def test_Color():
 
 
 def test_read_partslist_csv():
-    partslist = r'../resources/Sampledata/Cougar_partslist.csv'
-    pdf = read_partslist_csv(partslist)
+    parts_list = PartsList()
+    pdf = parts_list.load_partslist_csv('../resources/Sampledata/Cougar_partslist.csv')
     print(pdf)

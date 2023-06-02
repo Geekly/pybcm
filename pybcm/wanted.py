@@ -35,8 +35,8 @@ from collections import UserDict, namedtuple
 
 from bs4 import BeautifulSoup as Soup
 
-from deprecated import log
-from legoutils import WantedElement
+from pybcm.deprecated import log
+from pybcm.legoutils import WantedElement
 
 logger = logging.getLogger('pybcm.wanted')
 

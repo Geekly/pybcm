@@ -148,7 +148,7 @@ class BrickData:
         priceguide = self.rc.get_price_guide(itemid, ItemType.PART, colorid,
                                              new_or_used=new_or_used, guide_type=guide_type)
         if priceguide is None:
-            raise ValueError("Problem retrieiving price details for {}: {}".format(itemid, colorid))
+            raise ValueError("Problem retrieving price details for {}: {}".format(itemid, colorid))
         priceguide['item']['color'] = colorid
         df = self._details_df_from_json(priceguide)
         return df
@@ -177,6 +177,7 @@ class BrickData:
     def load_categories_from_bl(self):
         self._category_df = self.get_categories()
 
+    #TODO: can this also account for alternates?
     def get_set_inventory(self, itemid: str)->pd.DataFrame:
         """Get the contents of a set from the Rest API and convert it to a pandas DataFrame """
         json_inv = self.rc.get_subsets(itemid, ItemType.SET)

@@ -1,4 +1,4 @@
-from pybcm.PartsList import PartsList
+from pybcm.parts_list import PartsList
 
 def test_PartsList():
 

@@ -2,11 +2,11 @@
 
 import pytest
 
-from deprecated import log
+import logging
 from pybcm.vendors import VendorMap
 
-logger = log.setup_custom_logger(__name__)
-#logger = logging.getLogger(__name__)
+#logger = log.setup_custom_logger(__name__)
+logger = logging.getLogger(__name__)
 
 
 @pytest.fixture(scope="module")

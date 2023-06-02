@@ -2,12 +2,14 @@ import numpy as np
 import pytest
 from pandas import HDFStore
 
-from deprecated import log
-from deprecated.dataframe import *
+#from pybcm.deprecated import log
+import logging
+from pybcm.deprecated.dataframe import *
 
 #from pybcm.dataframe import wanted_df_from_tuplelist, PRICEGUIDE_INDEX
 
-logger = log.setup_custom_logger("test.pybcm.{}".format(__name__))
+logger = logging.getLogger(__name__)
+#logger = log.setup_custom_logger("test.pybcm.{}".format(__name__))
 
 """Fixtures"""
 

@@ -18,15 +18,15 @@ class PartsList:
     def read_partslist_csv(csv: str)->pd.DataFrame:
         """Read the Partslist format CSV file from Stud.io"""
         try:
-            pdf = pd.read_csv(csv, sep='\t', header=0, engine='python', na_values='', skipfooter=3,
+            p_df = pd.read_csv(csv, sep='\t', header=0, engine='python', na_values='', skipfooter=3,
                               dtype={'BLItemNo': str, 'BLColorId': int, 'LDrawColorId': int, 'Qty': int})
-            pdf = pdf.fillna({'BLColorId': '', 'Qty': 0})
-            pdf = pdf.rename(mapper={'BLItemNo': 'ItemId', 'BLColorId': 'Color'}, axis=1)
-            pdf = pdf.drop(columns=['ElementId', 'LdrawId', 'LDrawColorId'])
-            return pdf
+            p_df = p_df.fillna({'BLColorId': '', 'Qty': 0})
+            p_df = p_df.rename(mapper={'BLItemNo': 'ItemId', 'BLColorId': 'Color'}, axis=1)
+            p_df = p_df.drop(columns=['ElementId', 'LdrawId', 'LDrawColorId'])
+            return p_df
         except FileNotFoundError as e:
             print(e)
-            return None
+            return pd.DataFrame()
 
     @property
     def data(self):
